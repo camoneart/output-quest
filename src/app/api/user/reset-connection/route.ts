@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import type { User } from "@prisma/client";
 
 // リクエストのキャッシュを無効化するためのヘッダー
 const NO_CACHE_HEADERS = {
@@ -76,7 +77,7 @@ export async function DELETE(request: Request) {
       }
 
       // すべてのユーザーの連携を解除（連携状態に関わらず）
-      const updatePromises = allUsers.map((user) =>
+      const updatePromises = allUsers.map((user: User) =>
         prisma.user.update({
           where: { id: user.id },
           data: {
