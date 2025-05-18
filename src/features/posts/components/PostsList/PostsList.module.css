@@ -1,0 +1,24 @@
+.posts-list {
+  grid-area: posts-list;
+  display: block grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  padding-block: 40px 20px;
+  padding-inline: 25px;
+  overflow-y: scroll;
+
+  @media (width < 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.posts-item {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  border: 7px dashed var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown-dark);
+  border-radius: var(--border-radius-small);
+  padding-inline: 5px;
+  padding-block: 5px;
+}

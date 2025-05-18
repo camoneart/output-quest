@@ -1,0 +1,32 @@
+.footer {
+  position: relative;
+  width: 100%;
+}
+
+.footer-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-primary-red);
+  padding-inline: 15px;
+}
+
+.home-position {
+  bottom: -12px;
+}
+
+.other-position {
+  bottom: -17px;
+}
+
+.footer-box {
+  background: var(--color-primary-dark-gray);
+  border: var(--border-normal);
+  border-radius: var(--border-radius-small);
+  padding-block: 5px 6px;
+  padding-inline: 12px;
+}
+
+.footer-text {
+  color: var(--color-primary-white);
+}

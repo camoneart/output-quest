@@ -1,0 +1,9 @@
+.logs-page-header {
+  grid-area: header;
+  display: block grid;
+  place-items: center;
+  padding-inline: 20px;
+  padding-block-end: 20px;
+  font-size: 0.875rem;
+  line-height: var(--leading-normal);
+}

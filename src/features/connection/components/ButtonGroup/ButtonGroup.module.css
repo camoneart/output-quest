@@ -1,0 +1,88 @@
+.button-group {
+  display: block grid;
+  grid-template-columns: repeat(3, auto);
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  place-self: end center;
+
+  @media (width < 768px) {
+    grid-template-columns: repeat(2, auto);
+    gap: 15px;
+  }
+}
+
+.sync-button-box {
+  background-color: var(--bg-color-message-success);
+  border: 3px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+}
+
+.sync-button {
+  display: block flex;
+  align-items: center;
+  gap: 5px;
+  border: 3px solid var(--bg-color-message-success);
+  padding-block: 9px;
+  padding-inline: 12px;
+  transition: border 0.2s ease-in-out;
+
+  &:hover {
+    border: 3px solid var(--color-primary-black);
+  }
+
+  .sync-button-text {
+    padding-block-end: 1px;
+  }
+}
+
+.view-zenn-posts-link-box {
+  background-color: var(--color-zenn);
+  border: 3px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+}
+
+.view-zenn-posts-link {
+  display: block flex;
+  align-items: center;
+  gap: 5px;
+  border: 3px solid var(--color-zenn);
+  padding-block: 9px;
+  padding-inline: 12px;
+  transition: border 0.2s ease-in-out;
+
+  &:hover {
+    border: 3px solid var(--color-primary-black);
+  }
+
+  .view-zenn-posts-link-text {
+    padding-block-end: 1px;
+  }
+}
+
+.release-button-box {
+  background-color: #a02722;
+  border: 3px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+}
+
+.release-button {
+  display: block flex;
+  align-items: center;
+  gap: 5px;
+  border: 3px solid #a02722;
+  padding-block: 9px;
+  padding-inline: 12px;
+  transition: border 0.2s ease-in-out;
+
+  &:hover {
+    border: 3px solid var(--color-primary-black);
+  }
+
+  .release-button-text {
+    padding-block-end: 1px;
+  }
+}

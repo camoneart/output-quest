@@ -1,0 +1,236 @@
+.hero-info-section {
+  display: block grid;
+  gap: 35px;
+  padding-block-start: 10px;
+  padding-inline: 20px;
+}
+
+.hero-info-title {
+  position: relative;
+  display: block grid;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-x-tight);
+
+  @media (width < 1024px) {
+    place-self: center;
+    font-size: 1.125rem;
+  }
+}
+
+.hero-info-container {
+  width: 100%;
+  display: block grid;
+  place-items: center;
+  padding-inline: 20px;
+
+  @media (width < 1024px) {
+    padding-inline: 0;
+  }
+}
+
+.hero-info {
+  width: 100%;
+  display: block grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 20px;
+
+  @media (width < 768px) {
+    grid-template-columns: repeat(1, auto);
+  }
+}
+
+.hero-info-box {
+  display: block grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "icon"
+    "name"
+    ".";
+  place-items: center;
+  gap: 15px;
+}
+
+.hero-info-icon-box {
+  grid-area: icon;
+  width: 120px;
+  height: 120px;
+  display: block grid;
+  place-items: center;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-rounded);
+  padding-inline: 5px;
+  padding-block: 5px;
+}
+
+.hero-info-icon {
+  width: 100%;
+  height: 100%;
+  display: block grid;
+  place-items: center;
+  background-color: var(--color-primary-brown);
+  border-radius: var(--border-rounded);
+  border: 2px solid var(--color-primary-brown-light);
+  transition: border 0.2s ease-in-out;
+
+  &:hover {
+    border: 2px solid var(--color-primary-yellow);
+
+    .hero-info-icon-image {
+      filter: drop-shadow(0 0 3px var(--color-primary-white));
+    }
+  }
+}
+
+.hero-info-icon-image {
+  width: 40px;
+  height: auto;
+  object-position: center;
+  filter: drop-shadow(0 0 1px var(--color-primary-white));
+  transition: filter 0.2s ease-in-out;
+}
+
+.hero-info-name-box {
+  grid-area: name;
+  background-color: var(--color-primary-brown-dark);
+  border: 2px solid var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+  padding-inline: 2.5px;
+  padding-block: 2.5px;
+}
+
+.hero-info-name {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+  padding-inline: 10px;
+  padding-block: 2px 4px;
+  border: 1px solid var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown);
+}
+
+.hero-info-level {
+  display: block grid;
+  grid-template-columns: auto;
+  gap: 60px;
+}
+
+.hero-info-level-display-container {
+  min-width: 150px;
+  height: 91px;
+  display: block grid;
+  place-self: end;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+  padding-inline: 5px;
+  padding-block: 5px;
+
+  @media (width < 768px) {
+    place-self: center;
+  }
+}
+
+.hero-info-level-display-box {
+  display: block grid;
+  place-items: center;
+  place-content: center;
+  background-color: var(--color-primary-brown);
+  border: 2px solid var(--color-primary-brown-light);
+  padding-inline: 10px;
+}
+
+.loading-indicator {
+  font-size: 1.812rem;
+}
+
+.hero-info-level-display {
+  height: 48px;
+  display: block grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, auto);
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  color: var(--color-primary-white);
+}
+
+.hero-info-level-display-text {
+  display: block grid;
+  place-self: end;
+  font-size: 2rem;
+}
+
+.hero-info-level-display-value {
+  height: 100%;
+  display: block grid;
+  place-items: end;
+  font-size: 3rem;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.hero-info-level-progress-box {
+  display: block grid;
+  gap: 12px;
+}
+
+.hero-info-level-progress-text-box {
+  height: 24px;
+  display: block flex;
+  align-items: end;
+  justify-content: space-between;
+  color: var(--color-primary-white);
+  padding-inline-end: 5px;
+}
+
+.hero-info-level-progress-text {
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+}
+
+.hero-info-level-progress-value-info {
+  min-width: 60px;
+  display: block flex;
+  justify-content: end;
+  align-items: end;
+  gap: 5px;
+}
+
+.hero-info-level-progress-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  font-style: normal;
+  text-shadow: 0px 0px 10px var(--color-primary-yellow);
+  color: var(--color-primary-yellow);
+}
+
+.loading-indicator-small {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  color: var(--color-primary-white);
+}
+
+.hero-info-level-progress-unit {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+}
+
+.hero-info-level-progress-gauge-box {
+  width: 100%;
+  height: 15px;
+  background-color: var(--bg-progress-gauge);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-rounded);
+  overflow: hidden;
+}
+
+.hero-info-level-progress-gauge {
+  height: 100%;
+  transition: width 0.6s ease-in-out;
+  background-color: var(--color-progress-fill);
+}

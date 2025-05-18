@@ -1,0 +1,28 @@
+.logs-page-list {
+  grid-area: list;
+  display: block grid;
+  justify-content: center;
+  height: 100%;
+  gap: 15px;
+  overflow-y: scroll;
+  padding-block: 20px;
+  padding-inline: 10px;
+}
+
+.logs-page-list-item {
+  color: var(--color-primary-white);
+}
+
+.logs-page-list-item-text {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-x-tight);
+  text-shadow: 1px 1px 0 var(--color-primary-black);
+}
+
+.logs-page-list-item-loading-text {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  display: block grid;
+  place-items: center;
+}

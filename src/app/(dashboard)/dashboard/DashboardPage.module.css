@@ -1,0 +1,26 @@
+.dashboard-title {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  line-height: var(--leading-none);
+  font-weight: var(--font-weight-x-bold);
+  letter-spacing: 0.025em;
+  color: var(--color-primary-white);
+  background-color: var(--color-primary-dark-gray);
+  padding-block: 0 10px;
+  padding-inline: 10px;
+  z-index: 10;
+
+  @media (width < 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.dashboard-content-wrapper {
+  height: 100%;
+  padding-block-start: 30px;
+  border: var(--border-large);
+  border-radius: var(--border-radius-small);
+}

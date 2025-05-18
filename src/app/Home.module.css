@@ -1,0 +1,15 @@
+.main {
+  display: block grid;
+  place-items: center;
+}
+
+.main-container {
+  width: 100%;
+  display: block grid;
+  place-items: center;
+  gap: 56px;
+
+  @media (width < 1024px) {
+    gap: 25px;
+  }
+}

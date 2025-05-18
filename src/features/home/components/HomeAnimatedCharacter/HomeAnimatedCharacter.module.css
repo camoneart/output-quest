@@ -1,0 +1,74 @@
+.home-character-container {
+  width: 100%;
+  min-height: 70px;
+  display: block grid;
+  place-content: center;
+  margin-block-start: 30px;
+}
+
+.home-character-list {
+  display: block grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, auto));
+  gap: 12px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.home-character-item {
+  overflow: hidden;
+  position: relative;
+  display: block flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (width < 1024px) {
+    &.mage,
+    &.evil-mage,
+    &.armored-soldier,
+    &.skeleton-warrior,
+    &.archer,
+    &.demon {
+      display: none;
+    }
+
+    &.hero,
+    &.dark-knight {
+      .home-character-image {
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+  }
+
+  @media (width < 768px) {
+    &.hero,
+    &.dark-knight {
+      .home-character-image {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+
+    &.female-knight,
+    &.demon-lord {
+      .home-character-image {
+        width: 33px !important;
+        height: 33px !important;
+      }
+    }
+
+    &.archangel,
+    &.fallen-angel {
+      .home-character-image {
+        width: 60px !important;
+        height: 60px !important;
+      }
+    }
+  }
+}
+
+.home-character-image {
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 1px var(--color-primary-white));
+}

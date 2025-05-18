@@ -1,0 +1,65 @@
+.strength-equipment-list {
+  display: block grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.strength-equipment-item {
+  background-color: var(--color-primary-dark-gray);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+}
+
+.strength-equipment-item-link {
+  display: block grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding-inline: 10px;
+  padding-block: 10px;
+
+  &:hover {
+    .strength-equipment-item-link-text {
+      text-shadow: 0 0 10px var(--color-primary-white);
+    }
+  }
+}
+
+.strength-equipment-item-link-text {
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-x-tight);
+  transition: text-shadow 0.1s ease-in-out;
+}
+
+.strength-equipment-icon-box {
+  padding: 3px;
+  border-radius: var(--border-radius-small);
+
+  &.strength-equipment-icon-box-weapon {
+    background-color: var(--color-equipment-weapon);
+  }
+
+  &.strength-equipment-icon-box-shield {
+    background-color: var(--color-equipment-shield);
+  }
+
+  &.strength-equipment-icon-box-helmet {
+    background-color: var(--color-equipment-helmet);
+  }
+
+  &.strength-equipment-icon-box-armor {
+    background-color: var(--color-equipment-armor);
+  }
+
+  &.strength-equipment-icon-box-accessory {
+    background-color: var(--color-equipment-accessory);
+  }
+}
+
+.strength-equipment-icon {
+  object-fit: contain;
+  object-position: center;
+  aspect-ratio: 1/1;
+}

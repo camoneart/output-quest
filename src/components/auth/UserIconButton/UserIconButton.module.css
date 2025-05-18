@@ -1,0 +1,69 @@
+.user-button {
+  display: block grid;
+  transition: var(--transition-box-shadow);
+  border-radius: var(--border-rounded);
+}
+
+.user-button-box {
+  display: block grid;
+  place-items: center;
+  gap: 5px;
+}
+
+.user-button-name {
+  order: 2;
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-x-bold);
+  letter-spacing: 0.025em;
+  color: var(--color-primary-white);
+  padding: 0;
+}
+
+.user-button-avatar-box {
+  order: 1;
+  background-color: var(--color-primary-brown-dark);
+  border: 5.5px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-rounded);
+  background-clip: border-box;
+  padding-inline: 3.5px;
+  padding-block: 3.5px;
+
+  @media (width < 768px) {
+    border: 4px dashed var(--color-primary-brown-light);
+    padding-inline: 2.5px;
+    padding-block: 2.5px;
+  }
+
+  & img {
+    border: 2px solid var(--color-primary-brown-light);
+    border-radius: var(--border-rounded);
+
+    @media (width < 768px) {
+      border: 1.5px solid var(--color-primary-brown-light);
+    }
+  }
+}
+
+.not-login-icon-container {
+  display: block grid;
+  place-items: center;
+  gap: 10px;
+}
+
+.not-login-icon-box {
+  display: block grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border: 5px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-rounded);
+  background-color: var(--color-primary-brown-dark);
+}
+
+.not-login-icon-name {
+  font-size: 1rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  letter-spacing: 0.2em;
+  color: var(--color-primary-white);
+}

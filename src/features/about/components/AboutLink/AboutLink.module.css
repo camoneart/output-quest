@@ -1,0 +1,36 @@
+.about-link-box {
+  display: block grid;
+  place-items: center;
+  margin-block-start: 10px;
+}
+
+.about-link {
+  display: block flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 10px;
+  padding-inline: 10px;
+  color: var(--color-primary-white);
+}
+
+.about-link:hover .about-link-icon {
+  transform: translateX(-4px);
+  filter: drop-shadow(0px 0px 2px var(--color-primary-white));
+}
+
+.about-link:hover .about-link-text {
+  text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+}
+
+.about-link-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;
+}
+
+.about-link-text {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-x-tight);
+  transition: text-shadow 0.15s ease-in-out;
+}

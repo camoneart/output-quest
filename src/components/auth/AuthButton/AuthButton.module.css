@@ -1,0 +1,71 @@
+.login-btn,
+.sign-up-btn {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  border-radius: var(--border-radius-small);
+  padding-block: 3px;
+  padding-inline: 3px;
+  background-color: var(--color-primary-brown-dark);
+  border: 2px solid var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+
+  &:hover {
+    .login-btn-text,
+    .sign-up-btn-text {
+      padding-inline-start: 31px;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.login-btn {
+  background-color: var(--color-primary-brown-dark);
+  color: var(--color-primary-white);
+
+  &:hover {
+    background-color: var(--color-primary-brown-dark);
+  }
+}
+
+.sign-up-btn {
+  background-color: var(--color-primary-brown-dark);
+  color: var(--color-primary-yellow);
+
+  &:hover {
+    background-color: var(--color-primary-brown-dark);
+  }
+}
+
+.login-btn-text,
+.sign-up-btn-text {
+  min-width: 115px;
+  position: relative;
+  display: block flow;
+  width: 100%;
+  background-color: var(--color-primary-brown);
+  border: 1.5px solid var(--color-primary-brown-light);
+  padding-block: 10px 11px;
+  padding-inline: 15px;
+  transition: padding-inline-start 0.2s;
+
+  &:before {
+    content: "";
+    background-image: url("/images/arrow/arrow-icon.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 16px;
+    top: 52%;
+    transform: translateY(-50%) rotate(180deg);
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+}

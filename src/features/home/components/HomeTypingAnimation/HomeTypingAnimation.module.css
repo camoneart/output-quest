@@ -1,0 +1,18 @@
+.subtitle {
+  display: block flex;
+  text-shadow:
+  1.5px 1.5px 3px var(--color-primary-black);
+
+  &.active-subtitle {
+    transition: text-shadow 2s ease-in-out;
+    text-shadow:
+    1.5px 1.5px 3px var(--color-primary-black),
+    0px 0px 20px var(--color-primary-white);
+  }
+}
+
+.subtitle-text {
+  letter-spacing: var(--letter-spacing-x-wide);
+  display: block flex;
+  gap: 8px;
+}

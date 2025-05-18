@@ -1,0 +1,8 @@
+.rarity-star-container {
+  display: block flex;
+  gap: 5px;
+}
+
+.rarity-star-icon {
+  filter: drop-shadow(0px 0px 2px rgb(255 255 255 / 0.5));
+}

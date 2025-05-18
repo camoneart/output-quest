@@ -1,0 +1,114 @@
+.platform-stats-section {
+  display: block grid;
+  gap: 35px;
+  padding-inline: 20px;
+  padding-block: 20px;
+}
+
+.platform-stats-title {
+  position: relative;
+  display: block grid;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-x-tight);
+
+  @media (width < 1024px) {
+    place-self: center;
+    font-size: 1.125rem;
+  }
+}
+
+.platform-stats-container {
+  display: block grid;
+  place-items: center;
+  padding-inline: 20px;
+
+  @media (width < 1024px) {
+    padding-inline: 0;
+  }
+}
+
+.platform-stats-grid {
+  display: block grid;
+  place-content: center;
+  gap: 15px;
+}
+
+.platform-stat-card {
+  width: 215px;
+  border: 7px dashed var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown-dark);
+  border-radius: var(--border-radius-small);
+  padding-inline: 5px;
+  padding-block: 5px;
+
+  @media (width < 1024px) {
+    width: 170px;
+  }
+}
+
+.platform-stat-card-content {
+  display: block grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  gap: 5px;
+  padding-block: 7.5px 13px;
+  padding-inline: 10px;
+  border: 2px solid var(--color-primary-brown-light);
+  color: var(--color-primary-white);
+}
+
+.platform-stat-card-title {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  place-self: end;
+}
+
+.platform-stat-card-zenn {
+  .platform-stat-card-content {
+    background-color: var(--color-platform-zenn);
+  }
+}
+
+.platform-stat-count {
+  height: 64px;
+  display: block flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  color: var(--color-primary-white);
+
+  @media (width < 1024px) {
+    height: auto;
+  }
+}
+
+.platform-stat-loading,
+.platform-stat-error {
+  height: 100%;
+  display: block grid;
+  place-items: center;
+}
+
+.platform-stat-error {
+  font-size: 2rem;
+}
+
+.platform-stat-count-em {
+  font-size: 4rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  font-style: normal;
+  letter-spacing: var(--letter-spacing-wide);
+
+  @media (width < 1024px) {
+    font-size: 3rem;
+  }
+}
+
+.platform-stat-unit {
+  font-size: 1rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+}

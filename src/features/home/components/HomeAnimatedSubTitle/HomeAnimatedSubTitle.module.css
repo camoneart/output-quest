@@ -1,0 +1,30 @@
+.subtitle {
+  opacity: 0;
+  display: block flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--letter-spacing-x-wide);
+  text-shadow:
+    1.5px 1.5px 3px var(--color-primary-black),
+    0px 0px 10px var(--color-primary-white),
+    0px 0px 15px rgb(255 255 255 / 0.7);
+  transform: translateY(45%);
+  transition: opacity 5s ease-in-out, transform 4.5s ease-in-out;
+
+  @media (width < 768px) {
+    font-size: 1.25rem;
+  }
+
+  .subtitle-text {
+    font-size: 1.625rem;
+    line-height: var(--leading-none);
+  }
+}
+
+.active-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}

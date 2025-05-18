@@ -1,0 +1,238 @@
+.equipment-detail-title {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  line-height: var(--leading-none);
+  font-weight: var(--font-weight-x-bold);
+  letter-spacing: 0.025em;
+  color: var(--color-primary-white);
+  background-color: var(--color-primary-dark-gray);
+  padding-block: 0 10px;
+  padding-inline: 10px;
+  z-index: 10;
+}
+
+.equipment-detail-container {
+  height: 100%;
+  display: block grid;
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-areas:
+    "current-item"
+    "equipment-line"
+    "equipment-list"
+    ".";
+  border: var(--border-large);
+  border-radius: var(--border-radius-small);
+  padding-block: 40px 25px;
+  padding-inline: 25px;
+}
+
+/* 現在装備中のアイテム表示エリア */
+.equipment-current-item {
+  grid-area: current-item;
+  padding-inline: 20px;
+  padding-block-end: 30px;
+}
+
+.equipment-current-item-box {
+  height: 96px;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+  padding-block: 5px;
+  padding-inline: 5px;
+}
+
+.equipment-current-item-content {
+  height: 100%;
+  display: block grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  background-color: var(--color-primary-brown);
+  padding-block: 12px;
+  padding-inline: 20px;
+  border: 2px solid var(--color-primary-brown-light);
+}
+
+.equipment-current-item-title {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-tight);
+  color: var(--color-primary-white);
+}
+
+.equipment-detail-line {
+  grid-area: equipment-line;
+}
+
+.equipment-detail-loading,
+.equipment-detail-no-item-text {
+  width: 100%;
+  height: 100%;
+  display: block grid;
+  place-items: center;
+  margin-block-start: 30px;
+}
+
+.equipment-detail-list {
+  grid-area: equipment-list;
+  display: block grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding-inline: 25px;
+  padding-block: 30px 20px;
+  overflow-y: scroll;
+}
+
+.equipment-detail-item {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  padding-inline: 5px;
+  padding-block: 5px;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    .equipment-detail-item-icon-image {
+      filter: drop-shadow(0 0 7px var(--color-primary-white));
+      transform: translateY(-7px);
+    }
+
+    .equipment-detail-item-content {
+      border: 2px solid var(--color-primary-yellow);
+    }
+
+    .equipment-detail-item-name-text {
+      text-shadow: 0 0 10px rgb(255 255 255 / 0.3);
+    }
+  }
+}
+
+.equipment-detail-item-equipped {
+  .equipment-detail-item-icon-image {
+    filter: drop-shadow(0 0 7px var(--color-primary-white));
+    transform: translateY(-7px);
+  }
+
+  .equipment-detail-item-content {
+    border: 2px solid var(--color-primary-yellow);
+  }
+
+  .equipment-detail-item-name-text {
+    text-shadow: 0 0 10px rgb(255 255 255 / 0.3);
+  }
+}
+
+.equipment-detail-item-content {
+  display: block grid;
+  grid-template-rows: subgrid;
+  place-items: center;
+  grid-row: span 3;
+  gap: 15px;
+  background-color: var(--color-primary-brown);
+  border: 2px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 35px 15px;
+  transition: border 0.2s ease-in-out;
+}
+
+.equipment-detail-item-icon {
+}
+
+.equipment-detail-item-icon-image {
+  width: 50px;
+  height: auto;
+  filter: drop-shadow(0 0 1px var(--color-primary-white));
+  transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.equipment-detail-item-name {
+  font-size: 1rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-tight);
+  transition: text-shadow 0.2s ease-in-out;
+}
+
+.equipment-detail-item-description {
+  height: 100%;
+  display: block grid;
+  gap: 10px;
+}
+
+.equipment-detail-item-description-text {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
+  transition: text-shadow 0.2s ease-in-out;
+}
+
+.toggle-description-button {
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-yellow);
+  cursor: pointer;
+  padding-inline: 10px;
+  padding-block: 5px;
+  place-self: center;
+
+  &:hover {
+    color: var(--color-primary-white);
+    text-decoration: underline;
+  }
+}
+
+.unequip-button {
+  position: relative;
+  min-width: 110px;
+  background-color: var(--color-primary-black);
+  border: 2.5px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+  padding-block: 7px 8px;
+  padding-inline: 15px;
+  cursor: pointer;
+  transition: padding-inline-end 0.2s ease-in-out, padding-inline-start 0.2s ease-in-out;
+
+  &:hover {
+    padding-inline-end: 0;
+    padding-inline-start: 15px;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    background-image: url(/images/arrow/arrow-icon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+    left: 15px;
+    top: 51%;
+    transform: translateY(-50%) rotate(180deg);
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
+}
+
+.unequip-button-text {
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  color: var(--color-primary-white);
+}
+
+.equipment-detail-no-item {
+  grid-area: 4 / 1;
+  display: block grid;
+  place-items: center;
+}

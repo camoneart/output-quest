@@ -1,0 +1,164 @@
+.recent-activity-section {
+  display: block grid;
+  gap: 15px;
+  padding-inline: 20px;
+  padding-block: 20px;
+}
+
+.recent-activity-section-title {
+  position: relative;
+  display: block grid;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-x-tight);
+
+  @media (width < 1024px) {
+    place-self: center;
+    font-size: 1.125rem;
+  }
+}
+
+.recent-activity-list {
+  height: 400px;
+  overflow-y: scroll;
+  display: block grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  padding-inline: 25px;
+  padding-block: 20px;
+
+  @media (width < 768px) {
+    padding-inline: 0;
+  }
+}
+
+.recent-activity-item {
+  display: block flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 7px dashed var(--color-primary-brown-light);
+  padding-inline: 5px;
+  padding-block: 5px;
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-primary-brown-dark);
+}
+
+.recent-activity-item-link {
+  width: 100%;
+  display: block grid;
+  color: var(--color-primary-white);
+  background-color: var(--color-primary-brown);
+  border: 2px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 15px 10px;
+  transition: border 0.2s ease-in-out;
+
+  &:hover {
+    border: 2px solid var(--color-primary-yellow);
+
+    .recent-activity-item-title {
+      text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+    }
+  }
+}
+
+.recent-activity-item-content {
+  display: block grid;
+  grid-template-columns: auto;
+  gap: 12px;
+}
+
+.recent-activity-item-title {
+  width: fit-content;
+  text-wrap: pretty;
+  word-break: auto-phrase;
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-normal);
+  transition: text-shadow 0.15s ease-in-out;
+
+  @media (width < 1024px) {
+    font-size: 1rem;
+  }
+}
+
+/* カテゴリーと日付の情報エリア */
+.recent-activity-item-info {
+  display: block flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* カテゴリースタイル, 日付スタイル */
+.recent-activity-item-category-container,
+.recent-activity-item-date-container {
+  display: block grid;
+  place-items: center;
+  background-color: var(--color-primary-brown-dark);
+  --matched-radius-padding: 2px;
+  --matched-radius-inner-size: 2px;
+  padding: var(--matched-radius-padding);
+  border-radius: calc(
+    var(--matched-radius-inner-size) + var(--matched-radius-padding)
+  );
+  box-shadow: 0px 0px 2px var(--color-primary-brown-dark);
+}
+
+.recent-activity-item-category,
+.recent-activity-item-date {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  letter-spacing: 0.025em;
+  background-color: var(--color-primary-brown-dark);
+  border: 2px solid var(--color-primary-brown-light);
+  border-radius: var(--matched-radius-inner-size);
+  padding-inline: 8.5px;
+  padding-block: 5.5px;
+}
+
+/* ファビコンとプラットフォーム名のコンテナ */
+.recent-activity-item-platform-container {
+  display: block flex;
+  align-items: center;
+  gap: 5px;
+  margin-block-start: 10px;
+}
+
+/* ファビコンスタイル */
+.recent-activity-item-favicon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.recent-activity-item-platform {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-x-bold);
+}
+
+.recent-activity-item-exp {
+  display: block grid;
+  place-self: end;
+  font-size: 1rem;
+  font-weight: var(--font-weight-x-bold);
+  color: var(--color-primary-yellow);
+}
+
+.error-message {
+  text-align: center;
+  padding: 12px;
+  color: var(--color-error, #ff6b6b);
+  font-size: var(--font-size-small, 0.875rem);
+  background-color: rgba(255, 107, 107, 0.1);
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 10px;
+  color: var(--color-primary-white);
+  font-size: var(--font-size-small, 0.875rem);
+  opacity: 0.7;
+}

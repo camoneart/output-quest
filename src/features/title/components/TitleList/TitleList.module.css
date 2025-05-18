@@ -1,0 +1,100 @@
+.title-page-list {
+  grid-area: list;
+  display: block grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  height: 100%;
+  gap: 30px;
+  overflow-y: scroll;
+  padding-block: 40px;
+  padding-inline: 25px;
+}
+
+.title-page-list-item {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 1;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  padding-inline: 5px;
+  padding-block: 5px;
+  border-radius: var(--border-radius-small);
+}
+
+.title-page-list-item-box {
+  display: block grid;
+  grid-template-rows: subgrid;
+  place-items: center;
+  grid-row: span 1;
+  gap: 15px;
+  background-color: var(--color-primary-brown);
+  border: 1.5px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 25px;
+
+  &.title-page-list-item-box-default {
+    background-color: var(--color-title-bg-default);
+  }
+
+  &.title-page-list-item-box-Unearned {
+    background-color: var(--color-title-bg-unearned);
+    border-color: #7c7c7c;
+  }
+
+  &.title-page-list-item-box-lv10 {
+    background: var(--color-title-bg-lv10);
+    border-color: var(--color-title-border-lv10);
+  }
+
+  &.title-page-list-item-box-lv20 {
+    background: var(--color-title-bg-lv20);
+    border-color: var(--color-title-border-lv20);
+  }
+
+  &.title-page-list-item-box-lv30 {
+    background: var(--color-title-bg-lv30);
+    border-color: var(--color-title-border-lv30);
+  }
+
+  &.title-page-list-item-box-lv40 {
+    background: var(--color-title-bg-lv40);
+    border-color: var(--color-title-border-lv40);
+  }
+
+  &.title-page-list-item-box-lv50 {
+    background: var(--color-title-bg-lv50);
+    border-color: var(--color-title-border-lv50);
+  }
+
+  &.title-page-list-item-box-lv60 {
+    background: var(--color-title-bg-lv60);
+    border-color: var(--color-title-border-lv60);
+  }
+
+  &.title-page-list-item-box-lv70 {
+    background: var(--color-title-bg-lv70);
+    border-color: var(--color-title-border-lv70);
+  }
+
+  &.title-page-list-item-box-lv80 {
+    background: var(--color-title-bg-lv80);
+    border-color: var(--color-title-border-lv80);
+  }
+
+  &.title-page-list-item-box-lv90 {
+    background: var(--color-title-bg-lv90);
+    border-color: var(--color-title-border-lv90);
+  }
+
+  &.title-page-list-item-box-lv99 {
+    background: var(--color-title-bg-lv99);
+    border-color: var(--color-title-border-lv99);
+    box-shadow: 0 0 20px 0 rgb(255 255 255 / 50%);
+  }
+}
+
+.title-page-list-item-text {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-x-tight);
+  text-shadow: 1px 1px 0 var(--color-primary-black);
+}

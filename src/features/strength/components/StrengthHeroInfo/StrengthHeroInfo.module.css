@@ -1,0 +1,214 @@
+/*（左上）勇者のコンテンツ */
+.strength-hero-info {
+  padding-inline: 5px;
+  padding-block: 5px;
+  background-color: var(--color-primary-brown-dark);
+  border: 3px solid var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+}
+
+.strength-hero-info-content {
+  height: 100%;
+  display: block grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 15px;
+  border: 2px solid var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown);
+  padding-inline: 10px;
+  padding-block: 10px;
+}
+
+.strength-title-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-x-bold);
+  text-align: center;
+
+  @media (width < 768px) {
+    font-size: 1.125rem;
+  }
+}
+
+/* ローディングとエラー表示用のスタイル */
+.loading-text,
+.error-text {
+  color: var(--color-primary-white);
+  text-align: center;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+.error-text {
+  display: block grid;
+  place-items: center;
+  color: var(--color-error, #ff4444);
+  background-color: var(--color-primary-dark-gray);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+}
+
+.strength-hero-info-content-head {
+  display: block grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.strength-hero-box {
+  width: 100%;
+  display: block grid;
+  grid-template-rows: auto auto;
+  place-items: center;
+  gap: 16px;
+}
+
+.strength-hero-icon-box {
+  width: 65px;
+  height: 65px;
+}
+
+.strength-hero-icon-image {
+  object-fit: contain;
+  object-position: center;
+  aspect-ratio: 1 / 1;
+  filter: drop-shadow(0 0 3px var(--color-primary-white));
+}
+
+.strength-hero-name-box {
+  background-color: var(--color-primary-dark-gray);
+  border-radius: var(--border-radius-small);
+  padding-inline: 2.5px;
+  padding-block: 2.5px;
+}
+
+.strength-hero-name {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+  color: var(--color-primary-white);
+  border: 2px solid var(--color-primary-white);
+  padding-block: 6.5px 7.5px;
+  padding-inline: 14px;
+  border-radius: 1px;
+
+}
+
+.strength-level-info {
+  width: 100%;
+  display: block grid;
+  place-items: center;
+}
+
+.strength-level-display-container {
+  min-width: 150px;
+  height: 91px;
+  display: block grid;
+  background-color: var(--color-primary-dark-gray);
+  border-radius: var(--border-radius-small);
+  padding-inline: 3px;
+  padding-block: 3px;
+}
+
+.strength-level-display-box {
+  display: block grid;
+  place-items: center;
+  place-content: center;
+  padding-inline: 10px;
+  border: 3px solid var(--color-primary-white);
+  border-radius: 1px;
+}
+
+.strength-level-display {
+  height: 48px;
+  display: block grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-primary-white);
+}
+
+.strength-level-display-text {
+  display: block grid;
+  place-self: end;
+  font-size: 2rem;
+}
+
+.strength-level-display-value {
+  height: 100%;
+  display: block grid;
+  place-items: end;
+  font-size: 3rem;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.loading-indicator {
+  font-size: 1.812rem;
+}
+
+.loading-indicator-small {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  color: var(--color-primary-white);
+}
+
+.strength-level-progress-info {
+}
+
+.strength-level-progress-box {
+  display: block grid;
+  gap: 12px;
+}
+
+.strength-level-progress-content {
+  height: 24px;
+  display: block flex;
+  align-items: end;
+  justify-content: space-between;
+  color: var(--color-primary-white);
+  padding-inline-end: 5px;
+}
+
+.strength-level-progress-text {
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+}
+
+.strength-level-progress-info-remaining-articles {
+  display: block flex;
+  align-items: end;
+  gap: 5px;
+}
+
+.strength-level-progress-info-remaining-articles-em {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  font-style: normal;
+  text-shadow: 0px 0px 10px var(--color-primary-yellow);
+  color: var(--color-primary-yellow);
+}
+
+.strength-level-progress-info-remaining-articles-unit {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+}
+
+.strength-level-progress-gauge-box {
+  width: 100%;
+  height: 15px;
+  background-color: var(--bg-progress-gauge);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-rounded);
+  overflow: hidden;
+}
+
+.strength-level-progress-gauge {
+  height: 100%;
+  transition: width 0.6s ease-in-out;
+  background-color: var(--color-progress-fill);
+}

@@ -1,0 +1,41 @@
+.logs-page-footer {
+  grid-area: footer;
+  display: block grid;
+  padding-block-start: 25px;
+}
+
+.logs-page-back-link-box {
+  display: block grid;
+  place-items: center;
+}
+
+.logs-page-back-link {
+  display: block flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 10px;
+  padding-block: 10px;
+
+  &:hover {
+    .logs-page-back-link-icon {
+      transform: translateX(-4px);
+      filter: drop-shadow(0px 0px 2px var(--color-primary-white));
+    }
+
+    .logs-page-back-link-text {
+      text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+    }
+  }
+}
+
+.logs-page-back-link-icon {
+  padding-block-start: 2px;
+  transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;
+}
+
+.logs-page-back-link-text {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-none);
+  transition: text-shadow 0.15s ease-in-out;
+}
