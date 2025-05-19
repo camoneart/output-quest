@@ -3,7 +3,7 @@
   min-height: 70px;
   display: block grid;
   place-content: center;
-  margin-block-start: 30px;
+  margin-block-start: 40px;
 }
 
 .home-character-list {
