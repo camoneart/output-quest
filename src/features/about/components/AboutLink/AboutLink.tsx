@@ -48,7 +48,7 @@ const AboutLink = () => {
   const targetPath = canAdventure ? "/dashboard" : "/connection";
   const linkText = canAdventure
     ? "冒険をはじめる"
-    : "Zennと連携して冒険を始める";
+    : "Zennと連携して冒険をはじめる";
 
   const handleNavigation = (
     e: React.MouseEvent<HTMLAnchorElement>,
