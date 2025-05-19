@@ -5,7 +5,8 @@
   "author": "aoyama",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma migrate deploy && next build",
+    "build": "next build",
+    "deploy": "prisma migrate deploy",
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint"
