@@ -7,6 +7,7 @@ const isPublicRoute = createRouteMatcher([
   "/connection(.*)",
   "/audio(.*)",
   "/api/user(.*)",
+  "/api/zenn(.*)",
 ]);
 const isZennProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
