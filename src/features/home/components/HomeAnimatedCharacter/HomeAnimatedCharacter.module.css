@@ -4,6 +4,10 @@
   display: block grid;
   place-content: center;
   margin-block-start: 40px;
+
+  @media (width < 1024px) {
+    margin-block-start: 30px;
+  }
 }
 
 .home-character-list {
