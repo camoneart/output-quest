@@ -105,7 +105,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
             ) : (
               <div className={styles["party-member-unknown-icon"]}>
                 <Image
-                  src="/images/party-page/unacquired-icon/treasure-chest.svg"
+                  src="/images/party-page/unacquired-icon/mark_question.svg"
                   alt="未獲得のパーティメンバー"
                   width={60}
                   height={60}
