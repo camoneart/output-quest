@@ -679,7 +679,7 @@ export default function ConnectionPageClient() {
             <div className={`${styles["auth-content"]}`}>
               <AuthButton />
               <p className="text-center">
-                「ログイン」または「新規登録」が必要です。
+                アプリを利用するには「ログイン」または「新規登録」が必要です。
               </p>
             </div>
             <hr className={styles["center-line"]} />
@@ -717,7 +717,7 @@ export default function ConnectionPageClient() {
                 </button>
               </div>
               <p className="text-center mt-[12px]">
-                先にログインまたは新規登録を完了してください。
+                先に「ログイン」または「新規登録」を完了してください。
               </p>
             </div>
           </div>
