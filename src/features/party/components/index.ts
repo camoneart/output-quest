@@ -1,4 +1,4 @@
 import PartyMemberCardList from "./PartyMemberCardList/PartyMemberCardList";
-import TreasureChestIcon from "./TreasureChestIcon/TreasureChestIcon";
+import PartyQuestionIcon from "./PartyQuestionIcon/PartyQuestionIcon";
 
-export { PartyMemberCardList, TreasureChestIcon };
+export { PartyMemberCardList, PartyQuestionIcon };

@@ -7,14 +7,14 @@ interface TreasureChestProps {
   height?: number;
 }
 
-const TreasureChestIcon: React.FC<TreasureChestProps> = ({
-  width = 40,
-  height = 40,
+const PartyQuestionIcon: React.FC<TreasureChestProps> = ({
+  width = 35,
+  height = 35,
   className,
 }) => {
   return (
     <Image
-      src="/images/party-page/unacquired-icon/treasure-chest.svg"
+      src="/images/party-page/unacquired-icon/mark_question.svg"
       alt="未獲得のなかま"
       width={width}
       height={height}
@@ -23,4 +23,4 @@ const TreasureChestIcon: React.FC<TreasureChestProps> = ({
   );
 };
 
-export default TreasureChestIcon;
+export default PartyQuestionIcon;

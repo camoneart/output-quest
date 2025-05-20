@@ -96,7 +96,7 @@ const PartyMemberCardList: React.FC = () => {
               </div>
             ) : (
               <div className={styles["unacquired-party-member-icon"]}>
-                <Party.TreasureChestIcon
+                <Party.PartyQuestionIcon
                   width={40}
                   height={40}
                   className={styles["unacquired-party-member-icon-image"]}
