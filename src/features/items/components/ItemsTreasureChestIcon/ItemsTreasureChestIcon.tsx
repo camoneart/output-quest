@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 
-interface TreasureChestProps {
+interface ItemsTreasureChestProps {
   className?: string;
   width?: number;
   height?: number;
 }
 
-const TreasureChestIcon: React.FC<TreasureChestProps> = ({
+const ItemsTreasureChestIcon: React.FC<ItemsTreasureChestProps> = ({
   width = 40,
   height = 40,
   className,
@@ -23,4 +23,4 @@ const TreasureChestIcon: React.FC<TreasureChestProps> = ({
   );
 };
 
-export default TreasureChestIcon;
+export default ItemsTreasureChestIcon;

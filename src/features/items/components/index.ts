@@ -1,4 +1,4 @@
-import TreasureChestIcon from "./TreasureChestIcon/TreasureChestIcon";
 import ItemCardList from "./ItemCardList/ItemCardList";
+import ItemsTreasureChestIcon from "./ItemsTreasureChestIcon/ItemsTreasureChestIcon";
 
-export { TreasureChestIcon, ItemCardList };
+export { ItemCardList, ItemsTreasureChestIcon };

@@ -93,7 +93,7 @@ const ItemCardList: React.FC = () => {
               </div>
             ) : (
               <div className={styles["unacquired-item-icon"]}>
-                <Items.TreasureChestIcon
+                <Items.ItemsTreasureChestIcon
                   width={40}
                   height={40}
                   className={styles["unacquired-item-icon-image"]}
