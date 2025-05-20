@@ -23,7 +23,7 @@ export const navigationItems: NavigationItem[] = [
     id: 3,
     title: "つよさ",
     href: "/strength",
-    icon: "/images/nav-icon/flag_monshoki_01_red_01.svg",
+    icon: "/images/nav-icon/sword_longsword_red.svg",
     alt: "つよさ",
     width: 20,
     height: 20,
