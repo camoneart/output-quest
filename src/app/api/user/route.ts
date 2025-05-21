@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 // import { getUserStatus } from "@/utils/userStatus";
 
@@ -64,8 +64,9 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const { userId } = await auth();
+    const clerkUser = await currentUser(); // Clerkユーザー情報を取得
 
-    if (!userId) {
+    if (!userId || !clerkUser) {
       return NextResponse.json(
         { success: false, error: "未認証" },
         { status: 401 }
@@ -101,11 +102,25 @@ export async function POST(request: Request) {
     } else {
       // 新規ユーザーの作成
       const username = zennUsername || `user_${Date.now()}`;
+
+      // Clerkからメールアドレスを取得
+      const emailFromClerk =
+        clerkUser.emailAddresses.find(
+          (email) => email.id === clerkUser.primaryEmailAddressId
+        )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
+      if (!emailFromClerk) {
+        console.error("POST /api/user: Email not found for new user", userId);
+        return NextResponse.json(
+          { success: false, error: "メールアドレスが取得できませんでした" },
+          { status: 400 }
+        );
+      }
+
       user = await prisma.user.create({
         data: {
           clerkId: userId,
           username,
-          email: `${username}@example.com`,
+          email: emailFromClerk, // Clerkから取得したメールアドレスを使用
           zennUsername,
           displayName: displayName || username,
           profileImage,
