@@ -94,9 +94,10 @@ export async function POST(request: Request) {
             : first_name
           : userName;
 
-        // Prismaでユーザーを作成
-        await prisma.user.create({
-          data: {
+        // Prismaでユーザーを存在確認しながら作成（既存時は何もしない）
+        await prisma.user.upsert({
+          where: { clerkId: id },
+          create: {
             clerkId: id,
             username: userName,
             email,
@@ -106,8 +107,8 @@ export async function POST(request: Request) {
             zennArticleCount: 0,
             level: 1,
           },
+          update: {},
         });
-
         console.log(`ユーザー作成: ${id}`);
         break;
       }
