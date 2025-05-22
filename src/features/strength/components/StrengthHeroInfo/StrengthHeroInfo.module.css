@@ -55,6 +55,12 @@
   background-color: var(--color-primary-dark-gray);
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
+
+  @media (width < 1280px) {
+    padding-block: 40px;
+    padding-inline: 20px;
+    gap: 10px;
+  }
 }
 
 .strength-hero-box {
