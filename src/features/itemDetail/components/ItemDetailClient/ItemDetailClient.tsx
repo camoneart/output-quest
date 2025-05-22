@@ -98,6 +98,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
                 alt={itemName || "アイテム"}
                 width={60}
                 height={60}
+                priority={true}
                 className={`${styles["item-detail-image"]} ${
                   styles[`item-detail-image-${itemId}`]
                 }`}
@@ -109,6 +110,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
                   alt="未獲得のアイテム"
                   width={60}
                   height={60}
+                  priority={true}
                   className={styles["item-detail-unknown-icon-image"]}
                 />
               </div>

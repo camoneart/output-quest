@@ -98,6 +98,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
                 alt={memberName || "パーティメンバー"}
                 width={60}
                 height={60}
+                priority={true}
                 className={`${styles["party-member-image"]} ${
                   styles[`party-member-image-${partyId}`]
                 }`}
@@ -109,6 +110,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
                   alt="未獲得のパーティメンバー"
                   width={60}
                   height={60}
+                  priority={true}
                   className={styles["party-member-unknown-image"]}
                 />
               </div>
