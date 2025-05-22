@@ -172,6 +172,7 @@ const EquipmentDetailPageClient = ({
                       alt={item.name || "アイテム"}
                       width={50}
                       height={50}
+                      priority={true}
                       className={styles["equipment-detail-item-icon-image"]}
                     />
                   </div>
