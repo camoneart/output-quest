@@ -8,3 +8,16 @@
   padding-block-end: 25px;
   overflow-y: scroll;
 }
+
+.dashboard-zenn-area {
+  width: 100%;
+  display: block grid;
+  grid-template-columns: auto 1fr;
+  gap: 35px;
+  padding-inline: 20px;
+  padding-block: 20px;
+
+  @media (width < 768px) {
+    grid-template-columns: auto;
+  }
+}

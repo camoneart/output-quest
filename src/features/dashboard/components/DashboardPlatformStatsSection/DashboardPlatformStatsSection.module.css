@@ -1,8 +1,8 @@
 .platform-stats-section {
+  width: 100%;
   display: block grid;
-  gap: 35px;
-  padding-inline: 20px;
-  padding-block: 20px;
+  grid-template-rows: auto 1fr;
+  gap: 15px;
 }
 
 .platform-stats-title {
@@ -19,9 +19,10 @@
 }
 
 .platform-stats-container {
+  width: 100%;
   display: block grid;
-  place-items: center;
-  padding-inline: 20px;
+  place-self: start;
+  padding-block-start: 20px;
 
   @media (width < 1024px) {
     padding-inline: 0;

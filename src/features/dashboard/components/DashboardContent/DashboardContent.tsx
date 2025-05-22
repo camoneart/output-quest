@@ -51,13 +51,15 @@ const DashboardContent = () => {
 
       <hr />
 
-      <Dashboard.DashboardPlatformStatsSection
-        dashboardData={dummyDashboardData}
-      />
+      <div className={styles["dashboard-zenn-area"]}>
+        <Dashboard.DashboardPlatformStatsSection
+          dashboardData={dummyDashboardData}
+        />
 
-      <hr />
+        <hr className="block md:hidden" />
 
-      <Dashboard.DashboardActivitySection />
+        <Dashboard.DashboardActivitySection />
+      </div>
 
       {!isHeroLoading && (
         <>
@@ -69,8 +71,7 @@ const DashboardContent = () => {
       {!isHeroLoading && (
         <>
           <hr />
-          <Dashboard.DashboardLatestItemSection
-          />
+          <Dashboard.DashboardLatestItemSection />
         </>
       )}
     </div>
