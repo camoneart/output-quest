@@ -67,7 +67,9 @@
 
 .strength-hero-icon-box {
   width: 55px;
-  height: auto;
+  height: 60px;
+  display: block grid;
+  place-items: center;
 }
 
 .strength-hero-icon-image {
