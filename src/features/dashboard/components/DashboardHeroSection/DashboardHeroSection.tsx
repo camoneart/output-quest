@@ -93,6 +93,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
                   alt={dashboardData.heroData.name}
                   width={55}
                   height={55}
+                  priority={true}
                   className={`${styles["hero-info-icon-image"]}`}
                 />
               </Link>

@@ -91,6 +91,7 @@ const StrengthHeroInfo = () => {
                 alt="勇者のアイコン"
                 width={55}
                 height={55}
+                priority={true}
                 className={styles["strength-hero-icon-image"]}
               />
             </div>
