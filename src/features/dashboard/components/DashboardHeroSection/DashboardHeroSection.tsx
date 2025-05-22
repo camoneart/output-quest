@@ -91,8 +91,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
                 <Image
                   src={`/images/common/character_yusha_01_red.png`}
                   alt={dashboardData.heroData.name}
-                  width={40}
-                  height={40}
+                  width={55}
+                  height={55}
                   className={`${styles["hero-info-icon-image"]}`}
                 />
               </Link>

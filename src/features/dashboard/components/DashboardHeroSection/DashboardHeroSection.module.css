@@ -54,8 +54,8 @@
 
 .hero-info-icon-box {
   grid-area: icon;
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   display: block grid;
   place-items: center;
   background-color: var(--color-primary-brown-dark);
@@ -85,8 +85,9 @@
 }
 
 .hero-info-icon-image {
-  width: 40px;
+  width: 55px;
   height: auto;
+  object-fit: contain;
   object-position: center;
   filter: drop-shadow(0 0 1px var(--color-primary-white));
   transition: filter 0.2s ease-in-out;
