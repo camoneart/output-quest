@@ -52,6 +52,9 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--color-primary-dark-gray);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
 }
 
 .strength-hero-box {
@@ -63,14 +66,15 @@
 }
 
 .strength-hero-icon-box {
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: auto;
 }
 
 .strength-hero-icon-image {
+  width: 55px;
+  height: auto;
   object-fit: contain;
   object-position: center;
-  aspect-ratio: 1 / 1;
   filter: drop-shadow(0 0 3px var(--color-primary-white));
 }
 
