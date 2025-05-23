@@ -53,7 +53,7 @@
   background-color: var(--color-primary-brown);
   border: 2px solid var(--color-primary-brown-light);
   padding-inline: 15px;
-  padding-block: 15px 10px;
+  padding-block: 12px 10px;
   transition: border 0.2s ease-in-out;
 
   &:hover {
