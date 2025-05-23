@@ -5,8 +5,8 @@
   height: 100%;
   gap: 15px;
   overflow-y: scroll;
-  padding-block: 20px;
-  padding-inline: 10px;
+  padding-block: 15px;
+  padding-inline: 20px;
 }
 
 .logs-page-list-item {
@@ -16,7 +16,7 @@
 .logs-page-list-item-text {
   font-size: 0.875rem;
   font-weight: var(--font-weight-normal);
-  line-height: var(--leading-x-tight);
+  line-height: var(--leading-normal);
   text-shadow: 1px 1px 0 var(--color-primary-black);
 }
 
