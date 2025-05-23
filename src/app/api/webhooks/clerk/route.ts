@@ -107,7 +107,12 @@ export async function POST(request: Request) {
             zennArticleCount: 0,
             level: 1,
           },
-          update: {},
+          update: {
+            // 既存ユーザーがいる場合、基本情報のみ更新（Zenn連携は保持）
+            email,
+            displayName,
+            profileImage: image_url,
+          },
         });
         console.log(`ユーザー作成: ${id}`);
         break;

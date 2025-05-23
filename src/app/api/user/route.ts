@@ -62,6 +62,33 @@ export async function GET() {
 
 // ユーザー情報の更新API
 export async function POST(request: Request) {
+  // リトライ機構のためのヘルパー関数
+  const retryOperation = async <T>(
+    operation: () => Promise<T>,
+    maxRetries: number = 3,
+    delayMs: number = 100
+  ): Promise<T> => {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        return await operation();
+      } catch (error) {
+        console.error(`操作失敗 (試行 ${attempt}/${maxRetries}):`, error);
+
+        // 最後の試行でない場合は待機してリトライ
+        if (attempt < maxRetries) {
+          await new Promise((resolve) =>
+            setTimeout(resolve, delayMs * attempt)
+          );
+          continue;
+        }
+
+        // 最後の試行で失敗した場合はエラーを再スロー
+        throw error;
+      }
+    }
+    throw new Error("リトライ処理で予期しないエラー");
+  };
+
   try {
     const { userId } = await auth();
     const clerkUser = await currentUser(); // Clerkユーザー情報を取得
@@ -76,59 +103,56 @@ export async function POST(request: Request) {
     const data = await request.json();
     const { zennUsername, displayName, profileImage, forceReset } = data;
 
-    // ユーザーの存在確認
-    const existingUser = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
-
-    let user;
-
-    if (existingUser) {
-      // 既存ユーザーの更新
-      user = await prisma.user.update({
+    // リトライ付きでユーザー操作を実行
+    const user = await retryOperation(async () => {
+      // ユーザーの存在確認
+      const existingUser = await prisma.user.findUnique({
         where: { clerkId: userId },
-        data: {
-          zennUsername,
-          displayName: displayName || existingUser.displayName,
-          profileImage: profileImage || existingUser.profileImage,
-          ...(zennUsername === "" || forceReset === true
-            ? {
-                zennArticleCount: 0,
-                level: 1,
-              }
-            : {}),
-        },
       });
-    } else {
-      // 新規ユーザーの作成
-      const username = zennUsername || `user_${Date.now()}`;
 
-      // Clerkからメールアドレスを取得
-      const emailFromClerk =
-        clerkUser.emailAddresses.find(
-          (email) => email.id === clerkUser.primaryEmailAddressId
-        )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
-      if (!emailFromClerk) {
-        console.error("POST /api/user: Email not found for new user", userId);
-        return NextResponse.json(
-          { success: false, error: "メールアドレスが取得できませんでした" },
-          { status: 400 }
-        );
+      if (existingUser) {
+        // 既存ユーザーの更新
+        return await prisma.user.update({
+          where: { clerkId: userId },
+          data: {
+            zennUsername,
+            displayName: displayName || existingUser.displayName,
+            profileImage: profileImage || existingUser.profileImage,
+            ...(zennUsername === "" || forceReset === true
+              ? {
+                  zennArticleCount: 0,
+                  level: 1,
+                }
+              : {}),
+          },
+        });
+      } else {
+        // 新規ユーザーの作成
+        const username = zennUsername || `user_${Date.now()}`;
+
+        // Clerkからメールアドレスを取得
+        const emailFromClerk =
+          clerkUser.emailAddresses.find(
+            (email) => email.id === clerkUser.primaryEmailAddressId
+          )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
+        if (!emailFromClerk) {
+          throw new Error("メールアドレスが取得できませんでした");
+        }
+
+        return await prisma.user.create({
+          data: {
+            clerkId: userId,
+            username,
+            email: emailFromClerk, // Clerkから取得したメールアドレスを使用
+            zennUsername,
+            displayName: displayName || username,
+            profileImage,
+            zennArticleCount: 0,
+            level: 1,
+          },
+        });
       }
-
-      user = await prisma.user.create({
-        data: {
-          clerkId: userId,
-          username,
-          email: emailFromClerk, // Clerkから取得したメールアドレスを使用
-          zennUsername,
-          displayName: displayName || username,
-          profileImage,
-          zennArticleCount: 0,
-          level: 1,
-        },
-      });
-    }
+    });
 
     // ステータス情報を計算して返す
     // const statusInfo = getUserStatus(user.zennArticleCount);
@@ -142,6 +166,19 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("ユーザー更新エラー:", error);
+
+    // より詳細なエラー情報をログ出力
+    if (error instanceof Error) {
+      console.error("エラーメッセージ:", error.message);
+      console.error("エラースタック:", error.stack);
+    }
+
+    // Prismaエラーの場合は詳細を出力
+    if (typeof error === "object" && error !== null && "code" in error) {
+      console.error("Prismaエラーコード:", (error as { code?: string }).code);
+      console.error("Prismaエラー詳細:", (error as { meta?: unknown }).meta);
+    }
+
     return NextResponse.json(
       { success: false, error: "ユーザー情報の更新に失敗しました" },
       { status: 500 }
