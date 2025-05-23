@@ -47,7 +47,7 @@
   width: 100%;
   display: block grid;
   align-content: start;
-  gap: 15px;
+  gap: 10px;
   padding-inline: 10px;
   padding-block: 10px 0;
 }

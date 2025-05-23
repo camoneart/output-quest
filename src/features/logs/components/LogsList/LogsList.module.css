@@ -3,7 +3,7 @@
   display: block grid;
   justify-content: center;
   height: 100%;
-  gap: 15px;
+  gap: 10px;
   overflow-y: scroll;
   padding-block: 15px;
   padding-inline: 20px;
