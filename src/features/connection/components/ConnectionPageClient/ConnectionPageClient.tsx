@@ -423,7 +423,7 @@ export default function ConnectionPageClient() {
         // プロフィール更新後にZenn記事を同期
         await syncZennArticles(true);
       } else {
-        setError(data.error || "プロフィール更新に失敗しました");
+        setError(data.error || "プロフィールの更新に失敗しました");
       }
     } catch (err) {
       console.error("プロフィール更新エラー:", err);
