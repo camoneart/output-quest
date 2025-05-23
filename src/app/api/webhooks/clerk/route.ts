@@ -12,6 +12,73 @@ type UserUpdateData = {
   profileImage?: string | null; // profileImage は null も許容
 };
 
+// ユーザー作成のためのロック機構（メモリベース、簡易版）
+const userCreationLocks = new Map<string, Promise<void>>();
+
+// ユーザー作成処理の冪等性を確保する関数
+async function ensureUserExists(
+  clerkId: string,
+  userData?: {
+    username?: string;
+    email?: string;
+    displayName?: string;
+    profileImage?: string;
+  }
+) {
+  // 既存のロックがあるかチェック
+  const existingLock = userCreationLocks.get(clerkId);
+  if (existingLock) {
+    console.log(`ユーザー ${clerkId} の作成処理を待機中...`);
+    await existingLock;
+    return;
+  }
+
+  // 新しいロックを作成
+  const lock = (async () => {
+    try {
+      // まず既存ユーザーをチェック
+      const existingUser = await prisma.user.findUnique({
+        where: { clerkId },
+      });
+
+      if (existingUser) {
+        console.log(`ユーザー ${clerkId} は既に存在します`);
+        return;
+      }
+
+      // ユーザーデータが提供されている場合のみ作成
+      if (userData && userData.email) {
+        const userName = userData.username || `user_${clerkId.substring(0, 8)}`;
+
+        await prisma.user.create({
+          data: {
+            clerkId,
+            username: userName,
+            email: userData.email,
+            displayName: userData.displayName || userName,
+            profileImage: userData.profileImage,
+            zennUsername: null,
+            zennArticleCount: 0,
+            level: 1,
+          },
+        });
+        console.log(`ユーザー作成完了: ${clerkId}`);
+      } else {
+        console.log(`ユーザー ${clerkId} の作成に必要なデータが不足しています`);
+      }
+    } catch (error) {
+      console.error(`ユーザー ${clerkId} の作成エラー:`, error);
+      throw error;
+    } finally {
+      // ロックを削除
+      userCreationLocks.delete(clerkId);
+    }
+  })();
+
+  userCreationLocks.set(clerkId, lock);
+  await lock;
+}
+
 export async function POST(request: Request) {
   // Clerkからのウェブフックを検証するためのシークレット
   // 環境変数にSVIX_WEBHOOK_SECRETを設定する必要がある
@@ -60,6 +127,7 @@ export async function POST(request: Request) {
 
     // ウェブフックイベントの種類を確認
     const { type, data } = evt;
+    console.log(`Webhook受信: ${type} for user ${data.id || "unknown"}`);
 
     switch (type) {
       case "user.created": {
@@ -94,27 +162,15 @@ export async function POST(request: Request) {
             : first_name
           : userName;
 
-        // Prismaでユーザーを存在確認しながら作成（既存時は何もしない）
-        await prisma.user.upsert({
-          where: { clerkId: id },
-          create: {
-            clerkId: id,
-            username: userName,
-            email,
-            displayName,
-            profileImage: image_url,
-            zennUsername: null,
-            zennArticleCount: 0,
-            level: 1,
-          },
-          update: {
-            // 既存ユーザーがいる場合、基本情報のみ更新（Zenn連携は保持）
-            email,
-            displayName,
-            profileImage: image_url,
-          },
+        // 改善されたユーザー作成処理
+        await ensureUserExists(id, {
+          username: userName,
+          email,
+          displayName,
+          profileImage: image_url,
         });
-        console.log(`ユーザー作成: ${id}`);
+
+        console.log(`user.created処理完了: ${id}`);
         break;
       }
 
