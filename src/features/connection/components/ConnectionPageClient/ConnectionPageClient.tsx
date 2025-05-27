@@ -97,7 +97,6 @@ export default function ConnectionPageClient() {
           // ログイン後の強制連携解除処理
           (async () => {
             try {
-              setLoading(true);
               console.log("ログイン後の強制連携解除を実行します");
 
               // 連携解除専用APIを呼び出し
@@ -136,10 +135,8 @@ export default function ConnectionPageClient() {
               setIsNewSession(true);
               setUserInfo(null);
               setZennUsername("");
-              setLoading(false);
             } catch (err) {
               console.error("強制連携解除エラー:", err);
-              setLoading(false);
             }
           })();
         }
@@ -818,6 +815,7 @@ export default function ConnectionPageClient() {
                   error={error}
                   onUsernameChange={setZennUsername}
                   onSubmit={updateUserProfile}
+                  isZennInfoLoaded={isZennInfoLoaded}
                 />
               )
             ) : (
@@ -827,6 +825,7 @@ export default function ConnectionPageClient() {
                 error={error}
                 onUsernameChange={setZennUsername}
                 onSubmit={updateUserProfile}
+                isZennInfoLoaded={isZennInfoLoaded}
               />
             )}
 

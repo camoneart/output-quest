@@ -7,6 +7,7 @@ interface ZennConnectionFormProps {
   error: string;
   onUsernameChange: (value: string) => void;
   onSubmit: () => void;
+  isZennInfoLoaded?: boolean;
 }
 
 export default function ZennConnectionForm({
@@ -15,6 +16,7 @@ export default function ZennConnectionForm({
   error,
   onUsernameChange,
   onSubmit,
+  isZennInfoLoaded = true,
 }: ZennConnectionFormProps) {
   return (
     <div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
@@ -50,7 +52,7 @@ export default function ZennConnectionForm({
         ""
       ) : (
         <p className="text-center mt-[12px]">
-          {loading ? "連携中..." : "Zennと連携が必要です。"}
+          {loading && isZennInfoLoaded ? "連携中..." : "Zennと連携が必要です。"}
         </p>
       )}
     </div>
