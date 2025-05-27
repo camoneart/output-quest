@@ -136,12 +136,7 @@ export default function ConnectionPageClient() {
               setIsNewSession(true);
               setUserInfo(null);
               setZennUsername("");
-
-              // 画面をリフレッシュ - 最終手段
-              setTimeout(() => {
-                setLoading(false);
-                window.location.reload();
-              }, 500);
+              setLoading(false);
             } catch (err) {
               console.error("強制連携解除エラー:", err);
               setLoading(false);
@@ -188,8 +183,6 @@ export default function ConnectionPageClient() {
   // ユーザー情報を取得
   useEffect(() => {
     const fetchUserInfo = async () => {
-      // Zenn連携情報のロード状態をリセット
-      setIsZennInfoLoaded(false);
       if (!isLoaded) return;
 
       // ユーザーがログインしていない場合、状態をリセット
@@ -200,6 +193,9 @@ export default function ConnectionPageClient() {
         setIsZennInfoLoaded(true);
         return;
       }
+
+      // Zenn連携情報のロード開始（ユーザーがいる場合のみ）
+      setIsZennInfoLoaded(false);
 
       try {
         const wasLoggedOutFlag = wasLoggedOut;
@@ -272,12 +268,6 @@ export default function ConnectionPageClient() {
         // フラグをリセット
         setWasLoggedOut(false);
         setIsNewSession(false);
-
-        // 1秒待機してから最新情報取得（タイミングを十分に空ける）
-        // setTimeout(() => {
-        //   console.log("連携リセット後、最新情報を取得します");
-        //   fetchLatestUserInfo();
-        // }, 1000);
       } catch (err) {
         console.error("連携リセットエラー:", err);
 
@@ -286,11 +276,6 @@ export default function ConnectionPageClient() {
         setZennUsername("");
         setWasLoggedOut(false);
         setIsNewSession(false);
-
-        // 最新情報を再取得
-        // setTimeout(() => {
-        //   fetchLatestUserInfo();
-        // }, 1000);
       }
     };
 
@@ -311,8 +296,6 @@ export default function ConnectionPageClient() {
 
           setUserInfo(data.user);
           setZennUsername(data.user.zennUsername || "");
-          // Zenn連携情報のロード完了
-          setIsZennInfoLoaded(true);
         } else {
           // ユーザーが見つからない場合は何もしない
           console.log("ユーザー情報が見つかりません");
