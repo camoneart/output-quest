@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "author": "aoyama",
+  "description": "RPG風ゲーミフィケーション学習支援アプリ",
+  "homepage": "https://outputquest.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aoyamadev/output-quest"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "deploy": "prisma migrate deploy",
     "postinstall": "prisma generate",
