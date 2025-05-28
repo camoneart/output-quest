@@ -1,12 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./TitlePageHeader.module.css";
 import { useHero } from "@/contexts/HeroContext";
 
 const TitlePageHeader = () => {
   // 勇者のレベル情報を取得
-  const { heroData, isLoading } = useHero();
+  const { heroData, isLoading, refetchHeroData } = useHero();
+
+  // ページアクセス時にheroデータを再取得
+  useEffect(() => {
+    refetchHeroData();
+  }, [refetchHeroData]);
   const heroLevel = isLoading ? 1 : heroData.level;
 
   // 次の称号の解放に必要なレベル

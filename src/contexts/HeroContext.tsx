@@ -5,6 +5,7 @@ import React, {
   useContext,
   useState,
   useEffect,
+  useCallback,
   ReactNode,
 } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -17,6 +18,7 @@ type HeroContextType = {
   heroData: HeroData;
   isLoading: boolean;
   error: string | null;
+  refetchHeroData: () => Promise<void>;
 };
 
 // Contextの作成
@@ -34,8 +36,8 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
   const [error] = useState<string | null>(null);
 
   // 記事データを取得してレベルを設定
-  useEffect(() => {
-    const getZennArticlesCount = async (retryCount = 0) => {
+  const getZennArticlesCount = useCallback(
+    async (retryCount = 0) => {
       if (!isLoaded) {
         setIsLoading(true);
         return;
@@ -52,7 +54,13 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
           console.log(
             `HeroContext: /api/user 呼び出し開始 (試行: ${retryCount + 1})`
           );
-          const userRes = await fetch("/api/user");
+          const userRes = await fetch("/api/user", {
+            // キャッシュを無効化して最新データを取得
+            cache: "no-store",
+            headers: {
+              "Cache-Control": "no-cache",
+            },
+          });
           const userData = await userRes.json();
 
           if (userRes.ok && userData.success && userData.user.zennUsername) {
@@ -101,9 +109,18 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
           setIsLoading(false);
         }
       }
-    };
+    },
+    [isLoaded, user]
+  );
+
+  // 外部から呼び出し可能な再取得関数
+  const refetchHeroData = useCallback(async () => {
+    await getZennArticlesCount();
+  }, [getZennArticlesCount]);
+
+  useEffect(() => {
     getZennArticlesCount();
-  }, [isLoaded, user]);
+  }, [getZennArticlesCount]);
 
   return (
     <HeroContext.Provider
@@ -111,6 +128,7 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
         heroData,
         isLoading,
         error,
+        refetchHeroData,
       }}
     >
       {children}

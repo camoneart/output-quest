@@ -7,10 +7,15 @@ import { useHero } from "@/contexts/HeroContext";
 import { heroLevelAndItemRelation } from "@/features/items/data/itemsData";
 
 const DashboardContent = () => {
-  const { heroData, isLoading: isHeroLoading } = useHero();
+  const { heroData, isLoading: isHeroLoading, refetchHeroData } = useHero();
   const [lastAcquiredItemId, setLastAcquiredItemId] = useState<number | null>(
     null
   );
+
+  // ページアクセス時にheroデータを再取得
+  useEffect(() => {
+    refetchHeroData();
+  }, [refetchHeroData]);
 
   useEffect(() => {
     if (!isHeroLoading) {

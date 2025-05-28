@@ -1,13 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./TitleList.module.css";
 import { titleNameData } from "@/shared/data/titleNameDate";
 import { useHero } from "@/contexts/HeroContext";
 
 const TitleList = () => {
   // 勇者のレベル情報を取得
-  const { heroData, isLoading } = useHero();
+  const { heroData, isLoading, refetchHeroData } = useHero();
+
+  // ページアクセス時にheroデータを再取得
+  useEffect(() => {
+    refetchHeroData();
+  }, [refetchHeroData]);
   const heroLevel = isLoading ? 1 : heroData.level;
 
   // IDに基づいてクラス名を取得する関数
