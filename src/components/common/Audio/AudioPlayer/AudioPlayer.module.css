@@ -37,3 +37,8 @@
   padding-inline: 8px;
   transition: border 0.2s ease-in-out;
 }
+
+/* 音楽再生中（Headphonesアイコン表示時）に黄色のボーダーを適用 */
+.audio-button-icon-box:has(.audio-play) {
+  border: 1.5px solid var(--color-primary-yellow);
+}
