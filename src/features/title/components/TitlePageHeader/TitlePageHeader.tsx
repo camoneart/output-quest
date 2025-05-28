@@ -16,7 +16,7 @@ const TitlePageHeader = () => {
 
   // 次の称号の解放に必要なレベル
   const nextTitleRequiredLevel =
-    heroLevel < 10 ? 10 : Math.ceil(heroLevel / 10) * 10;
+    heroLevel < 10 ? 10 : (Math.floor(heroLevel / 10) + 1) * 10;
 
   // 次の称号獲得までに必要な残りレベル数
   const remainingLevels = isLoading ? (
