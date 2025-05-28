@@ -25,17 +25,23 @@ export default clerkMiddleware(async (auth, request) => {
   if (isPublicRoute(request)) {
     return;
   }
-  // Clerkログイン保護
-  await auth.protect();
 
-  // Zenn連携が必要なページであり、かつAPIルートでない場合に連携状況を確認してリダイレクト
+  // Zenn連携が必要なページにアクセスしようとしている場合
   if (
     isZennProtectedRoute(request) &&
     !request.nextUrl.pathname.startsWith("/api")
   ) {
+    // まずユーザーがサインインしているかチェック
+    const { userId } = await auth();
+
+    if (!userId) {
+      // サインインしていない場合は/connectionにリダイレクト
+      return NextResponse.redirect(new URL("/connection", request.url));
+    }
+
+    // サインインしている場合はZenn連携状況をチェック
     const cookie = request.headers.get("cookie") || "";
-    // ミドルウェア内で絶対URLを構築
-    const host = request.headers.get("host") || "localhost:3000"; // デフォルトはローカル開発用
+    const host = request.headers.get("host") || "localhost:3000";
     const protocol = host.startsWith("localhost") ? "http" : "https";
     const apiUrl = new URL(`${protocol}://${host}/api/user`);
 
@@ -44,6 +50,9 @@ export default clerkMiddleware(async (auth, request) => {
     if (!data.success || !data.user?.zennUsername) {
       return NextResponse.redirect(new URL("/connection", request.url));
     }
+  } else {
+    // Zenn連携が不要なページの場合は通常のClerk保護
+    await auth.protect();
   }
 });
 
