@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchZennArticles } from "@/features/posts/services";
 import { PostData } from "@/features/posts/types";
+import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 
 // カテゴリー表示用のマッピング
 const CATEGORY_DISPLAY = {
@@ -25,6 +26,12 @@ const DashboardActivitySection = () => {
   const [zennArticles, setZennArticles] = useState<PostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { playClickSound } = useClickSound({
+    soundPath: "/audio/click-sound_decision.mp3",
+    volume: 0.5,
+    delay: 190,
+  });
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -109,6 +116,8 @@ const DashboardActivitySection = () => {
                 href={article.url}
                 className={`${styles["recent-activity-item-link"]}`}
                 target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playClickSound()}
               >
                 <div className={`${styles["recent-activity-item-content"]}`}>
                   <h4 className={`${styles["recent-activity-item-title"]}`}>
