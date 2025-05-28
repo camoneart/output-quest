@@ -17,6 +17,15 @@ const DashboardNavItems = () => {
     delay: 190, // 190ミリ秒 = 0.19秒の遅延
   });
 
+  // dashboard内（id1~5）のみBGMを適用する関数
+  const handleLinkClick = (itemId: number) => {
+    // id1~5（dashboard内）のみBGMを再生
+    if (itemId >= 1 && itemId <= 5) {
+      playClickSound();
+    }
+    // id6（connection）、id7（about）は無音で遷移
+  };
+
   return (
     <>
       {navigationItems.map((item) => {
@@ -58,7 +67,7 @@ const DashboardNavItems = () => {
                 <Link
                   href={item.href}
                   className={`${styles["dashboard-nav-item-link"]}`}
-                  onClick={() => playClickSound()}
+                  onClick={() => handleLinkClick(item.id)}
                 >
                   <div className={`${styles["dashboard-nav-item-content"]}`}>
                     <Image
