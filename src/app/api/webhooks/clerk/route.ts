@@ -81,14 +81,17 @@ async function ensureUserExists(
 
 export async function POST(request: Request) {
   // Clerkからのウェブフックを検証するためのシークレット
-  // 環境変数にSVIX_WEBHOOK_SECRETを設定する必要がある
-  const WEBHOOK_SECRET = process.env.SVIX_WEBHOOK_SECRET;
+  // 環境変数にCLERK_WEBHOOK_SIGNING_SECRETを設定する必要がある
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
   if (!WEBHOOK_SECRET) {
-    console.error("SVIX_WEBHOOK_SECRETが設定されていません");
-    return new NextResponse("Webhook Error: SVIX_WEBHOOK_SECRET not set", {
-      status: 500,
-    });
+    console.error("CLERK_WEBHOOK_SIGNING_SECRETが設定されていません");
+    return new NextResponse(
+      "Webhook Error: CLERK_WEBHOOK_SIGNING_SECRET not set",
+      {
+        status: 500,
+      }
+    );
   }
 
   try {
