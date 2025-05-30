@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import styles from "./ConnectionPageClient.module.css";
-import AuthButton from "@/components/auth/AuthButton/AuthButton";
-import UserIconButton from "@/components/auth/UserIconButton/UserIconButton";
-import Image from "next/image";
-import Link from "next/link";
 import * as Connection from "@/features/connection/components";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import { useHero } from "@/contexts/HeroContext";
+import {
+  useSessionManagement,
+  useMessageStorage,
+} from "@/features/connection/hooks";
 
 // グローバル変数の型拡張
 declare global {
@@ -29,15 +30,14 @@ interface UserInfo {
 }
 
 // ローカルストレージのキー
-const SUCCESS_MESSAGE_KEY = "zenn_success_message";
-const RELEASE_MESSAGE_KEY = "zenn_release_message";
-const LOGOUT_FLAG_KEY = "zenn_logout_flag"; // ログアウト状態を記録するキー
-const SESSION_ID_KEY = "zenn_session_id"; // セッション識別子を保存するキー
+const SESSION_ID_KEY = "zenn_session_id";
+const LOGOUT_FLAG_KEY = "zenn_logout_flag";
 
 // ユーザープロフィールページ
 export default function ConnectionPageClient() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
+  const { refetchHeroData } = useHero();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [zennUsername, setZennUsername] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,23 @@ export default function ConnectionPageClient() {
   const { playClickSound } = useClickSound({
     soundPath: "/audio/click-sound_decision.mp3",
     volume: 0.5,
-    delay: 190, // 190ミリ秒 = 0.19秒の遅延
+    delay: 190,
+  });
+
+  // カスタムフックを使用
+  useSessionManagement({
+    user,
+    isLoaded,
+    setWasLoggedOut,
+    setIsNewSession,
+    setUserInfo,
+    setZennUsername,
+  });
+
+  const { showSuccessMessage } = useMessageStorage({
+    setSuccess,
+    setReleaseMessage,
+    setWasLoggedOut,
   });
 
   // 遅延付きページ遷移の処理
@@ -63,119 +79,121 @@ export default function ConnectionPageClient() {
     playClickSound(() => router.push(path));
   };
 
-  // セッション管理 - ページ読み込み時にセッションIDをチェックする
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (user) {
-        // ユーザーがログインしている場合
-        const currentSessionId = localStorage.getItem(SESSION_ID_KEY);
-        const logoutFlag = localStorage.getItem(LOGOUT_FLAG_KEY);
-        const previousUser = localStorage.getItem("zenn_previous_user");
+  // 最新のユーザー情報を取得する関数
+  const fetchLatestUserInfo = useCallback(async () => {
+    try {
+      console.log("最新のユーザー情報を取得します");
 
-        console.log("セッション状態チェック:", {
-          logoutFlag,
-          currentSessionId,
-          previousUser,
-          currentUserId: user.id,
-        });
-
-        // ログアウトフラグがある場合またはセッションIDが変更された場合
-        // または前回のユーザーIDと異なる場合は強制的に連携解除
-        if (
-          logoutFlag === "true" ||
-          !currentSessionId ||
-          currentSessionId !== user.id ||
-          (previousUser && previousUser !== user.id)
-        ) {
-          console.log("セッション変更を検出 - Zenn連携を強制的に解除します");
-
-          // フラグをクリア
-          localStorage.removeItem(LOGOUT_FLAG_KEY);
-          localStorage.removeItem("zenn_previous_user");
-          localStorage.setItem(SESSION_ID_KEY, user.id);
-
-          // ログイン後の強制連携解除処理
-          (async () => {
-            try {
-              console.log("ログイン後の強制連携解除を実行します");
-
-              // 連携解除専用APIを呼び出し
-              const resetResponse = await fetch("/api/user/reset-connection", {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ clerkId: user?.id }),
-              });
-
-              const resetData = await resetResponse.json();
-              console.log("連携解除結果:", resetData);
-
-              // 通常のユーザー更新APIも呼び出し
-              const userResponse = await fetch("/api/user", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  zennUsername: "",
-                  displayName: user?.firstName
-                    ? `${user.firstName} ${user.lastName || ""}`.trim()
-                    : undefined,
-                  profileImage: user?.imageUrl,
-                  forceReset: true,
-                }),
-              });
-
-              const userData = await userResponse.json();
-              console.log("ユーザー更新結果:", userData);
-
-              // 状態を更新
-              setWasLoggedOut(true);
-              setIsNewSession(true);
-              setUserInfo(null);
-              setZennUsername("");
-            } catch (err) {
-              console.error("強制連携解除エラー:", err);
-            }
-          })();
-        }
-      } else if (isLoaded && !user) {
-        // ユーザーがログアウトしている場合はセッションIDを削除
-        localStorage.removeItem(SESSION_ID_KEY);
-        // ログアウト時にZennユーザー名をクリア
+      let response: Response;
+      try {
+        response = await fetch("/api/user");
+      } catch {
+        console.log(
+          "ConnectionPageClient: ネットワークエラー - 初期状態を設定"
+        );
+        setUserInfo(null);
         setZennUsername("");
-        // ログアウト時に必ずフラグを設定
-        localStorage.setItem(LOGOUT_FLAG_KEY, "true");
-      }
-    }
-  }, [user, isLoaded]);
-
-  // ページロード時にローカルストレージからメッセージを取得
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // 成功メッセージを取得
-      const savedSuccessMessage = localStorage.getItem(SUCCESS_MESSAGE_KEY);
-      if (savedSuccessMessage) {
-        setSuccess(savedSuccessMessage);
-        localStorage.removeItem(SUCCESS_MESSAGE_KEY);
+        return;
       }
 
-      // 連携解除メッセージを取得
-      const savedReleaseMessage = localStorage.getItem(RELEASE_MESSAGE_KEY);
-      if (savedReleaseMessage) {
-        setReleaseMessage(savedReleaseMessage);
-        localStorage.removeItem(RELEASE_MESSAGE_KEY);
-      }
+      const data = await response.json();
 
-      // ログアウトフラグを確認
-      const logoutFlag = localStorage.getItem(LOGOUT_FLAG_KEY);
-      if (logoutFlag === "true") {
-        setWasLoggedOut(true);
-        localStorage.removeItem(LOGOUT_FLAG_KEY);
+      // APIが正常に応答した場合の処理
+      if (response.ok && data.success) {
+        if (data.isNewUser) {
+          // 初回ユーザーの場合
+          console.log(
+            "ConnectionPageClient: 初回ユーザーを検出 - 初期状態を設定"
+          );
+          setUserInfo(null);
+          setZennUsername("");
+          return;
+        }
+
+        // 既存ユーザーの場合
+        if (data.user && data.user.zennUsername) {
+          console.log(`Zenn連携情報が存在します: @${data.user.zennUsername}`);
+        } else {
+          console.log("Zenn連携情報はありません");
+        }
+
+        setUserInfo(data.user);
+        setZennUsername(data.user.zennUsername || "");
+      } else if (response.status === 401) {
+        console.log("ConnectionPageClient: 認証エラー - 初期状態を設定");
+        setUserInfo(null);
+        setZennUsername("");
+        return;
+      } else {
+        console.warn(`ユーザー情報取得エラー: ${response.status}`);
+        return;
+      }
+    } catch (err) {
+      // ネットワークエラーなどの場合のみログ出力
+      if (err instanceof Error && err.name !== "AbortError") {
+        console.error("ネットワークエラー - 最新ユーザー情報取得エラー:", err);
       }
     }
   }, []);
+
+  // Zenn連携をリセットする共通関数
+  const resetZennConnection = useCallback(async () => {
+    try {
+      console.log("Zenn連携リセット処理を開始します");
+
+      // 入力欄をクリア
+      setZennUsername("");
+
+      // 連携解除専用APIを呼び出し
+      const resetResponse = await fetch("/api/user/reset-connection", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ clerkId: user?.id }),
+      });
+
+      const resetData = await resetResponse.json();
+      console.log("Zenn連携リセット結果:", resetData);
+
+      // 通常の連携解除処理も実行
+      const userResponse = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          zennUsername: "",
+          displayName: user?.firstName
+            ? `${user.firstName} ${user.lastName || ""}`.trim()
+            : undefined,
+          profileImage: user?.imageUrl,
+          forceReset: true, // 強制リセットフラグ
+        }),
+      });
+
+      const userData = await userResponse.json();
+      console.log("ユーザー更新結果:", userData);
+
+      // 状態を直接更新
+      setUserInfo(null);
+      setZennUsername("");
+      setError("");
+      setSuccess("");
+
+      // フラグをリセット
+      setWasLoggedOut(false);
+      setIsNewSession(false);
+    } catch (err) {
+      console.error("連携リセットエラー:", err);
+
+      // エラーが発生した場合でも状態をリセット
+      setUserInfo(null);
+      setZennUsername("");
+      setWasLoggedOut(false);
+      setIsNewSession(false);
+    }
+  }, [user]);
 
   // ユーザー情報を取得
   useEffect(() => {
@@ -190,6 +208,10 @@ export default function ConnectionPageClient() {
         setIsZennInfoLoaded(true);
         return;
       }
+
+      // 認証が安定するまで少し待機（初回ユーザーの404エラー回避）
+      // console.log("ConnectionPageClient: 認証安定化のため少し待機します...");
+      // await new Promise((resolve) => setTimeout(resolve, 500)); // 2.5秒 → 500msに短縮
 
       // Zenn連携情報のロード開始（ユーザーがいる場合のみ）
       setIsZennInfoLoaded(false);
@@ -217,115 +239,22 @@ export default function ConnectionPageClient() {
       }
     };
 
-    // Zenn連携をリセットする共通関数
-    const resetZennConnection = async () => {
-      try {
-        console.log("Zenn連携リセット処理を開始します");
-
-        // 入力欄をクリア
-        setZennUsername("");
-
-        // 連携解除専用APIを呼び出し
-        const resetResponse = await fetch("/api/user/reset-connection", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ clerkId: user?.id }),
-        });
-
-        const resetData = await resetResponse.json();
-        console.log("Zenn連携リセット結果:", resetData);
-
-        // 通常の連携解除処理も実行
-        const userResponse = await fetch("/api/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            zennUsername: "",
-            displayName: user?.firstName
-              ? `${user.firstName} ${user.lastName || ""}`.trim()
-              : undefined,
-            profileImage: user?.imageUrl,
-            forceReset: true, // 強制リセットフラグ
-          }),
-        });
-
-        const userData = await userResponse.json();
-        console.log("ユーザー更新結果:", userData);
-
-        // 状態を直接更新
-        setUserInfo(null);
-        setZennUsername("");
-        setError("");
-        setSuccess("");
-
-        // フラグをリセット
-        setWasLoggedOut(false);
-        setIsNewSession(false);
-      } catch (err) {
-        console.error("連携リセットエラー:", err);
-
-        // エラーが発生した場合でも状態をリセット
-        setUserInfo(null);
-        setZennUsername("");
-        setWasLoggedOut(false);
-        setIsNewSession(false);
-      }
-    };
-
-    // 最新のユーザー情報を取得する関数
-    const fetchLatestUserInfo = async () => {
-      try {
-        console.log("最新のユーザー情報を取得します");
-        const response = await fetch("/api/user");
-        const data = await response.json();
-
-        if (data.success) {
-          // zennUsernameが存在するかチェック
-          if (data.user && data.user.zennUsername) {
-            console.log(`Zenn連携情報が存在します: @${data.user.zennUsername}`);
-          } else {
-            console.log("Zenn連携情報はありません");
-          }
-
-          setUserInfo(data.user);
-          setZennUsername(data.user.zennUsername || "");
-        } else {
-          // ユーザーが見つからない場合は何もしない
-          console.log("ユーザー情報が見つかりません");
-          return;
-        }
-      } catch (err) {
-        console.error("最新ユーザー情報取得エラー:", err);
-      }
-    };
-
     fetchUserInfo();
-  }, [isLoaded, user, wasLoggedOut, isNewSession]);
-
-  // 成功メッセージを設定
-  const showSuccessMessage = (message: string) => {
-    if (typeof window !== "undefined") {
-      // ローカルストレージではなく、直接状態を設定
-      setSuccess(message);
-    }
-  };
-
-  // ユーザー名が有効な形式かチェックする関数
-  const isValidZennUsernameFormat = (username: string): boolean => {
-    // Zennのユーザー名に使える文字は英数字、アンダースコア、ハイフンのみ
-    return /^[a-zA-Z0-9_-]+$/.test(username);
-  };
+  }, [
+    isLoaded,
+    user,
+    wasLoggedOut,
+    isNewSession,
+    resetZennConnection,
+    fetchLatestUserInfo,
+  ]);
 
   // ユーザープロフィールを更新
-  const updateUserProfile = async () => {
+  const updateUserProfile = async (): Promise<boolean> => {
     playClickSound();
     if (!zennUsername) {
       setError("ユーザー名を入力してください");
-      return;
+      return false;
     }
 
     // @を取り除く
@@ -336,7 +265,7 @@ export default function ConnectionPageClient() {
       setError(
         "ユーザー名が無効です。小文字英数字 (a-z, 0-9)、アンダースコア (_)、ハイフン (-) のみ使用できます。"
       );
-      return;
+      return false;
     }
 
     // ロード開始時にreleaseMessageをクリア
@@ -353,7 +282,7 @@ export default function ConnectionPageClient() {
       if (!checkData.success) {
         setError(checkData.error || "ユーザー名の検証に失敗しました");
         setLoading(false);
-        return;
+        return false;
       }
 
       // APIが常に48件を返す問題に対応するための事前チェック
@@ -370,7 +299,7 @@ export default function ConnectionPageClient() {
       ) {
         setError("Zennとの連携に失敗しました。存在しないユーザー名です。");
         setLoading(false);
-        return;
+        return false;
       }
 
       // 記事数が0または記事が見つからない場合はユーザーが存在しないと判断
@@ -379,7 +308,7 @@ export default function ConnectionPageClient() {
           "このユーザー名のアカウントは記事を投稿していないため連携できません"
         );
         setLoading(false);
-        return;
+        return false;
       }
 
       const response = await fetch("/api/user", {
@@ -400,14 +329,64 @@ export default function ConnectionPageClient() {
 
       if (data.success) {
         setUserInfo(data.user);
-        // プロフィール更新後にZenn記事を同期
-        await syncZennArticles(true);
+
+        // 追加で記事数を同期してuserInfoを最新に更新
+        try {
+          console.log(
+            "updateUserProfile: 記事数を同期して最新のuserInfoに更新"
+          );
+          const syncResponse = await fetch(
+            `/api/zenn?username=${cleanUsername}&updateUser=true`
+          );
+          const syncData = await syncResponse.json();
+
+          if (syncData.success && syncData.user) {
+            console.log(
+              "updateUserProfile: 最新のuserInfoで更新:",
+              syncData.user
+            );
+            setUserInfo(syncData.user);
+
+            // 成功メッセージに記事数を含める
+            const successMessage = `Zennのアカウント連携が完了しました。${
+              syncData.totalCount || 0
+            }件の記事が見つかりました。`;
+            showSuccessMessage(successMessage);
+          } else {
+            // Zenn APIが失敗した場合でも連携自体は成功として扱う
+            const successMessage = `Zennのアカウント連携が完了しました。記事データは後ほど同期されます。`;
+            showSuccessMessage(successMessage);
+          }
+        } catch (syncError) {
+          console.warn("updateUserProfile: 記事同期エラー:", syncError);
+          // エラーが発生しても連携自体は成功として扱う
+          const successMessage = `Zennのアカウント連携が完了しました。記事データは後ほど同期されます。`;
+          showSuccessMessage(successMessage);
+        }
+
+        setReleaseMessage("");
+
+        // HeroContextのデータを更新
+        try {
+          console.log("updateUserProfile: HeroContextのデータを更新します");
+          await refetchHeroData();
+          console.log("updateUserProfile: HeroContextデータ更新完了");
+        } catch (heroError) {
+          console.warn(
+            "updateUserProfile: HeroContextデータ更新エラー:",
+            heroError
+          );
+        }
+
+        return true;
       } else {
         setError(data.error || "プロフィールの更新に失敗しました");
+        return false;
       }
     } catch (err) {
       console.error("プロフィール更新エラー:", err);
       setError("エラーが発生しました");
+      return false;
     } finally {
       setLoading(false);
     }
@@ -479,8 +458,33 @@ export default function ConnectionPageClient() {
           showSuccessMessage(successMessage);
           setReleaseMessage("");
         } else {
-          // ユーザープロフィールを更新
-          await updateUserProfile();
+          // ユーザープロフィールを更新してから、最新のユーザー情報を取得
+          const updateResult = await updateUserProfile();
+          if (updateResult) {
+            // 最新のユーザー情報を再取得
+            await fetchLatestUserInfo();
+          }
+        }
+
+        // HeroContextのキャッシュを無効化して最新データを取得
+        // （HeroContextが存在する場合のみ）
+        if (
+          typeof window !== "undefined" &&
+          window.location.pathname === "/connection"
+        ) {
+          // ページ遷移なしでHeroContextのデータを更新
+          console.log(
+            "ConnectionPageClient: HeroContextのデータ更新をトリガー"
+          );
+        }
+
+        // HeroContextのデータを更新（Zenn連携後にレベル情報を最新にする）
+        try {
+          console.log("ConnectionPageClient: HeroContextのデータを更新します");
+          await refetchHeroData();
+          console.log("ConnectionPageClient: HeroContextデータ更新完了");
+        } catch (heroError) {
+          console.warn("HeroContextデータ更新エラー:", heroError);
         }
       } else {
         setError(
@@ -646,6 +650,12 @@ export default function ConnectionPageClient() {
     };
   }, [user, userInfo]);
 
+  // ユーザー名が有効な形式かチェックする関数
+  const isValidZennUsernameFormat = (username: string): boolean => {
+    // Zennのユーザー名に使える文字は英数字、アンダースコア、ハイフンのみ
+    return /^[a-zA-Z0-9_-]+$/.test(username);
+  };
+
   return (
     <>
       <h2 className={`${styles["profile-title"]}`}>連携</h2>
@@ -653,78 +663,14 @@ export default function ConnectionPageClient() {
         {!isLoaded ? (
           <div className="p-4 text-center">読み込み中...</div>
         ) : !user ? (
-          <div
-            className={`px-4 py-6 grid gap-8 ${styles["connection-container"]}`}
-          >
-            <div className={`${styles["auth-content"]}`}>
-              <AuthButton />
-              <p className="text-center">
-                アプリを利用するには「ログイン」または「新規登録」が必要です。
-              </p>
-            </div>
-            <hr className={styles["center-line"]} />
-            <div
-              className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}
-            >
-              <label
-                htmlFor="zenn-username"
-                className="text-sm opacity-40 select-none"
-              >
-                Zennユーザー名
-                <strong className="text-[#ffc630]">（必須）</strong>
-              </label>
-              <div className="flex gap-3 opacity-40 select-none">
-                <input
-                  id="zenn-username"
-                  type="text"
-                  value=""
-                  onChange={() => {}}
-                  className="flex-1 border-[3px] border-gray-400 rounded px-3 py-2 text-black cursor-not-allowed"
-                  placeholder="例: aoyamadev"
-                  disabled
-                />
-                <button
-                  onClick={() => updateUserProfile()}
-                  className={`${styles["connect-button"]} ${
-                    !loading && zennUsername ? styles["active"] : ""
-                  } ${
-                    loading || !zennUsername
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                  disabled={loading || !zennUsername}
-                >
-                  <div className={`${styles["connect-button-content"]}`}>
-                    {loading ? "連携中..." : "連携"}
-                  </div>
-                </button>
-              </div>
-              <p className="text-center mt-[12px]">
-                先に「ログイン」または「新規登録」を完了してください。
-              </p>
-            </div>
-          </div>
+          <Connection.ConnectionAuthSection
+            loading={loading}
+            zennUsername={zennUsername}
+            updateUserProfile={updateUserProfile}
+          />
         ) : (
           <div className={styles["profile-info-container"]}>
-            <div className={styles["profile-info-header"]}>
-              {user.id && (
-                <UserIconButton
-                  avatarSize="w-[75px] h-[75px] md:w-[95px] md:h-[95px]"
-                  showName={false}
-                  loaderSize="w-[75px] h-[75px] md:w-[95px] md:h-[95px]"
-                  classnameButton=""
-                />
-              )}
-
-              <div className="grid grid-cols-1 gap-1">
-                <h3 className="text-xl font-bold tracking-wide">
-                  {user.firstName} {user.lastName}
-                </h3>
-                <p className="text-sm tracking-wide">
-                  {user.emailAddresses[0].emailAddress}
-                </p>
-              </div>
-            </div>
+            <Connection.ConnectionUserProfileHeader user={user} />
 
             <hr className={styles["center-line"]} />
 
@@ -733,75 +679,14 @@ export default function ConnectionPageClient() {
             ) : userInfo ? (
               userInfo.zennUsername ? (
                 <>
-                  <div className={styles["zenn-info-container"]}>
-                    <div className={styles["zenn-info-content"]}>
-                      <h3 className={styles["zenn-info-title"]}>
-                        Zenn連携情報
-                      </h3>
-                      <div className="grid gap-6 md:gap-3">
-                        <dl className={styles["user-info-list"]}>
-                          <dt className={styles["user-info-title"]}>
-                            <Image
-                              src="/images/connection/user-icon.svg"
-                              alt="ユーザーアイコン"
-                              width={17}
-                              height={17}
-                              className={styles["user-info-icon"]}
-                            />
-                            <span className={styles["user-info-title-text"]}>
-                              ユーザー名：
-                            </span>
-                          </dt>
-                          <dd className={styles["user-info-description"]}>
-                            @{userInfo.zennUsername}
-                          </dd>
-                        </dl>
-
-                        <dl className={styles["article-count-list"]}>
-                          <dt className={styles["article-count-title"]}>
-                            <Image
-                              src="/images/connection/article.svg"
-                              alt="記事のアイコン"
-                              width={17}
-                              height={17}
-                              className={styles["article-count-icon"]}
-                            />
-                            <span
-                              className={styles["article-count-title-text"]}
-                            >
-                              投稿した記事：
-                            </span>
-                          </dt>
-                          <dd className={styles["article-count-description"]}>
-                            {loading ? "..." : userInfo.zennArticleCount}件
-                          </dd>
-                        </dl>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles["back-to-dashboard-link-container"]}>
-                    <div className={styles["back-to-dashboard-link-box"]}>
-                      <Link
-                        href="/dashboard"
-                        className={`${styles["back-to-dashboard-link"]}`}
-                        onClick={(e) => handleNavigation(e, "/dashboard")}
-                      >
-                        <Image
-                          src="/images/arrow/arrow-icon.svg"
-                          alt="冒険をはじめる"
-                          width={17}
-                          height={17}
-                          className={styles["back-to-dashboard-link-icon"]}
-                        />
-                        <span className={styles["back-to-dashboard-link-text"]}>
-                          冒険をはじめる
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-
-                  <Connection.ButtonGroup
+                  <Connection.ConnectionZennInfoDisplay
+                    userInfo={userInfo}
+                    loading={loading}
+                  />
+                  <Connection.ConnectionNavigationToAdventure
+                    onNavigate={handleNavigation}
+                  />
+                  <Connection.ConnectionButtonGroup
                     loading={loading}
                     userInfo={userInfo}
                     onSync={() => syncZennArticles(false)}
@@ -809,7 +694,7 @@ export default function ConnectionPageClient() {
                   />
                 </>
               ) : (
-                <Connection.ZennConnectionForm
+                <Connection.ConnectionZennForm
                   zennUsername={zennUsername}
                   loading={loading}
                   error={error}
@@ -819,7 +704,7 @@ export default function ConnectionPageClient() {
                 />
               )
             ) : (
-              <Connection.ZennConnectionForm
+              <Connection.ConnectionZennForm
                 zennUsername={zennUsername}
                 loading={loading}
                 error={error}
@@ -829,15 +714,11 @@ export default function ConnectionPageClient() {
               />
             )}
 
-            {error && (
-              <strong className={styles["error-message"]}>{error}</strong>
-            )}
-            {!error && success && (
-              <p className={styles["success-message"]}>{success}</p>
-            )}
-            {!error && !success && releaseMessage && (
-              <p className={styles["release-message"]}>{releaseMessage}</p>
-            )}
+            <Connection.ConnectionMessageDisplay
+              error={error}
+              success={success}
+              releaseMessage={releaseMessage}
+            />
           </div>
         )}
       </div>

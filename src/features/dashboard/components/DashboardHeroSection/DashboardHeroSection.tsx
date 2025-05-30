@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./DashboardHeroSection.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { useRouter } from "next/navigation";
-import { fetchZennArticles } from "@/features/posts/services";
+import { useHero } from "@/contexts/HeroContext";
 
 type DashboardHeroSectionProps = {
   dashboardData: DashboardData;
@@ -15,39 +15,7 @@ type DashboardHeroSectionProps = {
 
 const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
   const router = useRouter();
-  const [zennArticleCount, setZennArticleCount] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchZennData = async () => {
-      try {
-        setIsLoading(true);
-        // ユーザー情報を取得
-        const userRes = await fetch("/api/user");
-        const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        // 記事データを取得
-        const articlesData = await fetchZennArticles(username, { limit: 100 });
-        // 取得した記事の数を設定
-        setZennArticleCount(articlesData.length);
-      } catch (err) {
-        console.error("Zenn記事の取得エラー:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchZennData();
-  }, []);
-
-  // 1投稿で1レベル上がるように変更
-  const calculatedLevel = zennArticleCount;
+  const { heroData, isLoading, error } = useHero();
 
   // 経験値ゲージを常に40%表示に固定
   const expProgressPercent = isLoading ? 0 : 40;
@@ -70,10 +38,10 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
     playClickSound(() => router.push(path));
   };
 
-  // 表示するレベル値を決定
+  // 表示するレベル値を決定（HeroContextから取得）
   const displayLevel = isLoading
     ? dashboardData.heroData.level
-    : calculatedLevel;
+    : heroData.level;
 
   return (
     <section className={`${styles["hero-info-section"]}`}>
@@ -116,6 +84,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
                   >
                     {isLoading ? (
                       <div className={styles["loading-indicator"]}>...</div>
+                    ) : error ? (
+                      <div className={styles["loading-indicator"]}>1</div>
                     ) : (
                       displayLevel
                     )}

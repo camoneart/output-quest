@@ -1,9 +1,9 @@
 import React from "react";
 import { RefreshCcw, Unplug, Newspaper } from "lucide-react";
-import styles from "./ButtonGroup.module.css";
+import styles from "./ConnectionButtonGroup.module.css";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 
-interface ButtonGroupProps {
+interface ConnectionButtonGroupProps {
   loading: boolean;
   userInfo: {
     zennUsername?: string;
@@ -15,7 +15,7 @@ interface ButtonGroupProps {
   onRelease: () => void;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({
+const ConnectionButtonGroup: React.FC<ConnectionButtonGroupProps> = ({
   loading,
   userInfo,
   onSync,
@@ -84,4 +84,4 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   );
 };
 
-export default ButtonGroup;
+export default ConnectionButtonGroup;

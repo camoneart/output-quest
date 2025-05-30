@@ -7,6 +7,7 @@ import Image from "next/image";
 import { fetchZennArticles } from "@/features/posts/services";
 import { PostData } from "@/features/posts/types";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import { useHero } from "@/contexts/HeroContext";
 
 // カテゴリー表示用のマッピング
 const CATEGORY_DISPLAY = {
@@ -24,8 +25,10 @@ const PLATFORM_INFO = {
 
 const DashboardActivitySection = () => {
   const [zennArticles, setZennArticles] = useState<PostData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isArticlesLoading, setIsArticlesLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [zennUsername, setZennUsername] = useState<string | null>(null);
+  const { isLoading: isHeroLoading } = useHero();
 
   const { playClickSound } = useClickSound({
     soundPath: "/audio/click-sound_decision.mp3",
@@ -33,23 +36,47 @@ const DashboardActivitySection = () => {
     delay: 190,
   });
 
+  // まずユーザー情報を取得してzennUsernameを設定
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchUserInfo = async () => {
+      if (isHeroLoading) {
+        return;
+      }
+
       try {
-        setIsLoading(true);
-        // 連携済みユーザー情報を取得
         const userRes = await fetch("/api/user");
         const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        // Zennの記事データを取得
-        const articlesData = await fetchZennArticles(username, { limit: 5 });
 
+        if (userData.success && userData.user.zennUsername) {
+          setZennUsername(userData.user.zennUsername);
+        } else {
+          setError("Zennアカウントが連携されていません");
+        }
+      } catch (err) {
+        console.error("ユーザー情報取得エラー:", err);
+        setError("ユーザー情報の取得に失敗しました");
+      }
+    };
+
+    fetchUserInfo();
+  }, [isHeroLoading]);
+
+  // zennUsernameが取得できたら記事を取得
+  useEffect(() => {
+    const fetchArticles = async () => {
+      if (!zennUsername) {
+        setIsArticlesLoading(false);
+        return;
+      }
+
+      try {
+        setIsArticlesLoading(true);
+        setError(null);
+
+        // Zennの記事データを取得
+        const articlesData = await fetchZennArticles(zennUsername, {
+          limit: 5,
+        });
         setZennArticles(articlesData);
       } catch (err) {
         console.error("Zenn記事の取得エラー:", err);
@@ -59,12 +86,12 @@ const DashboardActivitySection = () => {
             : "Zennの記事データの取得中にエラーが発生しました。"
         );
       } finally {
-        setIsLoading(false);
+        setIsArticlesLoading(false);
       }
     };
 
     fetchArticles();
-  }, []);
+  }, [zennUsername]);
 
   // 日付を表示用にフォーマットする
   const formatDate = (date: string | Date | undefined): string => {
@@ -83,6 +110,9 @@ const DashboardActivitySection = () => {
       day: "numeric",
     });
   };
+
+  // 読み込み状態の統合判定
+  const isLoading = isHeroLoading || isArticlesLoading;
 
   return (
     <section className={`${styles["recent-activity-section"]}`}>
@@ -176,7 +206,9 @@ const DashboardActivitySection = () => {
           ))}
         </ul>
       ) : (
-        <p className="px-[25px] pt-[20px]">投稿された記事がありません。</p>
+        <p className="p-[5px] text-center text-sm">
+          投稿された記事がありません。
+        </p>
       )}
     </section>
   );

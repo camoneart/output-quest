@@ -11,12 +11,12 @@ import {
 } from "@/features/party/data/partyMemberData";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { useRouter } from "next/navigation";
-import { fetchZennArticles } from "@/features/posts/services";
+import { useHero } from "@/contexts/HeroContext";
 
 const DashboardLatestPartyMemberSection: React.FC = () => {
   const [memberId, setMemberId] = useState<number | null>(null);
   const [isLoadingMember, setIsLoadingMember] = useState<boolean>(true);
-  const [memberError, setMemberError] = useState<string | null>(null);
+  const { heroData, isLoading: isHeroLoading, error } = useHero();
   const router = useRouter();
 
   const { playClickSound } = useClickSound({
@@ -26,44 +26,39 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
   });
 
   useEffect(() => {
-    const fetchMember = async () => {
+    const calculateMember = () => {
+      // HeroContextがまだ読み込み中の場合は待機
+      if (isHeroLoading) {
+        return;
+      }
+
       try {
         setIsLoadingMember(true);
-        const userRes = await fetch("/api/user");
-        const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        // 最新のZenn記事数を取得
-        const articles = await fetchZennArticles(username, { fetchAll: true });
-        const articleCount = articles.length;
+
+        // HeroContextから記事数（レベル）を取得
+        const articleCount = heroData.level;
+
         const acquiredIds = Object.entries(heroLevelAndMemberRelation)
           .filter(([, reqLevel]) => articleCount >= reqLevel)
           .map(([id]) => parseInt(id, 10));
+
         if (acquiredIds.length > 0) {
           setMemberId(Math.max(...acquiredIds));
         } else {
           setMemberId(null);
         }
       } catch (err) {
-        console.error("仲間取得エラー:", err);
-        setMemberError(
-          err instanceof Error
-            ? err.message
-            : "仲間データの取得に失敗しました。"
-        );
+        console.error("仲間計算エラー:", err);
       } finally {
         setIsLoadingMember(false);
       }
     };
-    fetchMember();
-  }, []);
 
-  if (isLoadingMember || memberError) {
+    calculateMember();
+  }, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
+
+  // 読み込み状態またはエラー時は何も表示しない
+  if (isHeroLoading || isLoadingMember || error) {
     return null;
   }
 

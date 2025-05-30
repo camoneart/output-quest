@@ -1,0 +1,10 @@
+.profile-info-header {
+  display: block flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  gap: 15px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}

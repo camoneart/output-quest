@@ -1,0 +1,115 @@
+.zenn-info-container {
+  min-width: 450px;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  margin-block-start: 10px;
+  border: 8px dashed var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown-dark);
+  border-radius: var(--border-radius-small);
+  padding-inline: 5px;
+  padding-block: 5px;
+
+  @media (width < 768px) {
+    min-width: 250px;
+  }
+}
+
+.zenn-info-content {
+  display: block grid;
+  place-items: center;
+  gap: 20px;
+  border: 2px solid var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown);
+  padding-inline: 20px;
+  padding-block: 15px 25px;
+
+  @media (width < 768px) {
+    gap: 30px;
+  }
+}
+
+.zenn-info-title {
+  width: fit-content;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-x-tight);
+  background-color: var(--color-zenn);
+  border: 2px solid var(--color-primary-white);
+  border-radius: var(--border-radius-small);
+  padding-block: 6px 7px;
+  padding-inline: 12px;
+}
+
+.user-info-list {
+  width: fit-content;
+  display: block flex;
+  gap: 3px;
+
+  @media (width < 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.user-info-title {
+  display: block flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-x-tight);
+}
+
+.user-info-title-text {
+  padding-block-end: 2px;
+}
+
+.user-info-icon {
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 1px var(--color-primary-white));
+}
+
+.user-info-description {
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-x-tight);
+  letter-spacing: 0.05em;
+}
+
+.article-count-list {
+  display: block flex;
+  gap: 3px;
+
+  @media (width < 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.article-count-title {
+  display: block flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-x-tight);
+}
+
+.article-count-title-text {
+  padding-block-end: 2px;
+}
+
+.article-count-icon {
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 1px var(--color-primary-white));
+}
+
+.article-count-description {
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-x-tight);
+}
+

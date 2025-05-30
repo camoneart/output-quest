@@ -1,0 +1,28 @@
+.release-message,
+.error-message,
+.success-message {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-primary-white);
+  border: 2px solid var(--color-primary-white);
+  padding-block: 12px;
+  padding-inline: 24px;
+  border-radius: 4px;
+  width: fit-content;
+  height: fit-content;
+  margin-inline: auto;
+  place-self: end;
+}
+
+.release-message {
+  background-color: var(--bg-color-message-release);
+}
+
+.error-message {
+  background-color: var(--bg-color-message-error);
+}
+
+.success-message {
+  background-color: var(--bg-color-message-success);
+}

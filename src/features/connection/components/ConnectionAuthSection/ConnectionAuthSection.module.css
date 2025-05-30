@@ -1,0 +1,41 @@
+.connection-container {
+  grid-template-rows: auto auto auto 1fr;
+}
+
+.auth-content {
+  display: block grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+}
+
+.zenn-connect-area {
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+}
+
+.connect-button {
+  background-color: var(--color-primary-brown-dark);
+  border: 2px solid var(--color-primary-brown-light);
+  padding: 3px;
+  border-radius: 0.25rem;
+
+  &.active:hover {
+    .connect-button-content {
+      border: 1.5px solid var(--color-primary-yellow);
+    }
+  }
+}
+
+.connect-button-content {
+  background-color: var(--color-primary-brown);
+  border: 1.5px solid var(--color-primary-brown-light);
+  place-items: center;
+  padding-block: 5px;
+  padding-inline: 15px;
+  display: block grid;
+  transition: border 0.2s ease-in-out;
+}

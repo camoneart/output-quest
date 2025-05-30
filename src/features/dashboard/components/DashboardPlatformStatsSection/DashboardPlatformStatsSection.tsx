@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./DashboardPlatformStatsSection.module.css";
 import { DashboardData } from "../../types/dashboard.types";
-import { fetchZennArticles } from "@/features/posts/services";
+import { useHero } from "@/contexts/HeroContext";
 
 type DashboardPlatformStatsSectionProps = {
   dashboardData: DashboardData;
@@ -12,48 +12,12 @@ type DashboardPlatformStatsSectionProps = {
 const DashboardPlatformStatsSection = ({
   dashboardData,
 }: DashboardPlatformStatsSectionProps) => {
-  const [zennArticleCount, setZennArticleCount] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchZennData = async () => {
-      try {
-        setIsLoading(true);
-        // 連携済みユーザー情報を取得
-        const userRes = await fetch("/api/user");
-        const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        // 記事データを取得
-        const articlesData = await fetchZennArticles(username, { limit: 100 });
-
-        // 記事数を設定
-        setZennArticleCount(articlesData.length);
-      } catch (err) {
-        console.error("Zenn記事の取得エラー:", err);
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Zennの記事データの取得中にエラーが発生しました。"
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchZennData();
-  }, []);
+  const { heroData, isLoading, error } = useHero();
 
   // 実際のZennデータとモックデータを組み合わせてstatsを作成
   const zennStat = {
     platform: "Zenn",
-    count: isLoading ? dashboardData.postStats[0].count : zennArticleCount,
+    count: isLoading ? dashboardData.postStats[0].count : heroData.level,
     color: "#3ea8ff",
   };
 
@@ -75,9 +39,7 @@ const DashboardPlatformStatsSection = ({
                     読み込み中...
                   </span>
                 ) : error ? (
-                  <span className={`${styles["platform-stat-error"]}`}>
-                    ...
-                  </span>
+                  <span className={`${styles["platform-stat-error"]}`}>1</span>
                 ) : (
                   <>
                     <em className={`${styles["platform-stat-count-em"]}`}>

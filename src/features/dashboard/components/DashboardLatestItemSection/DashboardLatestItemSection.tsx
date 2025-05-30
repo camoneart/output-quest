@@ -11,12 +11,12 @@ import {
 } from "@/features/items/data/itemsData";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { useRouter } from "next/navigation";
-import { fetchZennArticles } from "@/features/posts/services";
+import { useHero } from "@/contexts/HeroContext";
 
 const DashboardLatestItemSection: React.FC = () => {
   const [itemId, setItemId] = useState<number | null>(null);
   const [isLoadingItem, setIsLoadingItem] = useState<boolean>(true);
-  const [itemError, setItemError] = useState<string | null>(null);
+  const { heroData, isLoading: isHeroLoading, error } = useHero();
   const router = useRouter();
 
   const { playClickSound } = useClickSound({
@@ -26,44 +26,39 @@ const DashboardLatestItemSection: React.FC = () => {
   });
 
   useEffect(() => {
-    const fetchItem = async () => {
+    const calculateItem = () => {
+      // HeroContextがまだ読み込み中の場合は待機
+      if (isHeroLoading) {
+        return;
+      }
+
       try {
         setIsLoadingItem(true);
-        const userRes = await fetch("/api/user");
-        const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        // 最新のZenn記事数を取得
-        const articles = await fetchZennArticles(username, { fetchAll: true });
-        const articleCount = articles.length;
+
+        // HeroContextから記事数（レベル）を取得
+        const articleCount = heroData.level;
+
         const acquiredIds = Object.entries(heroLevelAndItemRelation)
           .filter(([, reqLevel]) => articleCount >= reqLevel)
           .map(([id]) => parseInt(id, 10));
+
         if (acquiredIds.length > 0) {
           setItemId(Math.max(...acquiredIds));
         } else {
           setItemId(null);
         }
       } catch (err) {
-        console.error("アイテム取得エラー:", err);
-        setItemError(
-          err instanceof Error
-            ? err.message
-            : "アイテムデータの取得に失敗しました。"
-        );
+        console.error("アイテム計算エラー:", err);
       } finally {
         setIsLoadingItem(false);
       }
     };
-    fetchItem();
-  }, []);
 
-  if (isLoadingItem || itemError) {
+    calculateItem();
+  }, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
+
+  // 読み込み状態またはエラー時は何も表示しない
+  if (isHeroLoading || isLoadingItem || error) {
     return null;
   }
 
