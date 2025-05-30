@@ -1,34 +1,62 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
-import type { User } from "@prisma/client";
 
 // リクエストのキャッシュを無効化するためのヘッダー
 const NO_CACHE_HEADERS = {
   "Cache-Control": "no-store, max-age=0, must-revalidate",
   Pragma: "no-cache",
   Expires: "0",
+} as const;
+
+// データベース操作の最大試行回数
+const MAX_DB_RETRIES = 2;
+
+// リトライ機構付きデータベース操作
+const retryDbOperation = async <T>(
+  operation: () => Promise<T>,
+  maxRetries: number = MAX_DB_RETRIES
+): Promise<T> => {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      console.error(`DB操作失敗 (試行 ${attempt}/${maxRetries}):`, error);
+
+      if (attempt < maxRetries) {
+        // 指数バックオフで待機
+        const waitTime = 100 * Math.pow(2, attempt - 1);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+      }
+    }
+  }
+
+  throw lastError;
 };
 
 // Zenn連携を強制解除するAPI
 export async function DELETE(request: Request) {
-  // ------------------------------------------------------------
-  // Clerkの認証クッキーが失効している場合はリクエストボディの clerkId を利用
-  // ------------------------------------------------------------
-  const { userId } = await auth();
-  let targetUserId: string | null | undefined = userId;
+  const startTime = Date.now();
 
-  if (!targetUserId) {
-    try {
-      const body = await request.json();
-      if (body && typeof body.clerkId === "string") {
-        targetUserId = body.clerkId;
-      }
-    } catch {
-      // ボディが無い（＝JSONが読めない）場合は無視
-    }
-  }
   try {
+    // Clerkの認証クッキーが失効している場合はリクエストボディの clerkId を利用
+    const { userId } = await auth();
+    let targetUserId: string | null | undefined = userId;
+
+    if (!targetUserId) {
+      try {
+        const body = await request.json();
+        if (body && typeof body.clerkId === "string") {
+          targetUserId = body.clerkId;
+        }
+      } catch {
+        // ボディが無い（＝JSONが読めない）場合は無視
+      }
+    }
+
     console.log(`連携解除API呼び出し: userId=${targetUserId || "なし"}`);
 
     if (!targetUserId) {
@@ -45,58 +73,39 @@ export async function DELETE(request: Request) {
       );
     }
 
-    try {
-      // 該当ユーザーのデータを検索（clerkIdが一致するすべてのレコード）
+    // 最適化されたデータベース操作
+    const result = await retryDbOperation(async () => {
+      // 該当ユーザーのデータを検索（トランザクション外）
       console.log(`ユーザーID: ${targetUserId} の連携情報を検索します`);
 
-      // まずプリズマのコネクションをクリアして確実に最新データを取得
-      await prisma.$disconnect();
-      await prisma.$connect();
-
-      // すべてのユーザーデータを検索
-      const allUsers = await prisma.user.findMany({
+      const usersToUpdate = await prisma.user.findMany({
         where: {
           clerkId: targetUserId,
         },
-        take: 10, // 念のため上限を設定
+        select: {
+          id: true,
+          zennUsername: true,
+        },
+        take: 5, // 上限を設定してパフォーマンス向上
       });
 
-      console.log(`該当するユーザー数: ${allUsers.length}`);
+      console.log(`該当するユーザー数: ${usersToUpdate.length}`);
 
-      if (allUsers.length === 0) {
+      if (usersToUpdate.length === 0) {
         console.log(
           `ユーザー ${targetUserId} が見つかりません。連携解除処理はスキップします。`
         );
-        return NextResponse.json(
-          {
-            success: false,
-            message: "ユーザーが見つかりません",
-          },
-          { headers: NO_CACHE_HEADERS }
-        );
+        return {
+          success: false,
+          message: "ユーザーが見つかりません",
+          updatedCount: 0,
+        };
       }
 
-      // すべてのユーザーの連携を解除（連携状態に関わらず）
-      const updatePromises = allUsers.map((user: User) =>
-        prisma.user.update({
-          where: { id: user.id },
-          data: {
-            zennUsername: "",
-            zennArticleCount: 0,
-            level: 1,
-          },
-        })
-      );
-
-      // 全ての更新処理を並列実行
-      const results = await Promise.all(updatePromises);
-      console.log(`${results.length}人のユーザーの連携を解除しました`);
-
-      // 連携解除の完全性を確保するためにupdateManyも実行
-      const updateManyResult = await prisma.user.updateMany({
+      // 単一のupdateManyクエリで効率的に更新（トランザクション外）
+      const updateResult = await prisma.user.updateMany({
         where: {
           clerkId: targetUserId,
-          zennUsername: { not: "" },
         },
         data: {
           zennUsername: "",
@@ -105,68 +114,92 @@ export async function DELETE(request: Request) {
         },
       });
 
-      console.log(`追加で${updateManyResult.count}件のレコードを更新しました`);
+      console.log(`${updateResult.count}件のレコードを更新しました`);
 
-      // 念のためキャッシュをクリア
-      await prisma.$disconnect();
-      await prisma.$connect();
-
-      // 最終確認
-      const finalCheck = await prisma.user.findFirst({
+      // 最終確認（必要な場合のみ）
+      const remainingConnections = await prisma.user.count({
         where: {
           clerkId: targetUserId,
           zennUsername: { not: "" },
         },
       });
 
-      if (finalCheck) {
-        console.error(
-          `最終確認で連携が残っています: ${finalCheck.zennUsername}`
-        );
+      if (remainingConnections > 0) {
+        console.warn(`最終確認で${remainingConnections}件の連携が残っています`);
 
-        // 本当に最後の手段として直接SQLを実行
-        try {
-          await prisma.$executeRaw`UPDATE "User" SET "zennUsername" = '', "zennArticleCount" = 0, "level" = 1 WHERE "clerkId" = ${targetUserId}`;
-          console.log("直接SQLによる更新を実行しました");
-        } catch (sqlErr) {
-          console.error("SQL実行エラー:", sqlErr);
-        }
-      } else {
-        console.log("最終確認OK: すべての連携が解除されています");
-      }
+        // 残りの連携を強制的に解除
+        const finalUpdate = await prisma.user.updateMany({
+          where: {
+            clerkId: targetUserId,
+            zennUsername: { not: "" },
+          },
+          data: {
+            zennUsername: "",
+            zennArticleCount: 0,
+            level: 1,
+          },
+        });
 
-      return NextResponse.json(
-        {
+        console.log(`追加で${finalUpdate.count}件を更新しました`);
+
+        return {
           success: true,
           message: "Zenn連携を強制解除しました",
-          updatedCount: results.length + updateManyResult.count,
-        },
-        { headers: NO_CACHE_HEADERS }
-      );
-    } catch (dbError) {
-      console.error("データベースエラー:", dbError);
-      return NextResponse.json(
-        {
-          success: false,
-          error: "データベース処理中にエラーが発生しました",
-          details: dbError instanceof Error ? dbError.message : String(dbError),
-        },
-        {
-          status: 500,
-          headers: NO_CACHE_HEADERS,
-        }
-      );
-    }
+          updatedCount: updateResult.count + finalUpdate.count,
+        };
+      }
+
+      console.log("連携解除完了: すべての連携が正常に解除されました");
+
+      return {
+        success: true,
+        message: "Zenn連携を強制解除しました",
+        updatedCount: updateResult.count,
+      };
+    });
+
+    const elapsedTime = Date.now() - startTime;
+    console.log(`連携解除処理完了。処理時間: ${elapsedTime}ms`);
+
+    return NextResponse.json(result, {
+      headers: NO_CACHE_HEADERS,
+    });
   } catch (error) {
-    console.error("Zenn連携強制解除エラー:", error);
+    const elapsedTime = Date.now() - startTime;
+    console.error(
+      "Zenn連携強制解除エラー:",
+      error,
+      `処理時間: ${elapsedTime}ms`
+    );
+
+    // エラータイプに基づいた適切なレスポンス
+    let errorMessage = "Zenn連携の強制解除に失敗しました";
+    let statusCode = 500;
+
+    if (error && typeof error === "object" && "code" in error) {
+      const prismaError = error as { code?: string };
+      switch (prismaError.code) {
+        case "P2002":
+          errorMessage = "データベース制約エラーが発生しました";
+          statusCode = 409;
+          break;
+        case "P2025":
+          errorMessage = "指定されたユーザーが見つかりません";
+          statusCode = 404;
+          break;
+        default:
+          errorMessage = "データベース処理中にエラーが発生しました";
+      }
+    }
+
     return NextResponse.json(
       {
         success: false,
-        error: "Zenn連携の強制解除に失敗しました",
+        error: errorMessage,
         details: error instanceof Error ? error.message : String(error),
       },
       {
-        status: 500,
+        status: statusCode,
         headers: NO_CACHE_HEADERS,
       }
     );

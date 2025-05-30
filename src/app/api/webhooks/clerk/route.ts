@@ -9,13 +9,33 @@ type UserUpdateData = {
   email?: string;
   username?: string;
   displayName?: string;
-  profileImage?: string | null; // profileImage は null も許容
+  profileImage?: string | null;
 };
 
-// ユーザー作成のためのロック機構（メモリベース、簡易版）
-const userCreationLocks = new Map<string, Promise<void>>();
+// より効率的なインメモリキャッシュ
+const userCreationCache = new Map<
+  string,
+  {
+    promise: Promise<void>;
+    timestamp: number;
+  }
+>();
 
-// ユーザー作成処理の冪等性を確保する関数
+// キャッシュのクリーンアップ間隔（5分）
+const CACHE_CLEANUP_INTERVAL = 5 * 60 * 1000;
+const CACHE_ENTRY_TTL = 2 * 60 * 1000; // 2分でエントリを期限切れ
+
+// 定期的なキャッシュクリーンアップ
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, entry] of userCreationCache.entries()) {
+    if (now - entry.timestamp > CACHE_ENTRY_TTL) {
+      userCreationCache.delete(key);
+    }
+  }
+}, CACHE_CLEANUP_INTERVAL);
+
+// 最適化されたユーザー作成処理
 async function ensureUserExists(
   clerkId: string,
   userData?: {
@@ -25,20 +45,21 @@ async function ensureUserExists(
     profileImage?: string;
   }
 ) {
-  // 既存のロックがあるかチェック
-  const existingLock = userCreationLocks.get(clerkId);
-  if (existingLock) {
+  // 既存のキャッシュエントリをチェック
+  const existingEntry = userCreationCache.get(clerkId);
+  if (existingEntry) {
     console.log(`ユーザー ${clerkId} の作成処理を待機中...`);
-    await existingLock;
+    await existingEntry.promise;
     return;
   }
 
-  // 新しいロックを作成
-  const lock = (async () => {
+  // 新しい処理を作成
+  const userCreationPromise = (async () => {
     try {
-      // まず既存ユーザーをチェック
+      // 効率的な存在確認（selectを使用）
       const existingUser = await prisma.user.findUnique({
         where: { clerkId },
+        select: { id: true },
       });
 
       if (existingUser) {
@@ -70,56 +91,60 @@ async function ensureUserExists(
       console.error(`ユーザー ${clerkId} の作成エラー:`, error);
       throw error;
     } finally {
-      // ロックを削除
-      userCreationLocks.delete(clerkId);
+      // キャッシュから削除
+      userCreationCache.delete(clerkId);
     }
   })();
 
-  userCreationLocks.set(clerkId, lock);
-  await lock;
+  // キャッシュに追加
+  userCreationCache.set(clerkId, {
+    promise: userCreationPromise,
+    timestamp: Date.now(),
+  });
+
+  await userCreationPromise;
 }
 
 export async function POST(request: Request) {
-  // Clerkからのウェブフックを検証するためのシークレット
-  // 環境変数にCLERK_WEBHOOK_SIGNING_SECRETを設定する必要がある
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
+  const startTime = Date.now();
 
+  // 環境変数チェック
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
   if (!WEBHOOK_SECRET) {
     console.error("CLERK_WEBHOOK_SIGNING_SECRETが設定されていません");
     return new NextResponse(
       "Webhook Error: CLERK_WEBHOOK_SIGNING_SECRET not set",
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 
   try {
-    // リクエストヘッダーを取得
+    // ヘッダー取得の最適化
     const headersList = await headers();
-    const svix_id = headersList.get("svix-id");
-    const svix_timestamp = headersList.get("svix-timestamp");
-    const svix_signature = headersList.get("svix-signature");
+    const svixHeaders = {
+      id: headersList.get("svix-id"),
+      timestamp: headersList.get("svix-timestamp"),
+      signature: headersList.get("svix-signature"),
+    };
 
     // 必要なヘッダーがない場合はエラー
-    if (!svix_id || !svix_timestamp || !svix_signature) {
+    if (!svixHeaders.id || !svixHeaders.timestamp || !svixHeaders.signature) {
       return new NextResponse("Error occurred -- no svix headers", {
         status: 400,
       });
     }
 
-    const payload = await request.text(); // raw body needed for Svix signature verification
+    const payload = await request.text();
 
-    // Svix Webhook インスタンスを作成
+    // Svix Webhook インスタンスを作成して署名検証
     const wh = new Webhook(WEBHOOK_SECRET);
     let evt: WebhookEvent;
 
-    // 署名を検証
     try {
       evt = wh.verify(payload, {
-        "svix-id": svix_id,
-        "svix-timestamp": svix_timestamp,
-        "svix-signature": svix_signature,
+        "svix-id": svixHeaders.id,
+        "svix-timestamp": svixHeaders.timestamp,
+        "svix-signature": svixHeaders.signature,
       }) as WebhookEvent;
     } catch (err) {
       console.error("Webhook署名の検証エラー:", err);
@@ -128,13 +153,11 @@ export async function POST(request: Request) {
       });
     }
 
-    // ウェブフックイベントの種類を確認
     const { type, data } = evt;
     console.log(`Webhook受信: ${type} for user ${data.id || "unknown"}`);
 
     switch (type) {
       case "user.created": {
-        // ユーザー作成時の処理
         const {
           id,
           email_addresses,
@@ -144,31 +167,27 @@ export async function POST(request: Request) {
           last_name,
         } = data;
 
-        // メールアドレスを取得 (プライマリまたは最初のメールアドレス)
-        const primaryEmail = email_addresses.find(
-          (e) => e.id === data.primary_email_address_id
-        )?.email_address;
-        const email = primaryEmail || email_addresses[0]?.email_address;
+        // メールアドレス取得の最適化
+        const primaryEmail =
+          email_addresses.find((e) => e.id === data.primary_email_address_id)
+            ?.email_address || email_addresses[0]?.email_address;
 
-        if (!email) {
+        if (!primaryEmail) {
           console.error(`Webhook user.created: Email not found for user ${id}`);
           return new NextResponse("Webhook Error: Email not found", {
             status: 400,
           });
         }
 
-        // ユーザー名の設定
+        // 表示名の効率的な生成
         const userName = username || `user_${id.substring(0, 8)}`;
         const displayName = first_name
-          ? last_name
-            ? `${first_name} ${last_name}`
-            : first_name
+          ? `${first_name}${last_name ? ` ${last_name}` : ""}`
           : userName;
 
-        // 改善されたユーザー作成処理
         await ensureUserExists(id, {
           username: userName,
-          email,
+          email: primaryEmail,
           displayName,
           profileImage: image_url,
         });
@@ -178,7 +197,6 @@ export async function POST(request: Request) {
       }
 
       case "user.updated": {
-        // ユーザー更新時の処理
         const {
           id,
           email_addresses,
@@ -189,27 +207,20 @@ export async function POST(request: Request) {
           last_name,
         } = data;
 
-        // メールアドレスを取得 (プライマリまたは最初のメールアドレス)
-        // primary_email_address_id が payload に含まれているか確認
-        const primaryEmailPayload = email_addresses.find(
-          (e) => e.id === primary_email_address_id
-        );
-        const currentEmail = primaryEmailPayload
-          ? primaryEmailPayload.email_address
-          : email_addresses[0]?.email_address;
+        // メールアドレス取得の最適化
+        const currentEmail =
+          email_addresses.find((e) => e.id === primary_email_address_id)
+            ?.email_address || email_addresses[0]?.email_address;
 
-        // ユーザー名の設定
-        const userName = username || undefined;
+        // 表示名の効率的な生成
         const displayName = first_name
-          ? last_name
-            ? `${first_name} ${last_name}`
-            : first_name
+          ? `${first_name}${last_name ? ` ${last_name}` : ""}`
           : undefined;
 
-        // 更新データの準備（undefinedのフィールドは更新しない）
+        // 更新データの準備（undefinedのフィールドは除外）
         const updateData: UserUpdateData = {};
         if (currentEmail) updateData.email = currentEmail;
-        if (userName) updateData.username = userName;
+        if (username) updateData.username = username;
         if (displayName) updateData.displayName = displayName;
         if (image_url !== undefined) updateData.profileImage = image_url;
 
@@ -222,39 +233,49 @@ export async function POST(request: Request) {
             });
             console.log(`ユーザー更新: ${id}`);
           } catch (error) {
-            console.error(`ユーザー更新エラー: ${id}`, error);
+            // ユーザーが存在しない場合の特別処理
+            if (
+              error &&
+              typeof error === "object" &&
+              "code" in error &&
+              (error as { code?: string }).code === "P2025"
+            ) {
+              console.warn(`ユーザー更新: ${id} が存在しません（スキップ）`);
+            } else {
+              console.error(`ユーザー更新エラー: ${id}`, error);
+            }
           }
         }
         break;
       }
 
       case "user.deleted": {
-        // ユーザー削除時の処理
-        const { id, deleted } = data; // deleted フラグも考慮
+        const { id } = data;
         if (!id) {
           console.error("Webhook user.deleted: ID not found in payload");
           return new NextResponse("Webhook Error: ID not found", {
             status: 400,
           });
         }
+
         try {
-          // ユーザーが存在するか確認してから削除 (オプショナルだが安全)
-          const existingUser = await prisma.user.findUnique({
+          // 楽観的削除（存在チェックなし）
+          await prisma.user.delete({
             where: { clerkId: id },
           });
-          if (existingUser) {
-            await prisma.user.delete({
-              where: { clerkId: id },
-            });
-            console.log(`ユーザー削除: ${id}`);
-          } else if (deleted) {
-            // Clerk側で削除済みだがDBに存在しない場合 (同期漏れの可能性)
-            console.log(`ユーザー削除済み (Clerk上): ${id}, DBにレコードなし`);
-          } else {
-            console.log(`ユーザー削除要求: ${id}, DBにレコードなし`);
-          }
+          console.log(`ユーザー削除: ${id}`);
         } catch (error) {
-          console.error(`ユーザー削除エラー: ${id}`, error);
+          // ユーザーが存在しない場合は警告のみ
+          if (
+            error &&
+            typeof error === "object" &&
+            "code" in error &&
+            (error as { code?: string }).code === "P2025"
+          ) {
+            console.warn(`ユーザー削除: ${id} が既に削除されています`);
+          } else {
+            console.error(`ユーザー削除エラー: ${id}`, error);
+          }
         }
         break;
       }
@@ -264,9 +285,13 @@ export async function POST(request: Request) {
         console.log(`その他のウェブフックイベント: ${type}`);
     }
 
+    const elapsedTime = Date.now() - startTime;
+    console.log(`Webhook処理完了: ${type}, 処理時間: ${elapsedTime}ms`);
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("ウェブフックエラー:", error);
+    const elapsedTime = Date.now() - startTime;
+    console.error("ウェブフックエラー:", error, `処理時間: ${elapsedTime}ms`);
     return NextResponse.json(
       { success: false, error: "ウェブフック処理に失敗しました" },
       { status: 500 }
