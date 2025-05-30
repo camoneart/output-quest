@@ -6,6 +6,8 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useMemo,
+  useRef,
   ReactNode,
 } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -24,115 +26,282 @@ type HeroContextType = {
 // Contextの作成
 const HeroContext = createContext<HeroContextType | undefined>(undefined);
 
+// キャッシュキーとタイムスタンプを管理する型
+type CacheEntry = {
+  data: HeroData;
+  timestamp: number;
+  userId: string;
+};
+
+// キャッシュの有効期間（5分）
+const CACHE_DURATION = 5 * 60 * 1000;
+
+// メモリキャッシュ
+const heroDataCache = new Map<string, CacheEntry>();
+
 // Providerコンポーネント
 export const HeroProvider = ({ children }: { children: ReactNode }) => {
   const { user, isLoaded } = useUser();
   const [heroData, setHeroData] = useState<HeroData>({
     ...strengthHeroData,
-    level: 1, // 初期値は1に設定
+    level: 1,
   });
   const [isLoading, setIsLoading] = useState(true);
-  // `setError` is unused for now, keep the state read‑only
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // 記事データを取得してレベルを設定
+  // AbortControllerのrefを管理
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // 前回のユーザーIDを記録してユーザー変更を検知
+  const prevUserIdRef = useRef<string | null>(null);
+
+  // キャッシュからデータを取得する関数
+  const getCachedHeroData = useCallback((userId: string): HeroData | null => {
+    const cached = heroDataCache.get(userId);
+    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      return cached.data;
+    }
+    // 期限切れのキャッシュを削除
+    if (cached) {
+      heroDataCache.delete(userId);
+    }
+    return null;
+  }, []);
+
+  // キャッシュにデータを保存する関数
+  const setCachedHeroData = useCallback((userId: string, data: HeroData) => {
+    heroDataCache.set(userId, {
+      data,
+      timestamp: Date.now(),
+      userId,
+    });
+  }, []);
+
+  // リトライロジックを最適化した記事データ取得関数
   const getZennArticlesCount = useCallback(
-    async (retryCount = 0) => {
+    async (retryCount = 0, signal?: AbortSignal) => {
+      // ユーザー情報が読み込まれていない場合は待機
       if (!isLoaded) {
         setIsLoading(true);
         return;
       }
+
+      // ユーザーがログインしていない場合は初期値を設定
       if (isLoaded && !user) {
-        setHeroData({ ...strengthHeroData, level: 1 });
+        const defaultData = { ...strengthHeroData, level: 1 };
+        setHeroData(defaultData);
         setIsLoading(false);
+        setError(null);
         return;
       }
 
       if (isLoaded && user) {
+        // キャッシュをチェック
+        const cachedData = getCachedHeroData(user.id);
+        if (cachedData && retryCount === 0) {
+          console.log("HeroContext: キャッシュからデータを取得");
+          setHeroData(cachedData);
+          setIsLoading(false);
+          setError(null);
+          return;
+        }
+
         setIsLoading(true);
+        setError(null);
+
+        // 初回ユーザーの可能性が高い場合は、認証が安定するまで待機
+        if (retryCount === 0) {
+          console.log("HeroContext: 認証安定化のため少し待機します...");
+          // 認証が安定するまで短時間待機
+          await new Promise((resolve) => setTimeout(resolve, 300)); // 2秒 → 300msに短縮
+
+          // シグナルチェック
+          if (signal?.aborted) {
+            return;
+          }
+        }
+
         try {
           console.log(
             `HeroContext: /api/user 呼び出し開始 (試行: ${retryCount + 1})`
           );
-          const userRes = await fetch("/api/user", {
-            // キャッシュを無効化して最新データを取得
-            cache: "no-store",
-            headers: {
-              "Cache-Control": "no-cache",
-            },
-          });
+
+          // より丁寧なfetch処理
+          let userRes: Response;
+
+          try {
+            userRes = await fetch("/api/user", {
+              cache: "no-store",
+              headers: {
+                "Cache-Control": "no-cache",
+              },
+              signal,
+            });
+          } catch {
+            if (signal?.aborted) {
+              return;
+            }
+
+            console.log("HeroContext: ネットワークエラー - デフォルト値を設定");
+            const defaultData = { ...strengthHeroData, level: 1 };
+            setHeroData(defaultData);
+            setCachedHeroData(user.id, defaultData);
+            setIsLoading(false);
+            setError(null);
+            return;
+          }
+
+          // リクエストがキャンセルされた場合は処理を中断
+          if (signal?.aborted) {
+            return;
+          }
+
           const userData = await userRes.json();
 
           if (userRes.ok && userData.success && userData.user.zennUsername) {
             const username = userData.user.zennUsername;
-            await fetch(`/api/zenn?username=${username}&updateUser=true`);
+
+            // Zenn APIを呼び出してユーザーデータを更新
+            await fetch(`/api/zenn?username=${username}&updateUser=true`, {
+              signal,
+            });
+
+            if (signal?.aborted) {
+              return;
+            }
+
             const articles = await fetchZennArticles(username, {
               fetchAll: true,
             });
+
             const articlesCount = articles.length;
             const calculatedLevel = articlesCount;
-            setHeroData({
+            const newHeroData = {
               ...strengthHeroData,
               level: calculatedLevel,
               currentExp: 40,
               nextLevelExp: 100,
               remainingArticles: 1,
-            });
+            };
+
+            setHeroData(newHeroData);
+            setCachedHeroData(user.id, newHeroData); // キャッシュに保存
             setIsLoading(false);
+            setError(null);
           } else if (
             userRes.ok &&
             userData.success &&
-            !userData.user.zennUsername
+            (!userData.user.zennUsername || userData.isNewUser)
           ) {
-            setHeroData({ ...strengthHeroData, level: 1 });
+            // 既存ユーザー（Zenn未連携）または初回ユーザーの場合
+            console.log(
+              "HeroContext: Zenn未連携ユーザーまたは初回ユーザー - デフォルト値を設定"
+            );
+            const defaultData = { ...strengthHeroData, level: 1 };
+            setHeroData(defaultData);
+            setCachedHeroData(user.id, defaultData); // キャッシュに保存
             setIsLoading(false);
+            setError(null);
           } else {
             console.log(
               `HeroContext: /api/user 呼び出し失敗 (ステータス: ${
                 userRes.status
               }, 試行: ${retryCount + 1})`
             );
-            if (userRes.status === 404 && retryCount < 2) {
-              console.log(`HeroContext: 2秒後にリトライします...`);
-              setTimeout(() => getZennArticlesCount(retryCount + 1), 2000);
+
+            // エラーの場合のリトライ
+            if (retryCount < 1) {
+              console.log(`HeroContext: 1秒後にリトライします...`);
+              const timeoutId = setTimeout(() => {
+                if (!signal?.aborted) {
+                  getZennArticlesCount(retryCount + 1, signal);
+                }
+              }, 1000);
+
+              signal?.addEventListener("abort", () => {
+                clearTimeout(timeoutId);
+              });
             } else {
-              setHeroData({ ...strengthHeroData, level: 1 });
+              const defaultData = { ...strengthHeroData, level: 1 };
+              setHeroData(defaultData);
               setIsLoading(false);
+              setError("データの取得に失敗しました");
             }
           }
         } catch (err) {
+          if (signal?.aborted) {
+            console.log("HeroContext: API呼び出しがキャンセルされました");
+            return;
+          }
+
           console.error(
             `HeroContext: API呼び出しエラー (試行: ${retryCount + 1}):`,
             err
           );
-          setHeroData({ ...strengthHeroData, level: 1 });
+
+          const defaultData = { ...strengthHeroData, level: 1 };
+          setHeroData(defaultData);
           setIsLoading(false);
+          setError("ネットワークエラーが発生しました");
         }
       }
     },
-    [isLoaded, user]
+    [isLoaded, user, getCachedHeroData, setCachedHeroData]
   );
 
-  // 外部から呼び出し可能な再取得関数
+  // 外部から呼び出し可能な再取得関数（キャッシュを無効化）
   const refetchHeroData = useCallback(async () => {
-    await getZennArticlesCount();
-  }, [getZennArticlesCount]);
+    if (user) {
+      // キャッシュを削除
+      heroDataCache.delete(user.id);
 
+      // 既存のリクエストをキャンセル
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // 新しいAbortControllerを作成
+      abortControllerRef.current = new AbortController();
+      await getZennArticlesCount(0, abortControllerRef.current.signal);
+    }
+  }, [getZennArticlesCount, user]);
+
+  // ユーザー変更またはマウント時の処理
   useEffect(() => {
-    getZennArticlesCount();
-  }, [getZennArticlesCount]);
+    // ユーザーが変更された場合は既存のリクエストをキャンセル
+    if (prevUserIdRef.current !== (user?.id || null)) {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    }
+
+    prevUserIdRef.current = user?.id || null;
+
+    // 新しいAbortControllerを作成
+    abortControllerRef.current = new AbortController();
+    getZennArticlesCount(0, abortControllerRef.current.signal);
+
+    // クリーンアップ関数
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, [getZennArticlesCount, user?.id]);
+
+  // メモ化されたコンテキスト値
+  const contextValue = useMemo(
+    () => ({
+      heroData,
+      isLoading,
+      error,
+      refetchHeroData,
+    }),
+    [heroData, isLoading, error, refetchHeroData]
+  );
 
   return (
-    <HeroContext.Provider
-      value={{
-        heroData,
-        isLoading,
-        error,
-        refetchHeroData,
-      }}
-    >
-      {children}
-    </HeroContext.Provider>
+    <HeroContext.Provider value={contextValue}>{children}</HeroContext.Provider>
   );
 };
 
