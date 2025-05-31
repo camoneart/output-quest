@@ -13,6 +13,7 @@ const AuthButton = () => {
   const { playClickSound } = useClickSound({
     soundPath: "/audio/click-sound_star.mp3",
     volume: 0.5,
+    delay: 190, // 190ミリ秒 = 0.19秒の遅延
   });
   // クライアントサイドでのみレンダリングするための状態
   const [mounted, setMounted] = useState(false);
