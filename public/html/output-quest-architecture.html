@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Output Quest 開発構成図</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 1200px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2.5em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 1.1em;
+      }
+
+      .architecture {
+        display: grid;
+        gap: 30px;
+      }
+
+      .layer {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .layer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .layer-title {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2em;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .tech-item {
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+      }
+
+      .tech-item:hover {
+        border-color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      }
+
+      .tech-name {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .tech-desc {
+        font-size: 0.9em;
+        color: #666;
+      }
+
+      .flow-arrow {
+        text-align: center;
+        font-size: 2em;
+        color: #667eea;
+        margin: 10px 0;
+      }
+
+      .deployment {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .deployment .tech-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: white;
+      }
+
+      .deployment .tech-name,
+      .deployment .tech-desc {
+        color: white;
+      }
+
+      .features {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f0f0f0;
+        border-radius: 10px;
+      }
+
+      .features h3 {
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .feature-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #555;
+      }
+
+      .feature-icon {
+        color: #667eea;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 Output Quest</h1>
+      <p class="subtitle">
+        RPG風ゲーミフィケーション学習支援アプリ - 開発構成図
+      </p>
+
+      <div class="architecture">
+        <!-- フロントエンド層 -->
+        <div class="layer">
+          <div class="layer-title">
+            <div class="icon">🎨</div>
+            フロントエンド
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-name">Next.js 15.3</div>
+              <div class="tech-desc">Reactベースのフレームワーク</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">React 19</div>
+              <div class="tech-desc">UIライブラリの最新版</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Tailwind CSS</div>
+              <div class="tech-desc">ユーティリティファーストCSS</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Motion</div>
+              <div class="tech-desc">アニメーションライブラリ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">⬇️</div>
+
+        <!-- 認証・UIコンポーネント層 -->
+        <div class="layer">
+          <div class="layer-title">
+            <div class="icon">🔐</div>
+            認証・UIコンポーネント
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-name">Clerk</div>
+              <div class="tech-desc">認証・ユーザー管理サービス</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Radix UI</div>
+              <div class="tech-desc">アクセシブルなUIコンポーネント</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Lucide/Phosphor Icons</div>
+              <div class="tech-desc">アイコンライブラリ</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Howler.js</div>
+              <div class="tech-desc">音声再生ライブラリ（効果音等）</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">⬇️</div>
+
+        <!-- バックエンド・API層 -->
+        <div class="layer">
+          <div class="layer-title">
+            <div class="icon">⚙️</div>
+            バックエンド・API
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-name">Next.js API Routes</div>
+              <div class="tech-desc">サーバーレスAPI</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Prisma ORM</div>
+              <div class="tech-desc">型安全なデータベースアクセス</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">RSS Parser</div>
+              <div class="tech-desc">外部コンテンツ取得</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">Svix</div>
+              <div class="tech-desc">Webhookインフラ</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">⬇️</div>
+
+        <!-- データベース層 -->
+        <div class="layer">
+          <div class="layer-title">
+            <div class="icon">💾</div>
+            データベース
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-name">PostgreSQL/MySQL</div>
+              <div class="tech-desc">リレーショナルDB（Prisma経由）</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">⬇️</div>
+
+        <!-- デプロイ環境 -->
+        <div class="layer deployment">
+          <div class="layer-title">
+            <div class="icon">🚀</div>
+            デプロイ環境
+          </div>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-name">Vercel</div>
+              <div class="tech-desc">Next.jsに最適化されたホスティング</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-name">GitHub</div>
+              <div class="tech-desc">ソースコード管理・CI/CD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features">
+        <h3>🎯 主な機能と特徴</h3>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>RPG要素を取り入れた学習体験</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Turbopackによる高速開発</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>型安全なデータベース操作</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>効果音によるゲーム体験向上</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>外部コンテンツの統合（RSS）</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>リアルタイムイベント処理</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
