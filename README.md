@@ -22,7 +22,7 @@ https://outputquest.com
 
 <h2 id="development-configuration-diagram">開発構成図</h2>
 
-開発構成図を、HTMLインフォグラフィックで表現しました。
+開発構成図を、HTML インフォグラフィックで表現しました。
 
 [開発構成図](https://aoyamadev.github.io/output-quest_development-configuration-diagram/)
 
@@ -44,7 +44,7 @@ https://outputquest.com
 
 ### スタイル・UI
 
-- [Tailwind CSS](https://tailwindcss.com/)：v5
+- [Tailwind CSS](https://tailwindcss.com/)：v3.4.1
 - [shadcn/ui](https://ui.shadcn.com/)
 
 ### アニメーション
