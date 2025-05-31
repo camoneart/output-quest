@@ -1,5 +1,7 @@
 # OUTPUT QUEST ~ 叡智の継承者 ~
 
+https://outputquest.com/
+
 ## 目次
 
 - [音声解説](#audio-guide)
