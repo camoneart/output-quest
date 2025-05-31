@@ -1,36 +1,236 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OUTPUT QUEST ~ 叡智の継承者 ~
 
-## Getting Started
+## 目次
 
-First, run the development server:
+- [音声解説](#audio-guide)
+- [開発構成の概要](#development-configuration)
+- [使用技術](#technology-used)
+- [ディレクトリ構造](#directory-design)
+- [環境構築の手順](#environment-setup-procedure)
+- [プロジェクト概要](#project-overview)
+- [アプリの使用方法](#how-to-use)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<h2 id="audio-guide">音声解説</h2>
+
+アプリの概要や使い方について、音声で解説します。
+
+<audio controls style="width: 100%; max-width: 600px;">
+  <source src="./public/audio/【音声解説】OUTPUT-QUEST-_-叡智の継承者_01.mp3" type="audio/mpeg">
+  <p>お使いのブラウザは音声再生に対応していません。<a href="./public/audio/【音声解説】OUTPUT-QUEST-_-叡智の継承者_01.mp3">こちらから音声ファイルをダウンロード</a>してください。</p>
+</audio>
+
+<h2 id="development-configuration">開発構成の概要</h2>
+
+[開発構成図](public/html/output-quest-architecture.html)
+
+<h2 id="technology-used">使用技術</h2>
+
+<img src="https://img.shields.io/badge/-Next.js-151515.svg?logo=nextdotjs&style=for-the-badge">
+<img src="https://img.shields.io/badge/-TypeScript-151515.svg?logo=typescript&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Tailwind%20CSS-151515.svg?logo=Tailwind%20CSS&style=for-the-badge">
+<img src="https://img.shields.io/badge/-shadcn/ui-151515.svg?logo=shadcn/ui&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Motion-151515.svg?logo=&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Howler.js-151515.svg?logo=&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Clerk-151515.svg?logo=Clerk&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Prisma-151515.svg?logo=Prisma&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Supabase-151515.svg?logo=Supabase&style=for-the-badge">
+
+### node バージョン
+
+- node v22.14.0
+- npm v10.9.2
+
+### フロント
+
+- [Next.js](https://nextjs.org/blog/next-15-3)：v15.3.1
+- [React](https://ja.react.dev/blog/2024/12/05/react-19)：v19.0.0
+- [TypeScript](https://www.typescriptlang.org/)：v5
+
+### スタイル・UI
+
+- [Tailwind CSS](https://tailwindcss.com/)：v5
+- [shadcn/ui](https://ui.shadcn.com/)
+
+### アニメーション
+
+- [Motion](https://motion.dev/)：v12.4.7
+
+### オーディオ
+
+- [Howler.js](https://howlerjs.com/)：v2.2.4
+
+### 認証・データベース
+
+- [Clerk](https://clerk.com/)：v6.12.0（認証）
+- [Prisma](https://www.prisma.io/)：v6.8.2（ORM）
+- [Supabase](https://supabase.com/)（PostgreSQL）
+
+### ホスティング
+
+- [Vercel](https://vercel.com/)
+
+<h2 id="directory-design">ディレクトリ構造</h2>
+
+```
+outputquest/
+├── .next/                          # Next.jsビルド・キャッシュファイル
+├── prisma/                         # データベース関連ファイル
+│   └── migrations/                 # マイグレーションファイル
+├── public/                         # 静的ファイル
+│   ├── audio/                      # 音声ファイル
+│   └── images/                     # 画像ファイル
+│       ├── arrow/                  # 矢印画像
+│       ├── common/                 # 共通画像
+│       ├── connection/             # Zenn連携情報用画像
+│       ├── home-character-icon/    # トップページのキャラクターアイコン
+│       ├── icon/                   # アイコン類
+│       ├── items-page/             # アイテムページ用画像
+│       ├── nav-icon/               # ナビゲーションアイコン
+│       └── party-page/             # なかまページ用画像
+├── src/
+│   ├── app/                        # ルートディレクトリ（ルーティング管理）
+│   │   ├── (about)/                # アバウトページ
+│   │   ├── (connection)/           # 接続・認証ページ
+│   │   ├── (dashboard)/            # ダッシュボード関連ページ
+│   │   │   ├── dashboard/          # ダッシュボードページ
+│   │   │   ├── equipment/          # 装備詳細ページ
+│   │   │   ├── items/              # アイテムページ
+│   │   │   ├── logs/               # ログページ
+│   │   │   ├── party/              # なかまページ
+│   │   │   ├── posts/              # 投稿ページ
+│   │   │   ├── strength/           # つよさページ
+│   │   │   └── title/              # 称号ページ
+│   │   ├── api/                    # API Routes
+│   │   │   ├── user/               # ユーザー関連API
+│   │   │   ├── webhooks/           # Webhook
+│   │   │   └── zenn/               # Zenn連携API
+│   │   └── favicon.ico             # ファビコン
+│   │   └── Home.module.css         # トップページ用CSS Modules
+│   │   └── layout.tsx              # アプリケーション全体のルートレイアウトコンポーネント
+│   │   └── page.tsx                # ルートページ（トップページ）
+│   │   └── robots.ts               # 検索エンジン向けrobots.txt生成
+│   │   └── sitemap.ts              # サイトマップ生成ファイル
+│   ├── components/                 # 再利用可能なUIコンポーネント
+│   │   ├── auth/                   # 認証関連コンポーネント
+│   │   ├── common/                 # 共通コンポーネント
+│   │   ├── elements/               # 基本的なUI要素
+│   │   ├── layout/                 # レイアウトコンポーネント
+│   │   └── ui/                     # shadcn/ui コンポーネント
+│   ├── config/                     # 設定ファイル・定数定義
+│   ├── contexts/                   # React Context・グローバル状態管理
+│   ├── features/                   # componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
+│   │   ├── about/                  # アバウトページ機能
+│   │   ├── connection/             # 接続機能
+│   │   ├── dashboard/              # ダッシュボード機能
+│   │   ├── equipment/              # 装備機能
+│   │   ├── equipmentDetail/        # 装備詳細機能
+│   │   ├── home/                   # ホームページ機能
+│   │   ├── itemDetail/             # アイテム詳細機能
+│   │   ├── items/                  # アイテム機能
+│   │   ├── logs/                   # ログ機能
+│   │   ├── navigation/             # ナビゲーション機能
+│   │   ├── party/                  # なかま機能
+│   │   ├── partyMember/            # なかま詳細機能
+│   │   ├── posts/                  # 投稿機能
+│   │   └── strength/               # つよさ機能
+│   │   └── title/                  # 称号機能
+│   ├── hooks/                      # カスタムフック
+│   ├── lib/                        # ライブラリ・ユーティリティ
+│   ├── shared/                     # 共有データ
+│   ├── styles/                     # スタイルファイル
+│   ├── types/                      # TypeScript型定義
+│   ├── utils/                      # ユーティリティ関数
+│   └── middleware.ts               # ミドルウェア
+├── .env                            # 環境変数の設定ファイル
+├── .env.example                    # 環境変数のテンプレートファイル
+├── .gitignore                      # GitHubの差分に含まないものを格納
+├── components.json                 # shadcn/ui設定ファイル
+├── eslint.config.mjs               # ESLint設定ファイル
+├── next.config.ts                  # Next.js設定ファイル
+├── package.json                    # プロジェクトの依存関係・スクリプト定義
+├── postcss.config.mjs              # PostCSS設定ファイル
+├── README.md                       # プロジェクトの説明ドキュメント
+├── tailwind.config.js              # Tailwind CSS設定ファイル
+└── tsconfig.json                   # TypeScript設定ファイル
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h2 id="environment-setup-procedure">環境構築の手順</h2>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 前提条件
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 20 以上
+- npm / yarn / pnpm / bun
+- Git
 
-## Learn More
+### 1. リポジトリのクローン
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/aoyamadev/output-quest.git
+cd output-quest
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. パッケージのインストール
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+$ npm install
+# または
+$ yarn install
+# または
+$ pnpm install
+# または
+$ bun install
+```
 
-## Deploy on Vercel
+### 3. 環境変数の設定
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# `.env.example`を参考に`.env`ファイルを作成し、必要な環境変数を設定してください。
+$ cp .env.example .env
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. データベースのセットアップ
+
+```bash
+# Prismaクライアントの生成
+npx prisma generate
+
+# マイグレーションの実行
+npx prisma migrate dev
+```
+
+### 5. 開発サーバーの起動（ローカル環境の立ち上げ）
+
+```bash
+$ npm run dev
+```
+
+下記のローカル環境にアクセスして、アプリケーションの起動が確認できれば OK です。<br>
+http://localhost:3000/<br>
+
+<h2 id="project-overview">プロジェクト概要</h2>
+
+私が開発した Web アプリです。RPG 風のゲーミフィケーションを取り入れた学習支援アプリで、Zenn で記事を投稿することでアプリ内の「勇者」が成長し、アイテムやなかまを獲得できます。アウトプットを通じて学習意欲や知的好奇心を高め、楽しみながら自己成長を促すことを目的に開発しました。
+
+### 機能紹介
+
+- **トップページ**：ゲームのオープニングを彷彿とさせる演出で、視覚的な出迎えを実現しました。
+- **アバウトページ**：アプリの概要、コンセプト、主要機能について紹介しています。
+- **ログインページ**：Clerk 認証によるログイン、Zenn のアカウント連携を行ったユーザーのみがアプリを利用できるようにしています。Zenn と連携することにより、投稿データをアプリ内の要素に反映できます。
+- **ダッシュボードページ**：勇者の成長度合いを示すレベル、Zenn での投稿数、レベルアップ報酬で獲得した勇者のなかまやアイテムを確認できます。
+- **投稿リストページ**：Zenn で投稿した記事を取得して、アプリ内で「投稿リスト」として記事を閲覧できます。
+- **つよさページ**：レベルアップ報酬で獲得した「称号」の確認、勇者の装備アイテムの確認、学びの記録を時系列で確認できる「冒険ログ」の確認ができます。
+- **なかまページ**：勇者のなかまになったキャラクターを閲覧できます。
+- **アイテムページ**：レベルアップ報酬で獲得したアイテムを閲覧できます。
+
+<h2 id="how-to-use">アプリの使用方法</h2>
+
+```bash
+# 1. Clerkによるログイン
+/connectionページにて、ログインを実行。
+
+# 2. Zennのアカウントと連携
+Clerkによるログイン完了後、連携するZennアカウントのユーザー名を入力して、連携。
+
+# 3. 冒険をはじめよう！
+ClerkによるログインとZennアカウントの連携が完了したら、早速冒険をはじめよう！
+```
