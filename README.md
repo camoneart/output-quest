@@ -3,7 +3,6 @@
 ## 目次
 
 - [音声解説](#audio-guide)
-- [開発構成の概要](#development-configuration)
 - [使用技術](#technology-used)
 - [ディレクトリ構造](#directory-design)
 - [環境構築の手順](#environment-setup-procedure)
@@ -14,26 +13,12 @@
 
 アプリの概要や使い方について、音声で解説します。
 
-<audio controls style="width: 100%; max-width: 600px;">
-  <source src="./public/audio/【音声解説】OUTPUT-QUEST-_-叡智の継承者_01.mp3" type="audio/mpeg">
-  <p>お使いのブラウザは音声再生に対応していません。<a href="./public/audio/【音声解説】OUTPUT-QUEST-_-叡智の継承者_01.mp3">こちらから音声ファイルをダウンロード</a>してください。</p>
-</audio>
-
-<h2 id="development-configuration">開発構成の概要</h2>
-
-[開発構成図](public/html/output-quest-architecture.html)
+<p><a href="./public/audio/audio-guide.mp3">こちらから音声ファイルをダウンロード</a>してください。</p>
 
 <h2 id="technology-used">使用技術</h2>
 
-<img src="https://img.shields.io/badge/-Next.js-151515.svg?logo=nextdotjs&style=for-the-badge">
-<img src="https://img.shields.io/badge/-TypeScript-151515.svg?logo=typescript&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Tailwind%20CSS-151515.svg?logo=Tailwind%20CSS&style=for-the-badge">
-<img src="https://img.shields.io/badge/-shadcn/ui-151515.svg?logo=shadcn/ui&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Motion-151515.svg?logo=&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Howler.js-151515.svg?logo=&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Clerk-151515.svg?logo=Clerk&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Prisma-151515.svg?logo=Prisma&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Supabase-151515.svg?logo=Supabase&style=for-the-badge">
+<img src="https://img.shields.io/badge/-node.js-444.svg?logo=node.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-next.js-444.svg?logo=next.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-react-444.svg?logo=react&style=for-the-badge"> <img src="https://img.shields.io/badge/-typescript-444.svg?logo=typescript&style=for-the-badge"> <img src="https://img.shields.io/badge/-tailwindcss-444.svg?logo=tailwindcss&style=for-the-badge"> <img src="https://img.shields.io/badge/-shadcn/ui-444.svg?logo=shadcn/ui&style=for-the-badge">
+<img src="https://img.shields.io/badge/-motion-444.svg?logo=motion&style=for-the-badge"> <img src="https://img.shields.io/badge/-howler.js-444.svg?logo=howler.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-clerk-444.svg?logo=clerk&style=for-the-badge"> <img src="https://img.shields.io/badge/-prisma-444.svg?logo=prisma&style=for-the-badge"> <img src="https://img.shields.io/badge/-supabase-444.svg?logo=supabase&style=for-the-badge">
 
 ### node バージョン
 
