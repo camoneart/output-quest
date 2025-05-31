@@ -2,7 +2,7 @@
 
 アプリは以下からアクセスできます。
 
-https://outputquest.com/
+https://outputquest.com
 
 ## 目次
 
