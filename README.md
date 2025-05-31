@@ -24,7 +24,7 @@ https://outputquest.com
 
 開発構成図を、HTMLインフォグラフィックで表現しました。
 
-[開発構成図](https://aoyamadev.github.io/development-configuration-diagram/)
+[開発構成図](https://aoyamadev.github.io/output-quest_development-configuration-diagram/)
 
 <h2 id="technology-used">使用技術</h2>
 
