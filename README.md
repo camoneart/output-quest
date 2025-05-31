@@ -1,5 +1,7 @@
 # OUTPUT QUEST ~ 叡智の継承者 ~
 
+アプリは以下からアクセスできます。
+
 https://outputquest.com/
 
 ## 目次
