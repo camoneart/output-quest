@@ -22,9 +22,9 @@ https://outputquest.com
 
 <h2 id="development-configuration-diagram">開発構成図</h2>
 
-開発構成図を、HTML インフォグラフィックで表現しました。
+開発構成図を、HTMLインフォグラフィックで表現しました。
 
-[開発構成図](https://aoyamadev.github.io/output-quest_development-configuration-diagram/)
+[開発構成図（HTMLインフォグラフィック）](https://aoyamadev.github.io/output-quest_development-configuration-diagram/)
 
 <h2 id="technology-used">使用技術</h2>
 
