@@ -13,7 +13,7 @@
 
 アプリの概要や使い方について、音声で解説します。
 
-<p><a href="./public/audio/audio-guide.mp3">こちらから音声ファイルをダウンロード</a>してください。</p>
+[音声解説](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
 
 <h2 id="technology-used">使用技術</h2>
 
