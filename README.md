@@ -3,6 +3,7 @@
 ## 目次
 
 - [音声解説](#audio-guide)
+- [開発構成図](#development-configuration-diagram)
 - [使用技術](#technology-used)
 - [ディレクトリ構造](#directory-design)
 - [環境構築の手順](#environment-setup-procedure)
@@ -13,7 +14,13 @@
 
 アプリの概要や使い方について、音声で解説します。
 
-[音声解説](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
+[【音声解説】OUTPUT QUEST ~ 叡智の継承者 ~](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
+
+<h2 id="development-configuration-diagram">開発構成図</h2>
+
+開発構成図を、HTMLインフォグラフィックで表現しました。
+
+[開発構成図](https://aoyamadev.github.io/development-configuration-diagram/)
 
 <h2 id="technology-used">使用技術</h2>
 
