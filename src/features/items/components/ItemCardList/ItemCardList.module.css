@@ -113,3 +113,9 @@
   line-height: var(--leading-tight);
   transition: text-shadow 0.2s ease-in-out;
 }
+
+.error-message {
+  text-align: center;
+  color: red;
+  padding: 20px;
+}
