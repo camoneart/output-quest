@@ -130,6 +130,7 @@ outputquest/
 │   │   ├── posts/                  # 投稿機能
 │   │   └── strength/               # つよさ機能
 │   │   └── title/                  # 称号機能
+│   ├── generated/                  # Prisma Clientなど自動生成されるファイル
 │   ├── hooks/                      # カスタムフック
 │   ├── lib/                        # ライブラリ・ユーティリティ
 │   ├── shared/                     # 共有データ
@@ -143,6 +144,7 @@ outputquest/
 ├── components.json                 # shadcn/ui設定ファイル
 ├── eslint.config.mjs               # ESLint設定ファイル
 ├── next.config.ts                  # Next.js設定ファイル
+├── package-lock.json               # npmの依存関係ロックファイル
 ├── package.json                    # プロジェクトの依存関係・スクリプト定義
 ├── postcss.config.mjs              # PostCSS設定ファイル
 ├── README.md                       # プロジェクトの説明ドキュメント
