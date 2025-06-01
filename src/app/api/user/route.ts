@@ -292,7 +292,11 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: false, error: "ユーザー情報の更新に失敗しました" },
+      {
+        success: false,
+        error:
+          "ユーザー情報の更新に失敗しました。時間を空けて再度お試しください。",
+      },
       {
         status: 500,
         headers: NO_CACHE_HEADERS,
