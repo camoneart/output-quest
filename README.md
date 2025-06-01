@@ -226,7 +226,7 @@ Next.js + CSS Modules + Tailwind CSS + TypeScriptで開発し、デプロイはV
 
 ### **トップページ**
 
-ゲームのオープニングを彷彿とさせる演出で、視覚的な出迎えを実現しました。
+ゲームのオープニングを彷彿とさせる演出により、冒険のはじまりを視覚的に表現しました。
 
 ![トップページ](/public/gif/README/top-page.gif)
 
