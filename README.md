@@ -69,87 +69,95 @@ https://outputquest.com
 
 ```
 outputquest/
-├── .next/                          # Next.jsビルド・キャッシュファイル
-├── prisma/                         # データベース関連ファイル
-│   └── migrations/                 # マイグレーションファイル
-├── public/                         # 静的ファイル
-│   ├── audio/                      # 音声ファイル
-│   └── images/                     # 画像ファイル
-│       ├── arrow/                  # 矢印画像
-│       ├── common/                 # 共通画像
-│       ├── connection/             # Zenn連携情報用画像
-│       ├── home-character-icon/    # トップページのキャラクターアイコン
-│       ├── icon/                   # アイコン類
-│       ├── items-page/             # アイテムページ用画像
-│       ├── nav-icon/               # ナビゲーションアイコン
-│       └── party-page/             # なかまページ用画像
+├── .next/                                           # Next.jsビルド・キャッシュファイル
+├── prisma/                                          # データベース関連ファイル
+│   └── migrations/                                  # マイグレーションファイル
+├── public/                                          # 静的ファイル
+│   ├── audio/                                       # 音声ファイル
+│   └── images/                                      # 画像ファイル
+│       ├── arrow/                                   # 矢印画像
+│       ├── common/                                  # 共通画像
+│       ├── connection/                              # Zenn連携情報用画像
+│       ├── home-character-icon/                     # トップページのキャラクターアイコン
+│       ├── icon/                                    # アイコン類
+│       ├── items-page/                              # アイテムページ用画像
+│       ├── nav-icon/                                # ナビゲーションアイコン
+│       └── party-page/                              # なかまページ用画像
 ├── src/
-│   ├── app/                        # ルートディレクトリ（ルーティング管理）
-│   │   ├── (about)/                # アバウトページ
-│   │   ├── (connection)/           # 接続・認証ページ
-│   │   ├── (dashboard)/            # ダッシュボード関連ページ
-│   │   │   ├── dashboard/          # ダッシュボードページ
-│   │   │   ├── equipment/          # 装備詳細ページ
-│   │   │   ├── items/              # アイテムページ
-│   │   │   ├── logs/               # ログページ
-│   │   │   ├── party/              # なかまページ
-│   │   │   ├── posts/              # 投稿ページ
-│   │   │   ├── strength/           # つよさページ
-│   │   │   └── title/              # 称号ページ
-│   │   ├── api/                    # API Routes
-│   │   │   ├── user/               # ユーザー関連API
-│   │   │   ├── webhooks/           # Webhook
-│   │   │   └── zenn/               # Zenn連携API
-│   │   └── favicon.ico             # ファビコン
-│   │   └── Home.module.css         # トップページ用CSS Modules
-│   │   └── layout.tsx              # アプリケーション全体のルートレイアウトコンポーネント
-│   │   └── page.tsx                # ルートページ（トップページ）
-│   │   └── robots.ts               # 検索エンジン向けrobots.txt生成
-│   │   └── sitemap.ts              # サイトマップ生成ファイル
-│   ├── components/                 # 再利用可能なUIコンポーネント
-│   │   ├── auth/                   # 認証関連コンポーネント
-│   │   ├── common/                 # 共通コンポーネント
-│   │   ├── elements/               # 基本的なUI要素
-│   │   ├── layout/                 # レイアウトコンポーネント
-│   │   └── ui/                     # shadcn/ui コンポーネント
-│   ├── config/                     # 設定ファイル・定数定義
-│   ├── contexts/                   # React Context・グローバル状態管理
-│   ├── features/                   # componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
-│   │   ├── about/                  # アバウトページ機能
-│   │   ├── connection/             # 接続機能
-│   │   ├── dashboard/              # ダッシュボード機能
-│   │   ├── equipment/              # 装備機能
-│   │   ├── equipmentDetail/        # 装備詳細機能
-│   │   ├── home/                   # ホームページ機能
-│   │   ├── itemDetail/             # アイテム詳細機能
-│   │   ├── items/                  # アイテム機能
-│   │   ├── logs/                   # ログ機能
-│   │   ├── navigation/             # ナビゲーション機能
-│   │   ├── party/                  # なかま機能
-│   │   ├── partyMember/            # なかま詳細機能
-│   │   ├── posts/                  # 投稿機能
-│   │   └── strength/               # つよさ機能
-│   │   └── title/                  # 称号機能
-│   ├── generated/                  # Prisma Clientなど自動生成されるファイル
-│   ├── hooks/                      # カスタムフック
-│   ├── lib/                        # ライブラリ・ユーティリティ
-│   ├── shared/                     # 共有データ
-│   ├── styles/                     # スタイルファイル
-│   ├── types/                      # TypeScript型定義
-│   ├── utils/                      # ユーティリティ関数
-│   └── middleware.ts               # ミドルウェア
-├── .env                            # 環境変数の設定ファイル
-├── .env.example                    # 環境変数のテンプレートファイル
-├── .gitignore                      # GitHubの差分に含まないものを格納
-├── components.json                 # shadcn/ui設定ファイル
-├── eslint.config.mjs               # ESLint設定ファイル
-├── next.config.ts                  # Next.js設定ファイル
-├── package-lock.json               # npmの依存関係ロックファイル
-├── package.json                    # プロジェクトの依存関係・スクリプト定義
-├── postcss.config.mjs              # PostCSS設定ファイル
-├── README.md                       # プロジェクトの説明ドキュメント
-├── tailwind.config.js              # Tailwind CSS設定ファイル
-└── tsconfig.json                   # TypeScript設定ファイル
+│   ├── app/                                         # ルートディレクトリ（ルーティング管理）
+│   │   ├── (about)/                                 # アバウトページ（Route Groups）
+│   │   │   ├── about/                               # アバウトページ
+│   │   │   ├── AboutLayout.module.css               # アバウトページ（Route Groups）用CSS Modules
+│   │   │   └── layout.tsx                           # アバウトページ（Route Groups）用レイアウトコンポーネント
+│   │   ├── (connection)/                            # 接続・認証ページ（Route Groups）
+│   │   │   ├── connection/                          # 接続・認証ページ
+│   │   │   ├── ConnectionLayout.module.css          # 接続・認証ページ（Route Groups）用CSS Modules
+│   │   │   └── layout.tsx                           # 接続・認証ページ（Route Groups）用レイアウトコンポーネント
+│   │   ├── (dashboard)/                             # ダッシュボード（Route Groups）
+│   │   │   ├── dashboard/                           # ダッシュボードページ
+│   │   │   ├── equipment/                           # 装備詳細ページ
+│   │   │   ├── items/                               # アイテムページ
+│   │   │   ├── logs/                                # ログページ
+│   │   │   ├── party/                               # なかまページ
+│   │   │   ├── posts/                               # 投稿ページ
+│   │   │   ├── strength/                            # つよさページ
+│   │   │   ├── title/                               # 称号ページ
+│   │   │   ├── DashboardLayout.module.css           # ダッシュボード（Route Groups）用CSS Modules
+│   │   │   └── layout.tsx                           # ダッシュボード（Route Groups）用レイアウトコンポーネント
+│   │   ├── api/                                     # API Routes
+│   │   │   ├── user/                                # ユーザー関連API
+│   │   │   ├── webhooks/                            # Webhook
+│   │   │   └── zenn/                                # Zenn連携API
+│   │   ├── favicon.ico                              # ファビコン
+│   │   ├── Home.module.css                          # トップページ用CSS Modules
+│   │   ├── layout.tsx                               # アプリケーション全体のルートレイアウトコンポーネント
+│   │   ├── page.tsx                                 # ルートページ（トップページ）
+│   │   ├── robots.ts                                # 検索エンジン向けrobots.txt生成
+│   │   └── sitemap.ts                               # サイトマップ生成ファイル
+│   ├── components/                                  # 再利用可能なUIコンポーネント
+│   │   ├── auth/                                    # 認証関連コンポーネント
+│   │   ├── common/                                  # 共通コンポーネント
+│   │   ├── elements/                                # 基本的なUI要素
+│   │   ├── layout/                                  # レイアウトコンポーネント
+│   │   └── ui/                                      # shadcn/ui コンポーネント
+│   ├── config/                                      # 設定ファイル・定数定義
+│   ├── contexts/                                    # React Context・グローバル状態管理
+│   ├── features/                                    # componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
+│   │   ├── about/                                   # アバウトページ機能
+│   │   ├── connection/                              # 接続機能
+│   │   ├── dashboard/                               # ダッシュボード機能
+│   │   ├── equipment/                               # 装備機能
+│   │   ├── equipmentDetail/                         # 装備詳細機能
+│   │   ├── home/                                    # ホームページ機能
+│   │   ├── itemDetail/                              # アイテム詳細機能
+│   │   ├── items/                                   # アイテム機能
+│   │   ├── logs/                                    # ログ機能
+│   │   ├── navigation/                              # ナビゲーション機能
+│   │   ├── party/                                   # なかま機能
+│   │   ├── partyMember/                             # なかま詳細機能
+│   │   ├── posts/                                   # 投稿機能
+│   │   ├── strength/                                # つよさ機能
+│   │   └── title/                                   # 称号機能
+│   ├── generated/                                   # Prisma Clientなど自動生成されるファイル
+│   ├── hooks/                                       # カスタムフック
+│   ├── lib/                                         # ライブラリ・ユーティリティ
+│   ├── shared/                                      # 共有データ
+│   ├── styles/                                      # スタイルファイル
+│   ├── types/                                       # TypeScript型定義
+│   ├── utils/                                       # ユーティリティ関数
+│   └── middleware.ts                                # ミドルウェア
+├── .env                                             # 環境変数の設定ファイル
+├── .env.example                                     # 環境変数のテンプレートファイル
+├── .gitignore                                       # GitHubの差分に含まないものを格納
+├── components.json                                  # shadcn/ui設定ファイル
+├── eslint.config.mjs                                # ESLint設定ファイル
+├── next.config.ts                                   # Next.js設定ファイル
+├── package-lock.json                                # npmの依存関係ロックファイル
+├── package.json                                     # プロジェクトの依存関係・スクリプト定義
+├── postcss.config.mjs                               # PostCSS設定ファイル
+├── README.md                                        # プロジェクトの説明ドキュメント
+├── tailwind.config.js                               # Tailwind CSS設定ファイル
+└── tsconfig.json                                    # TypeScript設定ファイル
 ```
 
 <h2 id="environment-setup-procedure">環境構築の手順</h2>
