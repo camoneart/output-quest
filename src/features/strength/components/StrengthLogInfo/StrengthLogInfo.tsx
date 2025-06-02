@@ -166,23 +166,25 @@ const StrengthLogInfo = () => {
       <div className={styles["strength-log-info-content"]}>
         <div className={styles["strength-log-box"]}>
           <h3 className={styles["strength-log-title"]}>~ 冒険ログ ~</h3>
-          <div className={styles["strength-log-list-box"]}>
-            <ul className={styles["strength-log-list"]}>
-              {loading ? (
-                <li className={styles["strength-log-item"]}>
-                  <p className={styles["strength-log-loading-text"]}>
-                    読み込み中...
-                  </p>
-                </li>
-              ) : (
-                // 最大15件のログのみ表示
-                logs.slice(0, 15).map((log, index) => (
-                  <li key={index} className={styles["strength-log-item"]}>
-                    <p className={styles["strength-log-text"]}>{log}</p>
+          <div className={styles["strength-log-list-content"]}>
+            <div className={styles["strength-log-list-box"]}>
+              <ul className={styles["strength-log-list"]}>
+                {loading ? (
+                  <li className={styles["strength-log-item"]}>
+                    <p className={styles["strength-log-loading-text"]}>
+                      読み込み中...
+                    </p>
                   </li>
-                ))
-              )}
-            </ul>
+                ) : (
+                  // 最大15件のログのみ表示
+                  logs.slice(0, 15).map((log, index) => (
+                    <li key={index} className={styles["strength-log-item"]}>
+                      <p className={styles["strength-log-text"]}>{log}</p>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
           </div>
           <div className={styles["strength-log-link-box"]}>
             <Link

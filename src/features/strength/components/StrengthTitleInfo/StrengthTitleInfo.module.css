@@ -40,8 +40,13 @@
   background-color: var(--color-primary-dark-gray);
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
-  padding-block: 10px;
-  padding-inline: 10px;
+  padding-block: 15px;
+  padding-inline: 15px;
+
+  @media (width < 1280px) {
+    padding-block: 40px;
+    padding-inline: 20px;
+  }
 }
 
 .strength-title-detail {
