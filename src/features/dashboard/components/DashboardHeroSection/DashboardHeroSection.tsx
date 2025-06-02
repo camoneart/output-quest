@@ -85,7 +85,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
                     {isLoading ? (
                       <div className={styles["loading-indicator"]}>...</div>
                     ) : error ? (
-                      <div className={styles["loading-indicator"]}>1</div>
+                      <div className={styles["error-value"]}>1</div>
                     ) : (
                       displayLevel
                     )}

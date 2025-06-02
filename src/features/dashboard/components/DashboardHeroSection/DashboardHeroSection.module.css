@@ -120,7 +120,7 @@
 
 .hero-info-level-display-container {
   min-width: 150px;
-  height: 91px;
+  height: 100px;
   display: block grid;
   place-self: end;
   background-color: var(--color-primary-brown-dark);
