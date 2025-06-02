@@ -19,7 +19,7 @@
   display: block grid;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  gap: 15px;
+  gap: 10px;
   padding-inline: 10px;
   padding-block: 10px;
 }

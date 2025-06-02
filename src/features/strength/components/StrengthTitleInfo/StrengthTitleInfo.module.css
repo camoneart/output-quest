@@ -19,7 +19,7 @@
   display: block grid;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  gap: 15px;
+  gap: 10px;
   padding-inline: 10px;
   padding-block: 10px;
 }
@@ -40,8 +40,8 @@
   background-color: var(--color-primary-dark-gray);
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
-  padding-block: 40px;
-  padding-inline: 20px;
+  padding-block: 10px;
+  padding-inline: 10px;
 }
 
 .strength-title-detail {
