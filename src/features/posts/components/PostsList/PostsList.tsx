@@ -1,14 +1,13 @@
 import React from "react";
 import * as Posts from "@/features/posts/components/index";
 import styles from "./PostsList.module.css";
-import { PostData, PlatformType } from "@/features/posts/types";
+import { PostData } from "@/features/posts/types";
 
 type PostsListProps = {
   postsData: PostData[];
-  platformType?: PlatformType;
 };
 
-const PostsList = ({ postsData, platformType }: PostsListProps) => {
+const PostsList = ({ postsData }: PostsListProps) => {
   return (
     <ul className={`${styles["posts-list"]}`}>
       {postsData.map((post) => (
@@ -18,7 +17,7 @@ const PostsList = ({ postsData, platformType }: PostsListProps) => {
             url={post.url}
             category={post.category}
             publishedAt={post.publishedAt}
-            platformType={post.platformType || platformType}
+            platformType={post.platformType}
           />
         </li>
       ))}

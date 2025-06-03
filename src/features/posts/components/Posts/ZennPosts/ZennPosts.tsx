@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import * as Posts from "@/features/posts/components/index";
 import styles from "./ZennPosts.module.css";
 import { fetchZennArticles } from "@/features/posts/services";
-import { PostData } from "@/features/posts/types";
+import { PostData, PlatformType } from "@/features/posts/types";
 
 // フォールバック用のダミーデータ
 const dummyZennPosts: PostData[] = [];
@@ -33,7 +33,12 @@ const ZennPosts = () => {
           fetchAll: true,
         });
         if (articlesData.length > 0) {
-          setPosts(articlesData);
+          // 各記事に platformType: "zenn" を設定
+          const processedArticles = articlesData.map((article) => ({
+            ...article,
+            platformType: "zenn" as PlatformType,
+          }));
+          setPosts(processedArticles);
         }
       } catch (err) {
         console.error("Zenn記事の取得エラー:", err);
@@ -61,7 +66,7 @@ const ZennPosts = () => {
       ) : loading ? (
         <div className={styles["loading-indicator"]}>読み込み中...</div>
       ) : (
-        <Posts.PostsList postsData={posts} platformType="zenn" />
+        <Posts.PostsList postsData={posts} />
       )}
     </div>
   );
