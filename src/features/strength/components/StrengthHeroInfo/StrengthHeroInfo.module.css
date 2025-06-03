@@ -70,7 +70,7 @@
   display: block grid;
   grid-template-rows: auto auto;
   place-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .strength-hero-icon-box {
