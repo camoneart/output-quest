@@ -153,6 +153,7 @@
   color: var(--color-error, #ff6b6b);
   font-size: var(--font-size-small, 0.875rem);
   background-color: rgba(255, 107, 107, 0.1);
+  padding: 15px;
 }
 
 .loading-indicator {
