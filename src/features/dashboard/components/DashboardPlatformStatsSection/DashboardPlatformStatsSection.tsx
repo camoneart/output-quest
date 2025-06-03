@@ -39,7 +39,12 @@ const DashboardPlatformStatsSection = ({
                     読み込み中...
                   </span>
                 ) : error ? (
-                  <span className={`${styles["platform-stat-error"]}`}>1</span>
+                  <>
+                    <span className={`${styles["platform-stat-error"]}`}>0</span>
+                    <span className={`${styles["platform-stat-unit"]}`}>
+                      記事
+                    </span>
+                  </>
                 ) : (
                   <>
                     <em className={`${styles["platform-stat-count-em"]}`}>
