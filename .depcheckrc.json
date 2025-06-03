@@ -1,0 +1,9 @@
+{
+  "ignores": [
+    "express",
+    "dotenv",
+    "eslint",
+    "eslint-config-next",
+    "postcss"
+  ]
+}
