@@ -89,8 +89,8 @@ const StrengthHeroInfo = () => {
               <Image
                 src="/images/common/character_yusha_01_red.png"
                 alt="勇者のアイコン"
-                width={55}
-                height={55}
+                width={50}
+                height={50}
                 priority={true}
                 className={styles["strength-hero-icon-image"]}
               />

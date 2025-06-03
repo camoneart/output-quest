@@ -90,9 +90,6 @@
 
 .strength-hero-name-box {
   background-color: var(--color-primary-dark-gray);
-  border-radius: var(--border-radius-small);
-  padding-inline: 2.5px;
-  padding-block: 2.5px;
 }
 
 .strength-hero-name {
@@ -101,10 +98,9 @@
   line-height: var(--leading-none);
   color: var(--color-primary-white);
   border: 2px solid var(--color-primary-white);
-  padding-block: 6.5px 7.5px;
-  padding-inline: 14px;
-  border-radius: 1px;
-
+  padding-block: 6px 8px;
+  padding-inline: 15px;
+  border-radius: var(--border-radius-small);
 }
 
 .strength-level-info {

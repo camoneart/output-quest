@@ -85,7 +85,7 @@
 }
 
 .hero-info-icon-image {
-  width: 50px;
+  width: 55px;
   height: auto;
   object-fit: contain;
   object-position: center;
@@ -106,8 +106,8 @@
   font-size: 0.875rem;
   font-weight: var(--font-weight-normal);
   line-height: var(--leading-none);
-  padding-inline: 10px;
-  padding-block: 2px 4px;
+  padding-block: 3px 5px;
+  padding-inline: 11.5px;
   border: 1px solid var(--color-primary-brown-light);
   background-color: var(--color-primary-brown);
 }

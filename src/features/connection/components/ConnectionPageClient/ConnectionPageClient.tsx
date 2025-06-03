@@ -81,60 +81,103 @@ export default function ConnectionPageClient() {
 
   // 最新のユーザー情報を取得する関数
   const fetchLatestUserInfo = useCallback(async () => {
+    console.log("[ConnectionPageClient] fetchLatestUserInfo called - START");
     try {
-      console.log("最新のユーザー情報を取得します");
+      console.log(
+        "[ConnectionPageClient] fetchLatestUserInfo: Fetching /api/user..."
+      );
 
       let response: Response;
       try {
         response = await fetch("/api/user");
-      } catch {
-        console.log(
-          "ConnectionPageClient: ネットワークエラー - 初期状態を設定"
+      } catch (networkError) {
+        console.error(
+          "[ConnectionPageClient] fetchLatestUserInfo: Network error during fetch /api/user:",
+          networkError
         );
         setUserInfo(null);
         setZennUsername("");
+        console.log(
+          "[ConnectionPageClient] fetchLatestUserInfo: Set to initial state due to network error."
+        );
         return;
       }
 
       const data = await response.json();
+      console.log(
+        "[ConnectionPageClient] fetchLatestUserInfo: Received data from /api/user:",
+        JSON.stringify(data, null, 2)
+      );
 
       // APIが正常に応答した場合の処理
       if (response.ok && data.success) {
+        console.log(
+          "[ConnectionPageClient] fetchLatestUserInfo: API call successful (response.ok && data.success)."
+        );
         if (data.isNewUser) {
-          // 初回ユーザーの場合
           console.log(
-            "ConnectionPageClient: 初回ユーザーを検出 - 初期状態を設定"
+            "[ConnectionPageClient] fetchLatestUserInfo: Detected new user (data.isNewUser is true). Setting to initial state."
           );
           setUserInfo(null);
           setZennUsername("");
+          console.log(
+            "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo(null), setZennUsername('') called for new user."
+          );
           return;
         }
 
         // 既存ユーザーの場合
         if (data.user && data.user.zennUsername) {
-          console.log(`Zenn連携情報が存在します: @${data.user.zennUsername}`);
+          console.log(
+            `[ConnectionPageClient] fetchLatestUserInfo: Zenn username exists: @${data.user.zennUsername}, Article count from API: ${data.user.zennArticleCount}`
+          );
         } else {
-          console.log("Zenn連携情報はありません");
+          console.log(
+            "[ConnectionPageClient] fetchLatestUserInfo: Zenn username does NOT exist or user data is missing/incomplete."
+          );
         }
 
+        console.log(
+          "[ConnectionPageClient] fetchLatestUserInfo: Attempting to set user info. User data from API:",
+          JSON.stringify(data.user, null, 2)
+        );
         setUserInfo(data.user);
         setZennUsername(data.user.zennUsername || "");
+        console.log(
+          "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo and setZennUsername CALLED. zennUsername to be set:",
+          data.user.zennUsername || ""
+        );
       } else if (response.status === 401) {
-        console.log("ConnectionPageClient: 認証エラー - 初期状態を設定");
+        console.warn(
+          "[ConnectionPageClient] fetchLatestUserInfo: Auth error (401). Setting to initial state."
+        );
         setUserInfo(null);
         setZennUsername("");
+        console.log(
+          "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo(null), setZennUsername('') called for 401."
+        );
         return;
       } else {
-        console.warn(`ユーザー情報取得エラー: ${response.status}`);
+        console.warn(
+          `[ConnectionPageClient] fetchLatestUserInfo: API call failed or data.success is false. Status: ${response.status}, data:`,
+          JSON.stringify(data, null, 2)
+        );
+        // エラーの場合でも、UIが不安定になるのを避けるため、状態を初期化しないでおくか、検討が必要。
+        // 今回は一旦そのまま（エラー前の状態を維持）
         return;
       }
     } catch (err) {
       // ネットワークエラーなどの場合のみログ出力
       if (err instanceof Error && err.name !== "AbortError") {
-        console.error("ネットワークエラー - 最新ユーザー情報取得エラー:", err);
+        console.error(
+          "[ConnectionPageClient] fetchLatestUserInfo: Generic error caught:",
+          err
+        );
       }
+    } finally {
+      console.log("[ConnectionPageClient] fetchLatestUserInfo finished - END");
     }
-  }, []);
+  }, [setUserInfo, setZennUsername]);
 
   // Zenn連携をリセットする共通関数
   const resetZennConnection = useCallback(async () => {
@@ -198,6 +241,16 @@ export default function ConnectionPageClient() {
   // ユーザー情報を取得
   useEffect(() => {
     const fetchUserInfo = async () => {
+      console.log(
+        "[ConnectionPageClient] useEffect[isLoaded, user, wasLoggedOut, isNewSession] triggered. isLoaded:",
+        isLoaded,
+        "user:",
+        !!user,
+        "wasLoggedOut:",
+        wasLoggedOut,
+        "isNewSession:",
+        isNewSession
+      );
       if (!isLoaded) return;
 
       // ユーザーがログインしていない場合、状態をリセット
@@ -209,26 +262,28 @@ export default function ConnectionPageClient() {
         return;
       }
 
-      // 認証が安定するまで少し待機（初回ユーザーの404エラー回避）
-      // console.log("ConnectionPageClient: 認証安定化のため少し待機します...");
-      // await new Promise((resolve) => setTimeout(resolve, 500)); // 2.5秒 → 500msに短縮
-
       // Zenn連携情報のロード開始（ユーザーがいる場合のみ）
       setIsZennInfoLoaded(false);
 
       try {
         const wasLoggedOutFlag = wasLoggedOut;
         const isNewSessionFlag = isNewSession;
+        console.log(
+          "[ConnectionPageClient] useEffect - Checking flags before reset logic. wasLoggedOutFlag:",
+          wasLoggedOutFlag,
+          "isNewSessionFlag:",
+          isNewSessionFlag
+        );
 
         if (wasLoggedOutFlag || isNewSessionFlag) {
           console.log(
-            "ログアウト後の再ログイン/新しいセッションを検出しました"
+            "[ConnectionPageClient] useEffect - ★★★ Logout/new session detected by flags. Resetting Zenn connection. ★★★"
           );
-          console.log("Zenn連携をリセットします");
-          // 連携リセット処理を実行
           await resetZennConnection();
         } else {
-          // 通常のユーザー情報取得（連携リセットなし）
+          console.log(
+            "[ConnectionPageClient] useEffect - Normal user info fetch. No reset needed based on flags."
+          );
           await fetchLatestUserInfo();
         }
       } catch (err) {
