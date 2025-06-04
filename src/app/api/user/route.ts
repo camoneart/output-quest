@@ -152,7 +152,12 @@ export async function POST(request: Request) {
     }
 
     const data = await request.json();
-    const { zennUsername, displayName, profileImage, forceReset } = data;
+    const {
+      zennUsername,
+      displayName: reqDisplayName,
+      profileImage: reqProfileImage,
+      forceReset,
+    } = data;
 
     // バリデーション追加
     if (zennUsername && typeof zennUsername !== "string") {
@@ -186,8 +191,16 @@ export async function POST(request: Request) {
         where: { clerkId: userId },
         update: {
           zennUsername,
-          displayName: displayName, // displayName が undefined の場合はそのまま prisma が扱う
-          profileImage: profileImage, // profileImage が undefined の場合はそのまま prisma が扱う
+          displayName:
+            reqDisplayName && reqDisplayName.trim() !== ""
+              ? reqDisplayName
+              : `${clerkUser.firstName || ""} ${
+                  clerkUser.lastName || ""
+                }`.trim() || usernameForCreate,
+          profileImage:
+            reqProfileImage && reqProfileImage.trim() !== ""
+              ? reqProfileImage
+              : clerkUser.imageUrl,
           ...(zennUsername === "" || forceReset === true
             ? {
                 zennArticleCount: 0,
@@ -200,8 +213,16 @@ export async function POST(request: Request) {
           username: usernameForCreate,
           email: emailFromClerk, // ここで取得したメールアドレスを使用
           zennUsername,
-          displayName: displayName || usernameForCreate,
-          profileImage,
+          displayName:
+            reqDisplayName && reqDisplayName.trim() !== ""
+              ? reqDisplayName
+              : `${clerkUser.firstName || ""} ${
+                  clerkUser.lastName || ""
+                }`.trim() || usernameForCreate,
+          profileImage:
+            reqProfileImage && reqProfileImage.trim() !== ""
+              ? reqProfileImage
+              : clerkUser.imageUrl,
           zennArticleCount: 0,
           level: 1,
         },
