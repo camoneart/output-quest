@@ -99,7 +99,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
         // キャッシュをチェック
         const cachedData = getCachedHeroData(user.id);
         if (cachedData && retryCount === 0) {
-          console.log("HeroContext: キャッシュからデータを取得");
           setHeroData(cachedData);
           setIsLoading(false);
           setError(null);
@@ -111,7 +110,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 
         // 初回ユーザーの可能性が高い場合は、認証が安定するまで待機
         if (retryCount === 0) {
-          console.log("HeroContext: 認証安定化のため少し待機します...");
           // 認証が安定するまで短時間待機
           await new Promise((resolve) => setTimeout(resolve, 300)); // 2秒 → 300msに短縮
 
@@ -122,10 +120,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
         }
 
         try {
-          console.log(
-            `HeroContext: /api/user 呼び出し開始 (試行: ${retryCount + 1})`
-          );
-
           // より丁寧なfetch処理
           let userRes: Response;
 
@@ -142,7 +136,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
               return;
             }
 
-            console.log("HeroContext: ネットワークエラー - デフォルト値を設定");
             const defaultData = { ...strengthHeroData, level: 1 };
             setHeroData(defaultData);
             setCachedHeroData(user.id, defaultData);
@@ -194,24 +187,14 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
             (!userData.user.zennUsername || userData.isNewUser)
           ) {
             // 既存ユーザー（Zenn未連携）または初回ユーザーの場合
-            console.log(
-              "HeroContext: Zenn未連携ユーザーまたは初回ユーザー - デフォルト値を設定"
-            );
             const defaultData = { ...strengthHeroData, level: 1 };
             setHeroData(defaultData);
             setCachedHeroData(user.id, defaultData); // キャッシュに保存
             setIsLoading(false);
             setError(null);
           } else {
-            console.log(
-              `HeroContext: /api/user 呼び出し失敗 (ステータス: ${
-                userRes.status
-              }, 試行: ${retryCount + 1})`
-            );
-
             // エラーの場合のリトライ
             if (retryCount < 1) {
-              console.log(`HeroContext: 1秒後にリトライします...`);
               const timeoutId = setTimeout(() => {
                 if (!signal?.aborted) {
                   getZennArticlesCount(retryCount + 1, signal);
@@ -230,7 +213,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
           }
         } catch (err) {
           if (signal?.aborted) {
-            console.log("HeroContext: API呼び出しがキャンセルされました");
             return;
           }
 

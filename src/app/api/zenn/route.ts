@@ -109,7 +109,6 @@ export async function GET(request: Request) {
       username
     )}`;
 
-    console.log(`Zenn API呼び出し開始: ${username}`);
     const response = await fetchWithTimeout(apiUrl);
 
     if (!response.ok) {
@@ -120,13 +119,9 @@ export async function GET(request: Request) {
     }
 
     const data: ZennApiResponse = await response.json();
-    console.log(`Zenn API応答受信: ${data.articles?.length || 0}件の記事`);
 
     // 記事が存在しない場合の早期リターン
     if (!data.articles || data.articles.length === 0) {
-      const elapsedTime = Date.now() - startTime;
-      console.log(`記事が見つかりませんでした。処理時間: ${elapsedTime}ms`);
-
       return NextResponse.json(
         {
           success: false,
@@ -202,9 +197,6 @@ export async function GET(request: Request) {
         console.warn("ユーザーデータ更新エラー:", dbError);
       }
     }
-
-    const elapsedTime = Date.now() - startTime;
-    console.log(`Zenn API処理完了。処理時間: ${elapsedTime}ms`);
 
     return NextResponse.json(
       {

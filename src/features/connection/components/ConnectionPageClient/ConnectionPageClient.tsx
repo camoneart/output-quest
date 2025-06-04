@@ -81,12 +81,7 @@ export default function ConnectionPageClient() {
 
   // 最新のユーザー情報を取得する関数
   const fetchLatestUserInfo = useCallback(async () => {
-    console.log("[ConnectionPageClient] fetchLatestUserInfo called - START");
     try {
-      console.log(
-        "[ConnectionPageClient] fetchLatestUserInfo: Fetching /api/user..."
-      );
-
       let response: Response;
       try {
         response = await fetch("/api/user");
@@ -97,65 +92,28 @@ export default function ConnectionPageClient() {
         );
         setUserInfo(null);
         setZennUsername("");
-        console.log(
-          "[ConnectionPageClient] fetchLatestUserInfo: Set to initial state due to network error."
-        );
         return;
       }
 
       const data = await response.json();
-      console.log(
-        "[ConnectionPageClient] fetchLatestUserInfo: Received data from /api/user:",
-        JSON.stringify(data, null, 2)
-      );
 
       // APIが正常に応答した場合の処理
       if (response.ok && data.success) {
-        console.log(
-          "[ConnectionPageClient] fetchLatestUserInfo: API call successful (response.ok && data.success)."
-        );
         if (data.isNewUser) {
-          console.log(
-            "[ConnectionPageClient] fetchLatestUserInfo: Detected new user (data.isNewUser is true). Setting to initial state."
-          );
           setUserInfo(null);
           setZennUsername("");
-          console.log(
-            "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo(null), setZennUsername('') called for new user."
-          );
           return;
         }
 
         // 既存ユーザーの場合
-        if (data.user && data.user.zennUsername) {
-          console.log(
-            `[ConnectionPageClient] fetchLatestUserInfo: Zenn username exists: @${data.user.zennUsername}, Article count from API: ${data.user.zennArticleCount}`
-          );
-        } else {
-          console.log(
-            "[ConnectionPageClient] fetchLatestUserInfo: Zenn username does NOT exist or user data is missing/incomplete."
-          );
-        }
-
-        console.log(
-          "[ConnectionPageClient] fetchLatestUserInfo: Attempting to set user info. User data from API:",
-          JSON.stringify(data.user, null, 2)
-        );
         setUserInfo(data.user);
         setZennUsername(data.user.zennUsername || "");
-        console.log(
-          "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo and setZennUsername CALLED. zennUsername to be set:",
-          data.user.zennUsername || ""
-        );
       } else if (response.status === 401) {
         console.warn(
           "[ConnectionPageClient] fetchLatestUserInfo: Auth error (401). Setting to initial state."
         );
         setUserInfo(null);
         setZennUsername("");
-        console.log(
-          "[ConnectionPageClient] fetchLatestUserInfo: setUserInfo(null), setZennUsername('') called for 401."
-        );
         return;
       } else {
         console.warn(
@@ -175,15 +133,13 @@ export default function ConnectionPageClient() {
         );
       }
     } finally {
-      console.log("[ConnectionPageClient] fetchLatestUserInfo finished - END");
+      // このfinallyブロックは残し、中のconsole.logのみ削除
     }
   }, [setUserInfo, setZennUsername]);
 
   // Zenn連携をリセットする共通関数
   const resetZennConnection = useCallback(async () => {
     try {
-      console.log("Zenn連携リセット処理を開始します");
-
       // 入力欄をクリア
       setZennUsername("");
 
@@ -196,8 +152,7 @@ export default function ConnectionPageClient() {
         body: JSON.stringify({ clerkId: user?.id }),
       });
 
-      const resetData = await resetResponse.json();
-      console.log("Zenn連携リセット結果:", resetData);
+      await resetResponse.json();
 
       // 通常の連携解除処理も実行
       const userResponse = await fetch("/api/user", {
@@ -215,8 +170,7 @@ export default function ConnectionPageClient() {
         }),
       });
 
-      const userData = await userResponse.json();
-      console.log("ユーザー更新結果:", userData);
+      await userResponse.json();
 
       // 状態を直接更新
       setUserInfo(null);
@@ -241,16 +195,6 @@ export default function ConnectionPageClient() {
   // ユーザー情報を取得
   useEffect(() => {
     const fetchUserInfo = async () => {
-      console.log(
-        "[ConnectionPageClient] useEffect[isLoaded, user, wasLoggedOut, isNewSession] triggered. isLoaded:",
-        isLoaded,
-        "user:",
-        !!user,
-        "wasLoggedOut:",
-        wasLoggedOut,
-        "isNewSession:",
-        isNewSession
-      );
       if (!isLoaded) return;
 
       // ユーザーがログインしていない場合、状態をリセット
@@ -268,22 +212,10 @@ export default function ConnectionPageClient() {
       try {
         const wasLoggedOutFlag = wasLoggedOut;
         const isNewSessionFlag = isNewSession;
-        console.log(
-          "[ConnectionPageClient] useEffect - Checking flags before reset logic. wasLoggedOutFlag:",
-          wasLoggedOutFlag,
-          "isNewSessionFlag:",
-          isNewSessionFlag
-        );
 
         if (wasLoggedOutFlag || isNewSessionFlag) {
-          console.log(
-            "[ConnectionPageClient] useEffect - ★★★ Logout/new session detected by flags. Resetting Zenn connection. ★★★"
-          );
           await resetZennConnection();
         } else {
-          console.log(
-            "[ConnectionPageClient] useEffect - Normal user info fetch. No reset needed based on flags."
-          );
           await fetchLatestUserInfo();
         }
       } catch (err) {
@@ -387,19 +319,12 @@ export default function ConnectionPageClient() {
 
         // 追加で記事数を同期してuserInfoを最新に更新
         try {
-          console.log(
-            "updateUserProfile: 記事数を同期して最新のuserInfoに更新"
-          );
           const syncResponse = await fetch(
             `/api/zenn?username=${cleanUsername}&updateUser=true`
           );
           const syncData = await syncResponse.json();
 
           if (syncData.success && syncData.user) {
-            console.log(
-              "updateUserProfile: 最新のuserInfoで更新:",
-              syncData.user
-            );
             setUserInfo(syncData.user);
 
             // 成功メッセージに記事数を含める
@@ -423,9 +348,7 @@ export default function ConnectionPageClient() {
 
         // HeroContextのデータを更新
         try {
-          console.log("updateUserProfile: HeroContextのデータを更新します");
           await refetchHeroData();
-          console.log("updateUserProfile: HeroContextデータ更新完了");
         } catch (heroError) {
           console.warn(
             "updateUserProfile: HeroContextデータ更新エラー:",
@@ -528,16 +451,11 @@ export default function ConnectionPageClient() {
           window.location.pathname === "/connection"
         ) {
           // ページ遷移なしでHeroContextのデータを更新
-          console.log(
-            "ConnectionPageClient: HeroContextのデータ更新をトリガー"
-          );
         }
 
         // HeroContextのデータを更新（Zenn連携後にレベル情報を最新にする）
         try {
-          console.log("ConnectionPageClient: HeroContextのデータを更新します");
           await refetchHeroData();
-          console.log("ConnectionPageClient: HeroContextデータ更新完了");
         } catch (heroError) {
           console.warn("HeroContextデータ更新エラー:", heroError);
         }
@@ -621,15 +539,12 @@ export default function ConnectionPageClient() {
         setZennUsername("");
         setUserInfo(null);
 
-        console.log("ログアウト前の同期的連携解除処理完了");
         return true;
       };
 
       // Clerkのサインアウトイベントをカスタマイズ
       const handleClerkSignOut = async () => {
         try {
-          console.log("サインアウトハンドラー実行開始");
-
           // 最初に同期的な処理を実行
           syncResetZennConnection();
 
@@ -640,8 +555,6 @@ export default function ConnectionPageClient() {
           // ユーザー情報があれば連携解除を実行（確実に実行が完了するように変更）
           if (user) {
             try {
-              console.log("ログアウト時のZenn連携解除APIを呼び出します");
-
               // 連携解除APIを呼び出し - 結果を待機する
               const resetResponse = await fetch("/api/user/reset-connection", {
                 method: "DELETE",
@@ -653,8 +566,7 @@ export default function ConnectionPageClient() {
                 cache: "no-store",
               });
 
-              const resetData = await resetResponse.json();
-              console.log("連携解除API結果:", resetData);
+              await resetResponse.json();
 
               // 通常の連携解除処理も実行
               const userResponse = await fetch("/api/user", {
@@ -674,8 +586,7 @@ export default function ConnectionPageClient() {
                 cache: "no-store",
               });
 
-              const userData = await userResponse.json();
-              console.log("ユーザー更新結果:", userData);
+              await userResponse.json();
             } catch (err) {
               console.error("Zenn連携解除中にエラー:", err);
             }
@@ -690,8 +601,6 @@ export default function ConnectionPageClient() {
           localStorage.setItem(LOGOUT_FLAG_KEY, "true");
           localStorage.removeItem(SESSION_ID_KEY);
         }
-
-        console.log("サインアウトハンドラー実行完了");
       };
 
       // クリークのサインアウト前処理をグローバル変数に登録

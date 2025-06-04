@@ -57,10 +57,7 @@ export async function DELETE(request: Request) {
       }
     }
 
-    console.log(`連携解除API呼び出し: userId=${targetUserId || "なし"}`);
-
     if (!targetUserId) {
-      console.log("認証されていないため、処理を続行できません (targetUserId)");
       return NextResponse.json(
         {
           success: false,
@@ -76,8 +73,6 @@ export async function DELETE(request: Request) {
     // 最適化されたデータベース操作
     const result = await retryDbOperation(async () => {
       // 該当ユーザーのデータを検索（トランザクション外）
-      console.log(`ユーザーID: ${targetUserId} の連携情報を検索します`);
-
       const usersToUpdate = await prisma.user.findMany({
         where: {
           clerkId: targetUserId,
@@ -89,12 +84,7 @@ export async function DELETE(request: Request) {
         take: 5, // 上限を設定してパフォーマンス向上
       });
 
-      console.log(`該当するユーザー数: ${usersToUpdate.length}`);
-
       if (usersToUpdate.length === 0) {
-        console.log(
-          `ユーザー ${targetUserId} が見つかりません。連携解除処理はスキップします。`
-        );
         return {
           success: false,
           message: "ユーザーが見つかりません",
@@ -113,8 +103,6 @@ export async function DELETE(request: Request) {
           level: 1,
         },
       });
-
-      console.log(`${updateResult.count}件のレコードを更新しました`);
 
       // 最終確認（必要な場合のみ）
       const remainingConnections = await prisma.user.count({
@@ -140,8 +128,6 @@ export async function DELETE(request: Request) {
           },
         });
 
-        console.log(`追加で${finalUpdate.count}件を更新しました`);
-
         return {
           success: true,
           message: "Zenn連携を強制解除しました",
@@ -149,17 +135,12 @@ export async function DELETE(request: Request) {
         };
       }
 
-      console.log("連携解除完了: すべての連携が正常に解除されました");
-
       return {
         success: true,
         message: "Zenn連携を強制解除しました",
         updatedCount: updateResult.count,
       };
     });
-
-    const elapsedTime = Date.now() - startTime;
-    console.log(`連携解除処理完了。処理時間: ${elapsedTime}ms`);
 
     return NextResponse.json(result, {
       headers: NO_CACHE_HEADERS,

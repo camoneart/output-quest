@@ -41,13 +41,6 @@ export const useSessionManagement = ({
         const logoutFlag = localStorage.getItem(LOGOUT_FLAG_KEY);
         const previousUser = localStorage.getItem("zenn_previous_user");
 
-        console.log("セッション状態チェック:", {
-          logoutFlag,
-          currentSessionId,
-          previousUser,
-          currentUserId: user.id,
-        });
-
         // ログアウトフラグがある場合またはセッションIDが変更された場合
         // または前回のユーザーIDと異なる場合は強制的に連携解除
         if (
@@ -56,8 +49,6 @@ export const useSessionManagement = ({
           currentSessionId !== user.id ||
           (previousUser && previousUser !== user.id)
         ) {
-          console.log("セッション変更を検出 - Zenn連携を強制的に解除します");
-
           // フラグをクリア
           localStorage.removeItem(LOGOUT_FLAG_KEY);
           localStorage.removeItem("zenn_previous_user");
@@ -66,8 +57,6 @@ export const useSessionManagement = ({
           // ログイン後の強制連携解除処理
           (async () => {
             try {
-              console.log("ログイン後の強制連携解除を実行します");
-
               // 連携解除専用APIを呼び出し
               const resetResponse = await fetch("/api/user/reset-connection", {
                 method: "DELETE",
@@ -77,8 +66,7 @@ export const useSessionManagement = ({
                 body: JSON.stringify({ clerkId: user?.id }),
               });
 
-              const resetData = await resetResponse.json();
-              console.log("連携解除結果:", resetData);
+              await resetResponse.json();
 
               // 通常のユーザー更新APIも呼び出し
               const userResponse = await fetch("/api/user", {
@@ -96,8 +84,7 @@ export const useSessionManagement = ({
                 }),
               });
 
-              const userData = await userResponse.json();
-              console.log("ユーザー更新結果:", userData);
+              await userResponse.json();
 
               // 状態を更新
               setWasLoggedOut(true);
