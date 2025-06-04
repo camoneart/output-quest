@@ -44,14 +44,11 @@ const retryOperation = async <T>(
 // ユーザー情報の取得API
 export async function GET() {
   const startTime = Date.now();
-  console.log("GET /api/user called");
 
   try {
     const { userId } = await auth();
-    console.log("userId from auth():", userId);
 
     if (!userId) {
-      console.log("User not authenticated in GET /api/user, returning 401");
       return NextResponse.json(
         { success: false, error: "未認証" },
         {
@@ -83,11 +80,7 @@ export async function GET() {
     });
 
     if (!user) {
-      const elapsedTime = Date.now() - startTime;
-      console.log(
-        `初回ユーザー検出: ${userId}. Elapsed time: ${elapsedTime}ms - デフォルトユーザー情報を返します`
-      );
-
+      // const elapsedTime = Date.now() - startTime; // 削除 (L83付近のエラー箇所)
       // 404ではなく、初回ユーザーとして適切なレスポンスを返す
       return NextResponse.json(
         {
@@ -113,11 +106,7 @@ export async function GET() {
       );
     }
 
-    const elapsedTime = Date.now() - startTime;
-    console.log(
-      `User data retrieved successfully. Elapsed time: ${elapsedTime}ms`
-    );
-
+    // const elapsedTime = Date.now() - startTime; // 削除 (L110付近のエラー箇所)
     return NextResponse.json(
       {
         success: true,
@@ -178,92 +167,61 @@ export async function POST(request: Request) {
 
     // リトライ付きでユーザー操作を実行（最適化版）
     const user = await retryOperation(async () => {
-      // まず通常のクエリでユーザー存在確認（トランザクション外）
-      const existingUser = await prisma.user.findUnique({
+      // Clerkからメールアドレスを取得（upsertのために先に取得）
+      const emailFromClerk =
+        clerkUser.emailAddresses.find(
+          (email) => email.id === clerkUser.primaryEmailAddressId
+        )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
+
+      if (!emailFromClerk) {
+        // emailFromClerk が undefined の場合、エラーを投げるか、
+        // デフォルトのメールアドレスを設定するなどの対応が必要
+        // ここではエラーを投げる例を示す
+        throw new Error("Clerkからメールアドレスが取得できませんでした。");
+      }
+
+      const usernameForCreate = zennUsername || `user_${Date.now()}`;
+
+      return await prisma.user.upsert({
         where: { clerkId: userId },
+        update: {
+          zennUsername,
+          displayName: displayName, // displayName が undefined の場合はそのまま prisma が扱う
+          profileImage: profileImage, // profileImage が undefined の場合はそのまま prisma が扱う
+          ...(zennUsername === "" || forceReset === true
+            ? {
+                zennArticleCount: 0,
+                level: 1,
+              }
+            : {}),
+        },
+        create: {
+          clerkId: userId,
+          username: usernameForCreate,
+          email: emailFromClerk, // ここで取得したメールアドレスを使用
+          zennUsername,
+          displayName: displayName || usernameForCreate,
+          profileImage,
+          zennArticleCount: 0,
+          level: 1,
+        },
         select: {
           id: true,
+          clerkId: true,
+          username: true,
+          email: true,
           displayName: true,
           profileImage: true,
+          zennUsername: true,
+          zennArticleCount: true,
+          level: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
-
-      if (existingUser) {
-        // 既存ユーザーの更新（単一操作）
-        return await prisma.user.update({
-          where: { clerkId: userId },
-          data: {
-            zennUsername,
-            displayName: displayName || existingUser.displayName,
-            profileImage: profileImage || existingUser.profileImage,
-            ...(zennUsername === "" || forceReset === true
-              ? {
-                  zennArticleCount: 0,
-                  level: 1,
-                }
-              : {}),
-          },
-          select: {
-            id: true,
-            clerkId: true,
-            username: true,
-            email: true,
-            displayName: true,
-            profileImage: true,
-            zennUsername: true,
-            zennArticleCount: true,
-            level: true,
-            createdAt: true,
-            updatedAt: true,
-          },
-        });
-      } else {
-        // 新規ユーザーの作成（単一操作）
-        const username = zennUsername || `user_${Date.now()}`;
-
-        // Clerkからメールアドレスを取得
-        const emailFromClerk =
-          clerkUser.emailAddresses.find(
-            (email) => email.id === clerkUser.primaryEmailAddressId
-          )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
-
-        if (!emailFromClerk) {
-          throw new Error("メールアドレスが取得できませんでした");
-        }
-
-        return await prisma.user.create({
-          data: {
-            clerkId: userId,
-            username,
-            email: emailFromClerk,
-            zennUsername,
-            displayName: displayName || username,
-            profileImage,
-            zennArticleCount: 0,
-            level: 1,
-          },
-          select: {
-            id: true,
-            clerkId: true,
-            username: true,
-            email: true,
-            displayName: true,
-            profileImage: true,
-            zennUsername: true,
-            zennArticleCount: true,
-            level: true,
-            createdAt: true,
-            updatedAt: true,
-          },
-        });
-      }
     });
 
-    const elapsedTime = Date.now() - startTime;
-    console.log(
-      `User data updated successfully. Elapsed time: ${elapsedTime}ms`
-    );
-
+    // const elapsedTime = Date.now() - startTime; // 削除 (L253付近のエラー箇所)
     return NextResponse.json(
       {
         success: true,
@@ -357,11 +315,7 @@ export async function PUT(request: Request) {
       },
     });
 
-    const elapsedTime = Date.now() - startTime;
-    console.log(
-      `Article count updated successfully. Elapsed time: ${elapsedTime}ms`
-    );
-
+    // const elapsedTime = Date.now() - startTime; // 削除 (L348付近のエラー箇所)
     return NextResponse.json(
       {
         success: true,
