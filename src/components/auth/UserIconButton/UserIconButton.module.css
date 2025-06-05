@@ -20,6 +20,8 @@
 }
 
 .user-button-avatar-box {
+  width: 95px;
+  height: 95px;
   order: 1;
   background-color: var(--color-primary-brown-dark);
   border: 5.5px dashed var(--color-primary-brown-light);
@@ -29,6 +31,8 @@
   padding-block: 3.5px;
 
   @media (width < 768px) {
+    width: 75px;
+    height: 75px;
     border: 4px dashed var(--color-primary-brown-light);
     padding-inline: 2.5px;
     padding-block: 2.5px;
