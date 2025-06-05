@@ -12,6 +12,6 @@
 	"tabWidth": 2,
 	"trailingComma": "es5",
 	"useTabs": true,
-	"bracketSameLine": true,
+	"bracketSameLine": false,
 	"singleAttributePer Line": false
 }
