@@ -10,6 +10,7 @@
   background-color: var(--color-primary-brown-dark);
   border: 2px solid var(--color-primary-brown-light);
   border-radius: var(--border-radius-small);
+  cursor: pointer;
 
   &:hover {
     .login-btn-text,

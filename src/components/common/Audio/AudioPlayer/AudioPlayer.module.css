@@ -35,6 +35,7 @@
   border: 1.5px solid var(--color-primary-brown-light);
   padding-block: 8px;
   padding-inline: 8px;
+  cursor: pointer;
   transition: border 0.2s ease-in-out;
 }
 
