@@ -40,8 +40,6 @@ const DashboardContent = () => {
     // heroData.level または isHeroLoading が変更されたときに再実行
   }, [heroData.level, isHeroLoading]);
 
-  console.log(lastAcquiredItemId);
-
   // ダミーデータ (必要に応じて調整)
   const dummyDashboardData = {
     heroData: heroData,
