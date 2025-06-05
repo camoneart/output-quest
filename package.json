@@ -37,11 +37,12 @@
 		"react-icons": "^5.5.0",
 		"svix": "^1.65.0",
 		"swiper": "^11.2.4",
-		"tailwind-merge": "^3.0.2",
+		"tailwind-merge": "^3.3.0",
 		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4.1.8",
 		"@types/howler": "^2.2.12",
 		"@types/node": "^22",
 		"@types/react": "^19",
@@ -53,7 +54,7 @@
 		"postcss": "^8",
 		"prettier": "^3.5.3",
 		"prisma": "^6.8.2",
-		"tailwindcss": "^3.4.1",
+		"tailwindcss": "^4.1.8",
 		"typescript": "^5"
 	}
 }
