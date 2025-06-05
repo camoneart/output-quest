@@ -36,7 +36,7 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
             type="text"
             value=""
             onChange={() => {}}
-            className="flex-1 border-[3px] border-gray-400 rounded px-3 py-2 text-black cursor-not-allowed"
+            className="flex-1 border-[3px] border-gray-400 bg-white rounded px-3 py-2 text-black cursor-not-allowed"
             placeholder="例: aoyamadev"
             disabled
           />
