@@ -8,7 +8,6 @@ import styles from "./AuthButton.module.css";
 
 const AuthButton = () => {
   const { isLoaded, userId } = useAuth();
-  // const redirectUrl = "/connection";
   const redirectUrl = process.env.NEXT_PUBLIC_CONNECTION_URL || "/connection";
   const { playClickSound } = useClickSound({
     soundPath: "/audio/click-sound_star.mp3",
