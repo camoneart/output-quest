@@ -9,6 +9,7 @@
   border-radius: 50%;
   backdrop-filter: blur(5px);
   transition: var(--transition-box-shadow);
+  cursor: pointer;
   z-index: 9999;
 
   &:hover {
@@ -35,7 +36,6 @@
   border: 1.5px solid var(--color-primary-brown-light);
   padding-block: 8px;
   padding-inline: 8px;
-  cursor: pointer;
   transition: border 0.2s ease-in-out;
 }
 
