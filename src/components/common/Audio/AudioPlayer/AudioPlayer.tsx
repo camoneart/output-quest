@@ -27,19 +27,15 @@ const AudioPlayer = memo(
 		const [sound, setSound] = useState<Howl | null>(null);
 
 		const handleClick = useCallback(() => {
-			// ユーザー操作による再生開始を試みる
-			if (sound && !isPlaying) {
-				sound.play();
-			}
 			toggleMute();
-		}, [toggleMute, sound, isPlaying]);
+		}, [toggleMute]);
 
 		useEffect(() => {
 			const newSound = new Howl({
 				src: [src],
 				volume: volume,
 				html5: true,
-				autoplay: true,
+				autoplay: false,
 				loop: true,
 				onplay: () => setIsPlaying(true),
 				onpause: () => setIsPlaying(false),
@@ -59,18 +55,22 @@ const AudioPlayer = memo(
 		}, [src, volume]);
 
 		useEffect(() => {
-			if (sound) {
-				sound.mute(isMuted);
+			if (!sound) return;
+			sound.mute(isMuted);
+
+			if (!isMuted && !isPlaying) {
+				sound.play();
 			}
-		}, [sound, isMuted]);
+		}, [sound, isMuted, isPlaying]);
 
 		return (
 			<button
 				onClick={handleClick}
 				className={`hidden lg:block md:sticky md:inset-0 ${styles["audio-button"]} ${className}`}
-				aria-label={isMuted ? "Unmute" : "Mute"}>
+				aria-label={isMuted ? "Unmute" : "Mute"}
+			>
 				<div className={styles["audio-button-icon-box"]}>
-					{isMuted || !isPlaying ? (
+					{isMuted ? (
 						<HeadphoneOff
 							size={size}
 							color={color}
