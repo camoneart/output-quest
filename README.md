@@ -168,7 +168,7 @@ outputquest/
 ### 前提条件
 
 - Node.js 20 以上
-- npm / yarn / pnpm / bun
+- pnpm
 - Git
 
 ### 1. リポジトリのクローン
@@ -181,13 +181,7 @@ cd output-quest
 ### 2. パッケージのインストール
 
 ```bash
-$ npm install
-# または
-$ yarn install
-# または
 $ pnpm install
-# または
-$ bun install
 ```
 
 ### 3. 環境変数の設定
@@ -210,7 +204,7 @@ npx prisma migrate dev
 ### 5. 開発サーバーの起動（ローカル環境の立ち上げ）
 
 ```bash
-$ npm run dev
+$ pnpm dev
 ```
 
 下記のローカル環境にアクセスして、アプリケーションの起動が確認できれば OK です。<br>
