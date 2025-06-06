@@ -37,7 +37,7 @@ https://outputquest.com
 ### nodeバージョン
 
 - node v22.14.0
-- npm v10.9.2
+- pnpm v10.11.1
 
 ### フロント
 
@@ -152,14 +152,15 @@ outputquest/
 ├── .env                                             # 環境変数の設定ファイル
 ├── .env.example                                     # 環境変数のテンプレートファイル
 ├── .gitignore                                       # GitHubの差分に含まないものを格納
+├── .npmrc                                           # pnpmの設定ファイル
+├── .prettierrc.json                                 # Prettierの設定ファイル
 ├── components.json                                  # shadcn/ui設定ファイル
 ├── eslint.config.mjs                                # ESLint設定ファイル
 ├── next.config.ts                                   # Next.js設定ファイル
-├── package-lock.json                                # npmの依存関係ロックファイル
 ├── package.json                                     # プロジェクトの依存関係・スクリプト定義
+├── pnpm-lock.yaml                                   # pnpmの依存関係ロックファイル
 ├── postcss.config.mjs                               # PostCSS設定ファイル
 ├── README.md                                        # プロジェクトの説明ドキュメント
-├── tailwind.config.js                               # Tailwind CSS設定ファイル
 └── tsconfig.json                                    # TypeScript設定ファイル
 ```
 
