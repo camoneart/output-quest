@@ -64,4 +64,20 @@ export const navigationItems: NavigationItem[] = [
     width: 20,
     height: 20,
   },
+  {
+    id: 8,
+    title: "利用規約",
+    href: "/terms",
+    icon: "/images/nav-icon/terms.svg",
+    alt: "利用規約",
+    width: 20,
+    height: 20,
+  },
+  {
+    id: 9,
+    title: "プライバシーポリシー",
+    href: "/privacy",
+    icon: "/images/nav-icon/privacy.svg",
+    alt: "プライバシーポリシー",
+  },
 ];

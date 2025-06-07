@@ -8,6 +8,8 @@ const isPublicRoute = createRouteMatcher([
   "/audio(.*)",
   "/api/user(.*)",
   "/api/webhooks/clerk(.*)",
+  "/privacy",
+  "/terms",
 ]);
 const isZennProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",

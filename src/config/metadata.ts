@@ -89,6 +89,16 @@ export const metadata: Record<string, Metadata> = {
     description:
       "OUTPUT QUESTの世界観と使い方。アウトプットを通じて成長する新感覚の冒険の始め方を解説します。",
   },
+  terms: {
+    ...baseMetadata,
+    title: "利用規約",
+    description: "OUTPUT QUESTの利用規約です。",
+  },
+  privacy: {
+    ...baseMetadata,
+    title: "プライバシーポリシー",
+    description: "OUTPUT QUESTのプライバシーポリシーです。",
+  },
 };
 
 // 特定ページのメタデータを取得するヘルパー関数
