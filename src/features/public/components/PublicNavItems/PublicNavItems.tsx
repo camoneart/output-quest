@@ -28,7 +28,7 @@ const PublicNavItems = () => {
 
   return (
     <>
-      {legalNavigationItems.map((item) => {
+      {publicNavigationItems.map((item) => {
         const isActive = pathname === item.href;
 
         return (

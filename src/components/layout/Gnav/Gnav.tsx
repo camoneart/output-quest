@@ -1,77 +1,49 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import styles from "./Gnav.module.css";
-import { Route } from "next";
+import * as Main from "@/features/main/components/index";
+import * as Public from "@/features/public/components/index";
+import { useUser } from "@clerk/nextjs";
+import { useHero } from "@/contexts/HeroContext";
 
 interface GnavProps {
-  isOpen: boolean;
-  toggleMenu: () => void;
+	isMenuOpen?: boolean;
+	toggleMenu?: () => void;
+	className?: string;
 }
 
-const Gnav = ({ isOpen, toggleMenu }: GnavProps) => {
-  const pathname = usePathname();
+const Gnav = ({
+	isMenuOpen = false,
+	toggleMenu,
+	className = "",
+}: GnavProps) => {
+	const { isLoaded: isClerkLoaded, isSignedIn } = useUser();
+	const { hero, isLoading: isHeroLoading } = useHero();
 
-  // リンクコンポーネントを条件付きでレンダリングする関数
-  const renderNavItem = (path: Route, label: string) => {
-    const isActive = pathname === path;
-    const commonClasses = `${styles["gnav__link"]} ${styles["hover-un"]} ${
-      isOpen ? styles["gnav__link--open"] : ""
-    } ${isActive ? styles["active"] : ""}`;
+	const isLoading = !isClerkLoaded || isHeroLoading;
 
-    return isActive ? (
-      <span className={commonClasses}>{label}</span>
-    ) : (
-      <Link className={commonClasses} href={path} onClick={toggleMenu}>
-        {label}
-      </Link>
-    );
-  };
+	const isZennConnected =
+		!isLoading && isSignedIn && hero && !!hero.zennUsername;
 
-  return (
-    <nav
-      className={`font-russo ${styles["gnav"]} ${
-        isOpen ? styles["gnav--open"] : ""
-      }`}
-    >
-      <ul
-        className={`font-black ${styles["gnav__list"]} ${
-          isOpen ? styles["gnav__list--open"] : ""
-        }`}
-      >
-        <li
-          className={`md:sticky md:inset-0 ${styles["gnav__item"]} ${
-            isOpen ? styles["gnav__item--open"] : ""
-          }`}
-        >
-          {renderNavItem("/about" as Route, "About")}
-        </li>
-        <li
-          className={`md:sticky md:inset-0 ${styles["gnav__item"]} ${
-            isOpen ? styles["gnav__item--open"] : ""
-          }`}
-        >
-          {renderNavItem("/skills" as Route, "Skills")}
-        </li>
-        <li
-          className={`md:sticky md:inset-0 ${styles["gnav__item"]} ${
-            isOpen ? styles["gnav__item--open"] : ""
-          }`}
-        >
-          {renderNavItem("/works" as Route, "Works")}
-        </li>
-        <li
-          className={`md:sticky md:inset-0 ${styles["gnav__item"]} ${
-            isOpen ? styles["gnav__item--open"] : ""
-          }`}
-        >
-          {renderNavItem("/contact" as Route, "Contact")}
-        </li>
-      </ul>
-    </nav>
-  );
+	return (
+		<>
+			{isZennConnected ? (
+				<Main.MainNav
+					isMenuOpen={isMenuOpen}
+					toggleMenu={toggleMenu}
+					className={className}
+					isLoading={isLoading}
+				/>
+			) : (
+				<Public.PublicNav
+					isMenuOpen={isMenuOpen}
+					toggleMenu={toggleMenu}
+					className={className}
+					isLoading={isLoading}
+				/>
+			)}
+		</>
+	);
 };
 
 export default Gnav;

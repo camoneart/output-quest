@@ -7,12 +7,14 @@ interface MainNavProps {
 	isMenuOpen?: boolean;
 	toggleMenu?: () => void;
 	className?: string;
+	isLoading?: boolean;
 }
 
 const MainNav = ({
 	isMenuOpen = false,
 	toggleMenu,
 	className = "",
+	isLoading = false,
 }: MainNavProps) => {
 	return (
 		<>
@@ -25,7 +27,11 @@ const MainNav = ({
 				<div className={`${styles["main-sidebar-container"]}`}>
 					<nav className={`${styles["main-sidebar-nav"]}`}>
 						<ul className={`${styles["main-sidebar-list"]}`}>
-							<Main.MainNavItems />
+							{isLoading ? (
+								<li className="text-center">読み込み中...</li>
+							) : (
+								<Main.MainNavItems />
+							)}
 						</ul>
 					</nav>
 				</div>

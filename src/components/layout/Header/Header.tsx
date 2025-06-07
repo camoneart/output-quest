@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import AudioPlayer from "@/components/common/Audio/AudioPlayer/AudioPlayer";
 import { usePathname } from "next/navigation";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
-import * as Dashboard from "@/features/dashboard/components/index";
 import HamburgerMenu from "@/components/elements/HamburgerMenu/HamburgerMenu";
+import Gnav from "@/components/layout/Gnav/Gnav";
 import styles from "./Header.module.css";
 
 export const Header = () => {
@@ -152,10 +152,10 @@ export const Header = () => {
           </div>
         </div>
         {pathname !== "/" && (
-          <Dashboard.DashboardNav
+          <Gnav
             isMenuOpen={isMenuOpen}
             toggleMenu={toggleMenu}
-            className={`${styles["header-dashboard-nav"]}`}
+            className={`${styles["header-gnav"]}`}
           />
         )}
       </div>

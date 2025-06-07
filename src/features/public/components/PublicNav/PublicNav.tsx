@@ -7,12 +7,14 @@ interface PublicNavProps {
 	isMenuOpen?: boolean;
 	toggleMenu?: () => void;
 	className?: string;
+	isLoading?: boolean;
 }
 
 const PublicNav = ({
 	isMenuOpen = false,
 	toggleMenu,
 	className = "",
+	isLoading = false,
 }: PublicNavProps) => {
 	return (
 		<>
@@ -25,7 +27,11 @@ const PublicNav = ({
 				<div className={`${styles["public-sidebar-container"]}`}>
 					<nav className={`${styles["public-sidebar-nav"]}`}>
 						<ul className={`${styles["public-sidebar-list"]}`}>
-							<Public.PublicNavItems />
+							{isLoading ? (
+								<li className="text-center">読み込み中...</li>
+							) : (
+								<Public.PublicNavItems />
+							)}
 						</ul>
 					</nav>
 				</div>
