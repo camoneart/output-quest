@@ -68,7 +68,7 @@
 		--color-primary-brown-light: #9f7b59;
 		--color-primary-brown: #7e6146;
 		--color-primary-brown-dark: #4d3620;
-		--color-primary-yellow: #ffc630;
+		--color-primary-yellow: #ffc400;
 		--color-primary-black: #000;
 		--color-primary-white: #fff;
 
@@ -90,9 +90,6 @@
 		--color-equipment-helmet: #094bb0;
 		--color-equipment-armor: #094bb0;
 		--color-equipment-accessory: #d8a90b;
-
-		/* aboutページのカラー */
-		--color-about-title: #ffc513;
 
 		/* 称号の背景色 */
 		--color-title-bg-loading: var(--color-primary-brown-dark);
