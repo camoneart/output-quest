@@ -68,7 +68,7 @@ export const navigationItems: NavigationItem[] = [
     id: 8,
     title: "利用規約",
     href: "/terms",
-    icon: "/images/nav-icon/terms.svg",
+    icon: "/images/nav-icon/terms-nav-icon.svg",
     alt: "利用規約",
     width: 20,
     height: 20,
@@ -77,7 +77,7 @@ export const navigationItems: NavigationItem[] = [
     id: 9,
     title: "プライバシーポリシー",
     href: "/privacy",
-    icon: "/images/nav-icon/privacy.svg",
+    icon: "/images/nav-icon/privacy-nav-icon.svg",
     alt: "プライバシーポリシー",
   },
 ];
