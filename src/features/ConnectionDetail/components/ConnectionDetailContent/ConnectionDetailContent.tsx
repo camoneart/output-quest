@@ -6,7 +6,7 @@ const ConnectionDetailContent = () => {
 		<div className={`${styles["connection-detail-content"]}`}>
 			<div className="grid grid-cols-2 grid-rows-subgrid row-span-2 gap-2 items-start h-full">
 				<div
-					className={`${styles["connection-detail-content-box"]} bg-[#107bd2]`}
+					className={`${styles["connection-detail-content-box"]} bg-[#0f6ebc]`}
 				>
 					<dl className="grid grid-cols-1 gap-2 place-items-center">
 						<div className="w-full grid gap-3">
