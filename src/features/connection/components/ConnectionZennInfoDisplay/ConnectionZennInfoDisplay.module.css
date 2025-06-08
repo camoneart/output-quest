@@ -25,7 +25,7 @@
   padding-block: 15px 25px;
 
   @media (width < 768px) {
-    gap: 30px;
+    gap: 25px;
   }
 }
 
@@ -38,7 +38,11 @@
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
   padding-block: 6px 7px;
-  padding-inline: 12px;
+  padding-inline: 15px;
+
+  @media (width < 768px) {
+    padding-inline: 35px;
+  }
 }
 
 .user-info-list {
