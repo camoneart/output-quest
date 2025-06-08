@@ -76,7 +76,7 @@ export const Header = () => {
           }`}
         >
           {pathname !== "/" && (
-            <p className={`${styles["header__title"]}`}>
+            <div className={`${styles["header__title"]}`}>
               <Link
                 href="/"
                 className={`${styles["header__title-link"]}`}
@@ -142,7 +142,7 @@ export const Header = () => {
                   </span>
                 </div>
               </Link>
-            </p>
+            </div>
           )}
           <div className={`${styles["header__items"]}`}>
             {audioPlayer}

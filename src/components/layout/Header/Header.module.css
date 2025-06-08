@@ -40,6 +40,7 @@
 }
 
 .header__title {
+  display: block grid;
   font-weight: var(--font-weight-x-bold);
   color: var(--color-primary-white);
   text-shadow: 1.5px 1.5px 0 var(--color-primary-brown-dark),
