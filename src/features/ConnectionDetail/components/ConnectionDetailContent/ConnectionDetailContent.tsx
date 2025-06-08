@@ -11,7 +11,7 @@ const ConnectionDetailContent = () => {
 					<dl className="grid grid-cols-1 gap-2 place-items-center">
 						<div className="w-full grid gap-3">
 							<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white">
-								ログインユーザー
+								【ログインユーザー】
 							</dt>
 							<dd
 								className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
@@ -21,9 +21,9 @@ const ConnectionDetailContent = () => {
 						</div>
 					</dl>
 					<div className="grid gap-2">
-						<p className="text-sm md:text-base font-bold text-[#ffc400]">
+						<em className="text-sm md:text-base not-italic font-bold text-[#ffc400]">
 							【こんな方にオススメ】
-						</p>
+						</em>
 						<ul
 							className={`${styles["connection-detail-list"]} grid grid-cols-1 gap-0.5`}
 						>
@@ -64,7 +64,7 @@ const ConnectionDetailContent = () => {
 					<dl className="grid grid-cols-1 gap-2 place-items-center">
 						<div className="w-full grid gap-3">
 							<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white">
-								ゲストユーザー
+								【ゲストユーザー】
 							</dt>
 							<dd
 								className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
@@ -75,9 +75,9 @@ const ConnectionDetailContent = () => {
 						</div>
 					</dl>
 					<div className="grid gap-2">
-						<p className="text-sm md:text-base font-bold text-[#ffc400]">
+						<em className="text-sm md:text-base not-italic font-bold text-[#ffc400]">
 							【こんな方にオススメ】
-						</p>
+						</em>
 						<ul
 							className={`${styles["connection-detail-list"]} grid grid-cols-1 gap-0.5`}
 						>
