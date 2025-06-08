@@ -14,7 +14,7 @@
 	z-index: 10;
 
 	@media (width < 768px) {
-		font-size: 1.25rem;
+		font-size: 1.125rem;
 		line-height: var(--leading-x-tight);
 	}
 }
