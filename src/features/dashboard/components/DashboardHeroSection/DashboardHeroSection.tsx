@@ -67,9 +67,9 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
               </Link>
             </div>
             <div className={styles["hero-info-name-box"]}>
-              <p className={`${styles["hero-info-name"]}`}>
+              <h3 className={`${styles["hero-info-name"]}`}>
                 {dashboardData.heroData.name}
-              </p>
+              </h3>
             </div>
           </div>
           <div className={`${styles["hero-info-level"]}`}>

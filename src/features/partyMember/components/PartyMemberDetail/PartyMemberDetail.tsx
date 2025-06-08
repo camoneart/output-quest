@@ -118,7 +118,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
           </div>
 
           <div className={styles["party-member-title-box"]}>
-            <h3 className={styles["party-member-title"]}>
+            <h2 className={styles["party-member-title"]}>
               {isLoadingLevel ? (
                 <div className={styles["loading-indicator"]}>読み込み中...</div>
               ) : isAcquired ? (
@@ -126,7 +126,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
               ) : (
                 "未獲得のなかま"
               )}
-            </h3>
+            </h2>
           </div>
 
           {isLoadingLevel ? null : isAcquired ? (
@@ -138,7 +138,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
               </div>
 
               <div className={styles["party-member-rarity-box"]}>
-                <h4 className={styles["party-member-rarity-title"]}>レア度</h4>
+                <h3 className={styles["party-member-rarity-title"]}>レア度</h3>
                 <div className={styles["party-member-rarity-stars"]}>
                   {rarityType === "normal" &&
                     PartyMember.PartyMemberRarityStar.normal}
