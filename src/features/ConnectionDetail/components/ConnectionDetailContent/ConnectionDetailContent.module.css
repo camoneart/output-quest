@@ -1,0 +1,39 @@
+.connection-detail-content {
+	display: block grid;
+	grid-template-rows: auto 1fr;
+	width: 100%;
+  height: calc(100% - 1px);
+	gap: 10px;
+	padding-block-start: 10px;
+	padding-inline: 20px;
+}
+
+.connection-detail-content-box {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+	align-items: start;
+  gap: 25px;
+	padding-block: 15px;
+	padding-inline: 10px;
+	border: 1px solid #fff;
+  border-radius: 3px;
+
+  @media (width <= 768px) {
+    padding-inline: 5px;
+  }
+}
+
+.connection-detail-content-text {
+	padding-inline: 10px;
+}
+
+.connection-detail-list-item {
+  padding-inline: 22px 5px;
+  text-indent: -28px;
+
+	&:before {
+		content: "・";
+		margin-inline: 10px 2.5px;
+	}
+}
