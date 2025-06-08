@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./PrivacyPage.module.css";
 import * as Public from "@/features/public/components/index";
+import Link from "next/link";
 
 export const metadata: Metadata = getPageMetadata("privacy");
 
@@ -146,23 +147,23 @@ const PrivacyPage = () => {
 									<div>
 										<dt className="">開発者のメールアドレス：</dt>
 										<dd>
-											<a
+											<Link
 												href="mailto:aoymdev@gmail.com"
 												className="underline underline-offset-2"
 											>
 												aoymdev@gmail.com
-											</a>
+											</Link>
 										</dd>
 									</div>
 									<div>
 										<dt className="">開発者のX：</dt>
 										<dd>
-											<a
+											<Link
 												href="https://x.com/aoyamadev"
 												className="underline underline-offset-2"
 											>
 												@aoyamadev
-											</a>
+											</Link>
 										</dd>
 									</div>
 								</dl>

@@ -33,7 +33,7 @@ const ItemDetailFooter = () => {
         >
           <Image
             src="/images/arrow/arrow-icon.svg"
-            alt="戻る"
+            alt="アイテム一覧へ"
             width={20}
             height={20}
             className={styles["item-detail-back-link-icon"]}

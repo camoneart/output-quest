@@ -33,7 +33,7 @@ const PartyMemberFooter = () => {
         >
           <Image
             src="/images/arrow/arrow-icon.svg"
-            alt="戻る"
+            alt="なかま一覧へ"
             width={20}
             height={20}
             className={styles["party-member-back-link-icon"]}

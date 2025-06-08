@@ -2,6 +2,7 @@ import React from "react";
 import { RefreshCcw, Unplug, Newspaper } from "lucide-react";
 import styles from "./ConnectionButtonGroup.module.css";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import Link from "next/link";
 
 interface ConnectionButtonGroupProps {
   loading: boolean;
@@ -55,7 +56,7 @@ const ConnectionButtonGroup: React.FC<ConnectionButtonGroupProps> = ({
       </div>
 
       <div className={styles["view-zenn-posts-link-box"]}>
-        <a
+        <Link
           href={`https://zenn.dev/${userInfo.zennUsername}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -68,7 +69,7 @@ const ConnectionButtonGroup: React.FC<ConnectionButtonGroupProps> = ({
           <span className={styles["view-zenn-posts-link-text"]}>
             記事を確認
           </span>
-        </a>
+        </Link>
       </div>
 
       <div className={styles["release-button-box"]}>
