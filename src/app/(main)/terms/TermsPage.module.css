@@ -1,0 +1,113 @@
+.terms-title {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  line-height: var(--leading-none);
+  font-weight: var(--font-weight-x-bold);
+  letter-spacing: 0.025em;
+  color: var(--color-primary-white);
+  background-color: var(--color-primary-dark-gray);
+  padding-block: 0 10px;
+  padding-inline: 10px;
+  z-index: 10;
+
+  @media (width < 768px) {
+    font-size: 1.25rem;
+    line-height: var(--leading-x-tight);
+  }
+}
+
+.terms-container {
+  height: 100%;
+  display: block grid;
+  grid-template-rows: auto 1fr;
+  place-content: center;
+  grid-template-areas:
+    "content"
+    ".";
+  border: var(--border-large);
+  border-radius: var(--border-radius-small);
+	padding-block-start: 20px;
+}
+
+.terms-content {
+  display: block grid;
+  gap: 30px;
+  grid-area: content;
+  overflow-y: scroll;
+}
+
+.terms-article {
+  display: block grid;
+  gap: 50px;
+  padding-block-end: 45px;
+	padding-inline: 50px;
+  color: var(--color-primary-white);
+
+  @media (width < 768px) {
+		padding-inline: 20px;
+		gap: 40px;
+  }
+}
+
+.terms-section {
+  width: 100%;
+  display: block grid;
+  gap: 15px;
+}
+
+.terms-section-title-container {
+  width: fit-content;
+  background-color: var(--color-primary-brown-dark);
+  border: 5.5px dashed var(--color-primary-brown-light);
+  border-radius: var(--border-radius-small);
+  padding-inline: 4px;
+  padding-block: 4px;
+}
+
+.terms-section-title-box {
+  background-color: var(--color-primary-red);
+  border: 1.5px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 10px 11px;
+
+  @media (width < 768px) {
+    padding-inline: 10px;
+  }
+}
+
+.terms-section-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-x-bold);
+  line-height: var(--leading-none);
+  color: var(--color-primary-yellow);
+  text-shadow: 2px 2px 0 var(--color-primary-black);
+
+  @media (width < 768px) {
+    font-size: 1rem;
+  }
+}
+
+.terms-section-message,
+.terms-section-list-item {
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
+
+  @media (width < 768px) {
+    font-size: 0.875rem;
+  }
+}
+
+.terms-section-list {
+  display: block grid;
+  gap: 10px;
+  padding-inline-start: 25px;
+}
+
+.terms-section-list-item {
+  list-style: auto;
+}
+
