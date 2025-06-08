@@ -72,9 +72,9 @@ const StrengthEquipmentList = () => {
                     size={24}
                   />
                 </div>
-                <h4 className={styles["strength-equipment-item-link-text"]}>
+                <h3 className={styles["strength-equipment-item-link-text"]}>
                   {getEquipmentName(equipment.type)}
-                </h4>
+                </h3>
               </Link>
             </li>
           );

@@ -28,7 +28,7 @@ export default async function ItemDetailPage(
       {/* 動的にHeadを更新するコンポーネント */}
       <itemDetail.ItemDynamicHead itemId={itemIdNum} />
 
-      <h2 className={styles["item-detail-page-title"]}>アイテム詳細</h2>
+      <h1 className={styles["item-detail-page-title"]}>アイテム詳細</h1>
       <div className={styles["item-detail-container"]}>
         {/* クライアントコンポーネントとしてItemDetailClientを使用 */}
         <itemDetail.ItemDetailClient itemId={itemIdNum} />

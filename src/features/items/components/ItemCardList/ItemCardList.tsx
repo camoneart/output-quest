@@ -100,9 +100,9 @@ const ItemCardList: React.FC = () => {
                 />
               </div>
             )}
-            <p className={styles["item-name"]}>
+            <h2 className={styles["item-name"]}>
               {item.acquired ? item.name : "???"}
-            </p>
+            </h2>
           </Link>
         </div>
       ))}

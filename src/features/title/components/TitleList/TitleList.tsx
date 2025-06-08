@@ -64,9 +64,9 @@ const TitleList = () => {
               styles["title-page-list-item-box"]
             } ${getTitleBoxClass(title.id)}`}
           >
-            <h3 className={styles["title-page-list-item-text"]}>
+            <h2 className={styles["title-page-list-item-text"]}>
               {getTitleName(title)}
-            </h3>
+            </h2>
           </div>
         </li>
       ))}

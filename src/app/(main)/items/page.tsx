@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("items");
 const ItemsPage = () => {
   return (
     <>
-      <h2 className={`${styles["items-title"]}`}>アイテム</h2>
+      <h1 className={`${styles["items-title"]}`}>アイテム</h1>
       <div className={`${styles["items-container"]}`}>
         <div className={`${styles["items-header"]}`}>
           <p>獲得したアイテムを確認できます。</p>

@@ -23,16 +23,16 @@ const DashboardPlatformStatsSection = ({
 
   return (
     <section className={`${styles["platform-stats-section"]}`}>
-      <h3 className={`${styles["platform-stats-title"]}`}>~ 投稿状況 ~</h3>
+      <h2 className={`${styles["platform-stats-title"]}`}>~ 投稿状況 ~</h2>
       <div className={`${styles["platform-stats-container"]}`}>
         <div className={`${styles["platform-stats-grid"]}`}>
           <div
             className={`${styles["platform-stat-card"]} ${styles["platform-stat-card-zenn"]}`}
           >
             <div className={`${styles["platform-stat-card-content"]}`}>
-              <h4 className={`${styles["platform-stat-card-title"]}`}>
+              <h3 className={`${styles["platform-stat-card-title"]}`}>
                 {zennStat.platform}
-              </h4>
+              </h3>
               <div className={`${styles["platform-stat-count"]}`}>
                 {isLoading ? (
                   <span className={`${styles["platform-stat-loading"]}`}>

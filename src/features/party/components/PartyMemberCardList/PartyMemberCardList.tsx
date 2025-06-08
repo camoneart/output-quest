@@ -103,9 +103,9 @@ const PartyMemberCardList: React.FC = () => {
                 />
               </div>
             )}
-            <p className={styles["party-member-name"]}>
+            <h2 className={styles["party-member-name"]}>
               {partyMember.acquired ? partyMember.name : "???"}
-            </p>
+            </h2>
           </Link>
         </div>
       ))}

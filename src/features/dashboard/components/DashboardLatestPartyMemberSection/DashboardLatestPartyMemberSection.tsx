@@ -77,9 +77,9 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 
   return (
     <section className={`${styles["party-member-section"]}`}>
-      <h3 className={`${styles["party-member-title"]}`}>
+      <h2 className={`${styles["party-member-title"]}`}>
         ~ 最近なかまになったキャラクター ~
-      </h3>
+      </h2>
       <div className={`${styles["party-member-container"]}`}>
         {memberId === null ? (
           <p>まだなかまになったキャラクターはいません。</p>
@@ -102,7 +102,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
                 </div>
               </div>
               <div className={`${styles["party-member-info"]}`}>
-                <p className={`${styles["party-member-name"]}`}>{memberName}</p>
+                <h3 className={`${styles["party-member-name"]}`}>{memberName}</h3>
                 <p className={`${styles["party-member-description"]}`}>
                   {memberDescription}
                 </p>

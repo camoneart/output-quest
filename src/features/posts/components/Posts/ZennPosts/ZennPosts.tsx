@@ -57,7 +57,7 @@ const ZennPosts = () => {
   return (
     <div className={styles["posts-container"]}>
       <div className={styles["platform-title-box"]}>
-        <h3 className={styles["platform-title"]}>Zennの投稿一覧</h3>
+        <h2 className={styles["platform-title"]}>Zennの投稿一覧</h2>
       </div>
       <hr className={styles["posts-container-line"]} />
 

@@ -622,7 +622,7 @@ export default function ConnectionPageClient() {
 
 	return (
 		<>
-			<h2 className={`${styles["profile-title"]}`}>連携</h2>
+			<h1 className={`${styles["profile-title"]}`}>連携</h1>
 			<div className={`${styles["profile-container"]}`}>
 				{!isLoaded ? (
 					<div className="p-4 text-center">読み込み中...</div>

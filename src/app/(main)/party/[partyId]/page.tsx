@@ -28,7 +28,7 @@ export default async function PartyMemberPage(
       {/* 動的にHeadを更新するコンポーネント */}
       <PartyMember.PartyMemberDynamicHead partyId={partyIdNum} />
 
-      <h2 className={`${styles["party-member-page-title"]}`}>なかま詳細</h2>
+      <h1 className={`${styles["party-member-page-title"]}`}>なかま詳細</h1>
       <div className={styles["party-member-container"]}>
         {/* クライアントコンポーネントとしてPartyMemberDetailを使用 */}
         <PartyMember.PartyMemberDetail partyId={partyIdNum} />

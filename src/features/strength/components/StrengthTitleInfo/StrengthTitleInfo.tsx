@@ -116,7 +116,7 @@ const StrengthTitleInfo = () => {
     <div className={styles["strength-title-info"]}>
       <div className={styles["strength-title-info-content"]}>
         <div className={styles["strength-title-box"]}>
-          <h3 className={styles["strength-title-title"]}>~ 称号 ~</h3>
+          <h2 className={styles["strength-title-title"]}>~ 称号 ~</h2>
           <div className={styles["strength-title-detail-bg"]}>
             <div className={styles["strength-title-detail"]}>
               <div
@@ -129,9 +129,9 @@ const StrengthTitleInfo = () => {
                     読み込み中...
                   </div>
                 ) : (
-                  <h4 className={styles["strength-title-detail-text"]}>
+                  <h3 className={styles["strength-title-detail-text"]}>
                     {getLatestTitle()}
-                  </h4>
+                  </h3>
                 )}
               </div>
             </div>

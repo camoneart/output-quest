@@ -118,7 +118,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
           </div>
 
           <div className={styles["item-detail-title-box"]}>
-            <h3 className={styles["item-detail-title"]}>
+            <h2 className={styles["item-detail-title"]}>
               {isLoadingLevel ? (
                 <div className={styles["loading-indicator"]}>読み込み中...</div>
               ) : isAcquired ? (
@@ -126,7 +126,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
               ) : (
                 "未獲得のアイテム"
               )}
-            </h3>
+            </h2>
           </div>
 
           {isLoadingLevel ? null : isAcquired ? (
@@ -138,7 +138,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
               </div>
 
               <div className={styles["item-detail-rarity-box"]}>
-                <h4 className={styles["item-detail-rarity-title"]}>レア度</h4>
+                <h3 className={styles["item-detail-rarity-title"]}>レア度</h3>
                 <div className={styles["item-detail-rarity-stars"]}>
                   {rarityType === "normal" &&
                     itemDetail.ItemDetailRarityStar.normal}

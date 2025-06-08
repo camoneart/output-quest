@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("party");
 const PartyPage = () => {
   return (
     <>
-      <h2 className={`${styles["party-title"]}`}>なかま</h2>
+      <h1 className={`${styles["party-title"]}`}>なかま</h1>
       <div className={`${styles["party-container"]}`}>
         <div className={`${styles["party-header"]}`}>
           <p>獲得したなかまを確認できます。</p>

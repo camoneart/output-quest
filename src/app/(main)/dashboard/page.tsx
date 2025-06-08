@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("dashboard");
 const DashboardPage = () => {
   return (
     <>
-      <h2 className={`${styles["dashboard-title"]}`}>ダッシュボード</h2>
+      <h1 className={`${styles["dashboard-title"]}`}>ダッシュボード</h1>
       <div className={styles["dashboard-content-wrapper"]}>
         <Dashboard.DashboardContent />
       </div>

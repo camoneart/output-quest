@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("title");
 const TitlePage = () => {
   return (
     <>
-      <h2 className={`${styles["title-page-title"]}`}>称号リスト</h2>
+      <h1 className={`${styles["title-page-title"]}`}>称号リスト</h1>
       <div className={`${styles["title-page-container"]}`}>
         <Title.TitlePageHeader />
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("terms");
 const TermsPage = () => {
 	return (
 		<>
-			<h2 className={`${styles["terms-title"]}`}>利用規約</h2>
+			<h1 className={`${styles["terms-title"]}`}>利用規約</h1>
 			<div className={`${styles["terms-container"]}`}>
 				<div className={`${styles["terms-content"]} w-full`}>
 					<p className="text-base md:text-lg leading-[1.75] font-weight-normal px-[20px] md:px-[50px] pt-[10px] md:pt-[30px]">
@@ -19,9 +19,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第1条（適用）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["terms-section-message"]}>
@@ -39,9 +39,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第2条（利用登録）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<ol className={styles["terms-section-list"]}>
@@ -71,9 +71,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第3条（禁止事項）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["terms-section-message"]}>
@@ -113,9 +113,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第4条（本サービスの提供の停止等）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<ol className={styles["terms-section-list"]}>
@@ -145,9 +145,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第5条（免責事項）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<ol className={styles["terms-section-list"]}>
@@ -163,9 +163,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第6条（ユーザーの投稿等）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<ol className={styles["terms-section-list"]}>
@@ -181,9 +181,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第7条（サービス内容の変更等）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["terms-section-message"]}>
@@ -194,9 +194,9 @@ const TermsPage = () => {
 						<section className={`${styles["terms-section"]}`}>
 							<div className={styles["terms-section-title-container"]}>
 								<div className={styles["terms-section-title-box"]}>
-									<h3 className={styles["terms-section-title"]}>
+									<h2 className={styles["terms-section-title"]}>
 										第8条（利用規約の変更）
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["terms-section-message"]}>

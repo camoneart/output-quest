@@ -71,7 +71,7 @@ const StrengthHeroInfo = () => {
     return (
       <div className={styles["strength-hero-info"]}>
         <div className={styles["strength-hero-info-content"]}>
-          <h3 className={styles["strength-title-title"]}>~ 勇者のレベル ~</h3>
+          <h2 className={styles["strength-title-title"]}>~ 勇者のレベル ~</h2>
           <div className={styles["error-text"]}>{error}</div>
         </div>
       </div>
@@ -81,7 +81,7 @@ const StrengthHeroInfo = () => {
   return (
     <div className={styles["strength-hero-info"]}>
       <div className={styles["strength-hero-info-content"]}>
-        <h3 className={styles["strength-title-title"]}>~ 勇者のレベル ~</h3>
+        <h2 className={styles["strength-title-title"]}>~ 勇者のレベル ~</h2>
         <div className={styles["strength-hero-info-content-head"]}>
           {/* 勇者のアイコン　*/}
           <div className={styles["strength-hero-box"]}>
@@ -96,9 +96,9 @@ const StrengthHeroInfo = () => {
               />
             </div>
             <div className={styles["strength-hero-name-box"]}>
-              <h4 className={`${styles["strength-hero-name"]}`}>
+              <h3 className={`${styles["strength-hero-name"]}`}>
                 {heroData.name}
-              </h4>
+              </h3>
             </div>
           </div>
           {/* レベル表示 */}

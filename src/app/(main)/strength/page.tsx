@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("strength");
 const StrengthPage = () => {
   return (
     <>
-      <h2 className={`${styles["strength-title"]}`}>つよさ</h2>
+      <h1 className={`${styles["strength-title"]}`}>つよさ</h1>
       <div className={`${styles["strength-container"]}`}>
         <div className={styles["strength-content"]}>
           {/* （左上）勇者のコンテンツ */}

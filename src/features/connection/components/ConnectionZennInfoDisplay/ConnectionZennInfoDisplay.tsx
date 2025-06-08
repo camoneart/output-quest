@@ -23,7 +23,7 @@ const ConnectionZennInfoDisplay: React.FC<ConnectionZennInfoDisplayProps> = ({
   return (
     <div className={styles["zenn-info-container"]}>
       <div className={styles["zenn-info-content"]}>
-        <h3 className={styles["zenn-info-title"]}>Zenn連携情報</h3>
+        <h2 className={styles["zenn-info-title"]}>Zenn連携情報</h2>
         <div className="grid gap-6 md:gap-3">
           <dl className={styles["user-info-list"]}>
             <dt className={styles["user-info-title"]}>

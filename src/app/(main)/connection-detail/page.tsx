@@ -9,7 +9,9 @@ export const metadata: Metadata = getPageMetadata("connection-detail");
 const ConnectionDetailPage = () => {
 	return (
 		<>
-			<h2 className={`${styles["connection-detail-title"]}`}>Zennとの連携について</h2>
+			<h1 className={`${styles["connection-detail-title"]}`}>
+				Zennとの連携について
+			</h1>
 			<div className={`${styles["connection-detail-container"]}`}>
 				<div className={`${styles["connection-detail-content-box"]} w-full`}>
 					<ConnectionDetail.ConnectionDetailContent />

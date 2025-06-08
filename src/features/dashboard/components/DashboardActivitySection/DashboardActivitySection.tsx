@@ -116,9 +116,9 @@ const DashboardActivitySection = () => {
 
   return (
     <section className={`${styles["recent-activity-section"]}`}>
-      <h3 className={`${styles["recent-activity-section-title"]}`}>
+      <h2 className={`${styles["recent-activity-section-title"]}`}>
         ~ 最近の投稿 ~
-      </h3>
+      </h2>
 
       {error && <p className={`${styles["error-message"]}`}>{error}</p>}
 
@@ -150,9 +150,9 @@ const DashboardActivitySection = () => {
                 onClick={() => playClickSound()}
               >
                 <div className={`${styles["recent-activity-item-content"]}`}>
-                  <h4 className={`${styles["recent-activity-item-title"]}`}>
+                  <h3 className={`${styles["recent-activity-item-title"]}`}>
                     {article.title}
-                  </h4>
+                  </h3>
 
                   <hr />
 

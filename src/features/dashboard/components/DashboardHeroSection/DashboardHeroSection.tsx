@@ -45,7 +45,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 
   return (
     <section className={`${styles["hero-info-section"]}`}>
-      <h3 className={`${styles["hero-info-title"]}`}>~ 勇者のレベル ~</h3>
+      <h2 className={`${styles["hero-info-title"]}`}>~ 勇者のレベル ~</h2>
       <div className={`${styles["hero-info-container"]}`}>
         {/* キャラクター情報 */}
         <div className={`${styles["hero-info"]}`}>

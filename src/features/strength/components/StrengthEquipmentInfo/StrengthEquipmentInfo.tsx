@@ -7,7 +7,7 @@ const StrengthEquipmentInfo = () => {
     <div className={styles["strength-equipment-info"]}>
       <div className={styles["strength-equipment-info-content"]}>
         <div className={styles["strength-equipment-box"]}>
-          <h3 className={styles["strength-equipment-title"]}>~ そうび ~</h3>
+          <h2 className={styles["strength-equipment-title"]}>~ そうび ~</h2>
           <StrengthEquipmentList />
         </div>
       </div>

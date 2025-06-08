@@ -63,7 +63,7 @@ const PostCard = ({
         onClick={() => playClickSound()}
         className={`${styles["post-card__link"]}`}
       >
-        <h4 className={`${styles["post-card__title"]}`}>{title}</h4>
+        <h3 className={`${styles["post-card__title"]}`}>{title}</h3>
 
         <hr />
 

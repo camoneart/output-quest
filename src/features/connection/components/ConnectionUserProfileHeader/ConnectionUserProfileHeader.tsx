@@ -20,9 +20,9 @@ const ConnectionUserProfileHeader: React.FC<ConnectionUserProfileHeaderProps> = 
       )}
 
       <div className="grid grid-cols-1 gap-1">
-        <h3 className="text-xl font-bold tracking-wide">
+        <h2 className="text-xl font-bold tracking-wide">
           {user.firstName} {user.lastName}
-        </h3>
+        </h2>
         <p className="text-sm tracking-wide">
           {user.emailAddresses[0].emailAddress}
         </p>

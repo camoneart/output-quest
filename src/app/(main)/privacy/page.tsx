@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("privacy");
 const PrivacyPage = () => {
 	return (
 		<>
-			<h2 className={`${styles["privacy-title"]}`}>プライバシーポリシー</h2>
+			<h1 className={`${styles["privacy-title"]}`}>プライバシーポリシー</h1>
 			<div className={`${styles["privacy-container"]}`}>
 				<div className={`${styles["privacy-content"]} w-full`}>
 					<p className="text-base md:text-lg leading-[1.75] font-weight-normal px-[20px] md:px-[50px] pt-[10px] md:pt-[30px]">
@@ -20,9 +20,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										1. 個人情報の収集方法
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -33,9 +33,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										2. 個人情報を収集・利用する目的
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -66,9 +66,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										3. 個人情報の第三者提供
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -79,9 +79,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										4. 個人情報の開示
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -92,9 +92,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										5. 個人情報の訂正および削除
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -105,9 +105,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										6. Cookie（クッキー）その他技術の利用
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -119,9 +119,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										7. プライバシーポリシーの変更
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
@@ -132,9 +132,9 @@ const PrivacyPage = () => {
 						<section className={`${styles["privacy-section"]}`}>
 							<div className={styles["privacy-section-title-container"]}>
 								<div className={styles["privacy-section-title-box"]}>
-									<h3 className={styles["privacy-section-title"]}>
+									<h2 className={styles["privacy-section-title"]}>
 										8. お問い合わせ
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>

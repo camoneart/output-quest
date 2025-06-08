@@ -9,14 +9,14 @@ export const metadata: Metadata = getPageMetadata("about");
 const AboutPage = () => {
 	return (
 		<>
-			<h2 className={`${styles["about-title"]}`}>OUTPUT QUESTとは ?</h2>
+			<h1 className={`${styles["about-title"]}`}>OUTPUT QUESTとは ?</h1>
 			<div className={`${styles["about-container"]}`}>
 				<div className={`${styles["about-content"]} w-full`}>
 					<article className={styles["about-article"]}>
 						<section className={`${styles["about-section"]}`}>
 							<div className={styles["about-section-title-container"]}>
 								<div className={styles["about-section-title-box"]}>
-									<h3 className={styles["about-section-title"]}>はじめに</h3>
+									<h2 className={styles["about-section-title"]}>はじめに</h2>
 								</div>
 							</div>
 							<p className={styles["about-section-message"]}>
@@ -33,9 +33,9 @@ const AboutPage = () => {
 						<section className={`${styles["about-section"]}`}>
 							<div className={styles["about-section-title-container"]}>
 								<div className={styles["about-section-title-box"]}>
-									<h3 className={styles["about-section-title"]}>
+									<h2 className={styles["about-section-title"]}>
 										このアプリでできること
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<dl className={styles["about-section-list"]}>
@@ -115,9 +115,9 @@ const AboutPage = () => {
 						<section className={`${styles["about-section"]}`}>
 							<div className={styles["about-section-title-container"]}>
 								<div className={styles["about-section-title-box"]}>
-									<h3 className={styles["about-section-title"]}>
+									<h2 className={styles["about-section-title"]}>
 										アウトプットの旅を始めよう
-									</h3>
+									</h2>
 								</div>
 							</div>
 							<p className={styles["about-section-message"]}>

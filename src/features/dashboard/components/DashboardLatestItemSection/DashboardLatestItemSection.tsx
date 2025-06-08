@@ -77,9 +77,9 @@ const DashboardLatestItemSection: React.FC = () => {
 
   return (
     <section className={`${styles["last-item-section"]}`}>
-      <h3 className={`${styles["last-item-title"]}`}>
+      <h2 className={`${styles["last-item-title"]}`}>
         ~ 最近獲得したアイテム ~
-      </h3>
+      </h2>
       <div className={`${styles["last-item-container"]}`}>
         {itemId === null ? (
           <p>まだ獲得したアイテムはありません。</p>
@@ -102,7 +102,7 @@ const DashboardLatestItemSection: React.FC = () => {
                 </div>
               </div>
               <div className={`${styles["last-item-info"]}`}>
-                <p className={`${styles["last-item-name"]}`}>{itemName}</p>
+                <h3 className={`${styles["last-item-name"]}`}>{itemName}</h3>
                 <p className={`${styles["last-item-description"]}`}>
                   {itemDescription}
                 </p>
