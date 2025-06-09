@@ -1,0 +1,123 @@
+.gnav-sidebar {
+	position: relative;
+	background-color: var(--color-primary-dark-gray);
+	padding-inline: 12px;
+	padding-block: 21px 12px;
+	border-radius: var(--border-radius-medium);
+	user-select: none;
+}
+
+@media (width < 1024px) {
+	.gnav-sidebar {
+		display: none;
+	}
+
+	.gnav-sidebar.open {
+		display: block flow;
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 275px;
+		z-index: 1000;
+		box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+		border-radius: 0;
+	}
+}
+
+.gnav-sidebar-title {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1.5rem;
+	line-height: var(--leading-none);
+	font-weight: var(--font-weight-x-bold);
+	letter-spacing: 0.025em;
+	color: var(--color-primary-white);
+	background-color: var(--color-primary-dark-gray);
+	padding-inline: 10px;
+}
+
+.gnav-sidebar-container {
+	height: 100%;
+	border: var(--border-large);
+	border-radius: var(--border-radius-small);
+}
+
+.gnav-sidebar-nav {
+	height: 100%;
+}
+
+.gnav-sidebar-list {
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto auto auto auto 1fr auto auto auto auto;
+	grid-template-areas:
+		"item1"
+		"item2"
+		"item3"
+		"item4"
+		"item5"
+		"."
+		"item6"
+		"item7"
+		"item8"
+		"item9";
+	gap: 20px;
+	padding-block: 30px 25px;
+	height: 100%;
+}
+
+/* 各アイテムの配置を指定 */
+.gnav-sidebar-list > li:nth-child(1) {
+	grid-area: item1;
+}
+
+.gnav-sidebar-list > li:nth-child(2) {
+	grid-area: item2;
+}
+
+.gnav-sidebar-list > li:nth-child(3) {
+	grid-area: item3;
+}
+
+.gnav-sidebar-list > li:nth-child(4) {
+	grid-area: item4;
+}
+
+.gnav-sidebar-list > li:nth-child(5) {
+	grid-area: item5;
+}
+
+.gnav-sidebar-list > li:nth-child(6) {
+	grid-area: item6;
+}
+
+.gnav-sidebar-list > li:nth-child(7) {
+	grid-area: item7;
+}
+
+.gnav-sidebar-list > li:nth-child(8) {
+	grid-area: item8;
+}
+
+.gnav-sidebar-list > li:nth-child(9) {
+	grid-area: item9;
+}
+
+.overlay {
+	display: none;
+}
+
+@media (width < 1024px) {
+	.overlay {
+		display: block flow;
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 999;
+	}
+}

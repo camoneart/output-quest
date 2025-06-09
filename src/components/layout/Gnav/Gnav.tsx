@@ -1,46 +1,43 @@
 "use client";
 
-import React from "react";
-import * as Main from "@/features/main/components/index";
-import * as Public from "@/features/public/components/index";
-import { useUser } from "@clerk/nextjs";
-import { useHero } from "@/contexts/HeroContext";
+import styles from "./Gnav.module.css";
+import * as GnavComponents from "@/features/Gnav/components/index";
 
 interface GnavProps {
 	isMenuOpen?: boolean;
 	toggleMenu?: () => void;
 	className?: string;
+	isLoading?: boolean;
 }
 
 const Gnav = ({
 	isMenuOpen = false,
 	toggleMenu,
 	className = "",
+	isLoading = false,
 }: GnavProps) => {
-	const { isLoaded: isClerkLoaded, isSignedIn } = useUser();
-	const { hero, isLoading: isHeroLoading } = useHero();
-
-	const isLoading = !isClerkLoaded || isHeroLoading;
-
-	const isZennConnected =
-		!isLoading && isSignedIn && hero && !!hero.zennUsername;
-
 	return (
 		<>
-			{isZennConnected ? (
-				<Main.MainNav
-					isMenuOpen={isMenuOpen}
-					toggleMenu={toggleMenu}
-					className={className}
-					isLoading={isLoading}
-				/>
-			) : (
-				<Public.PublicNav
-					isMenuOpen={isMenuOpen}
-					toggleMenu={toggleMenu}
-					className={className}
-					isLoading={isLoading}
-				/>
+			<aside
+				className={`${styles["gnav-sidebar"]} ${
+					isMenuOpen ? styles["open"] : ""
+				} ${className}`}
+			>
+				<h2 className={`${styles["gnav-sidebar-title"]}`}>メニュー</h2>
+				<div className={`${styles["gnav-sidebar-container"]}`}>
+					<nav className={`${styles["gnav-sidebar-nav"]}`}>
+						<ul className={`${styles["gnav-sidebar-list"]}`}>
+							{isLoading ? (
+								<li className="text-center">読み込み中...</li>
+							) : (
+								<GnavComponents.GnavItems />
+							)}
+						</ul>
+					</nav>
+				</div>
+			</aside>
+			{isMenuOpen && toggleMenu && (
+				<div className={styles["overlay"]} onClick={toggleMenu}></div>
 			)}
 		</>
 	);
