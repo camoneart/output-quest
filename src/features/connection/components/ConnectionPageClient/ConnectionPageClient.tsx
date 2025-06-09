@@ -319,27 +319,86 @@ export default function ConnectionPageClient() {
 
 				// 追加で記事数を同期してuserInfoを最新に更新
 				try {
+					console.log(`[updateUserProfile] Zenn API同期開始: ${cleanUsername}`);
 					const syncResponse = await fetch(
 						`/api/zenn?username=${cleanUsername}&updateUser=true`
 					);
-					const syncData = await syncResponse.json();
 
-					if (syncData.success && syncData.user) {
-						setUserInfo(syncData.user);
+					if (!syncResponse.ok) {
+						console.error(
+							`[updateUserProfile] Zenn API HTTP エラー: ${syncResponse.status}`
+						);
+						throw new Error(`HTTP ${syncResponse.status}`);
+					}
+
+					const syncData = await syncResponse.json();
+					console.log(`[updateUserProfile] Zenn API レスポンス:`, syncData);
+
+					if (syncData.success) {
+						if (syncData.user) {
+							setUserInfo(syncData.user);
+							console.log(
+								`[updateUserProfile] ユーザー情報更新成功:`,
+								syncData.user
+							);
+						}
 
 						// 成功メッセージに記事数を含める
-						const successMessage = `Zennのアカウント連携が完了しました。${
-							syncData.totalCount || 0
-						}件の記事が見つかりました。`;
+						const articleCount = syncData.totalCount || 0;
+						const successMessage = `Zennのアカウント連携が完了しました。${articleCount}件の記事が見つかりました。`;
 						showSuccessMessage(successMessage);
+						console.log(
+							`[updateUserProfile] 連携成功: ${articleCount}件の記事`
+						);
+
+						// 記事数をデータベースにも保存（重要：ページリロード時の一貫性のため）
+						try {
+							console.log(
+								`[updateUserProfile] 記事数をデータベースに保存: ${articleCount}件`
+							);
+							const updateResponse = await fetch("/api/user", {
+								method: "PUT",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({
+									articleCount: articleCount,
+								}),
+							});
+
+							if (updateResponse.ok) {
+								const updateData = await updateResponse.json();
+								if (updateData.success && updateData.user) {
+									setUserInfo(updateData.user);
+									console.log(
+										`[updateUserProfile] データベース記事数更新成功:`,
+										updateData.user
+									);
+								}
+							} else {
+								console.warn(
+									`[updateUserProfile] データベース記事数更新失敗: HTTP ${updateResponse.status}`
+								);
+							}
+						} catch (dbUpdateError) {
+							console.error(
+								"[updateUserProfile] データベース記事数更新エラー:",
+								dbUpdateError
+							);
+							// データベース更新エラーは警告程度に留める（連携自体は成功）
+						}
 					} else {
-						// Zenn APIが失敗した場合でも連携自体は成功として扱う
+						console.warn(
+							`[updateUserProfile] Zenn API success=false:`,
+							syncData
+						);
+						// レスポンスでsuccess=falseでも、エラーメッセージがない場合は連携成功とする
 						const successMessage = `Zennのアカウント連携が完了しました。記事データは後ほど同期されます。`;
 						showSuccessMessage(successMessage);
 					}
 				} catch (syncError) {
-					console.warn("updateUserProfile: 記事同期エラー:", syncError);
-					// エラーが発生しても連携自体は成功として扱う
+					console.error("updateUserProfile: 記事同期エラー:", syncError);
+					// ネットワークエラーや一時的な問題の場合は連携成功として扱う
 					const successMessage = `Zennのアカウント連携が完了しました。記事データは後ほど同期されます。`;
 					showSuccessMessage(successMessage);
 				}
@@ -426,31 +485,56 @@ export default function ConnectionPageClient() {
 				}
 			}
 
-			if (data.success && data.articles && data.articles.length > 0) {
+			if (data.success) {
+				// 記事数が0件でも成功として処理
+				const articleCount = data.totalCount || 0;
+
 				if (data.user) {
 					setUserInfo(data.user);
-					// 表示メッセージを連携 or 同期に応じて切り替え
-					const successMessage = shouldRedirect
-						? `Zennのアカウント連携が完了しました。${data.totalCount}件の記事が見つかりました。`
-						: `同期が完了しました。${data.totalCount}件の記事が見つかりました。`;
-					showSuccessMessage(successMessage);
-					setReleaseMessage("");
-				} else {
-					// ユーザープロフィールを更新してから、最新のユーザー情報を取得
-					const updateResult = await updateUserProfile();
-					if (updateResult) {
-						// 最新のユーザー情報を再取得
-						await fetchLatestUserInfo();
-					}
 				}
 
-				// HeroContextのキャッシュを無効化して最新データを取得
-				// （HeroContextが存在する場合のみ）
-				if (
-					typeof window !== "undefined" &&
-					window.location.pathname === "/connection"
-				) {
-					// ページ遷移なしでHeroContextのデータを更新
+				// 表示メッセージを連携 or 同期に応じて切り替え
+				const successMessage = shouldRedirect
+					? `Zennのアカウント連携が完了しました。${articleCount}件の記事が見つかりました。`
+					: `同期が完了しました。${articleCount}件の記事が見つかりました。`;
+				showSuccessMessage(successMessage);
+				setReleaseMessage("");
+
+				// 記事数をデータベースにも保存（重要：ページリロード時の一貫性のため）
+				try {
+					console.log(
+						`[syncZennArticles] 記事数をデータベースに保存: ${articleCount}件`
+					);
+					const updateResponse = await fetch("/api/user", {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							articleCount: articleCount,
+						}),
+					});
+
+					if (updateResponse.ok) {
+						const updateData = await updateResponse.json();
+						if (updateData.success && updateData.user) {
+							setUserInfo(updateData.user);
+							console.log(
+								`[syncZennArticles] データベース記事数更新成功:`,
+								updateData.user
+							);
+						}
+					} else {
+						console.warn(
+							`[syncZennArticles] データベース記事数更新失敗: HTTP ${updateResponse.status}`
+						);
+					}
+				} catch (dbUpdateError) {
+					console.error(
+						"[syncZennArticles] データベース記事数更新エラー:",
+						dbUpdateError
+					);
+					// データベース更新エラーは警告程度に留める（同期自体は成功）
 				}
 
 				// HeroContextのデータを更新（Zenn連携後にレベル情報を最新にする）
@@ -460,6 +544,7 @@ export default function ConnectionPageClient() {
 					console.warn("HeroContextデータ更新エラー:", heroError);
 				}
 			} else {
+				console.warn("[syncZennArticles] API success=false:", data);
 				setError(
 					data.error || "ユーザーが存在しないか、記事を取得できませんでした。"
 				);

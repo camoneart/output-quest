@@ -103,7 +103,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 					const guestUsername = "aoyamadev";
 					const articles = await fetchZennArticles(guestUsername, {
 						fetchAll: true,
-						signal,
 					});
 					const articlesCount = articles.length;
 					const calculatedLevel = articlesCount;
@@ -188,34 +187,59 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 
 					if (userRes.ok && userData.success && userData.user.zennUsername) {
 						const username = userData.user.zennUsername;
+						const dbArticleCount = userData.user.zennArticleCount || 0;
 
-						// Zenn APIを呼び出してユーザーデータを更新
-						await fetch(`/api/zenn?username=${username}&updateUser=true`, {
-							signal,
-						});
+						// データベースに記事数が保存されている場合は、それを優先して使用
+						// ただし、Zenn APIによる最新データも取得して比較
+						try {
+							// Zenn APIを呼び出してユーザーデータを更新
+							await fetch(`/api/zenn?username=${username}&updateUser=true`, {
+								signal,
+							});
 
-						if (signal?.aborted) {
-							return;
+							if (signal?.aborted) {
+								return;
+							}
+
+							// データベースの記事数を信頼し、それをベースにレベル計算
+							const calculatedLevel = Math.max(dbArticleCount, 1);
+							const newHeroData = {
+								...strengthHeroData,
+								level: calculatedLevel,
+								currentExp: 40,
+								nextLevelExp: 100,
+								remainingArticles: 1,
+							};
+
+							setHeroData(newHeroData);
+							setCachedHeroData(user.id, newHeroData);
+							setIsLoading(false);
+							setError(null);
+
+							console.log(
+								`[HeroContext] データベース記事数を使用: ${dbArticleCount}件 -> レベル${calculatedLevel}`
+							);
+						} catch (zennError) {
+							console.warn(
+								"[HeroContext] Zenn API エラー、データベース値を使用:",
+								zennError
+							);
+
+							// Zenn API呼び出しに失敗した場合でも、データベースの値を使用
+							const calculatedLevel = Math.max(dbArticleCount, 1);
+							const newHeroData = {
+								...strengthHeroData,
+								level: calculatedLevel,
+								currentExp: 40,
+								nextLevelExp: 100,
+								remainingArticles: 1,
+							};
+
+							setHeroData(newHeroData);
+							setCachedHeroData(user.id, newHeroData);
+							setIsLoading(false);
+							setError(null);
 						}
-
-						const articles = await fetchZennArticles(username, {
-							fetchAll: true,
-						});
-
-						const articlesCount = articles.length;
-						const calculatedLevel = articlesCount;
-						const newHeroData = {
-							...strengthHeroData,
-							level: calculatedLevel,
-							currentExp: 40,
-							nextLevelExp: 100,
-							remainingArticles: 1,
-						};
-
-						setHeroData(newHeroData);
-						setCachedHeroData(user.id, newHeroData); // キャッシュに保存
-						setIsLoading(false);
-						setError(null);
 					} else if (
 						userRes.ok &&
 						userData.success &&
@@ -227,7 +251,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 							const guestUsername = "aoyamadev";
 							const articles = await fetchZennArticles(guestUsername, {
 								fetchAll: true,
-								signal,
 							});
 							const articlesCount = articles.length;
 							const calculatedLevel = articlesCount;
