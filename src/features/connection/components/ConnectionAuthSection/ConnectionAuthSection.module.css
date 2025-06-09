@@ -1,41 +1,88 @@
 .connection-container {
-  grid-template-rows: auto auto auto 1fr;
+	grid-template-rows: auto auto auto 1fr;
 }
 
 .auth-content {
-  display: block grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  width: 100%;
-  max-width: 500px;
-  margin-inline: auto;
+	display: block grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+	width: 100%;
+	max-width: 500px;
+	margin-inline: auto;
 }
 
 .zenn-connect-area {
-  width: 100%;
-  max-width: 500px;
-  margin-inline: auto;
+	width: 100%;
+	max-width: 500px;
+	margin-inline: auto;
 }
 
 .connect-button {
-  background-color: var(--color-primary-brown-dark);
-  border: 2px solid var(--color-primary-brown-light);
-  padding: 3px;
-  border-radius: 0.25rem;
+	background-color: var(--color-primary-brown-dark);
+	border: 2px solid var(--color-primary-brown-light);
+	padding: 3px;
+	border-radius: 0.25rem;
 
-  &.active:hover {
-    .connect-button-content {
-      border: 1.5px solid var(--color-primary-yellow);
-    }
-  }
+	&.active:hover {
+		.connect-button-content {
+			border: 1.5px solid var(--color-primary-yellow);
+		}
+	}
 }
 
 .connect-button-content {
-  background-color: var(--color-primary-brown);
-  border: 1.5px solid var(--color-primary-brown-light);
-  place-items: center;
-  padding-block: 5px;
-  padding-inline: 15px;
-  display: block grid;
-  transition: border 0.2s ease-in-out;
+	background-color: var(--color-primary-brown);
+	border: 1.5px solid var(--color-primary-brown-light);
+	place-items: center;
+	padding-block: 5px;
+	padding-inline: 15px;
+	display: block grid;
+	transition: border 0.2s ease-in-out;
+}
+
+.connection-detail-link {
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-bold);
+	color: var(--color-primary-white);
+	display: block flow;
+	position: relative;
+	padding-block-end: 3px;
+	padding-inline: 3px;
+	transition: text-shadow 0.1s ease-in-out;
+
+	&:hover {
+		text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+
+		&::before {
+			opacity: 1;
+		}
+	}
+
+	&::before {
+		position: absolute;
+		content: "";
+		background-image: url(/images/arrow/arrow-icon.svg);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: 15px;
+		height: 15px;
+		top: 50%;
+		left: -18px;
+		transform: translateY(-50%) rotate(180deg);
+		opacity: 0;
+		transition: opacity 0.1s ease-in-out;
+	}
+
+	&::after {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		content: "";
+		width: 100%;
+		height: 1px;
+		background-color: var(--color-primary-white);
+		bottom: 0;
+		left: 0;
+	}
 }
