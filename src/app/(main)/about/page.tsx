@@ -46,7 +46,7 @@ const AboutPage = () => {
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										ダッシュボードでは、勇者の成長度合いを示すレベル、Zennでの投稿数、レベルアップ報酬で獲得したアイテムや勇者のなかまを確認できます。
+										ダッシュボードページでは、勇者の成長度合いを示すレベル、Zennでの投稿数、レベルアップ報酬で入手したアイテムや勇者のなかまを確認できます。
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
@@ -66,7 +66,7 @@ const AboutPage = () => {
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										記事を書くことで、勇者が経験値を得られます。経験値を獲得して勇者がレベルアップすることで、新たな称号やアイテム、なかまを獲得できます。
+										記事を書くことで、勇者が経験値を得られます。経験値を獲得して勇者がレベルアップすることで、新たな称号やアイテムの獲得、新しいなかまとの出会いがあなたを待っています。
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
