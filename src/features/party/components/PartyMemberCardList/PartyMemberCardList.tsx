@@ -12,105 +12,103 @@ import { fetchZennArticles } from "@/features/posts/services";
 import { PartyMember } from "@/features/party/types/party.types";
 
 const PartyMemberCardList: React.FC = () => {
-  const [members, setMembers] = useState<PartyMember[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const { playClickSound } = useClickSound({
-    soundPath: "/audio/click-sound_decision.mp3",
-    volume: 0.5,
-    delay: 190,
-  });
+	const [members, setMembers] = useState<PartyMember[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
+	const router = useRouter();
+	const { playClickSound } = useClickSound({
+		soundPath: "/audio/click-sound_decision.mp3",
+		volume: 0.5,
+		delay: 190,
+	});
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        setIsLoading(true);
-        const userRes = await fetch("/api/user");
-        const userData = await userRes.json();
-        if (!userData.success) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const username = userData.user.zennUsername;
-        if (!username) {
-          throw new Error("Zennアカウントが連携されていません");
-        }
-        const articles = await fetchZennArticles(username, { fetchAll: true });
-        const articleCount = articles.length;
-        const updatedMembers = updatePartyMembersByLevel(articleCount);
-        setMembers(updatedMembers);
-      } catch (err) {
-        console.error("仲間データ取得エラー:", err);
-        setError(
-          err instanceof Error
-            ? err.message
-            : "仲間データの取得に失敗しました。"
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchMembers();
-  }, []);
+	useEffect(() => {
+		const fetchMembers = async () => {
+			try {
+				setIsLoading(true);
+				const userRes = await fetch("/api/user");
+				const userData = await userRes.json();
+				if (!userData.success) {
+					throw new Error("ユーザー情報の取得に失敗しました");
+				}
+				const username = userData.user.zennUsername || "aoyamadev";
 
-  const handleNavigation = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    path: string
-  ) => {
-    e.preventDefault();
-    playClickSound(() => router.push(path));
-  };
+				const articles = await fetchZennArticles(username, { fetchAll: true });
+				const articleCount = articles.length;
+				const updatedMembers = updatePartyMembersByLevel(articleCount);
+				setMembers(updatedMembers);
+			} catch (err) {
+				console.error("仲間データ取得エラー:", err);
+				setError(
+					err instanceof Error
+						? err.message
+						: "仲間データの取得に失敗しました。"
+				);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		fetchMembers();
+	}, []);
 
-  if (isLoading) {
-    return (
-      <div className={styles["party-loading-indicator"]}>読み込み中...</div>
-    );
-  }
-  if (error) {
-    return <p className={styles["error-message"]}>{error}</p>;
-  }
+	const handleNavigation = (
+		e: React.MouseEvent<HTMLAnchorElement>,
+		path: string
+	) => {
+		e.preventDefault();
+		playClickSound(() => router.push(path));
+	};
 
-  return (
-    <div className={styles["party-grid"]}>
-      {members.map((partyMember) => (
-        <div
-          className={styles["party-member-card-content"]}
-          key={partyMember.id}
-        >
-          <Link
-            href={`/party/${partyMember.id}`}
-            className={styles["party-member-card"]}
-            onClick={(e) => handleNavigation(e, `/party/${partyMember.id}`)}
-          >
-            {partyMember.acquired ? (
-              <div className={styles["acquired-party-member-icon"]}>
-                <Image
-                  src={`/images/party-page/acquired-icon/party-member-${partyMember.id}.svg`}
-                  alt={partyMember.name || "仲間"}
-                  width={40}
-                  height={40}
-                  className={`${styles["acquired-party-member-icon-image"]} ${
-                    styles[`acquired-party-member-icon-image-${partyMember.id}`]
-                  }`}
-                />
-              </div>
-            ) : (
-              <div className={styles["unacquired-party-member-icon"]}>
-                <Party.PartyQuestionIcon
-                  width={40}
-                  height={40}
-                  className={styles["unacquired-party-member-icon-image"]}
-                />
-              </div>
-            )}
-            <h2 className={styles["party-member-name"]}>
-              {partyMember.acquired ? partyMember.name : "???"}
-            </h2>
-          </Link>
-        </div>
-      ))}
-    </div>
-  );
+	if (isLoading) {
+		return (
+			<div className={styles["party-loading-indicator"]}>読み込み中...</div>
+		);
+	}
+	if (error) {
+		return <p className={styles["error-message"]}>{error}</p>;
+	}
+
+	return (
+		<div className={styles["party-grid"]}>
+			{members.map((partyMember) => (
+				<div
+					className={styles["party-member-card-content"]}
+					key={partyMember.id}
+				>
+					<Link
+						href={`/party/${partyMember.id}`}
+						className={styles["party-member-card"]}
+						onClick={(e) => handleNavigation(e, `/party/${partyMember.id}`)}
+					>
+						{partyMember.acquired ? (
+							<div className={styles["acquired-party-member-icon"]}>
+								<Image
+									src={`/images/party-page/acquired-icon/party-member-${partyMember.id}.svg`}
+									alt={partyMember.name || "仲間"}
+									width={40}
+									height={40}
+									className={`${styles["acquired-party-member-icon-image"]} ${
+										styles[`acquired-party-member-icon-image-${partyMember.id}`]
+									}`}
+								/>
+							</div>
+						) : (
+							<div className={styles["unacquired-party-member-icon"]}>
+								<Party.PartyQuestionIcon
+									width={40}
+									height={40}
+									className={styles["unacquired-party-member-icon-image"]}
+								/>
+							</div>
+						)}
+						<h2 className={styles["party-member-name"]}>
+							{partyMember.acquired ? partyMember.name : "???"}
+						</h2>
+					</Link>
+				</div>
+			))}
+		</div>
+	);
 };
 
 export default PartyMemberCardList;
