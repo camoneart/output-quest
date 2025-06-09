@@ -28,7 +28,7 @@ const StrengthHeroInfo = () => {
 				}
 				// zennUsernameが設定されている場合はそれを使用、そうでなければaoyamadevをフォールバック
 				const username = userData.user.zennUsername || "aoyamadev";
-				
+
 				// Zenn記事数を取得（全件取得）
 				const articles = await fetchZennArticles(username, { fetchAll: true });
 				const articlesCount = articles.length;
