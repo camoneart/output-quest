@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./PrivacyPage.module.css";
-import * as Public from "@/features/public/components/index";
+import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
 import Link from "next/link";
 
 export const metadata: Metadata = getPageMetadata("privacy");
@@ -170,7 +170,7 @@ const PrivacyPage = () => {
 							</div>
 						</section>
 
-						<Public.PublicLink />
+						<AdventureStartLink />
 					</article>
 				</div>
 			</div>

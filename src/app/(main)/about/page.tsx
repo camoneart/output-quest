@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./AboutPage.module.css";
-import * as About from "@/features/about/components/index";
+import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
 
 export const metadata: Metadata = getPageMetadata("about");
 
@@ -150,7 +150,7 @@ const AboutPage = () => {
 							</span>
 						</p>
 
-						<About.AboutLink />
+						<AdventureStartLink />
 					</article>
 				</div>
 			</div>

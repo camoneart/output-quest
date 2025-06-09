@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./TermsPage.module.css";
-import * as Public from "@/features/public/components/index";
+import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
 
 export const metadata: Metadata = getPageMetadata("terms");
 
@@ -203,7 +203,7 @@ const TermsPage = () => {
 								当サービスは、必要と判断した場合には、ユーザーに通知することなくいつでも本規約を変更することができるものとします。なお、本規約の変更後、本サービスの利用を開始した場合には、当該ユーザーは変更後の規約に同意したものとみなします。
 							</p>
 						</section>
-						<Public.PublicLink />
+						<AdventureStartLink />
 					</article>
 				</div>
 			</div>
