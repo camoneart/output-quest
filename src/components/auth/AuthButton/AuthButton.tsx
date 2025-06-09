@@ -31,16 +31,16 @@ const AuthButton = () => {
     return null;
   }
 
-  if (userId) {
-    return (
-      <UserIconButton
-        avatarSize="w-[50px] h-[50px]"
-        showName={false}
-        loaderSize="w-[50px] h-[50px]"
-        classnameButton=""
-      />
-    );
-  }
+  // if (userId) {
+  //   return (
+  //     <UserIconButton
+  //       avatarSize="w-[50px] h-[50px]"
+  //       showName={false}
+  //       loaderSize="w-[50px] h-[50px]"
+  //       classnameButton=""
+  //     />
+  //   );
+  // }
 
   return (
     <div className="flex items-center justify-center w-full gap-5">
