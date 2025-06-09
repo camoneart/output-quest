@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./ConnectionDetailContent.module.css";
+import Link from "next/link";
+import Image from "next/image";
 
 const ConnectionDetailContent = () => {
 	return (
@@ -16,7 +18,7 @@ const ConnectionDetailContent = () => {
 							<dd
 								className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
 							>
-								ログイン後、ご自身のZennアカウントを連携させると、あなたの記事投稿や活動がゲーム内の勇者の「経験値」や「アイテム」に変換されます。アウトプットを通して勇者を成長させましょう！
+								連携ページにてログイン後、ご自身のZennアカウントを連携させると、Zennでの活動状況に応じてアプリ内の勇者が「経験値」を獲得し、レベルアップしていきます。経験値を獲得して勇者がレベルアップすることで、新たな「称号」や「アイテム」の獲得、新しい「なかま」との出会いがあなたを待っています。
 							</dd>
 						</div>
 					</dl>
@@ -70,7 +72,7 @@ const ConnectionDetailContent = () => {
 								className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
 							>
 								ゲストとして、まずは気軽にアプリの世界を体験してみませんか？
-								ゲストユーザーは開発者のZennアカウント(@aoyamadev)をサンプルとして、OUTPUT QUESTの世界観を体験できます。ログイン、新規登録は不要です。
+								ゲストユーザーは開発者のZennアカウント(@aoyamadev)をサンプルとして、OUTPUT QUESTの世界観を体験できます。ログイン、新規登録は一切不要です。
 							</dd>
 						</div>
 					</dl>
@@ -106,6 +108,11 @@ const ConnectionDetailContent = () => {
 							>
 								アプリの機能を一通り見てみたい
 							</li>
+							<li
+								className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+							>
+								Zennと連携することで、勇者の成長にどう繋がるのか見てみたい
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -120,13 +127,20 @@ const ConnectionDetailContent = () => {
 					<p>「ログイン」または「新規登録」を完了していないユーザーのこと</p>
 				</div>
 			</div>
-			<div className="mt-5 pb-1 grid place-items-center">
-				<a
+			<div className="mt-3 grid place-items-center">
+				<Link
 					href="/connection"
-					className="text-base px-2 underline underline-offset-4"
+					className={styles["connection-detail-back-link"]}
 				>
-					連携ページに戻る
-				</a>
+          <Image
+            src="/images/arrow/arrow-icon.svg"
+            alt="連携ページに戻る"
+            width={18}
+            height={18}
+            className={styles["connection-detail-back-link-icon"]}
+          />
+					<span className={styles["connection-detail-back-link-text"]}>連携ページに戻る</span>
+				</Link>
 			</div>
 		</div>
 	);

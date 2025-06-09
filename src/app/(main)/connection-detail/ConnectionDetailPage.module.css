@@ -28,6 +28,6 @@
 	padding-block: 20px;
 }
 
-.connection-detail-content-box {
+.connection-detail-content-wrapper {
 	overflow-y: scroll;
 }

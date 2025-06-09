@@ -4,7 +4,7 @@ import { getPageMetadata } from "@/config/metadata";
 import styles from "./ConnectionDetailPage.module.css";
 import * as ConnectionDetail from "@/features/ConnectionDetail/components/index";
 
-export const metadata: Metadata = getPageMetadata("connection-detail");
+export const metadata: Metadata = getPageMetadata("connectionDetail");
 
 const ConnectionDetailPage = () => {
 	return (
@@ -13,7 +13,7 @@ const ConnectionDetailPage = () => {
 				Zennとの連携について
 			</h1>
 			<div className={`${styles["connection-detail-container"]}`}>
-				<div className={`${styles["connection-detail-content-box"]} w-full`}>
+				<div className={`${styles["connection-detail-content-wrapper"]} w-full`}>
 					<ConnectionDetail.ConnectionDetailContent />
 				</div>
 			</div>
