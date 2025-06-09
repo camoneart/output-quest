@@ -4,7 +4,7 @@ import { DotGothic16 } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { baseMetadata } from "@/config/metadata";
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/Header";
+import { Header } from "@/components/layout/Header/Header";
 import { HeroProvider } from "@/contexts/HeroContext";
 import CommonContainer from "@/components/common/container/CommonContainer";
 import "../styles/globals.css";
