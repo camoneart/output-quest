@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ConnectionAuthSection.module.css";
 import AuthButton from "@/components/auth/AuthButton/AuthButton";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ConnectionAuthSectionProps {
 	loading: boolean;
@@ -21,8 +22,18 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 			<div className={`${styles["auth-content"]}`}>
 				<AuthButton />
 				<div className="grid grid-cols-1 gap-[32px]">
-					<p className="text-center text-base">
-						Zennとの連携には「ログイン」または「新規登録」が必要です。
+					<p className="text-center text-base flex ">
+						<em className={styles["zenn-emphasis"]}>
+							<Image
+								src="/images/nav-icon/zenn-logo.svg"
+								alt="Zenn"
+								width={16}
+								height={16}
+								className={styles["zenn-logo"]}
+							/>
+							<span>Zennとの連携</span>
+						</em>
+						<span>には「ログイン」または「新規登録」が必要です。</span>
 					</p>
 					<div className="grid grid-cols-1 gap-2 place-items-center">
 						<em className="text-center text-sm not-italic">

@@ -86,3 +86,20 @@
 		left: 0;
 	}
 }
+
+.zenn-logo {
+	width: 18px;
+	height: 18px;
+	object-fit: contain;
+	object-position: center;
+	filter: drop-shadow(0 0 1px var(--color-primary-white));
+}
+
+.zenn-emphasis {
+	display: block flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: var(--font-weight-normal);
+	font-style: normal;
+	padding-inline-end: 3px;
+}
