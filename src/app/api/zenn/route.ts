@@ -50,11 +50,12 @@ const transformZennArticle = (article: ZennApiArticle) => {
 	};
 };
 
-// タイムアウト付きfetch関数にリトライ機構を追加
+// タイムアウト付きfetch関数にリトライ機構を追加（キャッシュバスティング対応）
 const fetchWithTimeoutAndRetry = async (
 	url: string,
-	maxRetries: number = 2,
-	timeout: number = 8000
+	maxRetries: number = 3, // リトライ回数を増やす
+	timeout: number = 8000,
+	bustCache: boolean = false
 ): Promise<Response> => {
 	let lastError: Error | null = null;
 
@@ -63,10 +64,24 @@ const fetchWithTimeoutAndRetry = async (
 			const controller = new AbortController();
 			const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-			const response = await fetch(url, {
+			// キャッシュバスティングのためのタイムスタンプを追加
+			let fetchUrl = url;
+			if (bustCache || attempt > 1) {
+				const separator = url.includes("?") ? "&" : "?";
+				const timestamp = Date.now();
+				const randomId = Math.random().toString(36).substring(2, 15);
+				fetchUrl = `${url}${separator}_t=${timestamp}&_retry=${attempt}&_r=${randomId}`;
+			}
+
+			const response = await fetch(fetchUrl, {
 				signal: controller.signal,
 				headers: {
 					"User-Agent": "Mozilla/5.0 (compatible; ZennBot/1.0)",
+					"Cache-Control":
+						bustCache || attempt > 1
+							? "no-cache, no-store, must-revalidate"
+							: "public, max-age=60",
+					Pragma: bustCache || attempt > 1 ? "no-cache" : "cache",
 				},
 			});
 			clearTimeout(timeoutId);
@@ -83,7 +98,9 @@ const fetchWithTimeoutAndRetry = async (
 
 			// 最後の試行でない場合は少し待ってからリトライ
 			if (attempt < maxRetries) {
-				await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
+				// 指数バックオフ + キャッシュが更新される時間を考慮
+				const waitTime = attempt === 1 ? 2000 : 1000 * Math.pow(2, attempt - 1);
+				await new Promise((resolve) => setTimeout(resolve, waitTime));
 			}
 		}
 	}
@@ -99,6 +116,7 @@ export async function GET(request: Request) {
 	const hasLimit = limitParam !== null;
 	const limit = hasLimit ? parseInt(limitParam, 10) : 0;
 	const updateUserData = searchParams.get("updateUser") === "true";
+	const bustCache = searchParams.get("bustCache") === "true"; // キャッシュバスティングフラグ
 
 	// 入力バリデーション
 	if (!username || username.length === 0) {
@@ -127,7 +145,7 @@ export async function GET(request: Request) {
 			username
 		)}`;
 
-		const response = await fetchWithTimeoutAndRetry(apiUrl);
+		const response = await fetchWithTimeoutAndRetry(apiUrl, 3, 8000, bustCache);
 
 		const data: ZennApiResponse = await response.json();
 
@@ -183,7 +201,7 @@ export async function GET(request: Request) {
 					user: userData,
 				},
 				{
-					headers: CACHE_HEADERS,
+					headers: bustCache ? NO_CACHE_HEADERS : CACHE_HEADERS,
 				}
 			);
 		}
@@ -283,7 +301,7 @@ export async function GET(request: Request) {
 				user: userData,
 			},
 			{
-				headers: CACHE_HEADERS,
+				headers: bustCache ? NO_CACHE_HEADERS : CACHE_HEADERS,
 			}
 		);
 	} catch (error) {

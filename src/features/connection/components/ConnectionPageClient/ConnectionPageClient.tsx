@@ -221,8 +221,20 @@ export default function ConnectionPageClient() {
 		setReleaseMessage("");
 
 		try {
-			// まずZennアカウントが存在するか確認
-			const checkResponse = await fetch(`/api/zenn?username=${cleanUsername}`);
+			// まずZennアカウントが存在するか確認（完全キャッシュ無効化）
+			const checkTimestamp = Date.now();
+			const checkResponse = await fetch(
+				`/api/zenn?username=${cleanUsername}&bustCache=true&_t=${checkTimestamp}`,
+				{
+					method: "GET",
+					cache: "no-store",
+					headers: {
+						"Cache-Control": "no-cache, no-store, must-revalidate",
+						Pragma: "no-cache",
+						Expires: "0",
+					},
+				}
+			);
 			const checkData = await checkResponse.json();
 
 			if (!checkData.success) {
@@ -248,13 +260,46 @@ export default function ConnectionPageClient() {
 				return false;
 			}
 
-			// 記事数が0または記事が見つからない場合はユーザーが存在しないと判断
+			// 記事数が0または記事が見つからない場合、リトライ機構を追加
 			if (!checkData.articles || checkData.articles.length === 0) {
-				setError(
-					"このユーザー名のアカウントは記事を投稿していないため連携できません"
+				// 投稿直後の可能性があるため、少し待ってからリトライ
+				console.log("記事が見つかりません。3秒後にリトライします...");
+				setError("記事を確認中...（投稿直後の場合、少しお待ちください）");
+				await new Promise((resolve) => setTimeout(resolve, 3000));
+
+				// リトライ（より強力なキャッシュバスティング）
+				const retryTimestamp = Date.now();
+				const retryResponse = await fetch(
+					`/api/zenn?username=${cleanUsername}&bustCache=true&_t=${retryTimestamp}`,
+					{
+						method: "GET",
+						cache: "no-store",
+						headers: {
+							"Cache-Control": "no-cache, no-store, must-revalidate",
+							Pragma: "no-cache",
+							Expires: "0",
+						},
+					}
 				);
-				setLoading(false);
-				return false;
+				const retryData = await retryResponse.json();
+
+				if (
+					!retryData.success ||
+					!retryData.articles ||
+					retryData.articles.length === 0
+				) {
+					setError(
+						"このユーザー名のアカウントは記事を投稿していないため連携できません"
+					);
+					setLoading(false);
+					return false;
+				}
+
+				// リトライで記事が見つかった場合は、checkDataを更新
+				checkData.articles = retryData.articles;
+				checkData.totalCount = retryData.totalCount;
+				setError(""); // エラーメッセージをクリア
+				console.log("リトライで記事が見つかりました！");
 			}
 
 			const response = await fetch("/api/user", {
@@ -279,8 +324,18 @@ export default function ConnectionPageClient() {
 				// 追加で記事数を同期してuserInfoを最新に更新
 				try {
 					console.log(`[updateUserProfile] Zenn API同期開始: ${cleanUsername}`);
+					const syncTimestamp = Date.now();
 					const syncResponse = await fetch(
-						`/api/zenn?username=${cleanUsername}&updateUser=true`
+						`/api/zenn?username=${cleanUsername}&updateUser=true&bustCache=true&_t=${syncTimestamp}`,
+						{
+							method: "GET",
+							cache: "no-store",
+							headers: {
+								"Cache-Control": "no-cache, no-store, must-revalidate",
+								Pragma: "no-cache",
+								Expires: "0",
+							},
+						}
 					);
 
 					if (!syncResponse.ok) {
@@ -427,9 +482,19 @@ export default function ConnectionPageClient() {
 				);
 			}
 
-			// Zenn APIを呼び出し、記事データを取得
+			// Zenn APIを呼び出し、記事データを取得（完全キャッシュ無効化）
+			const timestamp = Date.now();
 			const response = await fetch(
-				`/api/zenn?username=${cleanUsername}&updateUser=true`
+				`/api/zenn?username=${cleanUsername}&updateUser=true&bustCache=true&_t=${timestamp}`,
+				{
+					method: "GET",
+					cache: "no-store", // Next.js fetchキャッシュを無効化
+					headers: {
+						"Cache-Control": "no-cache, no-store, must-revalidate",
+						Pragma: "no-cache",
+						Expires: "0",
+					},
+				}
 			);
 			const data = await response.json();
 
