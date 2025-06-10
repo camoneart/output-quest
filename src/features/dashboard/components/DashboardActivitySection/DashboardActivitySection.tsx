@@ -208,7 +208,7 @@ const DashboardActivitySection = () => {
 					))}
 				</ul>
 			) : (
-				<p className="p-[5px] text-center text-sm">
+				<p className="p-[5px] text-center text-sm grid place-items-center">
 					投稿された記事がありません。
 				</p>
 			)}
