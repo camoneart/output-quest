@@ -74,4 +74,6 @@
 
 .connection-info-message-container {
 	grid-area: message;
+	display: block grid;
+	place-content: center;
 }

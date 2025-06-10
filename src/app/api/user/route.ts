@@ -203,59 +203,94 @@ export async function POST(request: Request) {
 
 			const usernameForCreate = zennUsername || `user_${Date.now()}`;
 
-			return await prisma.user.upsert({
-				where: { clerkId: userId },
-				update: {
-					zennUsername,
-					displayName:
-						reqDisplayName && reqDisplayName.trim() !== ""
-							? reqDisplayName
-							: `${clerkUser.firstName || ""} ${
-									clerkUser.lastName || ""
-								}`.trim() || usernameForCreate,
-					profileImage:
-						reqProfileImage && reqProfileImage.trim() !== ""
-							? reqProfileImage
-							: clerkUser.imageUrl,
-					...(zennUsername === "" || forceReset === true
-						? {
-								zennArticleCount: 0,
-								level: 1,
-							}
-						: {}),
-				},
-				create: {
-					clerkId: userId,
-					username: usernameForCreate,
-					email: emailFromClerk, // ここで取得したメールアドレスを使用
-					zennUsername,
-					displayName:
-						reqDisplayName && reqDisplayName.trim() !== ""
-							? reqDisplayName
-							: `${clerkUser.firstName || ""} ${
-									clerkUser.lastName || ""
-								}`.trim() || usernameForCreate,
-					profileImage:
-						reqProfileImage && reqProfileImage.trim() !== ""
-							? reqProfileImage
-							: clerkUser.imageUrl,
-					zennArticleCount: 0,
-					level: 1,
+			// 先に既存ユーザーをチェック（clerkIdまたはemailで）
+			const existingUser = await prisma.user.findFirst({
+				where: {
+					OR: [{ clerkId: userId }, { email: emailFromClerk }],
 				},
 				select: {
 					id: true,
 					clerkId: true,
 					username: true,
 					email: true,
-					displayName: true,
-					profileImage: true,
-					zennUsername: true,
-					zennArticleCount: true,
-					level: true,
-					createdAt: true,
-					updatedAt: true,
 				},
 			});
+
+			if (existingUser) {
+				// 既存ユーザーが見つかった場合は更新
+				return await prisma.user.update({
+					where: { id: existingUser.id },
+					data: {
+						clerkId: userId, // 最新のclerkIdに更新
+						email: emailFromClerk, // メールアドレスも更新
+						zennUsername,
+						displayName:
+							reqDisplayName && reqDisplayName.trim() !== ""
+								? reqDisplayName
+								: `${clerkUser.firstName || ""} ${
+										clerkUser.lastName || ""
+									}`.trim() || usernameForCreate,
+						profileImage:
+							reqProfileImage && reqProfileImage.trim() !== ""
+								? reqProfileImage
+								: clerkUser.imageUrl,
+						...(zennUsername === "" || forceReset === true
+							? {
+									zennArticleCount: 0,
+									level: 1,
+								}
+							: {}),
+					},
+					select: {
+						id: true,
+						clerkId: true,
+						username: true,
+						email: true,
+						displayName: true,
+						profileImage: true,
+						zennUsername: true,
+						zennArticleCount: true,
+						level: true,
+						createdAt: true,
+						updatedAt: true,
+					},
+				});
+			} else {
+				// 新規ユーザーを作成
+				return await prisma.user.create({
+					data: {
+						clerkId: userId,
+						username: usernameForCreate,
+						email: emailFromClerk,
+						zennUsername,
+						displayName:
+							reqDisplayName && reqDisplayName.trim() !== ""
+								? reqDisplayName
+								: `${clerkUser.firstName || ""} ${
+										clerkUser.lastName || ""
+									}`.trim() || usernameForCreate,
+						profileImage:
+							reqProfileImage && reqProfileImage.trim() !== ""
+								? reqProfileImage
+								: clerkUser.imageUrl,
+						zennArticleCount: 0,
+						level: 1,
+					},
+					select: {
+						id: true,
+						clerkId: true,
+						username: true,
+						email: true,
+						displayName: true,
+						profileImage: true,
+						zennUsername: true,
+						zennArticleCount: true,
+						level: true,
+						createdAt: true,
+						updatedAt: true,
+					},
+				});
+			}
 		});
 
 		// const elapsedTime = Date.now() - startTime; // 削除 (L253付近のエラー箇所)
@@ -283,7 +318,24 @@ export async function POST(request: Request) {
 
 		// Prismaエラーの場合は詳細を出力
 		if (typeof error === "object" && error !== null && "code" in error) {
-			console.error("Prismaエラーコード:", (error as { code?: string }).code);
+			const prismaError = error as { code?: string; meta?: any };
+			console.error("Prismaエラーコード:", prismaError.code);
+			console.error("Prismaエラーメタ:", prismaError.meta);
+
+			// ユニーク制約違反の場合の特別な処理
+			if (prismaError.code === "P2002") {
+				console.error("ユニーク制約違反 - 詳細:", prismaError.meta);
+				return NextResponse.json(
+					{
+						success: false,
+						error: "このメールアドレスまたはユーザーIDは既に使用されています。",
+					},
+					{
+						status: 409, // Conflict
+						headers: NO_CACHE_HEADERS,
+					}
+				);
+			}
 		}
 
 		return NextResponse.json(

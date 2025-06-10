@@ -79,119 +79,6 @@ export default function ConnectionPageClient() {
 		playClickSound(() => router.push(path));
 	};
 
-	// 最新のユーザー情報を取得する関数
-	const fetchLatestUserInfo = useCallback(async () => {
-		try {
-			let response: Response;
-			try {
-				response = await fetch("/api/user");
-			} catch (networkError) {
-				console.error(
-					"[ConnectionPageClient] fetchLatestUserInfo: Network error during fetch /api/user:",
-					networkError
-				);
-				setUserInfo(null);
-				setZennUsername("");
-				return;
-			}
-
-			const data = await response.json();
-
-			// APIが正常に応答した場合の処理
-			if (response.ok && data.success) {
-				if (data.isNewUser) {
-					setUserInfo(null);
-					setZennUsername("");
-					return;
-				}
-
-				// 既存ユーザーの場合
-				setUserInfo(data.user);
-				setZennUsername(data.user.zennUsername || "");
-			} else if (response.status === 401) {
-				console.warn(
-					"[ConnectionPageClient] fetchLatestUserInfo: Auth error (401). Setting to initial state."
-				);
-				setUserInfo(null);
-				setZennUsername("");
-				return;
-			} else {
-				console.warn(
-					`[ConnectionPageClient] fetchLatestUserInfo: API call failed or data.success is false. Status: ${response.status}, data:`,
-					JSON.stringify(data, null, 2)
-				);
-				// エラーの場合でも、UIが不安定になるのを避けるため、状態を初期化しないでおくか、検討が必要。
-				// 今回は一旦そのまま（エラー前の状態を維持）
-				return;
-			}
-		} catch (err) {
-			// ネットワークエラーなどの場合のみログ出力
-			if (err instanceof Error && err.name !== "AbortError") {
-				console.error(
-					"[ConnectionPageClient] fetchLatestUserInfo: Generic error caught:",
-					err
-				);
-			}
-		} finally {
-			// このfinallyブロックは残し、中のconsole.logのみ削除
-		}
-	}, [setUserInfo, setZennUsername]);
-
-	// Zenn連携をリセットする共通関数
-	const resetZennConnection = useCallback(async () => {
-		try {
-			// 入力欄をクリア
-			setZennUsername("");
-
-			// 連携解除専用APIを呼び出し
-			const resetResponse = await fetch("/api/user/reset-connection", {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ clerkId: user?.id }),
-			});
-
-			await resetResponse.json();
-
-			// 通常の連携解除処理も実行
-			const userResponse = await fetch("/api/user", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					zennUsername: "",
-					displayName: user?.firstName
-						? `${user.firstName} ${user.lastName || ""}`.trim()
-						: undefined,
-					profileImage: user?.imageUrl,
-					forceReset: true, // 強制リセットフラグ
-				}),
-			});
-
-			await userResponse.json();
-
-			// 状態を直接更新
-			setUserInfo(null);
-			setZennUsername("");
-			setError("");
-			setSuccess("");
-
-			// フラグをリセット
-			setWasLoggedOut(false);
-			setIsNewSession(false);
-		} catch (err) {
-			console.error("連携リセットエラー:", err);
-
-			// エラーが発生した場合でも状態をリセット
-			setUserInfo(null);
-			setZennUsername("");
-			setWasLoggedOut(false);
-			setIsNewSession(false);
-		}
-	}, [user]);
-
 	// ユーザー情報を取得
 	useEffect(() => {
 		const fetchUserInfo = async () => {
@@ -201,39 +88,111 @@ export default function ConnectionPageClient() {
 			if (!user) {
 				setUserInfo(null);
 				setZennUsername("");
-				// ユーザー非ログイン時はロード完了扱い
-				setIsZennInfoLoaded(true);
+				setIsZennInfoLoaded(true); // 非ログイン時はロード完了
 				return;
 			}
 
-			// Zenn連携情報のロード開始（ユーザーがいる場合のみ）
+			// ユーザーがログイン済みの場合、Zenn情報ロード開始
 			setIsZennInfoLoaded(false);
 
 			try {
-				const wasLoggedOutFlag = wasLoggedOut;
-				const isNewSessionFlag = isNewSession;
+				// ログアウト/新セッションフラグをチェック（一度だけ読み取り）
+				if (wasLoggedOut || isNewSession) {
+					console.log("[fetchUserInfo] ログアウト/新セッション処理実行");
+					// フラグをすぐにリセットして再実行を防ぐ
+					setWasLoggedOut(false);
+					setIsNewSession(false);
 
-				if (wasLoggedOutFlag || isNewSessionFlag) {
-					await resetZennConnection();
+					// リセット処理を実行
+					try {
+						setZennUsername("");
+
+						const resetResponse = await fetch("/api/user/reset-connection", {
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ clerkId: user?.id }),
+						});
+
+						await resetResponse.json();
+
+						const userResponse = await fetch("/api/user", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								zennUsername: "",
+								displayName: user?.firstName
+									? `${user.firstName} ${user.lastName || ""}`.trim()
+									: undefined,
+								profileImage: user?.imageUrl,
+								forceReset: true,
+							}),
+						});
+
+						await userResponse.json();
+
+						setUserInfo(null);
+						setZennUsername("");
+						setError("");
+						setSuccess("");
+					} catch (err) {
+						console.error("連携リセットエラー:", err);
+						setUserInfo(null);
+						setZennUsername("");
+					}
 				} else {
-					await fetchLatestUserInfo();
+					console.log("[fetchUserInfo] 通常のユーザー情報取得");
+					// 通常のユーザー情報取得
+					try {
+						const response = await fetch("/api/user");
+						const data = await response.json();
+
+						if (response.ok && data.success) {
+							if (data.isNewUser) {
+								setUserInfo(null);
+								setZennUsername("");
+								return;
+							}
+
+							setUserInfo(data.user);
+							setZennUsername(data.user.zennUsername || "");
+						} else if (response.status === 401) {
+							console.warn("[fetchUserInfo] Auth error (401)");
+							setUserInfo(null);
+							setZennUsername("");
+							return;
+						} else {
+							console.warn(
+								`[fetchUserInfo] API call failed. Status: ${response.status}`
+							);
+							return;
+						}
+					} catch (err) {
+						if (err instanceof Error && err.name !== "AbortError") {
+							console.error("[fetchUserInfo] Network error:", err);
+						}
+					}
 				}
 			} catch (err) {
 				console.error("ユーザープロフィール取得エラー:", err);
 			} finally {
-				// ロード完了を通知してUIをアンブロック
 				setIsZennInfoLoaded(true);
 			}
 		};
 
+		console.log("[useEffect] 実行開始", {
+			isLoaded,
+			userId: user?.id,
+			wasLoggedOut,
+			isNewSession,
+		});
 		fetchUserInfo();
 	}, [
 		isLoaded,
-		user,
-		wasLoggedOut,
-		isNewSession,
-		resetZennConnection,
-		fetchLatestUserInfo,
+		user?.id, // userオブジェクト全体ではなくuser.idのみ
 	]);
 
 	// ユーザープロフィールを更新
