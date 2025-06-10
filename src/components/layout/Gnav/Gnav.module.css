@@ -41,12 +41,14 @@
 
 .gnav-sidebar-container {
 	height: 100%;
+	padding-block: 30px 25px;
 	border: var(--border-large);
 	border-radius: var(--border-radius-small);
 }
 
 .gnav-sidebar-nav {
 	height: 100%;
+	overflow-y: scroll;
 }
 
 .gnav-sidebar-list {
@@ -65,7 +67,6 @@
 		"item8"
 		"item9";
 	gap: 20px;
-	padding-block: 30px 25px;
 	height: 100%;
 }
 
