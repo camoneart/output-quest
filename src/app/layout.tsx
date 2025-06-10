@@ -29,7 +29,11 @@ export default function RootLayout({
 }>) {
 	const redirectUrl = process.env.NEXT_PUBLIC_CONNECTION_URL || "/connection";
 	return (
-		<ClerkProvider afterSignOutUrl={redirectUrl}>
+		<ClerkProvider
+			afterSignOutUrl={redirectUrl}
+			forceRedirectUrl={redirectUrl}
+			fallbackRedirectUrl={redirectUrl}
+		>
 			<html lang="ja" className={`${dotGothic16.variable}`}>
 				<body suppressHydrationWarning>
 					<AudioProvider>
