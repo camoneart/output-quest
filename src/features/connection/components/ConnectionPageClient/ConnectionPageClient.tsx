@@ -517,7 +517,52 @@ export default function ConnectionPageClient() {
 					setUserInfo(data.user);
 				}
 
-				// 表示メッセージを連携 or 同期に応じて切り替え
+				// 記事数が0件の場合は連携を自動解除
+				if (articleCount === 0) {
+					try {
+						// 連携解除処理を実行
+						const releaseResponse = await fetch("/api/user", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								zennUsername: "",
+								displayName: userInfo?.displayName,
+								profileImage: userInfo?.profileImage,
+							}),
+						});
+						const releaseData = await releaseResponse.json();
+
+						if (releaseData.success) {
+							setUserInfo({
+								...userInfo!,
+								zennUsername: "",
+								zennArticleCount: 0,
+							});
+							setZennUsername("");
+							setSuccess("");
+							setReleaseMessage("");
+							setError(
+								"連携中のアカウントの記事数が0件になったため連携を解除しました"
+							);
+						} else {
+							console.error("自動連携解除エラー:", releaseData.error);
+							setError(
+								"記事数が0件のため連携解除を試みましたが、処理に失敗しました"
+							);
+						}
+					} catch (err) {
+						console.error("自動連携解除エラー:", err);
+						setError(
+							"記事数が0件のため連携解除を試みましたが、処理に失敗しました"
+						);
+					}
+					setLoading(false);
+					return;
+				}
+
+				// 記事数が1件以上の場合は通常の同期成功メッセージ
 				const successMessage = shouldRedirect
 					? `Zennのアカウント連携が完了しました。${articleCount}件の記事が見つかりました。`
 					: `同期が完了しました。${articleCount}件の記事が見つかりました。`;
