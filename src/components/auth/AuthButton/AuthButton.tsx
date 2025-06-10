@@ -34,7 +34,7 @@ const AuthButton = () => {
   return (
     <div className="flex items-center justify-center w-full gap-5">
       <SignInButton
-        mode="redirect"
+        mode="modal"
         forceRedirectUrl={redirectUrl}
       >
         <button
@@ -45,7 +45,7 @@ const AuthButton = () => {
         </button>
       </SignInButton>
       <SignUpButton
-        mode="redirect"
+        mode="modal"
         forceRedirectUrl={redirectUrl}
       >
         <button
