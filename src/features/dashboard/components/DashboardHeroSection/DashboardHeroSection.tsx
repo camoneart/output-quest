@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./DashboardHeroSection.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,12 +16,36 @@ type DashboardHeroSectionProps = {
 const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 	const router = useRouter();
 	const { heroData, isLoading, error } = useHero();
+	const [zennUsername, setZennUsername] = useState<string>("@aoyamadev");
 
 	// 経験値ゲージを常に40%表示に固定
 	const expProgressPercent = isLoading ? 0 : 40;
 
 	// 次のレベルまでの残り記事数は常に1
 	const remainingArticles = 1;
+
+	// Zennユーザー名を取得
+	useEffect(() => {
+		const fetchZennUsername = async () => {
+			try {
+				const userRes = await fetch("/api/user");
+				const userData = await userRes.json();
+
+				if (userData.success && userData.user.zennUsername) {
+					setZennUsername(`@${userData.user.zennUsername}`);
+				} else {
+					// デフォルトは@aoyamadev
+					setZennUsername("@aoyamadev");
+				}
+			} catch (error) {
+				console.error("Zennユーザー名取得エラー:", error);
+				// エラー時はデフォルト値を使用
+				setZennUsername("@aoyamadev");
+			}
+		};
+
+		fetchZennUsername();
+	}, []);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
@@ -68,7 +92,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 						</div>
 						<div className={styles["hero-info-name-box"]}>
 							<h3 className={`${styles["hero-info-name"]}`}>
-								{dashboardData.heroData.name}
+								{dashboardData.heroData.name}({zennUsername})
 							</h3>
 						</div>
 					</div>
