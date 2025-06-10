@@ -11,8 +11,6 @@ import {
 	useSessionManagement,
 	useMessageStorage,
 } from "@/features/connection/hooks";
-import Link from "next/link";
-import AuthButton from "@/components/auth/AuthButton/AuthButton";
 
 // グローバル変数の型拡張
 declare global {
@@ -49,7 +47,6 @@ export default function ConnectionPageClient() {
 	const [wasLoggedOut, setWasLoggedOut] = useState(false);
 	const [isNewSession, setIsNewSession] = useState(false);
 	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
-	const [isInitializing, setIsInitializing] = useState(true);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
@@ -198,62 +195,46 @@ export default function ConnectionPageClient() {
 	// ユーザー情報を取得
 	useEffect(() => {
 		const fetchUserInfo = async () => {
-			// Clerkの初期化が完了していない場合は何もしない
-			if (!isLoaded) {
-				return;
-			}
-
-			// 初期化フラグをオフにして、実際の処理を開始
-			setIsInitializing(false);
+			if (!isLoaded) return;
 
 			// ユーザーがログインしていない場合、状態をリセット
 			if (!user) {
 				setUserInfo(null);
 				setZennUsername("");
+				// ユーザー非ログイン時はロード完了扱い
 				setIsZennInfoLoaded(true);
 				return;
 			}
 
-			// ユーザーがログイン済みで、まだZenn情報がロードされていない場合のみ処理
-			if (!isZennInfoLoaded) {
-				console.log("[ConnectionPageClient] Zenn情報ロード開始");
-				setIsZennInfoLoaded(false);
+			// Zenn連携情報のロード開始（ユーザーがいる場合のみ）
+			setIsZennInfoLoaded(false);
 
-				try {
-					const wasLoggedOutFlag = wasLoggedOut;
-					const isNewSessionFlag = isNewSession;
+			try {
+				const wasLoggedOutFlag = wasLoggedOut;
+				const isNewSessionFlag = isNewSession;
 
-					if (wasLoggedOutFlag || isNewSessionFlag) {
-						await resetZennConnection();
-					} else {
-						await fetchLatestUserInfo();
-					}
-				} catch (err) {
-					console.error("ユーザープロフィール取得エラー:", err);
-				} finally {
-					// ロード完了を通知してUIをアンブロック
-					setIsZennInfoLoaded(true);
+				if (wasLoggedOutFlag || isNewSessionFlag) {
+					await resetZennConnection();
+				} else {
+					await fetchLatestUserInfo();
 				}
+			} catch (err) {
+				console.error("ユーザープロフィール取得エラー:", err);
+			} finally {
+				// ロード完了を通知してUIをアンブロック
+				setIsZennInfoLoaded(true);
 			}
 		};
 
 		fetchUserInfo();
 	}, [
 		isLoaded,
-		user?.id, // user.id のみに依存してuserオブジェクト全体の変更による再実行を防ぐ
-		// wasLoggedOut, isNewSession は削除して不要な再実行を防ぐ
+		user,
+		wasLoggedOut,
+		isNewSession,
+		resetZennConnection,
+		fetchLatestUserInfo,
 	]);
-
-	// ログアウト/新セッション時の特別処理
-	useEffect(() => {
-		if (isLoaded && user && (wasLoggedOut || isNewSession)) {
-			console.log("[ConnectionPageClient] ログアウト/新セッション処理");
-			setIsZennInfoLoaded(false);
-			resetZennConnection().finally(() => {
-				setIsZennInfoLoaded(true);
-			});
-		}
-	}, [wasLoggedOut, isNewSession, isLoaded, user?.id, resetZennConnection]);
 
 	// ユーザープロフィールを更新
 	const updateUserProfile = async (): Promise<boolean> => {
@@ -728,42 +709,14 @@ export default function ConnectionPageClient() {
 		<>
 			<h1 className={`${styles["profile-title"]}`}>連携</h1>
 			<div className={`${styles["profile-container"]}`}>
-				{!isLoaded || isInitializing ? (
+				{!isLoaded ? (
 					<div className="p-4 text-center">読み込み中...</div>
 				) : !user ? (
-					<div
-						className={`px-4 pt-3 pb-6 grid gap-8 ${styles["connection-container"]}`}
-					>
-						<div className={`${styles["auth-content"]}`}>
-							<AuthButton />
-							<div className="grid grid-cols-1 gap-[32px]">
-								<p className="text-center text-base">
-									Zennとの連携には「ログイン」または「新規登録」が必要です。
-								</p>
-								<div className="grid grid-cols-1 gap-2 place-items-center">
-									<em className="text-center text-sm not-italic">
-										※「ログイン」「新規登録」無しでも、ご利用いただけます。
-									</em>
-									<Link
-										href="/connection-detail"
-										className={styles["connection-detail-link"]}
-									>
-										詳細はこちら
-									</Link>
-								</div>
-							</div>
-						</div>
-						<hr className={styles["center-line"]} />
-						<Connection.ConnectionZennForm
-							zennUsername={zennUsername}
-							loading={loading}
-							error={error}
-							onUsernameChange={setZennUsername}
-							onSubmit={updateUserProfile}
-							isZennInfoLoaded={isZennInfoLoaded}
-							isAuthenticated={false}
-						/>
-					</div>
+					<Connection.ConnectionAuthSection
+						loading={loading}
+						zennUsername={zennUsername}
+						updateUserProfile={updateUserProfile}
+					/>
 				) : (
 					<div className={styles["profile-info-container"]}>
 						<div className={styles["profile-info-header"]}>
@@ -804,7 +757,6 @@ export default function ConnectionPageClient() {
 										onUsernameChange={setZennUsername}
 										onSubmit={updateUserProfile}
 										isZennInfoLoaded={isZennInfoLoaded}
-										isAuthenticated={true}
 									/>
 								)
 							) : (
@@ -815,7 +767,6 @@ export default function ConnectionPageClient() {
 									onUsernameChange={setZennUsername}
 									onSubmit={updateUserProfile}
 									isZennInfoLoaded={isZennInfoLoaded}
-									isAuthenticated={true}
 								/>
 							)}
 							<div className={styles["connection-info-message-container"]}>

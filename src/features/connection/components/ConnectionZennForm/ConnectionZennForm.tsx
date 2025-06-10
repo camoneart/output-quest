@@ -8,7 +8,6 @@ interface ConnectionZennFormProps {
 	onUsernameChange: (value: string) => void;
 	onSubmit: () => void;
 	isZennInfoLoaded?: boolean;
-	isAuthenticated?: boolean;
 }
 
 const ConnectionZennForm = memo<ConnectionZennFormProps>(
@@ -19,45 +18,33 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 		onUsernameChange,
 		onSubmit,
 		isZennInfoLoaded = true,
-		isAuthenticated = false,
 	}) {
 		return (
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
-				<label
-					htmlFor="zenn-username"
-					className={`text-sm ${!isAuthenticated ? "opacity-40 select-none" : ""}`}
-				>
+				<label htmlFor="zenn-username" className="text-sm">
 					Zennユーザー名
 					<strong className="text-[#ffc630]">（必須）</strong>
 				</label>
-				<div
-					className={`flex gap-3 ${!isAuthenticated ? "opacity-40 select-none" : ""}`}
-				>
+				<div className="flex gap-3">
 					<input
 						id="zenn-username"
 						type="text"
-						value={isAuthenticated ? zennUsername : ""}
-						onChange={
-							isAuthenticated
-								? (e) => onUsernameChange(e.target.value)
-								: () => {}
-						}
+						value={zennUsername}
+						onChange={(e) => onUsernameChange(e.target.value)}
 						className="flex-1 border-[3px] border-gray-400 bg-white rounded px-3 py-2 text-black"
 						placeholder="例: aoyamadev"
-						disabled={loading || !isAuthenticated}
+						disabled={loading}
 					/>
 					<button
 						onClick={onSubmit}
 						className={`${styles["connect-button"]} ${
-							!loading && zennUsername && isAuthenticated
-								? styles["active"]
-								: ""
+							!loading && zennUsername ? styles["active"] : ""
 						} ${
-							loading || !zennUsername || !isAuthenticated
+							loading || !zennUsername
 								? "opacity-50 cursor-not-allowed"
 								: "cursor-pointer"
 						}`}
-						disabled={loading || !zennUsername || !isAuthenticated}
+						disabled={loading || !zennUsername}
 					>
 						<div className={`${styles["connect-button-content"]}`}>連携</div>
 					</button>
@@ -66,11 +53,9 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 					""
 				) : (
 					<p className="text-center mt-[12px]">
-						{!isAuthenticated
-							? "先に「ログイン」または「新規登録」を完了してください。"
-							: loading && isZennInfoLoaded
-								? "連携中..."
-								: "Zennと連携が必要です。"}
+						{loading && isZennInfoLoaded
+							? "連携中..."
+							: "Zennと連携が必要です。"}
 					</p>
 				)}
 			</div>
