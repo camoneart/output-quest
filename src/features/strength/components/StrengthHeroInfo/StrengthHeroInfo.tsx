@@ -14,6 +14,7 @@ const StrengthHeroInfo = () => {
 	});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [zennUsername, setZennUsername] = useState<string>("@aoyamadev");
 
 	// 記事データを取得してレベルを設定
 	useEffect(() => {
@@ -28,6 +29,14 @@ const StrengthHeroInfo = () => {
 				}
 				// zennUsernameが設定されている場合はそれを使用、そうでなければaoyamadevをフォールバック
 				const username = userData.user.zennUsername || "aoyamadev";
+
+				// Zennユーザー名を設定
+				if (userData.user.zennUsername) {
+					setZennUsername(`@${userData.user.zennUsername}`);
+				} else {
+					// デフォルトは@aoyamadev
+					setZennUsername("@aoyamadev");
+				}
 
 				// Zenn記事数を取得（全件取得）
 				const articles = await fetchZennArticles(username, { fetchAll: true });
@@ -51,6 +60,8 @@ const StrengthHeroInfo = () => {
 						? err.message
 						: "Zennの記事データの取得中にエラーが発生しました。"
 				);
+				// エラー時はデフォルト値を使用
+				setZennUsername("@aoyamadev");
 			} finally {
 				setLoading(false);
 			}
@@ -94,7 +105,7 @@ const StrengthHeroInfo = () => {
 						</div>
 						<div className={styles["strength-hero-name-box"]}>
 							<h3 className={`${styles["strength-hero-name"]}`}>
-								{heroData.name}
+								{heroData.name}({zennUsername})
 							</h3>
 						</div>
 					</div>
