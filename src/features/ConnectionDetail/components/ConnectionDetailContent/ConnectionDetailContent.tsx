@@ -108,16 +108,6 @@ const ConnectionDetailContent = () => {
 								<li
 									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
 								>
-									どんな「アイテム」や「称号」が手に入るのか見てみたい
-								</li>
-								<li
-									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
-								>
-									どんな「なかま」と出会えるか見てみたい
-								</li>
-								<li
-									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
-								>
 									アプリの機能を一通り見てみたい
 								</li>
 								<li
