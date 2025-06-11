@@ -35,7 +35,7 @@
   gap: 6px;
   width: fit-content;
   font-size: 0.875rem;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal);
   line-height: var(--leading-x-tight);
   background-color: var(--color-primary-dark-gray);
   border: 1.5px solid var(--color-primary-white);
