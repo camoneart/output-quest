@@ -16,7 +16,8 @@ type DashboardHeroSectionProps = {
 const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 	const router = useRouter();
 	const { heroData, isLoading, error } = useHero();
-	const [zennUsername, setZennUsername] = useState<string>("@aoyamadev");
+	const [zennUsername, setZennUsername] = useState<string>("");
+	const [isZennUsernameLoaded, setIsZennUsernameLoaded] = useState(false);
 
 	// 経験値ゲージを常に40%表示に固定
 	const expProgressPercent = isLoading ? 0 : 40;
@@ -41,6 +42,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 				console.error("Zennユーザー名取得エラー:", error);
 				// エラー時はデフォルト値を使用
 				setZennUsername("@aoyamadev");
+			} finally {
+				setIsZennUsernameLoaded(true);
 			}
 		};
 
@@ -92,7 +95,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 						</div>
 						<div className={styles["hero-info-name-box"]}>
 							<h3 className={`${styles["hero-info-name"]}`}>
-								{dashboardData.heroData.name}({zennUsername})
+								{dashboardData.heroData.name}
+								{!isZennUsernameLoaded ? "(...)" : `(${zennUsername})`}
 							</h3>
 						</div>
 					</div>

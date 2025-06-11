@@ -14,7 +14,7 @@ const StrengthHeroInfo = () => {
 	});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const [zennUsername, setZennUsername] = useState<string>("@aoyamadev");
+	const [zennUsername, setZennUsername] = useState<string>("");
 
 	// 記事データを取得してレベルを設定
 	useEffect(() => {
@@ -105,7 +105,8 @@ const StrengthHeroInfo = () => {
 						</div>
 						<div className={styles["strength-hero-name-box"]}>
 							<h3 className={`${styles["strength-hero-name"]}`}>
-								{heroData.name}({zennUsername})
+								{heroData.name}
+								{loading ? "(...)" : `(${zennUsername})`}
 							</h3>
 						</div>
 					</div>
