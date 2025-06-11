@@ -46,7 +46,7 @@ const AboutPage = () => {
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										ダッシュボードページでは、勇者の成長度合いを示すレベル、Zennでの投稿数、レベルアップ報酬で入手した「アイテム」や「勇者のなかま」を確認できます。
+										ダッシュボードページでは、勇者の成長度合いを示すレベル、Zennでの投稿数、レベルアップ報酬で獲得した「アイテム」や、勇者が出会った「仲間」を確認できます。
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
@@ -66,7 +66,7 @@ const AboutPage = () => {
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										記事を書くことで、勇者が経験値を得られます。経験値を獲得して勇者がレベルアップすることで、新たな「称号」や「アイテム」の獲得、新しい「なかま」との出会いがあなたを待っています。
+										記事を書くことで、勇者が経験値を得られます。経験値を獲得して勇者がレベルアップすることで、新たな「称号」や「アイテム」の獲得、新しい「仲間」との出会いがあなたを待っています。
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
@@ -86,17 +86,17 @@ const AboutPage = () => {
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										あなたの学びの冒険の記録を時系列で確認できるログです。ログには「投稿した記事」「獲得した経験値」「レベルアップ情報」「新たなアイテム」や「なかまとの出会い」など、冒険の記録が残ります。冒険ログを振り返ることで、自分の成長を実感できるでしょう。
+										あなたの学びの冒険の記録を時系列で確認できるログです。ログには「投稿した記事」「獲得した経験値」「レベルアップ情報」「新たなアイテム」や「仲間との出会い」など、冒険の記録が残ります。冒険ログを振り返ることで、自分の成長を実感できるでしょう。
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
 									<dt className={styles["about-section-list-content-title"]}>
-										なかまの獲得
+										仲間との出会い
 									</dt>
 									<dd
 										className={styles["about-section-list-content-description"]}
 									>
-										勇者のレベルを上げていくごとに、勇者のなかまとなる様々なキャラクターに出会えます。そして、レベル99に到達した暁には、「伝説の存在」とも出会えるかもしれません...
+										勇者のレベルを上げていくごとに、勇者の仲間となる様々なキャラクターに出会えます。そして、レベル99に到達した暁には、「伝説の存在」とも出会えるかも...
 									</dd>
 								</div>
 								<div className={styles["about-section-list-content"]}>
@@ -133,8 +133,7 @@ const AboutPage = () => {
 								そして、あなたのアウトプットは他者の「インプット」となり、知識の循環を生み出します。あなたの記事が誰かの疑問を解決し、誰かの学びを加速させ、新たな知の創造につながるのです。これこそが「叡智の継承」の真髄です。
 							</p>
 							<p className={styles["about-section-message"]}>
-								「OUTPUT QUEST ~
-								叡智の継承者~」は、アウトプットをRPG風の楽しい体験に変え、継続的な成長をサポートします。レベルアップする喜び、なかまやアイテムの獲得という達成感を通じて、学びの旅をより豊かなものへと導きます。
+								「OUTPUT QUEST ~ 叡智の継承者~」は、アウトプットをRPG風の楽しい体験に変え、継続的な成長をサポートします。レベルアップする喜び、仲間との出会いやアイテムの獲得という達成感を通じて、学びの旅をより豊かなものへと導きます。
 							</p>
 							<p className={styles["about-section-message"]}>
 								アウトプットに完璧な準備は必要ありません。大切なのは、アウトプットをすることで得られる「本質的な理解」です。アウトプットを続けて自己成長へ繋げることで、自らを「学びの勇者」へと導くのです。

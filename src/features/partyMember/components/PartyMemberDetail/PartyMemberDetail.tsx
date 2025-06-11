@@ -68,15 +68,15 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
   // 現在のレベルに基づいて獲得状態を動的に判定
   const isAcquired = isAcquiredByHeroLevel(partyId, currentLevel);
 
-  // なかまを獲得するために必要なレベル
+  // 仲間を獲得するために必要なレベル
   const requiredLevel = heroLevelAndMemberRelation[partyId] || partyId;
 
   // レベル差を計算（マイナスにならないようにする）
   const levelDifference = Math.max(0, requiredLevel - currentLevel);
 
-  // なかまの名前と説明文を取得
+  // 仲間の名前と説明文を取得
   const memberName = isAcquired
-    ? customMemberNames[partyId] || `パーティメンバー${partyId}`
+    ? customMemberNames[partyId] || `勇者の仲間${partyId}`
     : null;
   const memberDescription = isAcquired
     ? customMemberDescriptions[partyId] || `これは${memberName}の説明です。`
@@ -95,7 +95,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
             ) : isAcquired ? (
               <Image
                 src={`/images/party-page/acquired-icon/party-member-${partyId}.svg`}
-                alt={memberName || "パーティメンバー"}
+                alt={memberName || "勇者の仲間"}
                 width={60}
                 height={60}
                 priority={true}
@@ -107,7 +107,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
               <div className={styles["party-member-unknown-icon"]}>
                 <Image
                   src="/images/party-page/unacquired-icon/mark_question.svg"
-                  alt="未獲得のパーティメンバー"
+                  alt="まだ見ぬ仲間"
                   width={60}
                   height={60}
                   priority={true}
@@ -124,7 +124,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
               ) : isAcquired ? (
                 memberName
               ) : (
-                "未獲得のなかま"
+                "まだ見ぬ仲間"
               )}
             </h2>
           </div>
@@ -152,7 +152,7 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
           ) : (
             <div className={styles["party-member-locked-message-box"]}>
               <p className={styles["party-member-locked-message-text"]}>
-                このなかまは、Lv{requiredLevel}で獲得できるぞ！
+                このキャラはLv{requiredLevel}で仲間に加わるぞ！
               </p>
               <p className={styles["party-member-locked-message-text"]}>
                 Lv{requiredLevel}まで、あと{levelDifference}レベル

@@ -63,7 +63,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
   }
 
   const memberName =
-    memberId !== null ? customMemberNames[memberId] || "不明ななかま" : "";
+    memberId !== null ? customMemberNames[memberId] || "まだ見ぬ仲間" : "";
   const memberDescription =
     memberId !== null ? customMemberDescriptions[memberId] || "詳細不明" : "";
 
@@ -82,7 +82,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
       </h2>
       <div className={`${styles["party-member-container"]}`}>
         {memberId === null ? (
-          <p>まだなかまになったキャラクターはいません。</p>
+          <p>まだ仲間になったキャラクターはいません。</p>
         ) : (
           <div className={`${styles["party-member-box"]}`}>
             <Link

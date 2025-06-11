@@ -15,7 +15,7 @@ const PartyQuestionIcon: React.FC<TreasureChestProps> = ({
   return (
     <Image
       src="/images/party-page/unacquired-icon/mark_question.svg"
-      alt="未獲得のなかま"
+      alt="まだ見ぬ仲間"
       width={width}
       height={height}
       className={className}

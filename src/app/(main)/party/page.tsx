@@ -12,9 +12,9 @@ const PartyPage = () => {
       <h1 className={`${styles["party-title"]}`}>なかま</h1>
       <div className={`${styles["party-container"]}`}>
         <div className={`${styles["party-header"]}`}>
-          <p>勇者が出会ったなかまを確認できます。</p>
-          <p>なかまになるキャラクターは最大で30人です。</p>
-          <p>なかまをクリックすると、なかまの詳細を確認できます。</p>
+          <p>勇者の仲間を確認できます。</p>
+          <p>仲間になるキャラクターは最大で30人です。</p>
+          <p>仲間をクリックすると、仲間の詳細を確認できます。</p>
         </div>
 
         <hr className={styles["party-line"]} />

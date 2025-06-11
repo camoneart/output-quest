@@ -7,8 +7,8 @@ import {
 } from "@/features/party/data/partyMemberData";
 
 /**
- * なかま詳細ページのメタデータを生成する関数
- * @param partyId なかまID
+ * 仲間詳細ページのメタデータを生成する関数
+ * @param partyId 仲間ID
  * @returns メタデータオブジェクト
  */
 export async function generatePartyMemberMetadata(
@@ -18,12 +18,12 @@ export async function generatePartyMemberMetadata(
   if (isNaN(partyId) || partyId < 1 || partyId > 30) {
     return {
       ...baseMetadata,
-      title: "なかまが見つかりません",
-      description: "指定されたなかまは存在しません。",
+      title: "仲間が見つかりません",
+      description: "指定された仲間は存在しません。",
     };
   }
 
-  // なかまのメタデータを生成
+  // 仲間のメタデータを生成
   const memberName = customMemberNames[partyId];
   const memberDescription = customMemberDescriptions[partyId];
   const requiredLevel = heroLevelAndMemberRelation[partyId] || partyId;
@@ -52,8 +52,8 @@ export async function generatePartyMemberMetadata(
     },
     other: {
       // 未獲得の場合のタイトルと説明をカスタムプロパティとして保存
-      unacquiredTitle: "未獲得のなかま",
-      unacquiredDescription: `このなかまはレベル${requiredLevel}で獲得できます。冒険を続けて探索しましょう。`,
+      unacquiredTitle: "まだ見ぬ仲間",
+      unacquiredDescription: `このキャラはLv${requiredLevel}で仲間に加わるぞ！冒険を続けて勇者のレベルを上げましょう！`,
       requiredLevel: `${requiredLevel}`,
     },
     metadataBase: new URL(

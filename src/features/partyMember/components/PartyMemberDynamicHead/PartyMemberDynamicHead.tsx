@@ -26,7 +26,7 @@ const PartyMemberDynamicHead: React.FC<PartyMemberDynamicHeadProps> = ({
     // ロード中は何もしない
     if (isLoading) return;
 
-    // 勇者のレベルに基づいてなかまの獲得状態を判定
+    // 勇者のレベルに基づいて仲間の獲得状態を判定
     const isAcquired = isAcquiredByHeroLevel(partyId, heroData.level);
 
     // ドキュメントのheadタグを取得
@@ -38,7 +38,7 @@ const PartyMemberDynamicHead: React.FC<PartyMemberDynamicHeadProps> = ({
     );
 
     if (isAcquired) {
-      // 獲得済みの場合は、なかまの名前と説明を表示
+      // 獲得済みの場合は、仲間の名前と説明を表示
       const memberName = customMemberNames[partyId];
       const memberDescription = customMemberDescriptions[partyId];
 
@@ -47,26 +47,26 @@ const PartyMemberDynamicHead: React.FC<PartyMemberDynamicHeadProps> = ({
       if (descriptionMeta)
         descriptionMeta.setAttribute("content", memberDescription);
       if (ogTitleMeta)
-        ogTitleMeta.setAttribute("content", `${memberName}｜なかま詳細`);
+        ogTitleMeta.setAttribute("content", `${memberName}｜仲間詳細`);
       if (ogDescriptionMeta)
         ogDescriptionMeta.setAttribute("content", memberDescription);
     } else {
       // 未獲得の場合は、未獲得のメッセージを表示
-      const unacquiredTitle = "未獲得のなかま";
+      const unacquiredTitle = "まだ見ぬ仲間";
       const requiredLevelElement = document.querySelector(
         'meta[name="requiredLevel"]'
       );
       const requiredLevel = requiredLevelElement
         ? requiredLevelElement.getAttribute("content")
         : partyId;
-      const unacquiredDescription = `このなかまはレベル${requiredLevel}で獲得できます。冒険を続けて探索しましょう。`;
+      const unacquiredDescription = `このキャラはLv${requiredLevel}で仲間に加わるぞ！冒険を続けて勇者のレベルを上げましょう！`;
 
       if (titleElement)
         titleElement.textContent = `${unacquiredTitle}｜OUTPUT QUEST`;
       if (descriptionMeta)
         descriptionMeta.setAttribute("content", unacquiredDescription);
       if (ogTitleMeta)
-        ogTitleMeta.setAttribute("content", `${unacquiredTitle}｜なかま詳細`);
+        ogTitleMeta.setAttribute("content", `${unacquiredTitle}｜仲間詳細`);
       if (ogDescriptionMeta)
         ogDescriptionMeta.setAttribute("content", unacquiredDescription);
     }
