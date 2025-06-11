@@ -1,0 +1,39 @@
+/* TitlePageClient用のスタイル（page.tsxのスタイルを参照） */
+.title-page-container {
+	height: 100%;
+	display: block grid;
+	grid-template-rows: auto auto auto auto auto 1fr;
+	grid-template-areas:
+		"header"
+		"line-first"
+		"list"
+		"line-second"
+		"footer";
+	border: var(--border-large);
+	border-radius: var(--border-radius-small);
+	padding-block: 40px 25px;
+	padding-inline: 25px;
+	color: var(--color-primary-white);
+}
+
+.title-page-guest-container {
+	height: 100%;
+	display: block grid;
+	grid-template-rows: 1fr auto;
+	grid-template-areas:
+		"content"
+		"footer";
+	border: var(--border-large);
+	border-radius: var(--border-radius-small);
+	padding-block: 40px 25px;
+	padding-inline: 25px;
+	color: var(--color-primary-white);
+}
+
+.title-page-line-first {
+	grid-area: line-first;
+}
+
+.title-page-line-second {
+	grid-area: line-second;
+}

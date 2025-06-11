@@ -10,17 +10,51 @@ import { useRouter } from "next/navigation";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { fetchZennArticles } from "@/features/posts/services";
 import { PartyMember } from "@/features/party/types/party.types";
+import { useUser } from "@clerk/nextjs";
 
 const PartyMemberCardList: React.FC = () => {
 	const [members, setMembers] = useState<PartyMember[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [userZennInfo, setUserZennInfo] = useState<{
+		zennUsername?: string;
+	} | null>(null);
+	const { user, isLoaded } = useUser();
 	const router = useRouter();
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
 		volume: 0.5,
 		delay: 190,
 	});
+
+	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
+	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+
+	// ユーザーのZenn連携情報を取得
+	useEffect(() => {
+		const fetchUserZennInfo = async () => {
+			if (!isLoaded || !user) {
+				setUserZennInfo(null);
+				return;
+			}
+
+			try {
+				const response = await fetch("/api/user");
+				const data = await response.json();
+
+				if (data.success && data.user) {
+					setUserZennInfo({ zennUsername: data.user.zennUsername });
+				} else {
+					setUserZennInfo(null);
+				}
+			} catch (err) {
+				console.error("ユーザー情報取得エラー:", err);
+				setUserZennInfo(null);
+			}
+		};
+
+		fetchUserZennInfo();
+	}, [isLoaded, user]);
 
 	useEffect(() => {
 		const fetchMembers = async () => {
@@ -80,7 +114,15 @@ const PartyMemberCardList: React.FC = () => {
 						className={styles["party-member-card"]}
 						onClick={(e) => handleNavigation(e, `/party/${partyMember.id}`)}
 					>
-						{partyMember.acquired ? (
+						{isGuestUser ? (
+							<div className={styles["unacquired-party-member-icon"]}>
+								<Party.PartyQuestionIcon
+									width={40}
+									height={40}
+									className={styles["unacquired-party-member-icon-image"]}
+								/>
+							</div>
+						) : partyMember.acquired ? (
 							<div className={styles["acquired-party-member-icon"]}>
 								<Image
 									src={`/images/party-page/acquired-icon/party-member-${partyMember.id}.svg`}
@@ -102,7 +144,7 @@ const PartyMemberCardList: React.FC = () => {
 							</div>
 						)}
 						<h2 className={styles["party-member-name"]}>
-							{partyMember.acquired ? partyMember.name : "???"}
+							{isGuestUser || !partyMember.acquired ? "???" : partyMember.name}
 						</h2>
 					</Link>
 				</div>

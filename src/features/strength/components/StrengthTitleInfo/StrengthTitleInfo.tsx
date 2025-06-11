@@ -7,9 +7,11 @@ import { titleNameData } from "@/shared/data/titleNameDate";
 import { useRouter } from "next/navigation";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { fetchZennArticles } from "@/features/posts/services";
+import { useUser } from "@clerk/nextjs";
 
 const StrengthTitleInfo = () => {
 	const router = useRouter();
+	const { user, isLoaded } = useUser();
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
 		volume: 0.5,
@@ -19,6 +21,39 @@ const StrengthTitleInfo = () => {
 	// ローカルレベル取得状態
 	const [heroLevel, setHeroLevel] = useState<number>(1);
 	const [isLoadingTitle, setIsLoadingTitle] = useState<boolean>(true);
+	const [userZennInfo, setUserZennInfo] = useState<{
+		zennUsername?: string;
+	} | null>(null);
+
+	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
+	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+
+	// ユーザーのZenn連携情報を取得
+	useEffect(() => {
+		const fetchUserZennInfo = async () => {
+			if (!isLoaded || !user) {
+				setUserZennInfo(null);
+				return;
+			}
+
+			try {
+				const response = await fetch("/api/user");
+				const data = await response.json();
+
+				if (data.success && data.user) {
+					setUserZennInfo({ zennUsername: data.user.zennUsername });
+				} else {
+					setUserZennInfo(null);
+				}
+			} catch (err) {
+				console.error("ユーザー情報取得エラー:", err);
+				setUserZennInfo(null);
+			}
+		};
+
+		fetchUserZennInfo();
+	}, [isLoaded, user]);
+
 	// 記事数からレベルを計算して設定
 	useEffect(() => {
 		const loadLevel = async () => {
@@ -68,6 +103,9 @@ const StrengthTitleInfo = () => {
 	const getLatestTitle = () => {
 		if (isLoadingTitle) return "";
 
+		// ゲストユーザーの場合は「ゲストユーザー」を表示
+		if (isGuestUser) return "ゲストユーザー";
+
 		// 最終称号（Lv99）の特別処理
 		if (heroLevel >= 99) return `${titleNameData[10].name}（Lv99）`;
 
@@ -86,6 +124,11 @@ const StrengthTitleInfo = () => {
 
 	// 現在の称号に対応するクラス名を取得
 	const getCurrentTitleClass = () => {
+		// ゲストユーザーの場合は専用のクラス名を返す
+		if (isGuestUser) {
+			return styles["strength-title-detail-content-default"];
+		}
+
 		const titleId = getLatestTitleId();
 
 		// ローディング中の場合

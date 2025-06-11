@@ -10,17 +10,51 @@ import { fetchZennArticles } from "@/features/posts/services";
 import { useRouter } from "next/navigation";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { Item } from "@/features/items/types/items.types";
+import { useUser } from "@clerk/nextjs";
 
 const ItemCardList: React.FC = () => {
 	const [items, setItems] = useState<Item[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [userZennInfo, setUserZennInfo] = useState<{
+		zennUsername?: string;
+	} | null>(null);
+	const { user, isLoaded } = useUser();
 	const router = useRouter();
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
 		volume: 0.5,
 		delay: 190,
 	});
+
+	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
+	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+
+	// ユーザーのZenn連携情報を取得
+	useEffect(() => {
+		const fetchUserZennInfo = async () => {
+			if (!isLoaded || !user) {
+				setUserZennInfo(null);
+				return;
+			}
+
+			try {
+				const response = await fetch("/api/user");
+				const data = await response.json();
+
+				if (data.success && data.user) {
+					setUserZennInfo({ zennUsername: data.user.zennUsername });
+				} else {
+					setUserZennInfo(null);
+				}
+			} catch (err) {
+				console.error("ユーザー情報取得エラー:", err);
+				setUserZennInfo(null);
+			}
+		};
+
+		fetchUserZennInfo();
+	}, [isLoaded, user]);
 
 	useEffect(() => {
 		const fetchItems = async () => {
@@ -77,7 +111,15 @@ const ItemCardList: React.FC = () => {
 						className={styles["item-card"]}
 						onClick={(e) => handleNavigation(e, `/items/${item.id}`)}
 					>
-						{item.acquired ? (
+						{isGuestUser ? (
+							<div className={styles["unacquired-item-icon"]}>
+								<Items.ItemsTreasureChestIcon
+									width={40}
+									height={40}
+									className={styles["unacquired-item-icon-image"]}
+								/>
+							</div>
+						) : item.acquired ? (
 							<div className={styles["acquired-item-icon"]}>
 								<Image
 									src={`/images/items-page/acquired-icon/item-${item.id}.svg`}
@@ -99,7 +141,7 @@ const ItemCardList: React.FC = () => {
 							</div>
 						)}
 						<h2 className={styles["item-name"]}>
-							{item.acquired ? item.name : "???"}
+							{isGuestUser || !item.acquired ? "???" : item.name}
 						</h2>
 					</Link>
 				</div>
