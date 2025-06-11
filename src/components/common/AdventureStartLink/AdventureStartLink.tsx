@@ -18,7 +18,7 @@ const AdventureStartLink = () => {
 			<Link
 				href="/connection"
 				className={`${styles["adventure-start-link"]}`}
-				onClick={playClickSound()}
+				onClick={() => playClickSound()}
 			>
 				<Image
 					src="/images/arrow/arrow-icon.svg"
