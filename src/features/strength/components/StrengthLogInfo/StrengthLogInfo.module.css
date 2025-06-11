@@ -47,17 +47,16 @@
 .strength-log-list-box {
 	width: 100%;
 	display: block grid;
-	place-items: center;
 	background-color: var(--color-primary-dark-gray);
 	border: 2px solid var(--color-primary-white);
 	border-radius: var(--border-radius-small);
-  padding-block: 10px;
+  padding-block: 10px 11px;
+	overflow-y: scroll;
 }
 
 .strength-log-list {
 	width: 100%;
-	max-height: 207px;
-	overflow-y: scroll;
+	max-height: 208px;
 	display: block grid;
   justify-content: center;
 	gap: 10px;
@@ -66,6 +65,10 @@
 
 .strength-log-item {
 	color: var(--color-primary-white);
+
+	&:last-child {
+		padding-block-end: 10px;
+	}
 }
 
 .strength-log-loading-text {
