@@ -71,7 +71,7 @@ export const metadata: Record<string, Metadata> = {
 	party: {
 		...baseMetadata,
 		title: "なかま",
-		description: "勇者の仲間となったキャラクターを一覧で確認できます。",
+		description: "勇者のなかまとなったキャラクターを一覧で確認できます。",
 	},
 	items: {
 		...baseMetadata,

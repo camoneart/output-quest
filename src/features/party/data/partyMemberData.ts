@@ -35,7 +35,7 @@ export const heroLevelAndMemberRelation: { [key: number]: number } = {
   30: 99,
 };
 
-// カスタム仲間名の定義
+// カスタムなかま名の定義
 export const customMemberNames: { [key: number]: string } = {
   1: "村人（男）",
   2: "村人（女）",
@@ -69,7 +69,7 @@ export const customMemberNames: { [key: number]: string } = {
   30: "伝説の龍",
 };
 
-// カスタム仲間説明文の定義
+// カスタムなかま説明文の定義
 export const customMemberDescriptions: { [key: number]: string } = {
   1: "平和な村で暮らす少年。特別な力はないが、強い心を持つ。",
   2: "平和な村で暮らす少女。穏やかで優しいが、芯の強さを秘めている。",
@@ -77,7 +77,7 @@ export const customMemberDescriptions: { [key: number]: string } = {
   4: "呪われた剣士のなれの果て。死しても戦い続ける。",
   5: "不死の呪いを受けた者。ゆっくりと迫る恐怖の存在。",
   6: "古代の王の守護者。包帯の下に隠された怨念を持つ。",
-  7: "癒しの力を操る聖職者。傷ついた仲間を救う支え。",
+  7: "癒しの力を操る聖職者。傷ついたなかまを救う支え。",
   8: "未来を見通す力を持つ神秘の占い師。運命を導く存在。",
   9: "王国の戦士。忠誠心が厚く、剣を振るい祖国を守る。",
   10: "死してなお、剣を振るう騎士。朽ちた体に宿る忠義。",
@@ -103,7 +103,7 @@ export const customMemberDescriptions: { [key: number]: string } = {
   30: "伝説に語られる究極の龍。その存在は神話の中にのみ記される。",
 };
 
-// レベルに応じて獲得できる仲間かどうかを判定する関数
+// レベルに応じて獲得できるなかまかどうかを判定する関数
 export const isAcquiredByHeroLevel = (
   memberId: number,
   heroLevel: number
@@ -119,7 +119,7 @@ export const isAcquiredByHeroLevel = (
   return true;
 };
 
-// 仲間のモックデータ生成関数
+// なかまのモックデータ生成関数
 const generateMockMembers = (heroLevel: number = 1): PartyMember[] => {
   return Array(30)
     .fill(null)
@@ -135,7 +135,7 @@ const generateMockMembers = (heroLevel: number = 1): PartyMember[] => {
     });
 };
 
-// 初期状態では仮のレベル1として仲間を生成
+// 初期状態では仮のレベル1としてなかまを生成
 const initialPartyMembers = generateMockMembers(1);
 
 // エクスポートするモックデータ
@@ -143,7 +143,7 @@ export const partyMemberData: PartyData = {
   partyMembers: initialPartyMembers,
 };
 
-// レベルに応じて仲間データを更新する関数
+// レベルに応じてなかまデータを更新する関数
 export const updatePartyMembersByLevel = (level: number): PartyMember[] => {
   return generateMockMembers(level);
 };

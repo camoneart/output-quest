@@ -68,13 +68,13 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
   // 現在のレベルに基づいて獲得状態を動的に判定
   const isAcquired = isAcquiredByHeroLevel(partyId, currentLevel);
 
-  // 仲間を獲得するために必要なレベル
+  // なかまを獲得するために必要なレベル
   const requiredLevel = heroLevelAndMemberRelation[partyId] || partyId;
 
   // レベル差を計算（マイナスにならないようにする）
   const levelDifference = Math.max(0, requiredLevel - currentLevel);
 
-  // 仲間の名前と説明文を取得
+  // なかまの名前と説明文を取得
   const memberName = isAcquired
     ? customMemberNames[partyId] || `パーティメンバー${partyId}`
     : null;

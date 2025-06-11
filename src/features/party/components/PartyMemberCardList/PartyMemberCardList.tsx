@@ -38,11 +38,11 @@ const PartyMemberCardList: React.FC = () => {
 				const updatedMembers = updatePartyMembersByLevel(articleCount);
 				setMembers(updatedMembers);
 			} catch (err) {
-				console.error("仲間データ取得エラー:", err);
+				console.error("なかまデータ取得エラー:", err);
 				setError(
 					err instanceof Error
 						? err.message
-						: "仲間データの取得に失敗しました。"
+						: "なかまデータの取得に失敗しました。"
 				);
 			} finally {
 				setIsLoading(false);
@@ -84,7 +84,7 @@ const PartyMemberCardList: React.FC = () => {
 							<div className={styles["acquired-party-member-icon"]}>
 								<Image
 									src={`/images/party-page/acquired-icon/party-member-${partyMember.id}.svg`}
-									alt={partyMember.name || "仲間"}
+									alt={partyMember.name || "なかま"}
 									width={40}
 									height={40}
 									className={`${styles["acquired-party-member-icon-image"]} ${

@@ -48,7 +48,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
           setMemberId(null);
         }
       } catch (err) {
-        console.error("仲間計算エラー:", err);
+        console.error("なかま計算エラー:", err);
       } finally {
         setIsLoadingMember(false);
       }
@@ -63,7 +63,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
   }
 
   const memberName =
-    memberId !== null ? customMemberNames[memberId] || "不明な仲間" : "";
+    memberId !== null ? customMemberNames[memberId] || "不明ななかま" : "";
   const memberDescription =
     memberId !== null ? customMemberDescriptions[memberId] || "詳細不明" : "";
 
