@@ -27,8 +27,8 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 							<Image
 								src="/images/nav-icon/zenn-logo.svg"
 								alt="Zenn"
-								width={16}
-								height={16}
+								width={18}
+								height={18}
 								className={styles["zenn-logo"]}
 							/>
 							<span>Zennとの連携</span>
@@ -52,10 +52,17 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
 				<label
 					htmlFor="zenn-username"
-					className="text-sm opacity-40 select-none"
+					className={`text-sm opacity-40 select-none ${styles["zenn-username"]}`}
 				>
-					Zennユーザー名
-					<strong className="text-[#ffc630]">（必須）</strong>
+					<Image
+						src="/images/nav-icon/zenn-logo.svg"
+						alt="Zenn"
+						width={16}
+						height={16}
+						className={styles["zenn-logo-sm"]}
+					/>
+					<span>Zennユーザー名</span>
+					<strong className="text-[#ffc630]">(必須)</strong>
 				</label>
 				<div className="flex gap-3 opacity-40 select-none">
 					<input

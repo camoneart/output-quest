@@ -92,7 +92,15 @@
 	height: 18px;
 	object-fit: contain;
 	object-position: center;
-	filter: drop-shadow(0 0 1px var(--color-primary-white));
+	filter: drop-shadow(0 0 0.8px var(--color-primary-white));
+}
+
+.zenn-logo-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 0.5px var(--color-primary-white));
 }
 
 .zenn-emphasis {
@@ -102,4 +110,10 @@
 	font-weight: var(--font-weight-normal);
 	font-style: normal;
 	padding-inline-end: 3px;
+}
+
+.zenn-username {
+	display: block flex;
+	align-items: center;
+	gap: 6px;
 }

@@ -30,19 +30,30 @@
 }
 
 .zenn-info-title {
+  display: block flex;
+  align-items: center;
+  gap: 6px;
   width: fit-content;
   font-size: 0.875rem;
   font-weight: var(--font-weight-bold);
   line-height: var(--leading-x-tight);
-  background-color: var(--color-zenn);
+  background-color: var(--color-primary-dark-gray);
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
-  padding-block: 6px 7px;
+  padding-block: 7px 8px;
   padding-inline: 15px;
 
   @media (width < 768px) {
     padding-inline: 35px;
   }
+}
+
+.zenn-logo-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  object-position: center;
+  /* filter: drop-shadow(0 0 1px var(--color-primary-white)); */
 }
 
 .user-info-list {

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import styles from "./ConnectionZennForm.module.css";
+import Image from "next/image";
 
 interface ConnectionZennFormProps {
 	zennUsername: string;
@@ -21,9 +22,16 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 	}) {
 		return (
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
-				<label htmlFor="zenn-username" className="text-sm">
-					Zennユーザー名
-					<strong className="text-[#ffc630]">（必須）</strong>
+				<label htmlFor="zenn-username" className={`text-sm ${styles["zenn-username"]}`}>
+					<Image
+						src="/images/nav-icon/zenn-logo.svg"
+						alt="Zenn"
+						width={16}
+						height={16}
+						className={styles["zenn-logo-sm"]}
+					/>
+					<span>Zennユーザー名</span>
+					<strong className="text-[#ffc630]">(必須)</strong>
 				</label>
 				<div className="flex gap-3">
 					<input

@@ -26,3 +26,17 @@
   display: block grid;
   transition: border 0.2s ease-in-out;
 }
+
+.zenn-username {
+	display: block flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.zenn-logo-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 0.5px var(--color-primary-white));
+}
