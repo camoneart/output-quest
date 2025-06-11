@@ -27,6 +27,7 @@
   font-size: 1.25rem;
   font-weight: var(--font-weight-x-bold);
   text-align: center;
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 
   @media (width < 768px) {
     font-size: 1.125rem;

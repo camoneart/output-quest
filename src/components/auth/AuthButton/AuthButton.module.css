@@ -52,6 +52,7 @@
   border: 1.5px solid var(--color-primary-brown-light);
   padding-block: 10px 11px;
   padding-inline: 15px;
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   transition: padding-inline-start 0.2s;
 
   &:before {

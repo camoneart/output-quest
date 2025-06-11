@@ -33,6 +33,7 @@
 	font-weight: var(--font-weight-x-bold);
 	text-align: center;
 	grid-area: header;
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 
 	@media (width < 768px) {
 		font-size: 1.125rem;
@@ -97,6 +98,7 @@
 	position: relative;
 	padding-block-end: 3px;
 	padding-inline: 3px;
+	text-shadow: 1px 1px 0px var(--color-primary-black);
 	transition: text-shadow 0.1s ease-in-out;
 
 	&:hover {

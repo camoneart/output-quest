@@ -59,6 +59,7 @@
   font-weight: var(--font-weight-x-bold);
   line-height: var(--leading-none);
   place-self: end;
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 }
 
 .platform-stat-card-zenn {
@@ -85,6 +86,7 @@
   height: 100%;
   display: block grid;
   place-items: center;
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 }
 
 .platform-stat-error {
@@ -101,6 +103,7 @@
   line-height: var(--leading-none);
   font-style: normal;
   letter-spacing: var(--letter-spacing-wide);
+  text-shadow: 2.5px 2.5px 0px var(--color-primary-black);
 
   @media (width < 1024px) {
     font-size: 3rem;
@@ -111,4 +114,5 @@
   font-size: 1rem;
   font-weight: var(--font-weight-x-bold);
   line-height: var(--leading-none);
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 }

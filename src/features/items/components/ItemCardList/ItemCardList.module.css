@@ -111,6 +111,7 @@
   font-size: 0.875rem;
   font-weight: var(--font-weight-x-bold);
   line-height: var(--leading-tight);
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   transition: text-shadow 0.2s ease-in-out;
 }
 

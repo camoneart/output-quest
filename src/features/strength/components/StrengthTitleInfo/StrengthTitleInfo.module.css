@@ -28,6 +28,7 @@
   font-size: 1.25rem;
   font-weight: var(--font-weight-x-bold);
   text-align: center;
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 
   @media (width < 768px) {
     font-size: 1.125rem;
@@ -78,6 +79,7 @@
 
   &.strength-title-detail-content-default {
     background: var(--color-title-bg-default);
+    text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   }
 
   &.strength-title-detail-content-lv10 {
@@ -138,7 +140,7 @@
   line-height: var(--leading-x-tight);
   color: var(--color-primary-white);
   font-style: normal;
-  text-shadow: 1px 1px 0 var(--color-primary-black);
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 
   @media (width < 768px) {
     font-size: 1rem;
@@ -162,6 +164,7 @@
   position: relative;
   padding-block-end: 3px;
   padding-inline: 3px;
+  text-shadow: 1px 1px 0px var(--color-primary-black);
   transition: text-shadow 0.1s ease-in-out;
 
   &:hover {

@@ -61,6 +61,7 @@
   font-weight: var(--font-weight-normal);
   line-height: var(--leading-tight);
   color: var(--color-primary-white);
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 }
 
 .equipment-detail-line {
@@ -156,6 +157,7 @@
   font-size: 1rem;
   font-weight: var(--font-weight-x-bold);
   line-height: var(--leading-tight);
+  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   transition: text-shadow 0.2s ease-in-out;
 }
 
@@ -169,6 +171,7 @@
   font-size: 0.875rem;
   font-weight: var(--font-weight-normal);
   line-height: var(--leading-normal);
+  text-shadow: 1px 1px 0px var(--color-primary-black);
   transition: text-shadow 0.2s ease-in-out;
 }
 
