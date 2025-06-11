@@ -50,7 +50,7 @@
 	background-color: var(--color-primary-dark-gray);
 	border: 2px solid var(--color-primary-white);
 	border-radius: var(--border-radius-small);
-  padding-block: 10px 11px;
+  padding-block-start: 10px;
 	overflow-y: scroll;
 }
 
