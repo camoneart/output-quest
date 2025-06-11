@@ -14,22 +14,22 @@ const ConnectionDetailContent = () => {
 					>
 						<dl className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white">
+								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
 									【ログインユーザー】
 								</dt>
 								<dd
-									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
+									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full [filter:drop-shadow(1px_1px_0px_#000)]`}
 								>
 									連携ページにてログイン後、ご自身のZennアカウントを連携させると、Zennでの活動状況に応じてアプリ内の勇者が「経験値」を獲得し、レベルアップしていきます。経験値を獲得して勇者がレベルアップすることで、新たな「称号」や「アイテム」の獲得、新しい「仲間」との出会いがあなたを待っています。
 								</dd>
 							</div>
 						</dl>
 						<div className="grid gap-2">
-							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400]">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [filter:drop-shadow(1px_1px_0px_#000)]">
 								【こんな方にオススメ】
 							</em>
 							<ul
-								className={`${styles["connection-detail-list"]}`}
+								className={`${styles["connection-detail-list"]} [filter:drop-shadow(1px_1px_0px_#000)]`}
 							>
 								<li
 									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
@@ -76,11 +76,11 @@ const ConnectionDetailContent = () => {
 					>
 						<dl className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white">
+								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
 									【ゲストユーザー】
 								</dt>
 								<dd
-									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full`}
+									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full [filter:drop-shadow(1px_1px_0px_#000)]`}
 								>
 									ゲストとして、まずは気軽にアプリの世界を体験してみませんか？
 									ゲストユーザーは開発者のZennアカウント(@aoyamadev)をサンプルとして、OUTPUT
@@ -89,11 +89,11 @@ const ConnectionDetailContent = () => {
 							</div>
 						</dl>
 						<div className="grid gap-2">
-							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400]">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [filter:drop-shadow(1px_1px_0px_#000)]">
 								【こんな方にオススメ】
 							</em>
 							<ul
-								className={`${styles["connection-detail-list"]}`}
+								className={`${styles["connection-detail-list"]} [filter:drop-shadow(1px_1px_0px_#000)]`}
 							>
 								<li
 									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
