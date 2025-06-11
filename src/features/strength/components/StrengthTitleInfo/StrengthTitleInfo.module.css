@@ -68,6 +68,7 @@
 
   @media (width < 640px) {
     min-width: auto;
+    padding-block: 20px;
     padding-inline: 10px;
   }
 
