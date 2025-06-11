@@ -13,6 +13,7 @@
   height: fit-content;
   margin-inline: auto;
   place-self: end;
+  text-shadow: 1px 1px 0px var(--color-primary-black);
 }
 
 .release-message {
