@@ -13,6 +13,10 @@
     grid-template-columns: repeat(2, auto);
     gap: 15px;
   }
+
+  svg {
+    filter: drop-shadow(1px 1px 1px #000);
+  }
 }
 
 .sync-button-box {
@@ -37,6 +41,7 @@
 
   .sync-button-text {
     padding-block-end: 1px;
+    text-shadow: 1px 1px 1px var(--color-primary-black);
   }
 }
 
@@ -61,6 +66,7 @@
 
   .view-zenn-posts-link-text {
     padding-block-end: 1px;
+    text-shadow: 1px 1px 1px var(--color-primary-black);
   }
 }
 
@@ -86,5 +92,6 @@
 
   .release-button-text {
     padding-block-end: 1px;
+    text-shadow: 1.3px 1.3px 1px var(--color-primary-black);
   }
 }

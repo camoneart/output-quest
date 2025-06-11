@@ -78,6 +78,7 @@
 
 .user-info-title-text {
   padding-block-end: 2px;
+  text-shadow: 1px 1px 1px var(--color-primary-black);
 }
 
 .user-info-icon {
@@ -91,6 +92,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--leading-x-tight);
   letter-spacing: 0.05em;
+  text-shadow: 1px 1px 1px var(--color-primary-black);
 }
 
 .article-count-list {
@@ -114,6 +116,7 @@
 
 .article-count-title-text {
   padding-block-end: 2px;
+  text-shadow: 1px 1px 1px var(--color-primary-black);
 }
 
 .article-count-icon {
@@ -126,5 +129,6 @@
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
   line-height: var(--leading-x-tight);
+  text-shadow: 1px 1px 1px var(--color-primary-black);
 }
 
