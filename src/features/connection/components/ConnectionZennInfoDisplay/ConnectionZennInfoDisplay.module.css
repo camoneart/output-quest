@@ -38,7 +38,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--leading-x-tight);
   background-color: var(--color-primary-dark-gray);
-  border: 2px solid var(--color-primary-white);
+  border: 1.5px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
   padding-block: 7px 8px;
   padding-inline: 15px;
