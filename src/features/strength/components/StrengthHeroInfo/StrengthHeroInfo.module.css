@@ -98,7 +98,7 @@
   color: var(--color-primary-white);
   border: 2px solid var(--color-primary-white);
   padding-block: 6px 8px;
-  padding-inline: 8px;
+  padding-inline: 9px;
   border-radius: var(--border-radius-small);
 }
 
