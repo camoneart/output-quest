@@ -45,7 +45,7 @@
 
   @media (width < 1280px) {
     padding-block: 40px;
-    padding-inline: 20px;
+    padding-inline: 10px;
   }
 }
 

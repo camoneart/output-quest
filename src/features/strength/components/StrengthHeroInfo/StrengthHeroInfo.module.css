@@ -49,9 +49,9 @@
 
 .strength-hero-info-content-head {
   display: block grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  justify-content: space-between;
+  grid-template-columns: auto auto;
+  place-content: center;
+  gap: 12px;
   background-color: var(--color-primary-dark-gray);
   border: 2px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
@@ -60,8 +60,7 @@
 
   @media (width < 1280px) {
     padding-block: 40px;
-    padding-inline: 20px;
-    gap: 10px;
+    padding-inline: 10px;
   }
 }
 
@@ -74,8 +73,8 @@
 }
 
 .strength-hero-icon-box {
-  width: 55px;
-  height: 60px;
+  width: 50px;
+  height: 53px;
   display: block grid;
   place-items: center;
 }
@@ -98,7 +97,7 @@
   line-height: var(--leading-none);
   color: var(--color-primary-white);
   border: 2px solid var(--color-primary-white);
-  padding-block: 6px 8px;
+  padding-block: 5px 7px;
   padding-inline: 15px;
   border-radius: var(--border-radius-small);
 }
@@ -110,26 +109,22 @@
 }
 
 .strength-level-display-container {
-  min-width: 150px;
-  height: 91px;
   display: block grid;
   background-color: var(--color-primary-dark-gray);
+  border: 2.5px solid var(--color-primary-white);
   border-radius: var(--border-radius-small);
 }
 
 .strength-level-display-box {
   display: block grid;
-  place-items: center;
-  place-content: center;
-  border: 3px solid var(--color-primary-white);
-  border-radius: 1px;
+  padding-block: 10px;
+  padding-inline: 10px;
 }
 
 .strength-level-display {
-  height: 48px;
   display: block grid;
   grid-template-columns: repeat(2, auto);
-  gap: 10px;
+  gap: 5px;
   font-weight: var(--font-weight-x-bold);
   line-height: var(--leading-none);
   letter-spacing: var(--letter-spacing-wide);
@@ -139,19 +134,23 @@
 .strength-level-display-text {
   display: block grid;
   place-self: end;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .strength-level-display-value {
+  height: 32px;
   height: 100%;
   display: block grid;
   place-items: end;
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: var(--letter-spacing-wide);
 }
 
 .loading-indicator {
-  font-size: 1.812rem;
+  display: block grid;
+  place-items: end;
+  height: 32px;
+  font-size: 1.25rem;
 }
 
 .loading-indicator-small {
