@@ -53,7 +53,7 @@
   height: 16px;
   object-fit: contain;
   object-position: center;
-  /* filter: drop-shadow(0 0 1px var(--color-primary-white)); */
+  filter: drop-shadow(0 0 0.5px var(--color-primary-white));
 }
 
 .user-info-list {
