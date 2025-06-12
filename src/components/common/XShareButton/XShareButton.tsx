@@ -54,7 +54,7 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 			// カスタムシェアテキストがある場合はそれを使用、なければデフォルト
 			const shareText =
 				customShareText ||
-				`【レベルアップ！】\n⭐️ 学びの勇者は レベル${level}に上がった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険を いま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`;
+				`【レベルアップ！】\n⭐️ 学びの勇者は レベル${level}に上がった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`;
 
 			const shareUrl = `https://x.com/share?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent("https://outputquest.com")}`;
 
