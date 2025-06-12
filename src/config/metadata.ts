@@ -92,7 +92,7 @@ export const metadata: Record<string, Metadata> = {
 		...baseMetadata,
 		title: "OUTPUT QUESTとは ?",
 		description:
-			"OUTPUT QUESTの世界観と使い方。アウトプットを通じて成長する新感覚の冒険の始め方を解説します。",
+			"OUTPUT QUESTの世界観と使い方。アウトプットを通じて成長する「新感覚学習RPG」の始め方を解説します。",
 	},
 	terms: {
 		...baseMetadata,
