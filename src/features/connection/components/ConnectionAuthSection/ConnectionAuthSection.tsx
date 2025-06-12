@@ -22,8 +22,8 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 			<div className={`${styles["auth-content"]}`}>
 				<AuthButton />
 				<div className="grid grid-cols-1 gap-[32px]">
-					<p className="text-center text-base flex ">
-						<em className={styles["zenn-emphasis"]}>
+					<p className="text-sm lg:text-base flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-0">
+						<span className="inline-flex gap-[6px] items-center">
 							<Image
 								src="/images/nav-icon/zenn-logo.svg"
 								alt="Zenn"
@@ -31,14 +31,17 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 								height={18}
 								className={styles["zenn-logo"]}
 							/>
-							<span>Zennとの連携</span>
-						</em>
-						<span>には「ログイン」または「新規登録」が必要です。</span>
+							<span className="grid">Zennとの連携には</span>
+						</span>
+						<span>「ログイン」または「新規登録」が必要です。</span>
 					</p>
 					<div className="grid grid-cols-1 gap-2 place-items-center">
-						<em className="text-center text-sm not-italic">
-							※「ログイン」「新規登録」無しでも、ご利用いただけます。
-						</em>
+						<p className="text-sm flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-0">
+							<em className="not-italic">
+								※「ログイン」「新規登録」無しでも、
+							</em>
+							<span>ご利用いただけます。</span>
+						</p>
 						<Link
 							href="/connection-detail"
 							className={styles["connection-detail-link"]}
@@ -90,8 +93,9 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 						</div>
 					</button>
 				</div>
-				<p className="text-center text-base mt-[12px]">
-					先に「ログイン」または「新規登録」を完了してください。
+				<p className="flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-0 text-sm lg:text-base mt-[12px]">
+					<span>先に「ログイン」または「新規登録」を</span>
+					<span>完了してください。</span>
 				</p>
 			</div>
 		</div>
