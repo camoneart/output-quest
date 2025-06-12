@@ -116,7 +116,7 @@ const AboutPage = () => {
 							<div className={styles["about-section-title-container"]}>
 								<div className={styles["about-section-title-box"]}>
 									<h2 className={styles["about-section-title"]}>
-										アウトプットの旅を始めよう
+										学びの冒険を始めよう！
 									</h2>
 								</div>
 							</div>
@@ -133,7 +133,7 @@ const AboutPage = () => {
 								そして、あなたのアウトプットは他者の「インプット」となり、知識の循環を生み出します。あなたの記事が誰かの疑問を解決し、誰かの学びを加速させ、新たな知の創造につながるのです。これこそが「叡智の継承」の真髄です。
 							</p>
 							<p className={styles["about-section-message"]}>
-								「OUTPUT QUEST ~ 叡智の継承者~」は、アウトプットをRPG風の楽しい体験に変え、継続的な成長をサポートします。レベルアップする喜び、仲間との出会いやアイテムの獲得という達成感を通じて、学びの旅をより豊かなものへと導きます。
+								「OUTPUT QUEST ~ 叡智の継承者~」は、アウトプットをRPG風の楽しい体験に変え、継続的な成長をサポートします。レベルアップする喜び、仲間との出会いやアイテムの獲得という達成感を通じて、学びの冒険をより豊かなものへと導きます。
 							</p>
 							<p className={styles["about-section-message"]}>
 								アウトプットに完璧な準備は必要ありません。大切なのは、アウトプットをすることで得られる「本質的な理解」です。アウトプットを続けて自己成長へ繋げることで、自らを「学びの勇者」へと導くのです。
