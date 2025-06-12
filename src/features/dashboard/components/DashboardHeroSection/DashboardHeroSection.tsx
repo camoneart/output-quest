@@ -8,6 +8,8 @@ import { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { useRouter } from "next/navigation";
 import { useHero } from "@/contexts/HeroContext";
+import { useUser } from "@clerk/nextjs";
+import XShareButton from "@/components/common/XShareButton/XShareButton";
 
 type DashboardHeroSectionProps = {
 	dashboardData: DashboardData;
@@ -15,9 +17,14 @@ type DashboardHeroSectionProps = {
 
 const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 	const router = useRouter();
+	const { user, isLoaded } = useUser();
 	const { heroData, isLoading, error } = useHero();
 	const [zennUsername, setZennUsername] = useState<string>("");
 	const [isZennUsernameLoaded, setIsZennUsernameLoaded] = useState(false);
+	const [userZennInfo, setUserZennInfo] = useState<{
+		zennUsername?: string;
+	} | null>(null);
+	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
 
 	// 経験値ゲージを常に40%表示に固定
 	const expProgressPercent = isLoading ? 0 : 40;
@@ -25,30 +32,57 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 	// 次のレベルまでの残り記事数は常に1
 	const remainingArticles = 1;
 
+	// ゲストユーザーの判定
+	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+
 	// Zennユーザー名を取得
 	useEffect(() => {
 		const fetchZennUsername = async () => {
 			try {
+				if (!isLoaded) {
+					setIsZennInfoLoaded(false);
+					return;
+				}
+
+				if (!user) {
+					setUserZennInfo(null);
+					setIsZennInfoLoaded(true);
+					setZennUsername("@aoyamadev");
+					setIsZennUsernameLoaded(true);
+					return;
+				}
+
+				setIsZennInfoLoaded(false);
+
 				const userRes = await fetch("/api/user");
 				const userData = await userRes.json();
 
-				if (userData.success && userData.user.zennUsername) {
-					setZennUsername(`@${userData.user.zennUsername}`);
+				if (userData.success) {
+					setUserZennInfo(userData.user);
+					if (userData.user.zennUsername) {
+						setZennUsername(`@${userData.user.zennUsername}`);
+					} else {
+						// デフォルトは@aoyamadev
+						setZennUsername("@aoyamadev");
+					}
 				} else {
+					setUserZennInfo(null);
 					// デフォルトは@aoyamadev
 					setZennUsername("@aoyamadev");
 				}
 			} catch (error) {
 				console.error("Zennユーザー名取得エラー:", error);
+				setUserZennInfo(null);
 				// エラー時はデフォルト値を使用
 				setZennUsername("@aoyamadev");
 			} finally {
 				setIsZennUsernameLoaded(true);
+				setIsZennInfoLoaded(true);
 			}
 		};
 
 		fetchZennUsername();
-	}, []);
+	}, [isLoaded, user?.id]);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
@@ -126,24 +160,16 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 								</div>
 							</div>
 							{/* Xへのシェアリンク */}
-							<Link
-								// href={`https://x.com/share?text=${encodeURIComponent(
-								//   "OUTPUT QUESTのレベルを確認してみよう！"
-								// )}`}
-								href="/connection"
+							<XShareButton
+								level={displayLevel}
+								username={zennUsername || "@aoyamadev"}
 								className={`${styles["hero-info-share-link"]}`}
-							>
-								<Image
-									src="/images/sns/x-icon.svg"
-									alt="Xへのシェアリンク"
-									width={40}
-									height={40}
-									className={`${styles["hero-info-share-icon"]}`}
-								/>
-								<span className={`${styles["hero-info-share-link-text"]}`}>
-									現在のレベルをXでシェアする
-								</span>
-							</Link>
+								iconClassName={`${styles["hero-info-share-icon"]}`}
+								textClassName={`${styles["hero-info-share-link-text"]}`}
+								iconWidth={40}
+								iconHeight={40}
+								isGuestUser={isGuestUser}
+							/>
 						</div>
 						{/* レベルアップ情報 */}
 						<div className={`${styles["hero-info-level-progress-box"]}`}>
