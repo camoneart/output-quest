@@ -1,4 +1,4 @@
-# OUTPUT QUEST ~ 叡智の継承者 ~
+# OUTPUT QUEST　~ 叡智の継承者 ~
 
 ![トップページ](/public/gif/README/top-page.gif)
 
@@ -21,7 +21,7 @@ https://outputquest.com
 
 アプリの概要や使い方について、音声で解説します。
 
-[【音声解説】OUTPUT QUEST ~ 叡智の継承者 ~](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
+[【音声解説】OUTPUT QUEST　~ 叡智の継承者 ~](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
 
 <h2 id="development-configuration-diagram">開発構成図</h2>
 
@@ -213,7 +213,7 @@ http://localhost:3000/<br>
 
 <h2 id="project-overview">プロジェクト概要</h2>
 
-私が開発したWebアプリです。RPG風のゲーミフィケーションを取り入れた学習支援アプリで、Zennで記事を投稿することでアプリ内の「勇者」が成長し、アイテムや称号の獲得、仲間との出会いがあなたを待っています。アウトプットを通じて学習意欲や知的好奇心を高め、楽しみながら自己成長を促すことを目的に開発しました。
+私が開発したWebアプリです。RPG風のゲーミフィケーションを取り入れた「新感覚学習RPG」で、Zennで記事を投稿することでアプリ内の「勇者」が成長し、アイテムや称号の獲得、仲間との出会いがあなたを待っています。アウトプットを通じて学習意欲や知的好奇心を高め、楽しみながら自己成長を促すことを目的に開発しました。
 
 Next.js + CSS Modules + Tailwind CSS + TypeScriptで開発し、デプロイはVercelで行いました。
 
