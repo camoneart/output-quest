@@ -13,7 +13,7 @@ const TermsPage = () => {
 			<div className={`${styles["terms-container"]}`}>
 				<div className={`${styles["terms-content"]} w-full`}>
 					<p className="text-base md:text-lg leading-[1.75] font-weight-normal px-[20px] md:px-[50px] pt-[10px] md:pt-[30px]">
-						この利用規約（以下、「本規約」といいます。）は、「OUTPUT QUEST ~ 叡智の継承者 ~」（以下、「当サービス」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。
+						この利用規約（以下、「本規約」といいます。）は、「OUTPUT QUEST　~ 叡智の継承者 ~」（以下、「当サービス」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。
 					</p>
 					<article className={styles["terms-article"]}>
 						<section className={`${styles["terms-section"]}`}>
