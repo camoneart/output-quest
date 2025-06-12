@@ -48,7 +48,6 @@ async function ensureUserExists(
   // 既存のキャッシュエントリをチェック
   const existingEntry = userCreationCache.get(clerkId);
   if (existingEntry) {
-    console.log(`ユーザー ${clerkId} の作成処理を待機中...`);
     await existingEntry.promise;
     return;
   }
@@ -63,7 +62,6 @@ async function ensureUserExists(
       });
 
       if (existingUser) {
-        console.log(`ユーザー ${clerkId} は既に存在します`);
         return;
       }
 
@@ -83,9 +81,6 @@ async function ensureUserExists(
             level: 1,
           },
         });
-        console.log(`ユーザー作成完了: ${clerkId}`);
-      } else {
-        console.log(`ユーザー ${clerkId} の作成に必要なデータが不足しています`);
       }
     } catch (error) {
       console.error(`ユーザー ${clerkId} の作成エラー:`, error);
@@ -154,7 +149,6 @@ export async function POST(request: Request) {
     }
 
     const { type, data } = evt;
-    console.log(`Webhook受信: ${type} for user ${data.id || "unknown"}`);
 
     switch (type) {
       case "user.created": {
@@ -192,7 +186,6 @@ export async function POST(request: Request) {
           profileImage: image_url,
         });
 
-        console.log(`user.created処理完了: ${id}`);
         break;
       }
 
@@ -231,7 +224,6 @@ export async function POST(request: Request) {
               where: { clerkId: id },
               data: updateData,
             });
-            console.log(`ユーザー更新: ${id}`);
           } catch (error) {
             // ユーザーが存在しない場合の特別処理
             if (
@@ -240,7 +232,7 @@ export async function POST(request: Request) {
               "code" in error &&
               (error as { code?: string }).code === "P2025"
             ) {
-              console.warn(`ユーザー更新: ${id} が存在しません（スキップ）`);
+              // ユーザーが存在しない場合はスキップ
             } else {
               console.error(`ユーザー更新エラー: ${id}`, error);
             }
@@ -263,7 +255,6 @@ export async function POST(request: Request) {
           await prisma.user.delete({
             where: { clerkId: id },
           });
-          console.log(`ユーザー削除: ${id}`);
         } catch (error) {
           // ユーザーが存在しない場合は警告のみ
           if (
@@ -272,7 +263,7 @@ export async function POST(request: Request) {
             "code" in error &&
             (error as { code?: string }).code === "P2025"
           ) {
-            console.warn(`ユーザー削除: ${id} が既に削除されています`);
+            // ユーザーが既に削除されている場合はスキップ
           } else {
             console.error(`ユーザー削除エラー: ${id}`, error);
           }
@@ -282,16 +273,13 @@ export async function POST(request: Request) {
 
       default:
         // その他のイベントは無視
-        console.log(`その他のウェブフックイベント: ${type}`);
+        break;
     }
-
-    const elapsedTime = Date.now() - startTime;
-    console.log(`Webhook処理完了: ${type}, 処理時間: ${elapsedTime}ms`);
 
     return NextResponse.json({ success: true });
   } catch (error) {
     const elapsedTime = Date.now() - startTime;
-    console.error("ウェブフックエラー:", error, `処理時間: ${elapsedTime}ms`);
+    console.error("ウェブフックエラー:", error);
     return NextResponse.json(
       { success: false, error: "ウェブフック処理に失敗しました" },
       { status: 500 }

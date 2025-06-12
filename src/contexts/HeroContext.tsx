@@ -119,7 +119,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 					if (signal?.aborted) {
 						return;
 					}
-					console.error("HeroContext (Guest): Zenn API error:", err);
 					setError("ゲストデータの取得に失敗しました");
 					// エラー時は初期データを表示
 					setHeroData({ ...strengthHeroData, level: 1 });
@@ -215,16 +214,7 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 							setCachedHeroData(user.id, newHeroData);
 							setIsLoading(false);
 							setError(null);
-
-							console.log(
-								`[HeroContext] データベース記事数を使用: ${dbArticleCount}件 -> レベル${calculatedLevel}`
-							);
 						} catch (zennError) {
-							console.warn(
-								"[HeroContext] Zenn API エラー、データベース値を使用:",
-								zennError
-							);
-
 							// Zenn API呼び出しに失敗した場合でも、データベースの値を使用
 							const calculatedLevel = Math.max(dbArticleCount, 1);
 							const newHeroData = {
@@ -267,10 +257,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 							if (signal?.aborted) {
 								return;
 							}
-							console.error(
-								"HeroContext (Guest fallback): Zenn API error:",
-								guestErr
-							);
 							// エラー時は初期データを表示
 							const defaultData = { ...strengthHeroData, level: 1 };
 							setHeroData(defaultData);
@@ -301,11 +287,6 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 					if (signal?.aborted) {
 						return;
 					}
-
-					console.error(
-						`HeroContext: API呼び出しエラー (試行: ${retryCount + 1}):`,
-						err
-					);
 
 					const defaultData = { ...strengthHeroData, level: 1 };
 					setHeroData(defaultData);
