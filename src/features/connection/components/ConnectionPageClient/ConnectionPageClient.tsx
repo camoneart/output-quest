@@ -104,44 +104,44 @@ export default function ConnectionPageClient() {
 
 					// リセット処理を実行
 					try {
-						setZennUsername("");
+			setZennUsername("");
 
-						const resetResponse = await fetch("/api/user/reset-connection", {
-							method: "DELETE",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify({ clerkId: user?.id }),
-						});
+			const resetResponse = await fetch("/api/user/reset-connection", {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ clerkId: user?.id }),
+			});
 
-						await resetResponse.json();
+			await resetResponse.json();
 
-						const userResponse = await fetch("/api/user", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify({
-								zennUsername: "",
-								displayName: user?.firstName
-									? `${user.firstName} ${user.lastName || ""}`.trim()
-									: undefined,
-								profileImage: user?.imageUrl,
+			const userResponse = await fetch("/api/user", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					zennUsername: "",
+					displayName: user?.firstName
+						? `${user.firstName} ${user.lastName || ""}`.trim()
+						: undefined,
+					profileImage: user?.imageUrl,
 								forceReset: true,
-							}),
-						});
+				}),
+			});
 
-						await userResponse.json();
+			await userResponse.json();
 
-						setUserInfo(null);
-						setZennUsername("");
-						setError("");
-						setSuccess("");
-					} catch (err) {
-						console.error("連携リセットエラー:", err);
-						setUserInfo(null);
-						setZennUsername("");
-					}
+			setUserInfo(null);
+			setZennUsername("");
+			setError("");
+			setSuccess("");
+		} catch (err) {
+			console.error("連携リセットエラー:", err);
+			setUserInfo(null);
+			setZennUsername("");
+		}
 				} else {
 					// 通常のユーザー情報取得
 					try {
@@ -150,10 +150,10 @@ export default function ConnectionPageClient() {
 
 						if (response.ok && data.success) {
 							if (data.isNewUser) {
-								setUserInfo(null);
-								setZennUsername("");
-								return;
-							}
+				setUserInfo(null);
+				setZennUsername("");
+				return;
+			}
 
 							setUserInfo(data.user);
 							setZennUsername(data.user.zennUsername || "");
@@ -161,7 +161,7 @@ export default function ConnectionPageClient() {
 							setUserInfo(null);
 							setZennUsername("");
 							return;
-						} else {
+				} else {
 							return;
 						}
 					} catch (err) {
@@ -275,11 +275,11 @@ export default function ConnectionPageClient() {
 					!retryData.articles ||
 					retryData.articles.length === 0
 				) {
-					setError(
-						"このユーザー名のアカウントは記事を投稿していないため連携できません"
-					);
-					setLoading(false);
-					return false;
+				setError(
+					"このユーザー名のアカウントは記事を投稿していないため連携できません"
+				);
+				setLoading(false);
+				return false;
 				}
 
 				// リトライで記事が見つかった場合は、checkDataを更新
@@ -331,7 +331,7 @@ export default function ConnectionPageClient() {
 
 					if (syncData.success) {
 						if (syncData.user) {
-							setUserInfo(syncData.user);
+						setUserInfo(syncData.user);
 						}
 
 						// 成功メッセージに記事数を含める
@@ -490,11 +490,11 @@ export default function ConnectionPageClient() {
 							});
 							setZennUsername("");
 							setSuccess("");
-							setReleaseMessage("");
+					setReleaseMessage("");
 							setError(
 								"連携中のアカウントの記事数が0件になったため連携を解除しました"
 							);
-						} else {
+				} else {
 							console.error("自動連携解除エラー:", releaseData.error);
 							setError(
 								"記事数が0件のため連携解除を試みましたが、処理に失敗しました"
