@@ -9,7 +9,7 @@ export const metadata: Metadata = getPageMetadata("posts");
 const PostsPage = () => {
   return (
     <>
-      <h1 className={`${styles["posts-title"]}`}>投稿一覧</h1>
+      <h1 className={`${styles["posts-title"]}`}>学びの書</h1>
       <div className={`${styles["posts-content-container"]}`}>
         <Posts.ZennPosts />
       </div>

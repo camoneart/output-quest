@@ -55,9 +55,13 @@ const ZennPosts = () => {
 
 	return (
 		<div className={styles["posts-container"]}>
-			<div className={styles["platform-title-box"]}>
-				<h2 className={styles["platform-title"]}>Zennの投稿一覧</h2>
+			<div className={`${styles["posts-header"]}`}>
+				<p>Zennの記事を「これまでの学び」として記録する場所。</p>
+				<p>
+					Zennで投稿した記事が一覧表示され、学びの記録を振り返ることができます。
+				</p>
 			</div>
+
 			<hr className={styles["posts-container-line"]} />
 
 			{error ? (

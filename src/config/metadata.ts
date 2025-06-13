@@ -44,8 +44,8 @@ export const metadata: Record<string, Metadata> = {
 	},
 	posts: {
 		...baseMetadata,
-		title: "投稿一覧",
-		description: "勇者の学びの記録を振り返ることができます。",
+		title: "学びの書",
+		description: "Zennの記事を「これまでの学び」として記録する場所。Zennで投稿した記事が一覧表示され、学びの記録を振り返ることができます。",
 	},
 	strength: {
 		...baseMetadata,
