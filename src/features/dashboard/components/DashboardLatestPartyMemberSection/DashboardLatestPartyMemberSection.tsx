@@ -155,7 +155,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 				level={heroData.level}
 				username=""
 				customText="最近仲間に加わったキャラをXでシェアする"
-				customShareText={`【仲間が加わった！】\n⭐️ 勇者の仲間に「${memberName}」が加わった！\n\n`}
+				customShareText={`【仲間が加わった！】\n\n⭐️ 勇者の仲間に「${memberName}」が加わった！\n\n`}
 				className={`${styles["party-member-share-link"]}`}
 				iconWrapClassName={`${styles["party-member-share-icon-wrap"]}`}
 				iconClassName={`${styles["party-member-share-icon"]}`}

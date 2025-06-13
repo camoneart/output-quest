@@ -163,7 +163,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 							<XShareButton
 								level={displayLevel}
 								username=""
-								customShareText={`【レベルアップ！】\n⭐️ 勇者は レベル${displayLevel}に 上がった！\n\n`}
+								customShareText={`【レベルアップ！】\n\n⭐️ 勇者は レベル${displayLevel}に 上がった！\n\n`}
 								className={`${styles["hero-info-share-link"]}`}
 								iconWrapClassName={`${styles["hero-info-share-icon-wrap"]}`}
 								iconClassName={`${styles["hero-info-share-icon"]}`}
