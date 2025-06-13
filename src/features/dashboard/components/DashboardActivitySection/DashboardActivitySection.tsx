@@ -119,7 +119,7 @@ const DashboardActivitySection = () => {
 	return (
 		<section className={`${styles["recent-activity-section"]}`}>
 			<h2 className={`${styles["recent-activity-section-title"]}`}>
-				~ 最近の投稿 ~
+				~ 最近の記録 ~
 			</h2>
 
 			{error && <p className={`${styles["error-message"]}`}>{error}</p>}

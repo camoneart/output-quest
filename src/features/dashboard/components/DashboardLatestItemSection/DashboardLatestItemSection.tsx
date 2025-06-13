@@ -118,7 +118,7 @@ const DashboardLatestItemSection: React.FC = () => {
 				{isGuestUser ? (
 					<p>ログインするとアイテムの情報が表示されます。</p>
 				) : itemId === null ? (
-					<p>まだ獲得したアイテムはありません。</p>
+					<p>まだ入手したアイテムはありません。</p>
 				) : (
 					<div className={`${styles["last-item-box"]}`}>
 						<Link
