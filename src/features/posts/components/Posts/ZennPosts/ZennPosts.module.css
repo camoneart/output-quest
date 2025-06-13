@@ -4,23 +4,22 @@
   display: block grid;
   grid-template-rows: auto auto auto 1fr;
   grid-template-areas:
-    "title-box"
+    "header"
     "line"
     "posts-list"
     ".";
 }
 
-.platform-title-box {
-  grid-area: title-box;
+.posts-header {
+  grid-area: header;
+  display: block grid;
+  place-items: center;
+  gap: 5px;
   padding-inline: 20px;
   padding-block-end: 20px;
-}
-
-.platform-title {
-  font-size: var(--font-size-platform-title);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-white);
-  text-align: center;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
 }
 
 .posts-container-line {
