@@ -164,10 +164,11 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 								level={displayLevel}
 								username={zennUsername || "@aoyamadev"}
 								className={`${styles["hero-info-share-link"]}`}
+								iconWrapClassName={`${styles["hero-info-share-icon-wrap"]}`}
 								iconClassName={`${styles["hero-info-share-icon"]}`}
 								textClassName={`${styles["hero-info-share-link-text"]}`}
-								iconWidth={40}
-								iconHeight={40}
+								iconWidth={11}
+								iconHeight={11}
 								isGuestUser={isGuestUser}
 							/>
 						</div>
