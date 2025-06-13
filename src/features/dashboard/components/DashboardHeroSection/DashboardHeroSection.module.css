@@ -291,7 +291,7 @@
 .hero-info-level-progress-gauge-container {
   display: block flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 
 .hero-info-level-progress-exp-icon {
