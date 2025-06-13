@@ -10,6 +10,7 @@ interface XShareButtonProps {
 	username: string;
 	className?: string;
 	iconClassName?: string;
+	iconWrapClassName?: string;
 	textClassName?: string;
 	iconWidth?: number;
 	iconHeight?: number;
@@ -24,6 +25,7 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 	username,
 	className = "",
 	iconClassName = "",
+	iconWrapClassName = "",
 	textClassName = "",
 	iconWidth = 40,
 	iconHeight = 40,
@@ -54,7 +56,7 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 			// カスタムシェアテキストがある場合はそれを使用、なければデフォルト
 			const shareText =
 				customShareText ||
-				`【レベルアップ！】\n⭐️ 学びの勇者は レベル${level}に上がった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`;
+				`【レベルアップ！】\n⭐️ 勇者は レベル${level}に上がった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`;
 
 			const shareUrl = `https://x.com/share?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent("https://outputquest.com")}`;
 
@@ -67,13 +69,15 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 
 	return (
 		<Link href="#" onClick={handleXShare} className={className}>
-			<Image
-				src="/images/sns/x-icon.svg"
-				alt="Xのアイコン"
-				width={iconWidth}
-				height={iconHeight}
-				className={iconClassName}
-			/>
+			<figure className={iconWrapClassName}>
+				<Image
+					src="/images/sns/x-icon.svg"
+					alt="Xのアイコン"
+					width={iconWidth}
+					height={iconHeight}
+					className={iconClassName}
+				/>
+			</figure>
 			{showText && <span className={textClassName}>{displayText}</span>}
 		</Link>
 	);
