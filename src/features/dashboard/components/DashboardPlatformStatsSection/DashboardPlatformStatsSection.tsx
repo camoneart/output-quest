@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./DashboardPlatformStatsSection.module.css";
 import { DashboardData } from "../../types/dashboard.types";
 import { useHero } from "@/contexts/HeroContext";
+import { useUser } from "@clerk/nextjs";
 import XShareButton from "@/components/common/XShareButton/XShareButton";
 
 type DashboardPlatformStatsSectionProps = {
@@ -14,6 +15,50 @@ const DashboardPlatformStatsSection = ({
 	dashboardData,
 }: DashboardPlatformStatsSectionProps) => {
 	const { heroData, isLoading, error } = useHero();
+	const { user, isLoaded } = useUser();
+	const [userZennInfo, setUserZennInfo] = useState<{
+		zennUsername?: string;
+	} | null>(null);
+	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
+
+	// ゲストユーザーの判定
+	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+
+	// ユーザーのZenn連携情報を取得
+	useEffect(() => {
+		const fetchUserZennInfo = async () => {
+			if (!isLoaded) {
+				setIsZennInfoLoaded(false);
+				return;
+			}
+
+			if (!user) {
+				setUserZennInfo(null);
+				setIsZennInfoLoaded(true);
+				return;
+			}
+
+			setIsZennInfoLoaded(false);
+
+			try {
+				const userRes = await fetch("/api/user");
+				const userData = await userRes.json();
+
+				if (userData.success) {
+					setUserZennInfo(userData.user);
+				} else {
+					setUserZennInfo(null);
+				}
+			} catch (err) {
+				console.error("ユーザー情報取得エラー:", err);
+				setUserZennInfo(null);
+			} finally {
+				setIsZennInfoLoaded(true);
+			}
+		};
+
+		fetchUserZennInfo();
+	}, [isLoaded, user?.id]);
 
 	// 実際のZennデータとモックデータを組み合わせてstatsを作成
 	const zennStat = {
@@ -67,13 +112,14 @@ const DashboardPlatformStatsSection = ({
 					level={zennStat.count}
 					username=""
 					customText="Zennの投稿数をXでシェアする"
-					customShareText={`【新たな記録！】\n⭐️ 勇者は Zennの投稿数が「${zennStat.count}本」になった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`}
+					customShareText={`【新たな記録！】\n⭐️ 勇者は Zennの投稿数が「${zennStat.count}本」になった！\n\n`}
 					className={`${styles["platform-stat-share-link"]}`}
 					iconWrapClassName={`${styles["platform-stat-share-icon-wrap"]}`}
 					iconClassName={`${styles["platform-stat-share-icon"]}`}
 					textClassName={`${styles["platform-stat-share-link-text"]}`}
 					iconWidth={11}
 					iconHeight={11}
+					isGuestUser={isGuestUser}
 				/>
 			</div>
 		</section>

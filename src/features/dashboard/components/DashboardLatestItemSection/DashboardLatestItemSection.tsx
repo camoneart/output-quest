@@ -153,13 +153,14 @@ const DashboardLatestItemSection: React.FC = () => {
 				level={heroData.level}
 				username=""
 				customText="最近入手したアイテムをXでシェアする"
-				customShareText={`【アイテムを入手した！】\n⭐️ 勇者は「${itemName}」を手に入れた！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`}
+				customShareText={`【アイテムを入手した！】\n⭐️ 勇者は「${itemName}」を手に入れた！\n\n`}
 				className={`${styles["last-item-share-link"]}`}
 				iconWrapClassName={`${styles["last-item-share-icon-wrap"]}`}
 				iconClassName={`${styles["last-item-share-icon"]}`}
 				textClassName={`${styles["last-item-share-link-text"]}`}
 				iconWidth={11}
 				iconHeight={11}
+				isGuestUser={isGuestUser}
 			/>
 		</section>
 	);
