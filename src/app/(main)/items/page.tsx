@@ -12,8 +12,8 @@ const ItemsPage = () => {
       <h1 className={`${styles["items-title"]}`}>アイテム</h1>
       <div className={`${styles["items-container"]}`}>
         <div className={`${styles["items-header"]}`}>
-          <p>勇者が獲得したアイテムを確認できます。</p>
-          <p>獲得できるアイテムは最大で30個です。</p>
+          <p>勇者が入手したアイテムを確認できます。</p>
+          <p>入手できるアイテムは最大で30個です。</p>
           <p>アイテムをクリックすると、アイテムの詳細を確認できます。</p>
         </div>
 

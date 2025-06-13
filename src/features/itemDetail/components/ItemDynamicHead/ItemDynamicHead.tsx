@@ -98,9 +98,9 @@ const ItemDynamicHead: React.FC<ItemDynamicHeadProps> = ({ itemId }) => {
 		const isGuestUser = !user || !userZennInfo?.zennUsername;
 
 		if (isGuestUser) {
-			const guestTitle = "未獲得のアイテム";
+			const guestTitle = "未入手のアイテム";
 			const guestDescription =
-				"ログインすると獲得したアイテムについての詳細情報がここに表示されます。";
+				"ログインすると入手したアイテムについての詳細情報がここに表示されます。";
 			const guestOgTitle = `${guestTitle}｜OUTPUT QUEST`;
 			const guestImageUrl =
 				"/images/items-page/unacquired-icon/treasure-chest.svg";
@@ -138,11 +138,11 @@ const ItemDynamicHead: React.FC<ItemDynamicHeadProps> = ({ itemId }) => {
 			return;
 		}
 
-		// Zenn連携済みユーザーの場合は勇者のレベルに基づいてアイテムの獲得状態を判定
+		// Zenn連携済みユーザーの場合は勇者のレベルに基づいてアイテムの入手状態を判定
 		const isAcquired = isAcquiredByHeroLevel(itemId, heroData.level);
 
 		if (isAcquired) {
-			// 獲得済みの場合は、アイテムの名前と説明を表示
+			// 入手済みの場合は、アイテムの名前と説明を表示
 			const itemName = customItemNames[itemId];
 			const itemDescription = customItemDescriptions[itemId];
 			const itemOgTitle = `${itemName}｜アイテム詳細`;
@@ -177,15 +177,15 @@ const ItemDynamicHead: React.FC<ItemDynamicHeadProps> = ({ itemId }) => {
 			if (twitterImageAltMeta)
 				twitterImageAltMeta.setAttribute("content", itemName);
 		} else {
-			// 未獲得の場合は、未獲得のメッセージを表示
-			const unacquiredTitle = "未獲得のアイテム";
+			// 未入手の場合は、未入手のメッセージを表示
+			const unacquiredTitle = "未入手のアイテム";
 			const requiredLevelElement = document.querySelector(
 				'meta[name="requiredLevel"]'
 			);
 			const requiredLevel = requiredLevelElement
 				? requiredLevelElement.getAttribute("content")
 				: itemId;
-			const unacquiredDescription = `このアイテムはレベル${requiredLevel}で獲得できます。冒険を続けて探索しましょう。`;
+			const unacquiredDescription = `このアイテムはレベル${requiredLevel}で入手できます。冒険を続けて探索しましょう。`;
 			const unacquiredOgTitle = `${unacquiredTitle}｜アイテム詳細`;
 			const unacquiredImageUrl =
 				"/images/items-page/unacquired-icon/treasure-chest.svg";

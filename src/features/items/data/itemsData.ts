@@ -136,7 +136,7 @@ export const customItemDescriptions: { [key: number]: string } = {
   30: "全ての伝説を超える究極の剣。神々の王が自らの魂の一部を込めて創り上げたという。真の勇者の手に握られると、剣身から稲妻が迸り、一振りするだけで雷が天を裂き、大地を揺るがす破壊力を解き放つという...",
 };
 
-// レベルに応じて獲得できるアイテムかどうかを判定する関数
+// レベルに応じて入手できるアイテムかどうかを判定する関数
 export const isAcquiredByHeroLevel = (
   itemId: number,
   heroLevel: number
@@ -158,7 +158,7 @@ const generateMockItems = (heroLevel: number = 1): Item[] => {
     .fill(null) // 30個のnullを生成
     .map((_, index) => {
       const id = index + 1; // 1から30までのIDを生成
-      const acquired = isAcquiredByHeroLevel(id, heroLevel); // 獲得済みアイテムかどうかを判定
+      const acquired = isAcquiredByHeroLevel(id, heroLevel); // 入手済みアイテムかどうかを判定
       return {
         id,
         name: acquired ? customItemNames[id] : null,

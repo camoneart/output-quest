@@ -15,7 +15,7 @@ const ItemsTreasureChestIcon: React.FC<ItemsTreasureChestProps> = ({
   return (
     <Image
       src="/images/items-page/unacquired-icon/treasure-chest.svg"
-      alt="未獲得のアイテム"
+      alt="未入手のアイテム"
       width={width}
       height={height}
       className={className}

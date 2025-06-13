@@ -96,11 +96,11 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 		return <p className={styles["error-text"]}>{levelError}</p>;
 	}
 
-	// ゲストユーザーの場合は常に未獲得状態として表示
+	// ゲストユーザーの場合は常に未入手状態として表示
 	const isAcquired =
 		!isGuestUser && isAcquiredByHeroLevel(itemId, currentLevel);
 
-	// アイテムを獲得するために必要なレベル
+	// アイテムを入手するために必要なレベル
 	const requiredLevel = heroLevelAndItemRelation[itemId] || itemId;
 
 	// レベル差を計算（マイナスにならないようにする）
@@ -138,7 +138,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 						) : (
 							<Image
 								src="/images/items-page/unacquired-icon/treasure-chest.svg"
-								alt="未獲得のアイテム"
+								alt="未入手のアイテム"
 								width={60}
 								height={60}
 								priority={true}
@@ -154,7 +154,7 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 							) : isAcquired ? (
 								itemName
 							) : (
-								"未獲得のアイテム"
+								"未入手のアイテム"
 							)}
 						</h2>
 					</div>
@@ -183,12 +183,12 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 						<div className={styles["item-detail-locked-message-box"]}>
 							{isGuestUser ? (
 								<p className={styles["item-detail-locked-message-text"]}>
-									ログインすると獲得したアイテムについての詳細情報がここに表示されます。
+									ログインすると入手したアイテムについての詳細情報がここに表示されます。
 								</p>
 							) : (
 								<>
 									<p className={styles["item-detail-locked-message-text"]}>
-										このアイテムは、Lv{requiredLevel}で獲得できるぞ！
+										このアイテムは、Lv{requiredLevel}で入手できるぞ！
 									</p>
 									<p className={styles["item-detail-locked-message-text"]}>
 										Lv{requiredLevel}まで、あと{levelDifference}レベル

@@ -49,9 +49,9 @@ export async function generateItemMetadata(itemId: number): Promise<Metadata> {
       canonical: `/items/${itemId}`,
     },
     other: {
-      // 未獲得の場合のタイトルと説明をカスタムプロパティとして保存
-      unacquiredTitle: "未獲得のアイテム",
-      unacquiredDescription: `このアイテムはレベル${requiredLevel}で獲得できます。冒険を続けて探索しましょう。`,
+      // 未入手の場合のタイトルと説明をカスタムプロパティとして保存
+      unacquiredTitle: "未入手のアイテム",
+      unacquiredDescription: `このアイテムはレベル${requiredLevel}で入手できます。冒険を続けて探索しましょう。`,
       requiredLevel: `${requiredLevel}`,
     },
     metadataBase: new URL(
