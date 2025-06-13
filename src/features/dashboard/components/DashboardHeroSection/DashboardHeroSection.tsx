@@ -199,14 +199,25 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 								</div>
 							</div>
 							<div
-								className={`${styles["hero-info-level-progress-gauge-box"]}`}
+								className={`${styles["hero-info-level-progress-gauge-container"]}`}
 							>
+								<Image
+									src="/images/dashboard/exp.svg"
+									alt="EXP"
+									width={40}
+									height={40}
+									className={`${styles["hero-info-level-progress-exp-icon"]}`}
+								/>
 								<div
-									className={`${styles["hero-info-level-progress-gauge"]}`}
-									style={{
-										width: `${expProgressPercent}%`,
-									}}
-								></div>
+									className={`${styles["hero-info-level-progress-gauge-box"]}`}
+								>
+									<div
+										className={`${styles["hero-info-level-progress-gauge"]}`}
+										style={{
+											width: `${expProgressPercent}%`,
+										}}
+									></div>
+								</div>
 							</div>
 						</div>
 					</div>
