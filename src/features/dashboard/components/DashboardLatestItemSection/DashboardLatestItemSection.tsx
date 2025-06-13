@@ -112,7 +112,7 @@ const DashboardLatestItemSection: React.FC = () => {
 	return (
 		<section className={`${styles["last-item-section"]}`}>
 			<h2 className={`${styles["last-item-title"]}`}>
-				~ 最近獲得したアイテム ~
+				~ 最近入手したアイテム ~
 			</h2>
 			<div className={`${styles["last-item-container"]}`}>
 				{isGuestUser ? (

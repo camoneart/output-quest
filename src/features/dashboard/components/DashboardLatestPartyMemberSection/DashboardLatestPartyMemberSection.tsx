@@ -112,7 +112,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 	return (
 		<section className={`${styles["party-member-section"]}`}>
 			<h2 className={`${styles["party-member-title"]}`}>
-				~ 最近なかまになったキャラクター ~
+				~ 最近仲間に加わったキャラクター ~
 			</h2>
 			<div className={`${styles["party-member-container"]}`}>
 				{isGuestUser ? (
