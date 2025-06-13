@@ -13,6 +13,7 @@ import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import { useRouter } from "next/navigation";
 import { useHero } from "@/contexts/HeroContext";
 import { useUser } from "@clerk/nextjs";
+import XShareButton from "@/components/common/XShareButton/XShareButton";
 
 const DashboardLatestPartyMemberSection: React.FC = () => {
 	const [memberId, setMemberId] = useState<number | null>(null);
@@ -149,6 +150,19 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 					</div>
 				)}
 			</div>
+			{/* Xへのシェアリンク */}
+			<XShareButton
+				level={heroData.level}
+				username=""
+				customText="最近仲間に加わったキャラをXでシェアする"
+				customShareText={`【仲間が加わった！】\n⭐️ 勇者の仲間に「${memberName}」が加わった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`}
+				className={`${styles["party-member-share-link"]}`}
+				iconWrapClassName={`${styles["party-member-share-icon-wrap"]}`}
+				iconClassName={`${styles["party-member-share-icon"]}`}
+				textClassName={`${styles["party-member-share-link-text"]}`}
+				iconWidth={11}
+				iconHeight={11}
+			/>
 		</section>
 	);
 };

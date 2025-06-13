@@ -7,7 +7,7 @@ import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 
 interface XShareButtonProps {
 	level: number;
-	username: string;
+	username?: string;
 	className?: string;
 	iconClassName?: string;
 	iconWrapClassName?: string;
@@ -22,7 +22,7 @@ interface XShareButtonProps {
 
 const XShareButton: React.FC<XShareButtonProps> = ({
 	level,
-	username,
+	username = "",
 	className = "",
 	iconClassName = "",
 	iconWrapClassName = "",

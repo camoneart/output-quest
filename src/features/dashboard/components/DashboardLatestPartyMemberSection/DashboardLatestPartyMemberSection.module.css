@@ -1,110 +1,151 @@
 .party-member-section {
-  display: block grid;
-  gap: 35px;
-  padding-inline: 20px;
-  padding-block: 20px;
+	display: block grid;
+	gap: 35px;
+	padding-inline: 20px;
+	padding-block: 20px;
 }
 
 .party-member-title {
-  position: relative;
-  display: block grid;
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-x-bold);
-  line-height: var(--leading-x-tight);
+	position: relative;
+	display: block grid;
+	font-size: 1.25rem;
+	font-weight: var(--font-weight-x-bold);
+	line-height: var(--leading-x-tight);
 
-  @media (width < 1024px) {
-    place-self: center;
-    font-size: 1.125rem;
-  }
+	@media (width < 1024px) {
+		place-self: center;
+		font-size: 1.125rem;
+	}
 }
 
 .party-member-container {
-  display: block grid;
-  padding-inline: 25px;
+	display: block grid;
+	padding-inline: 25px;
 
-  @media (width < 768px) {
-    padding-inline: 0;
-  }
+	@media (width < 768px) {
+		padding-inline: 0;
+	}
 }
 
 .party-member-box {
-  display: block grid;
-  text-decoration: none;
-  background-color: var(--color-primary-brown-dark);
-  border: 7px dashed var(--color-primary-brown-light);
-  padding-inline: 5px;
-  padding-block: 5px;
-  border-radius: var(--border-radius-small);
+	display: block grid;
+	text-decoration: none;
+	background-color: var(--color-primary-brown-dark);
+	border: 7px dashed var(--color-primary-brown-light);
+	padding-inline: 5px;
+	padding-block: 5px;
+	border-radius: var(--border-radius-small);
 }
 
 .party-member-link {
-  display: block grid;
-  grid-template-columns: auto 1fr;
-  gap: 25px;
-  background-color: var(--color-primary-brown);
-  border: 2px solid var(--color-primary-brown-light);
-  padding-block: 15px;
-  padding-inline: 20px;
-  transition: border 0.2s ease-in-out;
+	display: block grid;
+	grid-template-columns: auto 1fr;
+	gap: 25px;
+	background-color: var(--color-primary-brown);
+	border: 2px solid var(--color-primary-brown-light);
+	padding-block: 15px;
+	padding-inline: 20px;
+	transition: border 0.2s ease-in-out;
 
-  &:hover {
-    border: 2px solid var(--color-primary-yellow);
+	&:hover {
+		border: 2px solid var(--color-primary-yellow);
 
-    .party-member-name,
-    .party-member-description {
-      text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
-    }
-  }
+		.party-member-name,
+		.party-member-description {
+			text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+		}
+	}
 }
 
 .party-member-icon-container {
-  place-self: center;
-  background-color: var(--color-primary-brown-dark);
-  --matched-radius-padding: 2px;
-  --matched-radius-inner-size: 4px;
-  padding: var(--matched-radius-padding);
-  border-radius: calc(
-    var(--matched-radius-inner-size) + var(--matched-radius-padding)
-  );
-  box-shadow: 0px 0px 4px var(--color-primary-brown-dark);
+	place-self: center;
+	background-color: var(--color-primary-brown-dark);
+	--matched-radius-padding: 2px;
+	--matched-radius-inner-size: 4px;
+	padding: var(--matched-radius-padding);
+	border-radius: calc(
+		var(--matched-radius-inner-size) + var(--matched-radius-padding)
+	);
+	box-shadow: 0px 0px 4px var(--color-primary-brown-dark);
 }
 
 .party-member-icon-box {
-  min-width: 35px;
-  min-height: 35px;
-  display: block grid;
-  place-self: center;
-  background-color: var(--color-primary-brown-dark);
-  border: 3px solid var(--color-primary-brown-light);
-  padding-inline: 8px;
-  padding-block: 8px;
-  border-radius: var(--matched-radius-inner-size);
+	min-width: 35px;
+	min-height: 35px;
+	display: block grid;
+	place-self: center;
+	background-color: var(--color-primary-brown-dark);
+	border: 3px solid var(--color-primary-brown-light);
+	padding-inline: 8px;
+	padding-block: 8px;
+	border-radius: var(--matched-radius-inner-size);
 }
 
 .party-member-icon {
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  object-position: center;
-  filter: drop-shadow(0 0 1px var(--color-primary-white));
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
+	object-position: center;
+	filter: drop-shadow(0 0 1px var(--color-primary-white));
 }
 
 .party-member-info {
-  display: block grid;
-  gap: 5px;
+	display: block grid;
+	gap: 5px;
 }
 
 .party-member-name {
-  font-size: 1rem;
-  font-weight: var(--font-weight-x-bold);
-  line-height: var(--leading-tight);
-  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
-  transition: text-shadow 0.15s ease-in-out;
+	font-size: 1rem;
+	font-weight: var(--font-weight-x-bold);
+	line-height: var(--leading-tight);
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+	transition: text-shadow 0.15s ease-in-out;
 }
 
 .party-member-description {
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-normal);
-  line-height: var(--leading-normal);
-  text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
-  transition: text-shadow 0.15s ease-in-out;
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-normal);
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+	transition: text-shadow 0.15s ease-in-out;
+}
+
+.party-member-share-link {
+	display: block flex;
+	align-items: center;
+  place-self: center;
+	gap: 7px;
+
+	&:hover {
+		.party-member-share-link-text {
+			color: var(--color-primary-yellow);
+			border-block-end: 1px solid var(--color-primary-yellow);
+		}
+	}
+}
+
+.party-member-share-icon-wrap {
+	background-color: var(--color-primary-black);
+	border-radius: var(--border-radius-small);
+	padding: 4.5px;
+	filter: drop-shadow(0 0 2.5px var(--color-primary-white));
+}
+
+.party-member-share-icon {
+	object-fit: contain;
+	object-position: center;
+	width: 11px;
+	height: auto;
+	filter: drop-shadow(0 0 2.5px var(--color-primary-white));
+}
+
+.party-member-share-link-text {
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-bold);
+	line-height: var(--leading-tight);
+	padding-inline: 2px;
+	padding-block-end: 1px;
+	border-block-end: 1px solid var(--color-primary-white);
+	transition:
+		color 0.2s ease-in-out,
+		border-block-end 0.2s ease-in-out;
 }

@@ -162,7 +162,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 							{/* Xへのシェアリンク */}
 							<XShareButton
 								level={displayLevel}
-								username={zennUsername || "@aoyamadev"}
+								username=""
+								customShareText={`【レベルアップ！】\n⭐️ 勇者は レベル${displayLevel}に 上がった！\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n\n@bojjidev\n`}
 								className={`${styles["hero-info-share-link"]}`}
 								iconWrapClassName={`${styles["hero-info-share-icon-wrap"]}`}
 								iconClassName={`${styles["hero-info-share-icon"]}`}
