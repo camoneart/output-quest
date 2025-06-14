@@ -23,7 +23,7 @@
   height: 100%;
   border: var(--border-large);
   border-radius: var(--border-radius-small);
-  padding-block: 40px 25px;
+  padding-block: 30px 25px;
   padding-inline: 25px;
 
   @media (width < 1024px) {

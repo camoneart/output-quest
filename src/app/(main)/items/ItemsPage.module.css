@@ -29,7 +29,7 @@
     ".";
   border: var(--border-large);
   border-radius: var(--border-radius-small);
-  padding-block: 40px 25px;
+  padding-block: 30px 25px;
   padding-inline: 25px;
   color: var(--color-primary-white);
 }
