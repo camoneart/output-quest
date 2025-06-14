@@ -1,7 +1,6 @@
 .adventure-start-link-box {
   display: block grid;
   place-items: center;
-  margin-block-start: 10px;
 }
 
 .adventure-start-link {
