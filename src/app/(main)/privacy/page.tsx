@@ -169,6 +169,8 @@ const PrivacyPage = () => {
 							</div>
 						</section>
 
+						<hr />
+
 						<AdventureStartLink />
 					</article>
 				</div>

@@ -149,6 +149,8 @@ const AboutPage = () => {
 							</span>
 						</p>
 
+						<hr />
+
 						<AdventureStartLink />
 					</article>
 				</div>
