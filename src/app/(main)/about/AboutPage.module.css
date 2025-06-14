@@ -40,7 +40,7 @@
 .about-article {
 	display: block grid;
 	gap: 50px;
-	padding-block: 30px 45px;
+	padding-block: 30px 50px;
 	padding-inline: 50px;
 	color: var(--color-primary-white);
 

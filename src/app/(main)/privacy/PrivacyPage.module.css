@@ -42,7 +42,7 @@
 .privacy-article {
   display: block grid;
   gap: 50px;
-  padding-block-end: 45px;
+  padding-block-end: 50px;
 	padding-inline: 50px;
   color: var(--color-primary-white);
 
