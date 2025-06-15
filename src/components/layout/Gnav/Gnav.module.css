@@ -61,11 +61,12 @@
 		"item3"
 		"item4"
 		"item5"
-		"."
 		"item6"
+		"."
 		"item7"
 		"item8"
-		"item9";
+		"item9"
+		"item10";
 	gap: 20px;
 	height: 100%;
 }
@@ -105,6 +106,10 @@
 
 .gnav-sidebar-list > li:nth-child(9) {
 	grid-area: item9;
+}
+
+.gnav-sidebar-list > li:nth-child(10) {
+	grid-area: item10;
 }
 
 .overlay {
