@@ -47,6 +47,11 @@ export const metadata: Record<string, Metadata> = {
 		title: "学びの書",
 		description: "Zennの記事を「これまでの学び」として記録する場所。Zennで投稿した記事が一覧表示され、学びの記録として振り返ることができます。",
 	},
+	explore: {
+		...baseMetadata,
+		title: "記事探索",
+		description: "AIがあなたのZenn記事を探索し、次の記事に最適なテーマを提案。過去の投稿から傾向を探ることで、あなたの成長に最適な「学びのタネ」を見つけ出します。",
+	},
 	strength: {
 		...baseMetadata,
 		title: "つよさ",
