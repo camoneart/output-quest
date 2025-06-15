@@ -1,0 +1,114 @@
+.explore-title {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1.5rem;
+	line-height: var(--leading-none);
+	font-weight: var(--font-weight-x-bold);
+	letter-spacing: 0.025em;
+	color: var(--color-primary-white);
+	background-color: var(--color-primary-dark-gray);
+	padding-block: 0 10px;
+	padding-inline: 10px;
+	z-index: 10;
+
+	@media (width < 768px) {
+		font-size: 1.25rem;
+	}
+}
+
+.explorer-container {
+	height: 100%;
+	display: block grid;
+	grid-template-rows: auto auto 1fr;
+	grid-template-areas:
+		"header"
+		"line"
+		"article-analysis";
+	border: var(--border-large);
+	border-radius: var(--border-radius-small);
+	padding-block: 30px 25px;
+	padding-inline: 25px;
+	color: var(--color-primary-white);
+}
+
+.explorer-header {
+  max-width: 900px;
+  width: 100%;
+  margin-inline: auto;
+	grid-area: header;
+  display: block grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+	padding-inline: 20px;
+	padding-block-end: 20px;
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-normal);
+
+  @media (width < 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explorer-line {
+	/* grid-area: line; */
+}
+
+/* explore-analysis-controls関連のスタイル */
+.explore-analysis-controls {
+	display: grid;
+	place-items: center;
+}
+
+.explore-analyze-button {
+	cursor: pointer;
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-x-bold);
+	line-height: var(--leading-none);
+	border-radius: var(--border-radius-small);
+	padding-block: 3px;
+	padding-inline: 3px;
+	background-color: var(--color-primary-brown-dark);
+	border: 2px solid var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+
+  &:hover {
+    .explore-analyze-button-text {
+      border-color: var(--color-primary-yellow);
+    }
+  }
+}
+
+.explore-analyze-button-text {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	background-color: var(--color-primary-brown);
+	border: 1.5px solid var(--color-primary-brown-light);
+	padding-block: 10px 11px;
+	padding-inline: 15px;
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+	transition: border-color 0.2s ease-in-out;
+}
+
+.explore-analyze-button-icon {
+	width: 18px;
+	height: 18px;
+	object-fit: contain;
+	object-position: center;
+}
+
+.explore-analyzing {
+	opacity: 0.7;
+	cursor: not-allowed;
+
+  &:hover {
+    .explore-analyze-button-text {
+      border-color: var(--color-primary-brown-light);
+    }
+  }
+}
