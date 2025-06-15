@@ -79,7 +79,9 @@ const StrengthHeroInfo = () => {
 		return (
 			<div className={styles["strength-hero-info"]}>
 				<div className={styles["strength-hero-info-content"]}>
-					<h2 className={styles["strength-hero-info-title"]}>~ 勇者のレベル ~</h2>
+					<h2 className={styles["strength-hero-info-title"]}>
+						~ 勇者のレベル ~
+					</h2>
 					<div className={styles["error-text"]}>{error}</div>
 				</div>
 			</div>
@@ -156,11 +158,20 @@ const StrengthHeroInfo = () => {
 								</span>
 							</div>
 						</div>
-						<div className={`${styles["strength-level-progress-gauge-box"]}`}>
-							<div
-								className={`${styles["strength-level-progress-gauge"]}`}
-								style={{ width: `${expProgressPercent}%` }}
-							></div>
+						<div className={`${styles["strength-level-progress-gauge-container"]}`}>
+							<Image
+								src="/images/dashboard/exp.svg"
+								alt="EXP"
+								width={35}
+								height={35}
+								className={`${styles["strength-level-progress-exp-icon"]}`}
+							/>
+							<div className={`${styles["strength-level-progress-gauge-box"]}`}>
+								<div
+									className={`${styles["strength-level-progress-gauge"]}`}
+									style={{ width: `${expProgressPercent}%` }}
+								></div>
+							</div>
 						</div>
 					</div>
 				</div>
