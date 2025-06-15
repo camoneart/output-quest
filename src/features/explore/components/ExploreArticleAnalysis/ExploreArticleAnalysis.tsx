@@ -78,8 +78,8 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 												: "~ 探索結果 ~"}
 										</h3>
 										<hr />
-										{messages.map((message, index) => (
-											<>
+										{messages.map((message, _) => (
+											<React.Fragment key={message.id || Math.random()}>
 												{message.role === "assistant" && (
 													<div className={styles["explore-response"]}>
 														<div className={styles["explore-response-content"]}>
@@ -96,7 +96,7 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 														</div>
 													</div>
 												)}
-											</>
+											</React.Fragment>
 										))}
 									</>
 								)}
