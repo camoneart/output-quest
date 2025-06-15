@@ -204,8 +204,8 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 								<Image
 									src="/images/dashboard/exp.svg"
 									alt="EXP"
-									width={40}
-									height={40}
+									width={35}
+									height={35}
 									className={`${styles["hero-info-level-progress-exp-icon"]}`}
 								/>
 								<div
