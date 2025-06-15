@@ -41,7 +41,7 @@
 
   .sync-button-text {
     padding-block-end: 1px;
-    text-shadow: 1px 1px 1px var(--color-primary-black);
+    text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   }
 }
 
@@ -66,7 +66,7 @@
 
   .view-zenn-posts-link-text {
     padding-block-end: 1px;
-    text-shadow: 1px 1px 1px var(--color-primary-black);
+    text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   }
 }
 
@@ -92,6 +92,6 @@
 
   .release-button-text {
     padding-block-end: 1px;
-    text-shadow: 1.3px 1.3px 1px var(--color-primary-black);
+    text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
   }
 }

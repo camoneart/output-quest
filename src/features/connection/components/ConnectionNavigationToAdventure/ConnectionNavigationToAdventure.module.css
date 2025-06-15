@@ -41,5 +41,5 @@
 	font-size: 1rem;
 	font-weight: var(--font-weight-x-bold);
 	line-height: var(--leading-none);
-	text-shadow: 1px 1px 1px var(--color-primary-black);
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
 }
