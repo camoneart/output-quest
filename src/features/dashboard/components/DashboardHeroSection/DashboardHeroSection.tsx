@@ -206,6 +206,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 									alt="EXP"
 									width={35}
 									height={35}
+									priority={true}
 									className={`${styles["hero-info-level-progress-exp-icon"]}`}
 								/>
 								<div

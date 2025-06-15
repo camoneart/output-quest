@@ -164,6 +164,7 @@ const StrengthHeroInfo = () => {
 								alt="EXP"
 								width={35}
 								height={35}
+								priority={true}
 								className={`${styles["strength-level-progress-exp-icon"]}`}
 							/>
 							<div className={`${styles["strength-level-progress-gauge-box"]}`}>
