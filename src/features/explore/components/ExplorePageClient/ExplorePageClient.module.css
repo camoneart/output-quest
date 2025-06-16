@@ -41,18 +41,18 @@
 
 .explorer-header-content {
 	max-width: 760px;
-  width: 100%;
+	width: 100%;
 	margin-inline: auto;
 	display: block grid;
-  grid-template-columns: 1fr auto;
-  gap: 20px;
+	grid-template-columns: 1fr auto;
+	gap: 20px;
 	font-size: 0.875rem;
 	font-weight: var(--font-weight-normal);
 	line-height: var(--leading-normal);
 
-  @media (width < 1024px) {
-    grid-template-columns: 1fr;
-  }
+	@media (width < 1024px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .explorer-line {
@@ -75,12 +75,10 @@
 	padding-inline: 3px;
 	background-color: var(--color-primary-brown-dark);
 	border: 2px solid var(--color-primary-brown-light);
+}
 
-  &:hover {
-    .explore-analyze-button-text {
-      border-color: var(--color-primary-yellow);
-    }
-  }
+.explore-analyze-button:hover .explore-analyze-button-text {
+	border-color: var(--color-primary-yellow);
 }
 
 .explore-analyze-button-text {
@@ -107,10 +105,17 @@
 .explore-analyzing {
 	opacity: 0.7;
 	cursor: not-allowed;
+}
 
-  &:hover {
-    .explore-analyze-button-text {
-      border-color: var(--color-primary-brown-light);
-    }
-  }
+.explore-analyzing:hover .explore-analyze-button-text {
+	border-color: var(--color-primary-brown-light);
+}
+
+.explore-guest-message {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.explore-guest-message:hover .explore-analyze-button-text {
+	border-color: var(--color-primary-brown-light);
 }

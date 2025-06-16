@@ -140,7 +140,9 @@ const ExplorePageClient = () => {
 							<p>あなたの成長に最適な「学びのタネ」を見つけ出します。</p>
 						</div>
 
-						{!isGuestUser ? (
+						{!isLoaded || !isZennInfoLoaded ? (
+							<p className="grid place-items-center px-4">読み込み中...</p>
+						) : !isGuestUser ? (
 							<div className={styles["explore-analysis-controls"]}>
 								<button
 									onClick={handleAnalyzeArticles}
@@ -168,7 +170,22 @@ const ExplorePageClient = () => {
 								</button>
 							</div>
 						) : (
-							<p className="grid place-items-center px-4">読み込み中...</p>
+							<div className={styles["explore-analysis-controls"]}>
+								<div
+									className={`${styles["explore-analyze-button"]} ${styles["explore-guest-message"]}`}
+								>
+									<span className={styles["explore-analyze-button-text"]}>
+										<Image
+											src="/images/icon/explore-btn-icon.svg"
+											alt="探索する"
+											width={18}
+											height={18}
+											className={styles["explore-analyze-button-icon"]}
+										/>
+										<span>ログインが必要</span>
+									</span>
+								</div>
+							</div>
 						)}
 					</div>
 				</div>
