@@ -3,7 +3,6 @@
 import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
 import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
-import UserIconButton from "@/components/auth/UserIconButton/UserIconButton";
 import styles from "./AuthButton.module.css";
 
 const AuthButton = () => {
