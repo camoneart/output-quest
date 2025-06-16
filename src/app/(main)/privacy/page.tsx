@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./PrivacyPage.module.css";
 import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
+import SafeMailtoLink from "@/components/common/SafeMailtoLink/SafeMailtoLink";
 import Link from "next/link";
 
 export const metadata: Metadata = getPageMetadata("privacy");
@@ -141,31 +142,17 @@ const PrivacyPage = () => {
 								本ポリシーに関するお問い合わせは、下記の連絡先までお願いいたします。
 							</p>
 							<div className="grid gap-1">
-								<p className="text-lg font-bold">【連絡先】</p>
-								<dl className="grid gap-4">
-									<div>
-										<dt className="">開発者のメールアドレス：</dt>
-										<dd>
-											<Link
-												href="mailto:aoymdev@gmail.com"
-												className="underline underline-offset-2"
-											>
-												aoymdev@gmail.com
-											</Link>
-										</dd>
-									</div>
-									<div>
-										<dt className="">開発者のX：</dt>
-										<dd>
-											<Link
-												href="https://x.com/aoyamadev"
-												className="underline underline-offset-2"
-											>
-												@aoyamadev
-											</Link>
-										</dd>
-									</div>
-								</dl>
+								<p className="text-base font-bold">【連絡先】</p>
+								<div className="grid gap-4">
+									<Link
+										href="https://x.com/bojjidev"
+										className="underline underline-offset-4 flex items-center"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<span>開発者のX：@bojjidev</span>
+									</Link>
+								</div>
 							</div>
 						</section>
 
