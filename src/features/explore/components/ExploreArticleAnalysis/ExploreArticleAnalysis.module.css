@@ -166,16 +166,12 @@
 	font-weight: var(--font-weight-bold);
 }
 
-.markdown-ol {
+.markdown-ol,
+.markdown-ul{
 	list-style-type: decimal;
 	display: block grid;
 	gap: 8px;
-}
-
-.markdown-ul {
-	list-style-type: disc;
-	display: block grid;
-	gap: 8px;
+	margin-block: 8px 16px;
 }
 
 .markdown-li {
