@@ -47,7 +47,6 @@
 
 .strength-log-list-box {
 	width: 100%;
-	display: block grid;
 	background-color: var(--color-primary-dark-gray);
 	border: 2px solid var(--color-primary-white);
 	border-radius: var(--border-radius-small);
@@ -59,6 +58,7 @@
 	width: 100%;
 	max-height: 208px;
 	display: block grid;
+	grid-template-rows: ;
   justify-content: center;
 	gap: 10px;
 	padding-inline: 10px;
