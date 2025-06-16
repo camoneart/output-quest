@@ -34,7 +34,7 @@
 	border-radius: var(--border-radius-small);
 
 	&:hover {
-		.explore-analyze-button-text {
+		.to-the-link-page-button-text {
 			padding-inline-start: 41px;
 
 			&::before {

@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import ReactMarkdown from "react-markdown";
 import styles from "./ExploreArticleAnalysis.module.css";
 import Link from "next/link";
+import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 
 interface ExploreArticleAnalysisProps {
 	userZennInfo?: {
@@ -34,6 +35,12 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 	// ゲストユーザーまたはZenn未連携の場合
 	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
 
+	const { playClickSound } = useClickSound({
+    soundPath: "/audio/click-sound_decision.mp3",
+    volume: 0.5,
+    delay: 190, // 190ミリ秒 = 0.19秒の遅延
+  });
+
 	// ローディング状態の表示
 	if (!isLoaded || !isZennInfoLoaded) {
 		return <p className={styles["loading-indicator"]}>読み込み中...</p>;
@@ -42,13 +49,14 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 	return (
 		<div className={styles["explore-article-analysis-container"]}>
 			{isGuestUser ? (
-				<div className="grid place-items-center gap-2">
+				<div className="grid place-items-center items-start grid-rows-[auto_1fr] gap-5">
 					<p>この機能を利用するには、Zennアカウントとの連携が必要です。</p>
 					<div className="grid place-items-center gap-6">
 						<p>連携ページでログインを行ってください。</p>
 						<Link
 							href="/connection"
 							className={styles["to-the-link-page-button"]}
+							onClick={() => playClickSound()}
 						>
 							<span className={styles["to-the-link-page-button-text"]}>
 								連携ページへ
