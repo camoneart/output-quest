@@ -15,7 +15,8 @@ const PrivacyPage = () => {
 			<div className={`${styles["privacy-container"]}`}>
 				<div className={`${styles["privacy-content"]} w-full`}>
 					<p className="text-base md:text-lg leading-[1.75] font-weight-normal px-[20px] md:px-[50px] pt-[10px] md:pt-[30px]">
-						「OUTPUT QUEST　~ 叡智の継承者 ~」（以下、「当サービス」といいます。）は、ユーザーの個人情報について以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
+						「OUTPUT QUEST　~ 叡智の継承者
+						~」（以下、「当サービス」といいます。）は、ユーザーの個人情報について以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
 					</p>
 					<article className={styles["privacy-article"]}>
 						<section className={`${styles["privacy-section"]}`}>
@@ -143,16 +144,14 @@ const PrivacyPage = () => {
 							</p>
 							<div className="grid gap-1">
 								<p className="text-base font-bold">【連絡先】</p>
-								<div className="grid gap-4">
-									<Link
-										href="https://x.com/bojjidev"
-										className="underline underline-offset-4 flex items-center"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<span>開発者のX：@bojjidev</span>
-									</Link>
-								</div>
+								<Link
+									href="https://x.com/bojjidev"
+									className="underline underline-offset-4 w-fit px-2 py-1"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<span>開発者のX：@bojjidev</span>
+								</Link>
 							</div>
 						</section>
 
