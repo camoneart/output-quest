@@ -161,6 +161,8 @@ const DashboardLatestItemSection: React.FC = () => {
 				iconWidth={11}
 				iconHeight={11}
 				isGuestUser={isGuestUser}
+				hasContent={itemId !== null}
+				noContentMessage="シェアできるアイテムがありません。"
 			/>
 		</section>
 	);

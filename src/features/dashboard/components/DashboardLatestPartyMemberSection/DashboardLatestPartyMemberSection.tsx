@@ -163,6 +163,8 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 				iconWidth={11}
 				iconHeight={11}
 				isGuestUser={isGuestUser}
+				hasContent={memberId !== null}
+				noContentMessage="シェアできる仲間がいません。"
 			/>
 		</section>
 	);

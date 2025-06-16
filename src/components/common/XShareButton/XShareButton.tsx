@@ -18,6 +18,8 @@ interface XShareButtonProps {
 	customText?: string;
 	customShareText?: string;
 	isGuestUser?: boolean;
+	hasContent?: boolean;
+	noContentMessage?: string;
 }
 
 const XShareButton: React.FC<XShareButtonProps> = ({
@@ -33,6 +35,8 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 	customText,
 	customShareText,
 	isGuestUser = false,
+	hasContent = true,
+	noContentMessage = "コンテンツがありません",
 }) => {
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_star.mp3",
@@ -51,7 +55,15 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 			return;
 		}
 
-		// 認証済みユーザーの場合は通常のシェア処理
+		// コンテンツがない場合は制限メッセージを表示
+		if (!hasContent) {
+			playClickSound(() => {
+				window.confirm(noContentMessage);
+			});
+			return;
+		}
+
+		// 認証済みユーザーでコンテンツがある場合は通常のシェア処理
 		playClickSound(() => {
 			// 共通のテンプレート文
 			const commonTemplate = `───\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n#OUTPUTQUESTシェアポスト\n\n`;
