@@ -2,6 +2,7 @@
 
 import React, { Fragment } from "react";
 import { useUser } from "@clerk/nextjs";
+import ReactMarkdown from "react-markdown";
 import styles from "./ExploreArticleAnalysis.module.css";
 import Link from "next/link";
 
@@ -67,32 +68,79 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 						<div className={styles["explore-results-content"]}>
 							<div className={styles["explore-results-content-inner"]}>
 								{messages.length === 0 ? (
-									<p className="grid place-items-center h-full">
-										AIが探索後、探索結果がここに表示されます。
-									</p>
+									<div className="h-full grid place-content-center place-items-center">
+										<p>探索結果はここに表示されます。</p>
+									</div>
 								) : (
 									<>
-										<h3 className={styles["explore-results-title"]}>
+										<h2 className={styles["explore-results-title"]}>
 											{isAnalyzing || status === "streaming"
 												? "探索中..."
 												: "~ 探索結果 ~"}
-										</h3>
-										<hr />
+										</h2>
+
+										<hr className={styles["explore-results-line"]} />
+
 										{messages.map((message, _) => (
 											<Fragment key={message.id || Math.random()}>
 												{message.role === "assistant" && (
 													<div className={styles["explore-response"]}>
 														<div className={styles["explore-response-content"]}>
-															{message.content
-																.split("\n")
-																.map((line: string, lineIndex: number) => (
-																	<p
-																		key={lineIndex}
-																		className={styles["explore-response-text"]}
-																	>
-																		{line}
-																	</p>
-																))}
+															<div
+																className={styles["explore-response-markdown"]}
+															>
+																<ReactMarkdown
+																	components={{
+																		h3: ({ children }) => (
+																			<h3 className={styles["markdown-h3"]}>
+																				{children}
+																			</h3>
+																		),
+																		h4: ({ children }) => (
+																			<h4 className={styles["markdown-h4"]}>
+																				{children}
+																			</h4>
+																		),
+																		p: ({ children }) => (
+																			<p className={styles["markdown-p"]}>
+																				{children}
+																			</p>
+																		),
+																		strong: ({ children }) => (
+																			<strong
+																				className={styles["markdown-strong"]}
+																			>
+																				{children}
+																			</strong>
+																		),
+																		em: ({ children }) => (
+																			<em className={styles["markdown-em"]}>
+																				{children}
+																			</em>
+																		),
+																		ul: ({ children }) => (
+																			<ul className={styles["markdown-ul"]}>
+																				{children}
+																			</ul>
+																		),
+																		ol: ({ children }) => (
+																			<ol className={styles["markdown-ol"]}>
+																				{children}
+																			</ol>
+																		),
+																		li: ({ children }) => (
+																			<li className={styles["markdown-li"]}>
+																				{children}
+																			</li>
+																		),
+																		// hr: () => (
+																		// 	<hr className={styles["markdown-hr"]} />
+																		// ),
+																	}}
+																>
+																	{message.content}
+																</ReactMarkdown>
+															</div>
 														</div>
 													</div>
 												)}

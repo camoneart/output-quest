@@ -34,15 +34,18 @@
 }
 
 .explorer-header {
-  max-width: 900px;
-  width: 100%;
-  margin-inline: auto;
 	grid-area: header;
-  display: block grid;
-  grid-template-columns: 1fr auto;
-  gap: 20px;
 	padding-inline: 20px;
 	padding-block-end: 20px;
+}
+
+.explorer-header-content {
+	max-width: 760px;
+  width: 100%;
+	margin-inline: auto;
+	display: block grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
 	font-size: 0.875rem;
 	font-weight: var(--font-weight-normal);
 	line-height: var(--leading-normal);
@@ -53,7 +56,7 @@
 }
 
 .explorer-line {
-	/* grid-area: line; */
+	grid-area: line;
 }
 
 /* explore-analysis-controls関連のスタイル */
@@ -72,7 +75,6 @@
 	padding-inline: 3px;
 	background-color: var(--color-primary-brown-dark);
 	border: 2px solid var(--color-primary-brown-light);
-	border-radius: var(--border-radius-small);
 
   &:hover {
     .explore-analyze-button-text {
