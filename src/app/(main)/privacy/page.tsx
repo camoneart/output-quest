@@ -28,7 +28,7 @@ const PrivacyPage = () => {
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
-								当サービスは、ユーザーが利用登録をする際に氏名、メールアドレス、プロフィール画像などの個人情報をお尋ねすることがあります。これらは、ユーザーが利用する認証サービス（Google、GitHubなど）から提供される情報を含みます。また、ユーザーと提携先などとの間でなされた取引の状況や内容、サービスの閲覧履歴、および履歴情報特性の情報を収集することがあります。
+								当サービスは、ユーザーが利用登録をする際にメールアドレス、表示名、プロフィール画像などの個人情報をお預かりすることがあります。これらは、Clerkが提供する OAuth 認証機能（Google・GitHubなど）を通じて提供される情報を含みます。また、ユーザーと提携先などとの間でなされた取引の状況や内容、サービスの閲覧履歴、および履歴情報特性の情報を収集することがあります。
 							</p>
 						</section>
 
@@ -113,8 +113,7 @@ const PrivacyPage = () => {
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
-								当サービスは、サービスの利便性の向上、利用状況の把握、最適なサービスの提供のためにCookieおよびGoogle
-								Analyticsなどのアクセス解析ツールを利用しています。これにより、ユーザーのウェブサイト利用状況に関する情報を収集しますが、個人を特定する情報は含まれておりません。
+								当サービスは、サービスの利便性向上および認証状態の維持のためにCookie を使用しています。Cookie には、Clerkが発行するセッションクッキーなどが含まれます。現時点で GoogleAnalytics等のアクセス解析ツールは利用しておりませんが、導入する場合には本ポリシーを更新し、目的及び収集される情報の範囲を明示いたします。
 							</p>
 						</section>
 
@@ -144,14 +143,31 @@ const PrivacyPage = () => {
 							</p>
 							<div className="grid gap-1">
 								<p className="text-base font-bold">【連絡先】</p>
-								<Link
-									href="https://x.com/bojjidev"
-									className="underline underline-offset-4 w-fit px-2 py-1"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<span>開発者のX：@bojjidev</span>
-								</Link>
+								<dl className="grid gap-2">
+									<div className="flex items-center w-fit">
+										<dt className="text-base">開発者のメールアドレス：</dt>
+										<dd>
+											<SafeMailtoLink
+												user="bojjidev"
+												domain="gmail.com"
+												className="underline underline-offset-4 py-1 pr-2"
+											/>
+										</dd>
+									</div>
+									<div className="flex items-center w-fit">
+										<dt className="text-base">開発者のX：</dt>
+										<dd>
+											<Link
+												href="https://x.com/bojjidev"
+												className="underline underline-offset-4 py-1 pr-2"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												@bojjidev
+											</Link>
+										</dd>
+									</div>
+								</dl>
 							</div>
 						</section>
 

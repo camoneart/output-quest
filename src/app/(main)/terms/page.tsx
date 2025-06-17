@@ -13,7 +13,9 @@ const TermsPage = () => {
 			<div className={`${styles["terms-container"]}`}>
 				<div className={`${styles["terms-content"]} w-full`}>
 					<p className="text-base md:text-lg leading-[1.75] font-weight-normal px-[20px] md:px-[50px] pt-[10px] md:pt-[30px]">
-						この利用規約（以下、「本規約」といいます。）は、「OUTPUT QUEST　~ 叡智の継承者 ~」（以下、「当サービス」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。
+						この利用規約（以下、「本規約」といいます。）は、「OUTPUT QUEST　~
+						叡智の継承者
+						~」（以下、「当サービス」といいます。）がこのウェブサイト上で提供するサービス（以下、「本サービス」といいます。）の利用条件を定めるものです。
 					</p>
 					<article className={styles["terms-article"]}>
 						<section className={`${styles["terms-section"]}`}>
@@ -106,6 +108,9 @@ const TermsPage = () => {
 								</li>
 								<li className={styles["terms-section-list-item"]}>
 									過度に暴力的な表現、露骨な性的表現、人種、国籍、信条、性別、社会的身分、門地等による差別につながる表現、自殺、自傷行為、薬物乱用を誘引または助長する表現、その他反社会的な内容を含み他人に不快感を与える表現を投稿または送信する行為
+								</li>
+								<li className={styles["terms-section-list-item"]}>
+									自動化された手段（ボット、スクレイピングツール等）により本サービスのデータを収集又は本サービスを利用する行為
 								</li>
 							</ol>
 						</section>
@@ -201,6 +206,32 @@ const TermsPage = () => {
 							</div>
 							<p className={styles["terms-section-message"]}>
 								当サービスは、必要と判断した場合には、ユーザーに通知することなくいつでも本規約を変更することができるものとします。なお、本規約の変更後、本サービスの利用を開始した場合には、当該ユーザーは変更後の規約に同意したものとみなします。
+							</p>
+						</section>
+
+						<section className={`${styles["terms-section"]}`}>
+							<div className={styles["terms-section-title-container"]}>
+								<div className={styles["terms-section-title-box"]}>
+									<h2 className={styles["terms-section-title"]}>
+										第9条（利用料金）
+									</h2>
+								</div>
+							</div>
+							<p className={styles["terms-section-message"]}>
+								本サービスは現在、すべての機能を無料で提供しています。将来、有料プランを導入する場合には、その内容および条件をあらかじめユーザーに通知した上で適切な手続きを行います。
+							</p>
+						</section>
+
+						<section className={`${styles["terms-section"]}`}>
+							<div className={styles["terms-section-title-container"]}>
+								<div className={styles["terms-section-title-box"]}>
+									<h2 className={styles["terms-section-title"]}>
+										第10条（準拠法および裁判管轄）
+									</h2>
+								</div>
+							</div>
+							<p className={styles["terms-section-message"]}>
+								本規約の解釈にあたっては日本法を準拠法とし、本サービスに起因又は関連してユーザーとの間で生じた紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とします。
 							</p>
 						</section>
 
