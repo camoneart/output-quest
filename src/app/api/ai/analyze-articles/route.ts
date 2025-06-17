@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamText } from "ai";
 import { google } from "@ai-sdk/google";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { auth } from "@clerk/nextjs/server";
 
 // リクエストボディのバリデーション
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
 
 		if (error instanceof z.ZodError) {
 			return NextResponse.json(
-				{ error: "リクエストデータが無効です", details: error.errors },
+				{ error: "リクエストデータが無効です", details: error.issues },
 				{ status: 400 }
 			);
 		}
