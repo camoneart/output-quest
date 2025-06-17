@@ -24,7 +24,7 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
 				<label htmlFor="zenn-username" className={`text-sm ${styles["zenn-username"]}`}>
 					<Image
-						src="/images/nav-icon/zenn-logo.svg"
+						src="/images/connection/connection-zenn-logo.svg"
 						alt="Zenn"
 						width={16}
 						height={16}

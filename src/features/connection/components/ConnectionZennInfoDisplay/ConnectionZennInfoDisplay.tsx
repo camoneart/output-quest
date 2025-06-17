@@ -25,7 +25,7 @@ const ConnectionZennInfoDisplay: React.FC<ConnectionZennInfoDisplayProps> = ({
       <div className={styles["zenn-info-content"]}>
         <h2 className={styles["zenn-info-title"]}>
           <Image
-            src="/images/nav-icon/zenn-logo.svg"
+            src="/images/connection/connection-zenn-logo.svg"
             alt="Zenn"
             width={16}
             height={16}

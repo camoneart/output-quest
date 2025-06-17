@@ -25,7 +25,7 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 					<p className="text-sm lg:text-base flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-0">
 						<span className="inline-flex gap-[6px] items-center">
 							<Image
-								src="/images/nav-icon/zenn-logo.svg"
+								src="/images/connection/connection-zenn-logo.svg"
 								alt="Zenn"
 								width={18}
 								height={18}
@@ -58,7 +58,7 @@ const ConnectionAuthSection: React.FC<ConnectionAuthSectionProps> = ({
 					className={`text-sm opacity-40 select-none ${styles["zenn-username"]}`}
 				>
 					<Image
-						src="/images/nav-icon/zenn-logo.svg"
+						src="/images/connection/connection-zenn-logo.svg"
 						alt="Zenn"
 						width={16}
 						height={16}
