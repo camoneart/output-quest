@@ -75,15 +75,6 @@ export const navigationItems: NavigationItem[] = [
 	},
 	{
 		id: 9,
-		title: "お問い合わせ",
-		href: "/contact",
-		icon: "/images/nav-icon/contact-nav-icon.svg",
-		alt: "お問い合わせ",
-		width: 20,
-		height: 20,
-	},
-	{
-		id: 10,
 		title: "利用規約",
 		href: "/terms",
 		icon: "/images/nav-icon/terms-nav-icon.svg",
@@ -92,7 +83,7 @@ export const navigationItems: NavigationItem[] = [
 		height: 20,
 	},
 	{
-		id: 11,
+		id: 10,
 		title: "プライバシーポリシー",
 		href: "/privacy",
 		icon: "/images/nav-icon/privacy-nav-icon.svg",

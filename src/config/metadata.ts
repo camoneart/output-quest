@@ -99,11 +99,6 @@ export const metadata: Record<string, Metadata> = {
 		description:
 			"OUTPUT QUESTの世界観と使い方。アウトプットを通じて成長する「新感覚学習RPG」の始め方を解説します。",
 	},
-	contact: {
-		...baseMetadata,
-		title: "お問い合わせ",
-		description: "OUTPUT QUESTのお問い合わせページです。",
-	},
 	terms: {
 		...baseMetadata,
 		title: "利用規約",
