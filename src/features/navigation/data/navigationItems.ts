@@ -97,5 +97,7 @@ export const navigationItems: NavigationItem[] = [
 		href: "/privacy",
 		icon: "/images/nav-icon/privacy-nav-icon.svg",
 		alt: "プライバシーポリシー",
+		width: 20,
+		height: 20,
 	},
 ];
