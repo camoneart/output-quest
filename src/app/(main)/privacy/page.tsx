@@ -2,8 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./PrivacyPage.module.css";
-import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
-import SafeMailtoLink from "@/components/common/SafeMailtoLink/SafeMailtoLink";
+import AdventureStartLink from "@/components/common/adventure-start-link/AdventureStartLink";
+import SafeMailtoLink from "@/components/common/safe-mailto-link/SafeMailtoLink";
 import Link from "next/link";
 
 export const metadata: Metadata = getPageMetadata("privacy");
@@ -27,7 +27,7 @@ const PrivacyPage = () => {
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
-								当サービスは、ユーザーが利用登録をする際にメールアドレス、表示名、プロフィール画像などの個人情報をお預かりすることがあります。これらは、Clerkが提供する OAuth 認証機能（Google・GitHubなど）を通じて提供される情報を含みます。また、ユーザーと提携先などとの間でなされた取引の状況や内容、サービスの閲覧履歴、および履歴情報特性の情報を収集することがあります。
+								当サービスは、ユーザーが利用登録をする際にメールアドレス、表示名、プロフィール画像などの個人情報をお預かりすることがあります。これらは、Clerkが提供するOAuth認証機能（Google・GitHubなど）を通じて提供される情報を含みます。また、ユーザーと提携先などとの間でなされた取引の状況や内容、サービスの閲覧履歴、および履歴情報特性の情報を収集することがあります。
 							</p>
 						</section>
 
@@ -112,7 +112,7 @@ const PrivacyPage = () => {
 								</div>
 							</div>
 							<p className={styles["privacy-section-message"]}>
-								当サービスは、サービスの利便性向上および認証状態の維持のためにCookie を使用しています。Cookie には、Clerkが発行するセッションクッキーなどが含まれます。現時点で GoogleAnalytics等のアクセス解析ツールは利用しておりませんが、導入する場合には本ポリシーを更新し、目的及び収集される情報の範囲を明示いたします。
+								当サービスは、サービスの利便性向上および認証状態の維持のためにCookieを使用しています。Cookieには、Clerkが発行するセッションクッキーなどが含まれます。現時点でGoogleAnalytics等のアクセス解析ツールは利用しておりませんが、導入する場合には本ポリシーを更新し、目的及び収集される情報の範囲を明示いたします。
 							</p>
 						</section>
 

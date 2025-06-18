@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import * as EquipmentDetail from "@/features/equipmentDetail/components/index";
-import { generateEquipmentMetadata } from "@/features/equipmentDetail/metadata/generateItemMetadata";
+import * as EquipmentDetail from "@/features/equipment-detail/components/index";
+import { generateEquipmentMetadata } from "@/features/equipment-detail/metadata/generateItemMetadata";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ equipmentSlug: string }> }

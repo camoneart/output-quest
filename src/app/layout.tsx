@@ -1,14 +1,14 @@
 import React from "react";
-import { Footer } from "@/components/layout/Footer";
+import { Footer } from "@/components/layout/footer";
 import { DotGothic16 } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { baseMetadata } from "@/config/metadata";
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/Header/Header";
+import { Header } from "@/components/layout/header/Header";
 import { HeroProvider } from "@/contexts/HeroContext";
 import CommonContainer from "@/components/common/container/CommonContainer";
 import "../styles/globals.css";
-import { ControlViewport } from "@/components/layout/ControlViewport/ControlViewport";
+import { ControlViewport } from "@/components/layout/control-viewport/ControlViewport";
 import { AudioProvider } from "@/contexts/AudioContext";
 
 const dotGothic16 = DotGothic16({

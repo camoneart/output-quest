@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./AdventureStartLink.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 
 const AdventureStartLink = () => {
 	const { playClickSound } = useClickSound({

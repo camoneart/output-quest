@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import styles from "./HomeStartButton.module.css";
 
 const HomeStartButton = () => {

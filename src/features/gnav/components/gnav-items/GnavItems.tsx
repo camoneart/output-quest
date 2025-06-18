@@ -5,7 +5,7 @@ import { navigationItems } from "@/features/navigation/data/navigationItems";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
+import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import styles from "./GnavItems.module.css";
 import Image from "next/image";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./AboutPage.module.css";
-import AdventureStartLink from "@/components/common/AdventureStartLink/AdventureStartLink";
+import AdventureStartLink from "@/components/common/adventure-start-link/AdventureStartLink";
 
 export const metadata: Metadata = getPageMetadata("about");
 
