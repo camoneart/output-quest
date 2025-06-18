@@ -1,4 +1,4 @@
-import ExplorePageClient from "./ExplorePageClient/ExplorePageClient";
-import ExploreArticleAnalysis from "./ExploreArticleAnalysis/ExploreArticleAnalysis";
+import ExplorePageClient from "./explore-page-client/ExplorePageClient";
+import ExploreArticleAnalysis from "./explore-article-analysis/ExploreArticleAnalysis";
 
 export { ExplorePageClient, ExploreArticleAnalysis };

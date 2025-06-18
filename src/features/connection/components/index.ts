@@ -1,11 +1,11 @@
-import ConnectionPageClient from "./ConnectionPageClient/ConnectionPageClient";
-import ConnectionButtonGroup from "./ConnectionButtonGroup/ConnectionButtonGroup";
-import ConnectionZennForm from "./ConnectionZennForm/ConnectionZennForm";
-import ConnectionAuthSection from "./ConnectionAuthSection/ConnectionAuthSection";
-import ConnectionUserProfileHeader from "./ConnectionUserProfileHeader/ConnectionUserProfileHeader";
-import ConnectionZennInfoDisplay from "./ConnectionZennInfoDisplay/ConnectionZennInfoDisplay";
-import ConnectionNavigationToAdventure from "./ConnectionNavigationToAdventure/ConnectionNavigationToAdventure";
-import ConnectionMessageDisplay from "./ConnectionMessageDisplay/ConnectionMessageDisplay";
+import ConnectionPageClient from "./connection-page-client/ConnectionPageClient";
+import ConnectionButtonGroup from "./connection-button-group/ConnectionButtonGroup";
+import ConnectionZennForm from "./connection-zenn-form/ConnectionZennForm";
+import ConnectionAuthSection from "./connection-auth-section/ConnectionAuthSection";
+import ConnectionUserProfileHeader from "./connection-user-profile-header/ConnectionUserProfileHeader";
+import ConnectionZennInfoDisplay from "./connection-zenn-info-display/ConnectionZennInfoDisplay";
+import ConnectionNavigationToAdventure from "./connection-navigation-to-adventure/ConnectionNavigationToAdventure";
+import ConnectionMessageDisplay from "./connection-message-display/ConnectionMessageDisplay";
 
 export {
   ConnectionPageClient,

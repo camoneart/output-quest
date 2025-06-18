@@ -1,6 +1,13 @@
-import StrengthHeroInfo from "./StrengthHeroInfo/StrengthHeroInfo";
-import StrengthTitleInfo from "./StrengthTitleInfo/StrengthTitleInfo";
-import StrengthEquipmentInfo from "./StrengthEquipmentInfo/StrengthEquipmentInfo";
-import StrengthLogInfo from "./StrengthLogInfo/StrengthLogInfo"
+import StrengthEquipmentInfo from "./strength-equipment-info/StrengthEquipmentInfo";
+import StrengthEquipmentList from "./strength-equipment-list/StrengthEquipmentList";
+import StrengthHeroInfo from "./strength-hero-info/StrengthHeroInfo";
+import StrengthLogInfo from "./strength-log-info/StrengthLogInfo";
+import StrengthTitleInfo from "./strength-title-info/StrengthTitleInfo";
 
-export { StrengthHeroInfo, StrengthTitleInfo, StrengthEquipmentInfo, StrengthLogInfo };
+export {
+	StrengthEquipmentInfo,
+	StrengthEquipmentList,
+	StrengthHeroInfo,
+	StrengthLogInfo,
+	StrengthTitleInfo,
+};

@@ -1,7 +1,7 @@
-import PartyMemberRarityStar from "./PartyMemberRarityStar/PartyMemberRarityStar";
-import PartyMemberFooter from "./PartyMemberFooter/PartyMemberFooter";
-import PartyMemberDetail from "./PartyMemberDetail/PartyMemberDetail";
-import PartyMemberDynamicHead from "./PartyMemberDynamicHead/PartyMemberDynamicHead";
+import PartyMemberRarityStar from "./party-member-rarity-star/PartyMemberRarityStar";
+import PartyMemberFooter from "./party-member-footer/PartyMemberFooter";
+import PartyMemberDetail from "./party-member-detail/PartyMemberDetail";
+import PartyMemberDynamicHead from "./party-member-dynamic-head/PartyMemberDynamicHead";
 
 export {
   PartyMemberRarityStar,
