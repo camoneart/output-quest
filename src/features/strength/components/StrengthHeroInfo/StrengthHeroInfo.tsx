@@ -160,7 +160,7 @@ const StrengthHeroInfo = () => {
 						</div>
 						<div className={`${styles["strength-level-progress-gauge-container"]}`}>
 							<Image
-								src="/images/dashboard/exp.svg"
+								src="/images/common/exp.svg"
 								alt="EXP"
 								width={35}
 								height={35}

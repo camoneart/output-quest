@@ -202,7 +202,7 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 								className={`${styles["hero-info-level-progress-gauge-container"]}`}
 							>
 								<Image
-									src="/images/dashboard/exp.svg"
+									src="/images/common/exp.svg"
 									alt="EXP"
 									width={35}
 									height={35}
