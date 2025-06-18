@@ -1,3 +1,3 @@
-import GnavItems from "./GnavItems/GnavItems";
+import GnavItems from "./gnav-items/GnavItems";
 
 export { GnavItems };

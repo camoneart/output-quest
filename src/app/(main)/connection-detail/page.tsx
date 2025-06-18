@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./ConnectionDetailPage.module.css";
-import * as ConnectionDetail from "@/features/ConnectionDetail/components/index";
+import * as ConnectionDetail from "@/features/connection-detail/components/index";
 
 export const metadata: Metadata = getPageMetadata("connectionDetail");
 

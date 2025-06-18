@@ -6,7 +6,7 @@ import { useClickSound } from "@/components/common/Audio/ClickSound/ClickSound";
 import styles from "./AuthButton.module.css";
 
 const AuthButton = () => {
-  const { isLoaded, userId } = useAuth();
+  const { isLoaded } = useAuth();
   const redirectUrl = process.env.NEXT_PUBLIC_CONNECTION_URL || "/connection";
   const { playClickSound } = useClickSound({
     soundPath: "/audio/click-sound_star.mp3",

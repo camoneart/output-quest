@@ -1,7 +1,7 @@
-import HomeAnimatedTitle from "./HomeAnimatedTitle/HomeAnimatedTitle";
-import HomeAnimatedSubTitle from "./HomeAnimatedSubTitle/HomeAnimatedSubTitle";
-import HomeStartButton from "./HomeStartButton/HomeStartButton";
-import HomeAnimatedCharacter from "./HomeAnimatedCharacter/HomeAnimatedCharacter";
+import HomeAnimatedTitle from "./home-animated-title/HomeAnimatedTitle";
+import HomeAnimatedSubTitle from "./home-animated-sub-title/HomeAnimatedSubTitle";
+import HomeStartButton from "./home-start-button/HomeStartButton";
+import HomeAnimatedCharacter from "./home-animated-character/HomeAnimatedCharacter";
 
 export {
   HomeAnimatedTitle,
