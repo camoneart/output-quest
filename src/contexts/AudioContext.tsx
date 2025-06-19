@@ -4,7 +4,7 @@ import React, {
 	createContext,
 	useState,
 	useCallback,
-	useContext,
+	use,
 	ReactNode,
 } from "react";
 
@@ -23,14 +23,12 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
 	}, []);
 
 	return (
-		<AudioContext.Provider value={{ isMuted, toggleMute }}>
-			{children}
-		</AudioContext.Provider>
+		<AudioContext value={{ isMuted, toggleMute }}>{children}</AudioContext>
 	);
 };
 
 export const useAudio = () => {
-	const context = useContext(AudioContext);
+	const context = use(AudioContext);
 	if (context === undefined) {
 		throw new Error("useAudio must be used within an AudioProvider");
 	}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode, useEffect } from "react";
+import React, { createContext, use, ReactNode, useEffect } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useUser } from "@clerk/nextjs";
 
@@ -88,7 +88,7 @@ export const EquipmentProvider = ({ children }: { children: ReactNode }) => {
 	}, [user, isLoaded, setEquipmentState]);
 
 	return (
-		<EquipmentContext.Provider
+		<EquipmentContext
 			value={{
 				equipmentState,
 				equipItem,
@@ -97,13 +97,13 @@ export const EquipmentProvider = ({ children }: { children: ReactNode }) => {
 			}}
 		>
 			{children}
-		</EquipmentContext.Provider>
+		</EquipmentContext>
 	);
 };
 
 // カスタムフック
 export const useEquipment = () => {
-	const context = useContext(EquipmentContext);
+	const context = use(EquipmentContext);
 	if (context === undefined) {
 		throw new Error("useEquipment must be used within an EquipmentProvider");
 	}

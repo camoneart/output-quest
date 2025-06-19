@@ -2,7 +2,7 @@
 
 import React, {
 	createContext,
-	useContext,
+	use,
 	useState,
 	useEffect,
 	useCallback,
@@ -92,7 +92,7 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 				const cachedData = getCachedHeroData(guestUserId);
 				if (cachedData) {
 					setHeroData(cachedData);
-				setIsLoading(false);
+					setIsLoading(false);
 					setError(null);
 					return;
 				}
@@ -191,14 +191,14 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 						// データベースに記事数が保存されている場合は、それを優先して使用
 						// ただし、Zenn APIによる最新データも取得して比較
 						try {
-						// Zenn APIを呼び出してユーザーデータを更新
-						await fetch(`/api/zenn?username=${username}&updateUser=true`, {
-							signal,
-						});
+							// Zenn APIを呼び出してユーザーデータを更新
+							await fetch(`/api/zenn?username=${username}&updateUser=true`, {
+								signal,
+							});
 
-						if (signal?.aborted) {
-							return;
-						}
+							if (signal?.aborted) {
+								return;
+							}
 
 							// データベースの記事数を信頼し、それをベースにレベル計算
 							const calculatedLevel = Math.max(dbArticleCount, 1);
@@ -217,18 +217,18 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 						} catch (zennError) {
 							// Zenn API呼び出しに失敗した場合でも、データベースの値を使用
 							const calculatedLevel = Math.max(dbArticleCount, 1);
-						const newHeroData = {
-							...strengthHeroData,
-							level: calculatedLevel,
-							currentExp: 40,
-							nextLevelExp: 100,
-							remainingArticles: 1,
-						};
+							const newHeroData = {
+								...strengthHeroData,
+								level: calculatedLevel,
+								currentExp: 40,
+								nextLevelExp: 100,
+								remainingArticles: 1,
+							};
 
-						setHeroData(newHeroData);
+							setHeroData(newHeroData);
 							setCachedHeroData(user.id, newHeroData);
-						setIsLoading(false);
-						setError(null);
+							setIsLoading(false);
+							setError(null);
 						}
 					} else if (
 						userRes.ok &&
@@ -258,8 +258,8 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 								return;
 							}
 							// エラー時は初期データを表示
-						const defaultData = { ...strengthHeroData, level: 1 };
-						setHeroData(defaultData);
+							const defaultData = { ...strengthHeroData, level: 1 };
+							setHeroData(defaultData);
 							setCachedHeroData(user.id, defaultData);
 						}
 						setIsLoading(false);
@@ -302,17 +302,17 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 	const refetchHeroData = useCallback(async () => {
 		const userId = user ? user.id : "guest";
 
-			// キャッシュを削除
+		// キャッシュを削除
 		heroDataCache.delete(userId);
 
-			// 既存のリクエストをキャンセル
-			if (abortControllerRef.current) {
-				abortControllerRef.current.abort();
-			}
+		// 既存のリクエストをキャンセル
+		if (abortControllerRef.current) {
+			abortControllerRef.current.abort();
+		}
 
-			// 新しいAbortControllerを作成
-			abortControllerRef.current = new AbortController();
-			await getZennArticlesCount(0, abortControllerRef.current.signal);
+		// 新しいAbortControllerを作成
+		abortControllerRef.current = new AbortController();
+		await getZennArticlesCount(0, abortControllerRef.current.signal);
 	}, [getZennArticlesCount, user]);
 
 	// ユーザー変更またはマウント時の処理
@@ -350,14 +350,12 @@ export const HeroProvider = ({ children }: { children: ReactNode }) => {
 		[heroData, isLoading, error, refetchHeroData]
 	);
 
-	return (
-		<HeroContext.Provider value={contextValue}>{children}</HeroContext.Provider>
-	);
+	return <HeroContext value={contextValue}>{children}</HeroContext>;
 };
 
 // カスタムフック
 export const useHero = () => {
-	const context = useContext(HeroContext);
+	const context = use(HeroContext);
 	if (context === undefined) {
 		throw new Error("useHero must be used within a HeroProvider");
 	}
