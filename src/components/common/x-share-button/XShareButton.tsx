@@ -66,7 +66,7 @@ const XShareButton: React.FC<XShareButtonProps> = ({
 		// 認証済みユーザーでコンテンツがある場合は通常のシェア処理
 		playClickSound(() => {
 			// 共通のテンプレート文
-			const commonTemplate = `───\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n#OUTPUTQUESTシェアポスト\n\n`;
+			const commonTemplate = `───\n\n新感覚学習RPG：「OUTPUT QUEST ~ 叡智の継承者 ~」で、勇者を育てる学びの冒険をいま、始めよう！\n\n#OUTPUTQUEST #叡智の継承者\n#OUTPUTQUESTシェアポスト\n\n`;
 
 			// カスタムシェアテキストがある場合はそれを使用、なければデフォルト
 			const shareText = customShareText
