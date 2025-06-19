@@ -66,7 +66,7 @@ const ConnectionDetailContent = () => {
 					</div>
 					<div className="text-xs opacity-50 text-center grid gap-1.5">
 						<p>「ログインユーザー」</p>
-						<p>「ログイン」または「新規登録」を完了したユーザーのこと</p>
+						<p>ログイン / 新規登録 に加え、Zenn連携を完了したユーザーのこと</p>
 					</div>
 				</div>
 				{/* ゲストユーザー */}
@@ -120,7 +120,7 @@ const ConnectionDetailContent = () => {
 					</div>
 					<div className="text-xs opacity-50 text-center grid gap-[5px]">
 						<p>「ゲストユーザー」</p>
-						<p>「ログイン」または「新規登録」を完了していないユーザーのこと</p>
+						<p>ログイン / 新規登録 を完了していないユーザーのこと</p>
 					</div>
 				</div>
 			</div>
