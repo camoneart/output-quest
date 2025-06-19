@@ -1,10 +1,10 @@
 import React from "react";
-import { Footer } from "@/components/layout/footer/Footer";
 import { DotGothic16 } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { baseMetadata } from "@/config/metadata";
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/header/Header";
+import { Footer } from "@/components/layout/footer/Footer";
 import { HeroProvider } from "@/contexts/HeroContext";
 import CommonContainer from "@/components/common/container/CommonContainer";
 import "../styles/globals.css";
