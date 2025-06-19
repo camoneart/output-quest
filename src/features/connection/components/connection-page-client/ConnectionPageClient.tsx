@@ -11,6 +11,7 @@ import {
 	useSessionManagement,
 	useMessageStorage,
 } from "@/features/connection/hooks";
+import { useEquipment } from "@/features/equipment/contexts/EquipmentContext";
 
 // グローバル変数の型拡張
 declare global {
@@ -38,6 +39,7 @@ export default function ConnectionPageClient() {
 	const { user, isLoaded } = useUser();
 	const router = useRouter();
 	const { refetchHeroData } = useHero();
+	const { resetEquipment } = useEquipment();
 	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 	const [zennUsername, setZennUsername] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -494,6 +496,9 @@ export default function ConnectionPageClient() {
 							setError(
 								"連携中のアカウントの記事数が0件になったため連携を解除しました"
 							);
+
+							// 自動連携解除時にも装備をリセット
+							resetEquipment();
 						} else {
 							console.error("自動連携解除エラー:", releaseData.error);
 							setError(
@@ -582,6 +587,9 @@ export default function ConnectionPageClient() {
 				setZennUsername("");
 				setSuccess("");
 				setReleaseMessage("Zennのアカウント連携を解除しました");
+
+				// Zenn連携解除時に装備もリセット
+				resetEquipment();
 			} else {
 				console.error("連携解除エラー:", data.error);
 				setError(data.error || "連携解除に失敗しました");
