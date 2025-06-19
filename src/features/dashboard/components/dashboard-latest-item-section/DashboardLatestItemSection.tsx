@@ -117,9 +117,15 @@ const DashboardLatestItemSection: React.FC = () => {
 			</h2>
 			<div className={`${styles["last-item-container"]}`}>
 				{isGuestUser ? (
-					<p>ログインするとアイテムの情報が表示されます。</p>
+					<div className={styles["last-item-guest-user-container"]}>
+						<p className={styles["last-item-guest-user-message"]}>
+							ログインするとアイテムの情報が表示されます。
+						</p>
+					</div>
 				) : itemId === null ? (
-					<p>まだ入手したアイテムはありません。</p>
+					<div className={styles["last-item-null-container"]}>
+						<p className={styles["last-item-null-message"]}>まだ入手したアイテムはありません。</p>
+					</div>
 				) : (
 					<div className={`${styles["last-item-box"]}`}>
 						<Link

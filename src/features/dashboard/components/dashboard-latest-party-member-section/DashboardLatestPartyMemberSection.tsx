@@ -117,9 +117,17 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 			</h2>
 			<div className={`${styles["party-member-container"]}`}>
 				{isGuestUser ? (
-					<p>ログインすると仲間の情報が表示されます。</p>
+					<div className={styles["party-member-guest-user-container"]}>
+						<p className={styles["party-member-guest-user-message"]}>
+							ログインすると仲間の情報が表示されます。
+						</p>
+					</div>
 				) : memberId === null ? (
-					<p>まだ仲間になったキャラクターはいません。</p>
+					<div className={styles["party-member-null-container"]}>
+						<p className={styles["party-member-null-message"]}>
+							まだ仲間になったキャラクターはいません。
+						</p>
+					</div>
 				) : (
 					<div className={`${styles["party-member-box"]}`}>
 						<Link

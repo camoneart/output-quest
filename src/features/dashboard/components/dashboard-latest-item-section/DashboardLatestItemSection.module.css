@@ -27,6 +27,23 @@
   }
 }
 
+.last-item-guest-user-container,
+.last-item-null-container {
+	padding-inline: 5px;
+	padding-block: 5px;
+	display: block grid;
+	border: 7px dashed var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-primary-brown-dark);
+}
+
+.last-item-guest-user-message,
+.last-item-null-message {
+	background-color: var(--color-primary-brown);
+	border: 2px solid var(--color-primary-brown-light);
+	padding: 15px;
+}
+
 .last-item-box {
   display: block grid;
   text-decoration: none;
