@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer } from "@/components/layout/footer";
+import { Footer } from "@/components/layout/footer/Footer";
 import { DotGothic16 } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { baseMetadata } from "@/config/metadata";
