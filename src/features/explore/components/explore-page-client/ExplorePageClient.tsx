@@ -24,7 +24,7 @@ const ExplorePageClient = () => {
 		delay: 190,
 	});
 
-	const { messages, append, status } = useChat({
+	const { messages, append, status, setMessages } = useChat({
 		api: "/api/ai/analyze-articles",
 		body: {}, // 初期化
 		onError: (error) => {
@@ -47,6 +47,9 @@ const ExplorePageClient = () => {
 		}
 
 		playClickSound();
+
+		// 前回の探索結果をリセット
+		setMessages([]);
 		setIsAnalyzing(true);
 		setError(null);
 
