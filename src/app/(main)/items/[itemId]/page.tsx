@@ -2,8 +2,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import styles from "./ItemDetailPage.module.css";
-import * as itemDetail from "@/features/itemDetail/components/index";
-import { generateItemMetadata } from "@/features/itemDetail/metadata/generateItemMetadata";
+import * as itemDetail from "@/features/item-detail/components/index";
+import { generateItemMetadata } from "@/features/item-detail/metadata/generateItemMetadata";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ itemId: string }> }

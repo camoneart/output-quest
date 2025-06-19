@@ -2,8 +2,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import styles from "./PartyMemberPage.module.css";
-import * as PartyMember from "@/features/partyMember/components/index";
-import { generatePartyMemberMetadata } from "@/features/partyMember/metadata/generatePartyMemberMetadata";
+import * as PartyMember from "@/features/party-member/components/index";
+import { generatePartyMemberMetadata } from "@/features/party-member/metadata/generatePartyMemberMetadata";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ partyId: string }> }

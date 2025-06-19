@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import styles from "./ItemDetailClient.module.css"; // CSSモジュールをインポート
-import * as itemDetail from "@/features/itemDetail/components/index";
+import * as itemDetail from "@/features/item-detail/components/index";
 import {
 	isAcquiredByHeroLevel,
 	heroLevelAndItemRelation,
