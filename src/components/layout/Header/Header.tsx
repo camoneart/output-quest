@@ -6,7 +6,7 @@ import AudioPlayer from "@/components/common/audio/audio-player/AudioPlayer";
 import { usePathname } from "next/navigation";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import HamburgerMenu from "@/components/elements/hamburger-menu/HamburgerMenu";
-import Gnav from "@/components/layout/gnav/Gnav";
+import { Gnav } from "@/components/layout/gnav";
 import styles from "./Header.module.css";
 
 export const Header = () => {

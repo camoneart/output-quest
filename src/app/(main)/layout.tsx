@@ -1,7 +1,7 @@
 import * as Main from "@/features/main/components/index";
 import styles from "./MainLayout.module.css";
 import { EquipmentProvider } from "@/features/equipment/contexts/EquipmentContext";
-import Gnav from "@/components/layout/gnav/Gnav";
+import { Gnav } from "@/components/layout/gnav";
 
 export default function MainLayout({
 	children,
