@@ -13,4 +13,5 @@ export interface UserInfo {
 	zennUsername?: string;
 	profileImage?: string;
 	zennArticleCount: number;
+	level: number;
 }

@@ -10,6 +10,7 @@ import CommonContainer from "@/components/common/container/CommonContainer";
 import "../styles/globals.css";
 import { ControlViewport } from "@/components/layout/control-viewport/ControlViewport";
 import { AudioProvider } from "@/contexts/AudioContext";
+import { SignOutHandler } from "@/contexts/SignOutHandler";
 
 const dotGothic16 = DotGothic16({
 	weight: "400",
@@ -38,16 +39,18 @@ export default function RootLayout({
 		>
 			<html lang="ja" className={`${dotGothic16.variable}`}>
 				<body suppressHydrationWarning>
-					<AudioProvider>
-						<HeroProvider>
-							<CommonContainer>
-								<ControlViewport />
-								<Header />
-								{children}
-								<Footer />
-							</CommonContainer>
-						</HeroProvider>
-					</AudioProvider>
+					<SignOutHandler>
+						<AudioProvider>
+							<HeroProvider>
+								<CommonContainer>
+									<ControlViewport />
+									<Header />
+									{children}
+									<Footer />
+								</CommonContainer>
+							</HeroProvider>
+						</AudioProvider>
+					</SignOutHandler>
 				</body>
 			</html>
 		</ClerkProvider>

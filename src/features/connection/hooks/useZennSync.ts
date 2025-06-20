@@ -93,6 +93,7 @@ export const useZennSync = ({
 								...userInfo!,
 								zennUsername: "",
 								zennArticleCount: 0,
+								level: 1, // 連携解除時にlevelもリセット
 							});
 							setZennUsername("");
 							setError(
@@ -165,6 +166,7 @@ export const useZennSync = ({
 					...userInfo!,
 					zennUsername: "",
 					zennArticleCount: 0,
+					level: 1, // 連携解除時にlevelもリセット
 				});
 				setZennUsername("");
 
