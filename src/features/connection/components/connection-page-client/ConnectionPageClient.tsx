@@ -22,16 +22,6 @@ declare global {
 	}
 }
 
-// ユーザープロフィールの型定義
-interface UserInfo {
-	id: string;
-	clerkId: string;
-	displayName?: string;
-	zennUsername?: string;
-	profileImage?: string;
-	zennArticleCount: number;
-}
-
 // ローカルストレージのキー
 const SESSION_ID_KEY = "zenn_session_id";
 const LOGOUT_FLAG_KEY = "zenn_logout_flag";
