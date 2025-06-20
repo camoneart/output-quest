@@ -24,7 +24,8 @@ export const useUserInfo = ({
 }: UseUserInfoProps) => {
 	const { user, isLoaded } = useUser();
 	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
+	// 常にtrueにして、読み込み中を表示しない
+	const isZennInfoLoaded = true;
 
 	useEffect(() => {
 		const fetchAndSetUserInfo = async () => {
@@ -34,12 +35,8 @@ export const useUserInfo = ({
 			if (!user) {
 				setUserInfo(null);
 				setZennUsername("");
-				setIsZennInfoLoaded(true);
 				return;
 			}
-
-			// ユーザーがログイン済みの場合、Zenn情報ロード開始
-			setIsZennInfoLoaded(false);
 
 			try {
 				// ログアウト/新セッションフラグをチェック
@@ -96,8 +93,6 @@ export const useUserInfo = ({
 				}
 			} catch (err) {
 				console.error("ユーザープロフィール取得エラー:", err);
-			} finally {
-				setIsZennInfoLoaded(true);
 			}
 		};
 

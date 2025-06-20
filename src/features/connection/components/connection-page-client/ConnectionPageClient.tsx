@@ -158,39 +158,26 @@ export default function ConnectionPageClient() {
 						</div>
 
 						<div className={styles["connection-info-container"]}>
-							{!isZennInfoLoaded ? (
-								<div className="p-4 text-center">読み込み中...</div>
-							) : userInfo ? (
-								userInfo.zennUsername ? (
-									<>
-										<div className={styles["connection-info-zenn"]}>
-											<Connection.ConnectionZennInfoDisplay
-												userInfo={userInfo}
-												loading={loading}
-											/>
-										</div>
-										<div className={styles["connection-info-button-container"]}>
-											<Connection.ConnectionNavigationToAdventure
-												onNavigate={handleNavigation}
-											/>
-											<Connection.ConnectionButtonGroup
-												loading={loading}
-												userInfo={userInfo}
-												onSync={() => handleSyncZennArticles(false)}
-												onRelease={handleRelease}
-											/>
-										</div>
-									</>
-								) : (
-									<Connection.ConnectionZennForm
-										zennUsername={zennUsername}
-										loading={loading}
-										error={error}
-										onUsernameChange={setZennUsername}
-										onSubmit={handleUpdateUserProfile}
-										isZennInfoLoaded={isZennInfoLoaded}
-									/>
-								)
+							{userInfo?.zennUsername ? (
+								<>
+									<div className={styles["connection-info-zenn"]}>
+										<Connection.ConnectionZennInfoDisplay
+											userInfo={userInfo}
+											loading={loading}
+										/>
+									</div>
+									<div className={styles["connection-info-button-container"]}>
+										<Connection.ConnectionNavigationToAdventure
+											onNavigate={handleNavigation}
+										/>
+										<Connection.ConnectionButtonGroup
+											loading={loading}
+											userInfo={userInfo}
+											onSync={() => handleSyncZennArticles(false)}
+											onRelease={handleRelease}
+										/>
+									</div>
+								</>
 							) : (
 								<Connection.ConnectionZennForm
 									zennUsername={zennUsername}
