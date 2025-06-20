@@ -42,7 +42,7 @@ https://outputquest.com
 
 ### フロント
 
-- [Next.js](https://nextjs.org/blog/next-15-3)：v15.3.1
+- [Next.js(App Router)](https://nextjs.org/blog/next-15-3)：v15.3.1
 - [React](https://ja.react.dev/blog/2024/12/05/react-19)：v19.0.0
 - [TypeScript](https://www.typescriptlang.org/)：v5
 
@@ -50,6 +50,7 @@ https://outputquest.com
 
 - [Tailwind CSS](https://tailwindcss.com/)：v4.1.8
 - [shadcn/ui](https://ui.shadcn.com/)
+- [Radix](https://www.radix-ui.com/primitives/docs/utilities/slot)：v1.1.2
 
 ### アニメーション
 
@@ -109,7 +110,7 @@ outputquest/
 │   │   │   ├── connection/                          # Clerk認証・Zenn連携ページ
 │   │   │   ├── connection-detail/                   # Clerk認証・Zenn連携の解説ページ
 │   │   │   ├── dashboard/                           # ダッシュボードページ
-│   │   │   ├── equipment/[equipmentSlug]/           # 装備ページ
+│   │   │   ├── equipment/                           # 装備ページ
 │   │   │   ├── explore/                             # 記事探索ページ
 │   │   │   ├── items/                               # アイテムページ
 │   │   │   ├── logs/                                # ログページ
@@ -164,7 +165,7 @@ outputquest/
 │   ├── hooks/                                       # カスタムフック
 │   ├── lib/                                         # ライブラリ・ユーティリティ
 │   ├── shared/                                      # 共有データ
-│   ├── styles/                                      # スタイルファイル
+│   ├── styles/                                      # スタイルファイル(globals.css)
 │   ├── types/                                       # TypeScript型定義
 │   ├── utils/                                       # ユーティリティ関数
 │   └── middleware.ts                                # ミドルウェア
