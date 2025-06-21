@@ -1,0 +1,131 @@
+---
+description: 
+globs: *.tsx,src/components/**/*,src/app/*,*.ts
+alwaysApply: false
+---
+---
+description: フロントエンドのルール
+globs:
+  - "*.tsx"
+  - "src/components/**/*"
+  - "src/app/*"
+  - "*.ts"
+alwaysApply: false
+---
+
+このrulesを参考にした時には常に「👀ref:frontend」と叫んでください。
+
+# UI とスタイリング
+ユーザーが直感的に操作でき、かつビジュアル的にも魅力的な質が高いインターフェースを提供する。アクセシビリティを重視し、誰もがストレスなく目的を達成できるようにする。
+
+## Tailwind CSS
+- 原則としてユーティリティクラスを積極的に活用し、ネストが深いSCSSやCSS in JSは可能な限り避ける。
+- ただし、コンポーネントごとに特殊なアニメーションや複雑なスタイリングが必要な場合は、CSS Modules (.module.css) を使う。
+
+## shadcn/ui & Radix
+- まず shadcn/ui が提供しているコンポーネントを利用し、必要に応じてカスタマイズする。
+  - カスタマイズやオーバーライドの際は、globals.cssにテーマを追加。
+
+## Tailwind CSS (v4 対応)
+- v4 からは **CSS ファイルに直接 @import "tailwindcss"; @theme {...} を記述して拡張する "CSS-first" 方式** が推奨。
+- ブレークポイントやカスタムカラー等は `@theme` ブロック内で定義する。例:
+  ```css
+  @import "tailwindcss";
+
+  @theme {
+    --color-primary: #ff6600;
+    --breakpoint-desktop: 1024px;
+  }
+  ```
+- JavaScript プラグインは `@plugin` ディレクティブでロード可能。
+
+## アニメーション
+- Motion(旧Framer Motion) を第一選択肢とする。
+  - Motion(旧Framer Motion) で実装が困難なアニメーションはCSS Modulesで対応。
+- リッチコンテンツを実装するために、より複雑なアニメーションが必要な場合は、GSAPも追加で利用していい。
+  - ただし、GSAPは、あくまで第二候補とする。
+
+## レスポンシブデザイン
+- Tailwind CSSのブレークポイント (sm, md, lg, xl など) を利用し、モバイルファーストでスタイリングを行う。
+
+## 画像
+### Image Component
+- 画像は基本的に Next.js の <Image /> を使用する。
+- width / height 属性は **必ず**明示する。
+- 原則として `loading="lazy"` を付与し遅延読み込みを有効化する（ファーストビューに確実に表示されるヒーロー画像など、即時レンダリングが必要な場合のみ `priority` を使用）。
+
+## アイコン
+- lucide-react を利用する。セクションごとのアイコンマッピングは src/consts/category-icons.ts などで一元管理。
+
+# 実装方針
+- 基盤スタック: **Next.js (App Router) v15 + React 19 + TypeScript (strict) + Tailwind CSS**。
+- **Next.js 推奨 API を優先採用**: Server Components / Route Handlers / `next/navigation` / `use` フックなど。旧 API (`getInitialProps`, Pages Router 等) や非推奨機能は使用しない。
+- **パフォーマンス最重視**: Server Components によるストリーミング、Dynamic Import によるコード分割、ISR などの活用で LCP/FCP を最適化。
+- **型安全の徹底**: `strict` オプションを有効にし、全コンポーネント・hooks で型推論を活かす。
+- **スタイリング**: Tailwind CSS を基本とし、複雑なレイアウトのみ CSS Modules を併用。未使用 CSS を極力排除。
+- **アクセシビリティ**: `aria-*` 属性の付与と自動テスト (jest-axe 等) で WCAG 準拠を目指す。
+- **ビルド最適化**: `next/image`, `next/font`, `export const revalidate` など公式機能を活用し、追加ライブラリ導入前にコストを比較検討する。
+
+## componentについて
+- **局所コンポーネント (page 専用)**: `src/app/**/<page>/` 直下に配置し、そのページのみで利用する UI を `FooSection.tsx` のように分割。ファイルが肥大化したら `components/` サブフォルダを切る。
+- **汎用コンポーネント**: ページをまたいで再利用する UI は `src/components/` に配置し、カテゴリごとにサブディレクトリを切る (`auth/`, `common/`, `layout/` など)。共通スタイルは Tailwind / CSS Modules を隣接させる。
+- **ドメイン固有コンポーネント**: ビジネスロジックを伴い特定ドメインで再利用される UI は `src/features/<domain>/components/` に配置。関連 API / hooks / types も `features` 配下でドメインごとに集約し、単一責務を保つ。
+- **エクスポート/インポートルール**:
+  - **バレル用 `index.ts` を配置**: ドメイン固有コンポーネント配下 (`features/<domain>/components/`) に `index.ts` を置き、全コンポーネントを *named export* でひとまとめにする。
+    ```ts
+    features/
+    └── connection/
+        └── components/
+            ├── connection-auth-section/ConnectionAuthSection.tsx
+            ├── connection-user-profile-header/ConnectionUserProfileHeader.tsx
+            └── index.ts   // ← バレル
+
+    // index.ts
+    import ConnectionAuthSection from "./connection-auth-section/ConnectionAuthSection";
+    import ConnectionUserProfileHeader from "./connection-user-profile-header/ConnectionUserProfileHeader";
+
+    export { ConnectionAuthSection, ConnectionUserProfileHeader }
+    ```
+    利用側：
+    ```tsx
+    import * as Connection from "@/features/connection/components";
+    <Connection.ConnectionAuthSection />
+    ```
+  - **ドメイン固有コンポーネント**を呼び出すときは "名前空間 import" を推奨。
+    ```ts
+    import * as Party from "@/features/party/components";
+    <Party.MemberCard />
+    <Party.PartyList />
+    ```
+  - 共通/汎用コンポーネントは通常の named import で可読性を優先。
+    ```ts
+    import { Button } from "@/components/ui/button";
+    ```
+  - **export の指針**: ファイル内に公開したいトップレベルコンポーネントが **1つだけ** の場合は `export default` を用いてインポート記述を簡潔にする。**複数（2つ以上）** のコンポーネント／関数を同じファイルで公開する場合は `named export` を採用し、用途を明示化する。
+
+## データ取得（Fetch API / Next.js の機能活用）
+- **App Router 前提**: Server Components / Route Handlers を活用する。
+- **Server Components**: `fetch` を直接呼び出し、`cache` / `revalidate` オプションでキャッシュ戦略を制御する。`export const revalidate = <seconds>` を併用して ISR を実現。
+- **Route Handlers** (`src/app/api/**/route.ts`) にビジネスロジックをまとめ、クライアント/サーバ双方から呼び出せるエンドポイントとして再利用する。
+- **Server Actions**: フォーム送信やミューテーションは `use server` 関数を用いた Server Action で実装し、型安全かつキャッシュの自動再検証 (`revalidatePath`, `revalidateTag`) を活用する。
+- **Client Components** で追加の状態管理が必要な場合は `useEffect` + `fetch` もしくは SWR / React Query を利用し、型安全なラッパを `lib/` に実装する。
+
+## ダイアログ / モーダル
+- src/components/common などに汎用のモーダルコンポーネントを用意し、複数画面で再利用できるようにする。
+- shadcn/ui が提供しているモーダル系コンポーネントをベースに拡張する。
+
+## フォーム・バリデーション
+- 大きなフォームがある場合や入力内容が複雑になる場合は React Hook Form + zod などの組み合わせを検討する。
+- バリデーションエラーや処理エラーは、shadcn/ui の Sonner(トーストUI)のvariant="destructive" や インラインメッセージで通知。
+
+## トーストメッセージ
+- 成功パターンの場合は variant="default" か variant="success" (カスタム定義) を使用。
+- 失敗・警告の場合は variant="destructive" を使用し、ユーザが失敗理由を把握しやすい文言を表示する。
+# エラーハンドリング
+- 例外やエラーが発生した場合は、原則 Sonner(トーストUI) でユーザーにフィードバックする。
+
+# クライアントライブラリ（フロントエンド）の注意書き
+- **バージョン固定**: `package.json` ではキャレット (`^`) やチルダ (`~`) を付けず、`"react": "19.0.0"` のように **完全ピン留め** する。アップグレードは dependabot PR の通知を受け取り、内容を確認後に手動マージする。
+
+
+

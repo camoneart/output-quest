@@ -1,0 +1,219 @@
+---
+description: 全てのケースで考慮して欲しいこと
+globs: *
+alwaysApply: false
+---
+---
+description: 全てのケースで考慮して欲しいこと
+globs:
+  - "*"
+alwaysApply: false
+---
+
+このrulesを参考にした時には常に「👀ref:global」と叫んでください。
+
+# アプリ（プロジェクト）概要
+目的:「OUTPUT QUEST　叡智の継承者」は、私が開発したWebアプリです。RPG風のゲーミフィケーションを取り入れた "RPG風の新感覚学習アプリ" で、Zennで記事を投稿することでアプリ内の「勇者」が成長し、アイテムの入手、称号の獲得、仲間との出会いがあなたを待っています。アウトプットを通じて学習意欲や知的好奇心を高め、楽しみながら自己成長を促すことを目的に開発しました。
+
+# 技術構成
+- フロントエンド: Next.js(App Router): v15.3.1, React: v19.0.0, TypeScript: v5
+- バックエンド: Supabase
+- スタイリング: Tailwind CSS: v4.1.8, CSS Modules, shadcn/ui, Radix: v1.1.2
+- アイコン: Lucide React: v0.476.0
+- アニメーション: Motion(旧Framer Motion): v12.4.7
+- オーディオ: Howler.js: v2.2.4
+- 認証・データベース: Clerk(認証): v6.12.0 , Prisma(ORM): v6.8.2, Supabase(DB)
+- スキーマバリデーション: zod: v3.25.67
+- AI: Vercel AI SDK(TypeScript Toolkit): v4.3.16
+- Markdown: react-markdown: v10.1.0
+- デプロイ・ホスティング: Vercel
+- CI/CD: GitHub Actions(想定)、またはその他のCIツール
+
+# ディレクトリ構成
+outputquest/
+├── .next/                                           # Next.jsビルド・キャッシュファイル
+├── prisma/                                          # データベース関連ファイル
+│   └── migrations/                                  # マイグレーションファイル
+├── public/                                          # 静的ファイル
+│   ├── audio/                                       # 音声ファイル
+│   ├── gif/                                         # アニメーション画像ファイル
+│   └── images/                                      # 画像ファイル
+│       ├── arrow/                                   # 矢印画像
+│       ├── common/                                  # 共通画像
+│       ├── connection/                              # Zenn連携情報用画像
+│       ├── home-character-icon/                     # トップページのキャラクターアイコン
+│       ├── icon/                                    # アイコン類
+│       ├── items-page/                              # アイテムページ用画像
+│       ├── nav-icon/                                # ナビゲーションアイコン
+│       ├── opengraph/                               # OGP用画像
+│       ├── party-page/                              # なかまページ用画像
+│       └── sns/                                     # SNSアイコン用画像
+├── src/
+│   ├── app/                                         # ルートディレクトリ（ルーティング管理）
+│   │   ├── (main)/                                  # メイン（Route Groups）
+│   │   │   ├── about/                               # アバウトページ
+│   │   │   ├── connection/                          # Clerk認証・Zenn連携ページ
+│   │   │   ├── connection-detail/                   # Clerk認証・Zenn連携の解説ページ
+│   │   │   ├── dashboard/                           # ダッシュボードページ
+│   │   │   ├── equipment/                           # 装備ページ
+│   │   │   ├── explore/                             # 記事探索ページ
+│   │   │   ├── items/                               # アイテムページ
+│   │   │   ├── logs/                                # ログページ
+│   │   │   ├── party/                               # なかまページ
+│   │   │   ├── posts/                               # 投稿ページ
+│   │   │   ├── privacy/                             # プライバシーポリシーページ
+│   │   │   ├── strength/                            # つよさページ
+│   │   │   ├── terms/                               # 利用規約ページ
+│   │   │   ├── title/                               # 称号ページ
+│   │   │   ├── AboutLayout.module.css               # アバウトページ（Route Groups）用CSS Modules
+│   │   │   └── layout.tsx                           # アバウトページ（Route Groups）用レイアウトコンポーネント
+│   │   ├── api/                                     # API Routes
+│   │   │   ├── ai/                                  # AI(LLM)関連API
+│   │   │   ├── user/                                # ユーザー関連API
+│   │   │   ├── webhooks/                            # Webhook
+│   │   │   └── zenn/                                # Zenn連携API
+│   │   ├── favicon.ico                              # ファビコン
+│   │   ├── Home.module.css                          # トップページ用CSS Modules
+│   │   ├── layout.tsx                               # アプリケーション全体のルートレイアウトコンポーネント
+│   │   ├── page.tsx                                 # ルートページ（トップページ）
+│   │   ├── robots.ts                                # 検索エンジン向けrobots.txt生成
+│   │   └── sitemap.ts                               # サイトマップ生成ファイル
+│   ├── components/                                  # 再利用可能なUIコンポーネント
+│   │   ├── auth/                                    # 認証関連コンポーネント
+│   │   ├── common/                                  # 共通コンポーネント
+│   │   ├── elements/                                # 基本的なUI要素
+│   │   ├── layout/                                  # レイアウトコンポーネント
+│   │   └── ui/                                      # shadcn/ui コンポーネント
+│   ├── config/                                      # 環境・挙動を制御する設定 (環境変数, サービス URL, 機能フラグ等) ※環境ごとに値が変わる可能性あり
+│   ├── consts/                                      # 不変定数 (enum, アイコン/色/文言マッピング, サイト情報, ページサイズなど) ※全環境共通
+│   ├── contexts/                                    # React Context・グローバル状態管理
+│   ├── features/                                    # componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
+│   │   ├── connection/                              # Clerk認証・Zenn連携ページ機能
+│   │   ├── connection-detail/                       # Clerk認証・Zenn連携の解説ページ機能
+│   │   ├── dashboard/                               # ダッシュボード機能
+│   │   ├── equipment/                               # 装備機能
+│   │   ├── equipment-detail/                        # 装備詳細機能
+│   │   ├── explore/                                 # 記事探索ページ機能
+│   │   ├── gnav/                                    # グローバルナビゲーション機能
+│   │   ├── home/                                    # ホームページ機能
+│   │   ├── home/                                    # ホームページ機能
+│   │   ├── item-detail/                             # アイテム詳細機能
+│   │   ├── items/                                   # アイテム機能
+│   │   ├── logs/                                    # ログ機能
+│   │   ├── main/                                    # メイン機能
+│   │   ├── navigation/                              # ナビゲーション機能
+│   │   ├── party/                                   # なかま機能
+│   │   ├── party-member/                            # なかま詳細機能
+│   │   ├── posts/                                   # 投稿機能
+│   │   ├── strength/                                # つよさ機能
+│   │   └── title/                                   # 称号機能
+│   ├── generated/                                   # Prisma Clientなど自動生成されるファイル
+│   ├── hooks/                                       # カスタムフック
+│   ├── lib/                                         # ライブラリ・ユーティリティ
+│   ├── shared/                                      # 共有データ
+│   ├── styles/                                      # スタイルファイル(globals.css)
+│   ├── types/                                       # TypeScript型定義
+│   ├── utils/                                       # ユーティリティ関数
+│   └── middleware.ts                                # ミドルウェア
+├── .env                                             # 環境変数の設定ファイル
+├── .env.example                                     # 環境変数のテンプレートファイル
+├── .gitignore                                       # GitHubの差分に含まないものを格納
+├── .npmrc                                           # pnpmの設定ファイル
+├── .prettierrc.json                                 # Prettierの設定ファイル
+├── components.json                                  # shadcn/ui設定ファイル
+├── eslint.config.mjs                                # ESLint設定ファイル
+├── next.config.ts                                   # Next.js設定ファイル
+├── package.json                                     # プロジェクトの依存関係・スクリプト定義
+├── pnpm-lock.yaml                                   # pnpmの依存関係ロックファイル
+├── postcss.config.mjs                               # PostCSS設定ファイル
+├── README.md                                        # プロジェクトの説明ドキュメント
+└── tsconfig.json                                    # TypeScript設定ファイル
+
+## components ディレクトリ
+- auth/ は認証関連のコンポーネントを置く。
+- common/ はアプリ全体で使いまわせる本当に汎用的なUIパーツを置く。
+- elements/ は基本的なUI要素
+- layout/ はページ全体をラップするレイアウト関連 (Header, Footer, Sidebar など)。
+  - 基本的には、この中にあるレイアウトで最も適切なものを選択する。自信がない場合には確認をするように。
+- ui/ は主に shadcn/ui ベースの移植済みコンポーネント置き場。
+
+## config ディレクトリ
+- 環境・挙動を制御する設定 (環境変数, サービス URL, 機能フラグ等) ※環境ごとに値が変わる可能性あり
+
+## consts ディレクトリ
+- 不変定数 (enum, アイコン/色/文言マッピング, サイト情報, ページサイズなど) ※全環境共通
+
+## contexts ディレクトリ
+- React Context・グローバル状態管理
+
+## features ディレクトリ
+- componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
+  - 例: features/connection/components/connection-auth-section/ConnectionAuthSection.tsx
+
+## generated ディレクトリ
+- Prisma Clientなど自動生成されるファイル
+
+## hooks ディレクトリ
+- カスタムフック
+
+## lib ディレクトリ
+- ライブラリ・ユーティリティ
+
+## shared ディレクトリ
+- 共有データ
+
+## styles ディレクトリ
+- スタイルファイル
+
+## types ディレクトリ
+- TypeScript型定義
+
+## utils ディレクトリ
+- ユーティリティ関数
+
+## lib ディレクトリ
+- Firebase を中心とした外部サービスの初期化・呼び出しロジックをまとめる。
+- 必要に応じてApolloやSupabaseなど、別サービスを使う場合もここに配置する想定。
+
+## utils ディレクトリ
+- 純粋なJavaScriptの汎用関数(フォーマット系, バリデーション系)など。
+
+# 命名ルール
+
+## ディレクトリ名
+- 小文字 + ケバブケース (kebab-case)で記載してください。
+  - 例: connection-auth-section, dashboard-content
+
+## ファイル名/コンポーネント名 (React)
+- パスカルケース (PascalCase)
+  - 例: ConnectionAuthSection, DashboardContent
+
+## 関数名
+- キャメルケース(camelCase)
+  - 作成系: `create[Entity(ies)]`
+  - 更新系: `update[Entity(ies)]By[Condition]`/`update[Entity(ies)]`
+  - 削除系: `delete[Entity(ies)]By[Condition]`/`delete[Entity(ies)]`
+  - 取得系: `get[Entity(ies)]By[Condition]`/`get[Entity(ies)]`
+  - 検索系: `search[Entity(ies)]By[Condition]`/`search[Entity(ies)]`
+
+## TypeScript の型定義 (interface, type)
+- パスカルケース (PascalCase)
+  - 例: UserData, KpiPayload
+
+## 定数 (定数ファイル内)
+- 全部大文字 + スネークケース (SNAKE_CASE)
+  - 例: const DEFAULT_PAGE_SIZE = 20
+
+## enum
+- パスカルケース (PascalCase)
+  - 例: ```export enum UserRole {
+  Admin = "ADMIN",
+  Guest = "GUEST"
+}```
+
+# ファイルの参照方法
+- `src`ディレクトリ内のファイルでは、`@`プレフィックスを使用する
+  - 例: import { Header } from "@/components/layout/header/Header";
+
+# コメント
+- 型や関数やコンポーネントには適切なコメントを含めるようにする

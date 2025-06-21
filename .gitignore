@@ -42,7 +42,7 @@ yarn-error.log*
 next-env.d.ts
 
 # cursor
-*.mdc
+# *.mdc（このプロジェクトの.mdcは共有）
 
 # clerk configuration (can include secrets)
 /.clerk/

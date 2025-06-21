@@ -1,0 +1,25 @@
+---
+description: 
+globs: *.tsx,*.ts
+alwaysApply: false
+---
+---
+description: バックエンドのルール
+globs:
+  - "*.tsx"
+  - "*.ts"
+alwaysApply: false
+---
+
+このrulesを参考にした時には常に「👀ref:backend」と叫んでください。
+
+# エラーハンドリング
+- try/catch で明確なエラーコードやメッセージを返し、クライアントがハンドリングしやすいようにする。
+- 例外発生時にはステータスコードを 4xx/5xx で応答し、レスポンスにエラーメッセージを含める。
+
+# ログ
+- console.log, console.debug ,console.errorの使い分けを行う
+- 重要なイベントやエラーは適切にログを残す。
+- 個人情報や秘匿情報はログに直接出力しないよう注意。
+
+# その他
