@@ -26,8 +26,8 @@
   padding-inline: 15px;
 
   @media (width < 1280px) {
-    padding-block: 40px 25px;
-    padding-inline: 5px;
+    padding-block: 30px 25px;
+    padding-inline: 0;
   }
 }
 
@@ -43,6 +43,6 @@
   @media (width < 1280px) {
     height: auto;
     grid-template-columns: 1fr;
-    padding-inline: 25px;
+    padding-inline: 20px;
   }
 }

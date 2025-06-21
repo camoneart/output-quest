@@ -32,6 +32,10 @@
   padding-block: 30px 25px;
   padding-inline: 25px;
   color: var(--color-primary-white);
+
+  @media (width < 1024px) {
+    padding-inline: 0;
+  }
 }
 
 .items-header {
@@ -48,4 +52,9 @@
 
 .items-line {
   grid-area: line;
+
+  @media (width < 1024px) {
+    width: calc(100% - 40px);
+    margin-inline: auto;
+  }
 }

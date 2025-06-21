@@ -31,6 +31,10 @@
 	padding-block: 30px 25px;
 	padding-inline: 25px;
 	color: var(--color-primary-white);
+
+	@media (width < 1024px) {
+		padding-inline: 20px;
+	}
 }
 
 .explorer-header {
