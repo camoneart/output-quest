@@ -1,9 +1,8 @@
 "use client";
 
-import { siteData } from "@/config/site";
+import { siteData } from "@/consts/site";
 import styles from "./Footer.module.css";
 import { usePathname } from "next/navigation";
-
 
 export const Footer = () => {
   const pathname = usePathname();

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { siteData, openGraphImage } from "../config/site";
+import { siteData, openGraphImage } from "@/consts/site";
 
 // 全ページ共通のメタデータ
 export const baseMetadata: Metadata = {
@@ -45,12 +45,14 @@ export const metadata: Record<string, Metadata> = {
 	posts: {
 		...baseMetadata,
 		title: "学びの書",
-		description: "Zennの記事を「これまでの学び」として記録する場所。Zennで投稿した記事が一覧表示され、学びの記録として振り返ることができます。",
+		description:
+			"Zennの記事を「これまでの学び」として記録する場所。Zennで投稿した記事が一覧表示され、学びの記録として振り返ることができます。",
 	},
 	explore: {
 		...baseMetadata,
 		title: "記事探索",
-		description: "AIが勇者の仲間の「賢者」として、次に書く記事に最適なテーマを提案。賢者（AI）は、あなたのZenn記事を探索し、過去の投稿から傾向を探ることで、あなたの成長に最適な「学びのタネ」を見つけ出します。",
+		description:
+			"AIが勇者の仲間の「賢者」として、次に書く記事に最適なテーマを提案。賢者（AI）は、あなたのZenn記事を探索し、過去の投稿から傾向を探ることで、あなたの成長に最適な「学びのタネ」を見つけ出します。",
 	},
 	strength: {
 		...baseMetadata,
@@ -71,27 +73,32 @@ export const metadata: Record<string, Metadata> = {
 	logs: {
 		...baseMetadata,
 		title: "冒険ログ",
-		description: "学びの軌跡が残る「冒険ログ」。これまでの学びの軌跡を時系列で確認できます。",
+		description:
+			"学びの軌跡が残る「冒険ログ」。これまでの学びの軌跡を時系列で確認できます。",
 	},
 	party: {
 		...baseMetadata,
 		title: "なかま",
-		description: "勇者の仲間に加わったキャラクターを確認できます。1人1人のキャラクターの詳細情報も確認できます。",
+		description:
+			"勇者の仲間に加わったキャラクターを確認できます。1人1人のキャラクターの詳細情報も確認できます。",
 	},
 	items: {
 		...baseMetadata,
 		title: "アイテム",
-		description: "勇者がレベルアップ報酬で入手したアイテムを確認できます。1つ1つのアイテムの詳細情報も確認できます。",
+		description:
+			"勇者がレベルアップ報酬で入手したアイテムを確認できます。1つ1つのアイテムの詳細情報も確認できます。",
 	},
 	connection: {
 		...baseMetadata,
 		title: "連携",
-		description: "Clerk認証によるログイン/新規登録、Zennのアカウント連携を管理できます。ログインとZenn連携をすることで、Zennの投稿データがアプリ内のUIに反映されます。アプリは「ログイン」「新規登録」無しでも利用できます。",
+		description:
+			"Clerk認証によるログイン/新規登録、Zennのアカウント連携を管理できます。ログインとZenn連携をすることで、Zennの投稿データがアプリ内のUIに反映されます。アプリは「ログイン」「新規登録」無しでも利用できます。",
 	},
 	connectionDetail: {
 		...baseMetadata,
 		title: "Zennとの連携について",
-		description: "OUTPUT QUESTとZennアカウントを連携させることで得られるメリットや、ゲストユーザーとしてアプリを手軽に体験する方法について解説します。あなたに合った方法で、OUTPUT QUESTの世界を体験できます。",
+		description:
+			"OUTPUT QUESTとZennアカウントを連携させることで得られるメリットや、ゲストユーザーとしてアプリを手軽に体験する方法について解説します。あなたに合った方法で、OUTPUT QUESTの世界を体験できます。",
 	},
 	about: {
 		...baseMetadata,

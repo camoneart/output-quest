@@ -139,7 +139,8 @@ outputquest/
 │   │   ├── elements/                                # 基本的なUI要素
 │   │   ├── layout/                                  # レイアウトコンポーネント
 │   │   └── ui/                                      # shadcn/ui コンポーネント
-│   ├── config/                                      # 設定ファイル・定数定義
+│   ├── config/                                      # 環境・挙動を制御する設定 (環境変数, サービス URL, 機能フラグ等) ※環境ごとに値が変わる可能性あり
+│   ├── consts/                                      # 不変定数 (enum, アイコン/色/文言マッピング, サイト情報, ページサイズなど) ※全環境共通
 │   ├── contexts/                                    # React Context・グローバル状態管理
 │   ├── features/                                    # componentsでは共通化が難しい、特定の機能やドメイン固有のコンポーネントを管理するディレクトリ
 │   │   ├── connection/                              # Clerk認証・Zenn連携ページ機能
