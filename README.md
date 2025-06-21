@@ -246,13 +246,13 @@ Next.js + CSS Modules + Tailwind CSS + TypeScriptで開発し、デプロイはV
 
 ゲームのオープニングを彷彿とさせる演出により、冒険のはじまりを視覚的に表現しました。
 
-![トップページ](/public/gif/readme/top-page.gif)
+![トップページ](public/gif/readme/top-page.gif)
 
 ### **ダッシュボード**
 
 勇者の冒険の拠点。勇者の成長度合いを示すレベル、Zennでの投稿数、勇者の仲間に加わったキャラや入手したアイテムを確認でき、Xへのシェアが可能です。
 
-![ダッシュボード](/public/gif/readme/dashboard-page.gif)
+![ダッシュボード](public/gif/readme/dashboard-page.gif)
 
 ### **学びの書**
 
