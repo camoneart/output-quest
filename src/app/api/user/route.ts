@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
-// import { getUserStatus } from "@/utils/userStatus";
 
 // キャッシュヘッダーを定義
 const CACHE_HEADERS = {
@@ -126,7 +125,7 @@ export async function GET() {
 				user,
 			},
 			{
-				headers: CACHE_HEADERS,
+				headers: NO_CACHE_HEADERS,
 			}
 		);
 	} catch (error) {

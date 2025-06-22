@@ -7,7 +7,14 @@ export const fetchUserInfo = async (): Promise<{
 	isNewUser?: boolean;
 	error?: string;
 }> => {
-	const response = await fetch("/api/user");
+	const response = await fetch(`/api/user?_t=${Date.now()}`, {
+		cache: "no-store",
+		headers: {
+			"Cache-Control": "no-cache, no-store, must-revalidate",
+			Pragma: "no-cache",
+			Expires: "0",
+		},
+	});
 	const data = await response.json();
 	return data;
 };
