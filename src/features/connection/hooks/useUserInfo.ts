@@ -24,17 +24,21 @@ export const useUserInfo = ({
 }: UseUserInfoProps) => {
 	const { user, isLoaded } = useUser();
 	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-	// 常にtrueにして、読み込み中を表示しない
-	const isZennInfoLoaded = true;
+	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
+	const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
 
 	useEffect(() => {
 		const fetchAndSetUserInfo = async () => {
 			if (!isLoaded) return;
 
+			if (!hasLoadedOnce) setIsZennInfoLoaded(false);
+
 			// ユーザーがログインしていない場合、状態をリセット
 			if (!user) {
 				setUserInfo(null);
 				setZennUsername("");
+				setIsZennInfoLoaded(true);
+				setHasLoadedOnce(true);
 				return;
 			}
 
@@ -62,10 +66,14 @@ export const useUserInfo = ({
 
 						setUserInfo(null);
 						setZennUsername("");
+						setIsZennInfoLoaded(true);
+						setHasLoadedOnce(true);
 					} catch (err) {
 						console.error("連携リセットエラー:", err);
 						setUserInfo(null);
 						setZennUsername("");
+						setIsZennInfoLoaded(true);
+						setHasLoadedOnce(true);
 					}
 				} else {
 					// 通常のユーザー情報取得
@@ -76,14 +84,22 @@ export const useUserInfo = ({
 							if (data.isNewUser) {
 								setUserInfo(null);
 								setZennUsername("");
+								setIsZennInfoLoaded(true);
+								setHasLoadedOnce(true);
 								return;
 							}
 
 							setUserInfo(data.user!);
-							setZennUsername(data.user?.zennUsername || "");
+							if (data.user?.zennUsername) {
+								setZennUsername(data.user.zennUsername);
+							}
+							setIsZennInfoLoaded(true);
+							setHasLoadedOnce(true);
 						} else {
 							setUserInfo(null);
 							setZennUsername("");
+							setIsZennInfoLoaded(true);
+							setHasLoadedOnce(true);
 						}
 					} catch (err) {
 						if (err instanceof Error && err.name !== "AbortError") {
@@ -94,10 +110,13 @@ export const useUserInfo = ({
 			} catch (err) {
 				console.error("ユーザープロフィール取得エラー:", err);
 			}
+
+			setIsZennInfoLoaded(true);
+			setHasLoadedOnce(true);
 		};
 
 		fetchAndSetUserInfo();
-	}, [isLoaded, user?.id, wasLoggedOut, isNewSession]);
+	}, [user?.id, wasLoggedOut, isNewSession]);
 
 	return {
 		userInfo,
