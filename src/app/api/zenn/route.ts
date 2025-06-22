@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
-// import { getUserStatus } from "@/utils/userStatus";
 
 // キャッシュヘッダーを定義
 const CACHE_HEADERS = {
