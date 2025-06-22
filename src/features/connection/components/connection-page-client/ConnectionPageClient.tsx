@@ -112,11 +112,12 @@ export default function ConnectionPageClient() {
 	};
 
 	// Zennアカウント連携処理
-	const handleUpdateUserProfile = async () => {
+	const handleUpdateUserProfile = async (username: string) => {
 		setError("");
 		setSuccess("");
 		setReleaseMessage("");
-		const result = await updateUserProfile(zennUsername);
+		setZennUsername(username); // 親state更新
+		const result = await updateUserProfile(username);
 		return result;
 	};
 
@@ -147,7 +148,7 @@ export default function ConnectionPageClient() {
 					<Connection.ConnectionAuthSection
 						loading={loading}
 						zennUsername={zennUsername}
-						updateUserProfile={handleUpdateUserProfile}
+						updateUserProfile={() => handleUpdateUserProfile(zennUsername)}
 					/>
 				) : (
 					<div className={styles["profile-info-container"]}>
@@ -158,7 +159,9 @@ export default function ConnectionPageClient() {
 						</div>
 
 						<div className={styles["connection-info-container"]}>
-							{userInfo?.zennUsername ? (
+							{!isZennInfoLoaded ? (
+								<div className="p-4 text-center">読み込み中...</div>
+							) : userInfo?.zennUsername ? (
 								<>
 									<div className={styles["connection-info-zenn"]}>
 										<Connection.ConnectionZennInfoDisplay

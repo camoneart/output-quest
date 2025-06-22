@@ -9,7 +9,7 @@ interface ConnectionZennFormProps {
 	loading: boolean;
 	error: string;
 	onUsernameChange: (value: string) => void;
-	onSubmit: () => void;
+	onSubmit: (username: string) => void;
 	isZennInfoLoaded?: boolean;
 }
 
@@ -25,20 +25,20 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 		const [localUsername, setLocalUsername] = useState(zennUsername);
 
 		useEffect(() => {
-			setLocalUsername(zennUsername);
+			if (!localUsername && zennUsername) {
+				setLocalUsername(zennUsername);
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [zennUsername]);
 
-		const handleChange = useCallback(
-			(value: string) => {
-				setLocalUsername(value);
-				onUsernameChange(value);
-			},
-			[onUsernameChange]
-		);
+		const handleChange = useCallback((value: string) => {
+			setLocalUsername(value);
+		}, []);
 
 		const handleSubmit = useCallback(() => {
-			onSubmit();
-		}, [onSubmit]);
+			onUsernameChange(localUsername);
+			onSubmit(localUsername);
+		}, [localUsername, onSubmit, onUsernameChange]);
 
 		return (
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
