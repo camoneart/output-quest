@@ -1,4 +1,6 @@
-import React, { memo } from "react";
+"use client";
+
+import React, { memo, useState, useEffect, useCallback } from "react";
 import styles from "./ConnectionZennForm.module.css";
 import Image from "next/image";
 
@@ -20,9 +22,30 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 		onSubmit,
 		isZennInfoLoaded = true,
 	}) {
+		const [localUsername, setLocalUsername] = useState(zennUsername);
+
+		useEffect(() => {
+			setLocalUsername(zennUsername);
+		}, [zennUsername]);
+
+		const handleChange = useCallback(
+			(value: string) => {
+				setLocalUsername(value);
+				onUsernameChange(value);
+			},
+			[onUsernameChange]
+		);
+
+		const handleSubmit = useCallback(() => {
+			onSubmit();
+		}, [onSubmit]);
+
 		return (
 			<div className={`grid grid-cols-1 gap-2 ${styles["zenn-connect-area"]}`}>
-				<label htmlFor="zenn-username" className={`text-sm ${styles["zenn-username"]}`}>
+				<label
+					htmlFor="zenn-username"
+					className={`text-sm ${styles["zenn-username"]}`}
+				>
 					<Image
 						src="/images/connection/connection-zenn-logo.svg"
 						alt="Zenn"
@@ -37,22 +60,22 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 					<input
 						id="zenn-username"
 						type="text"
-						value={zennUsername}
-						onChange={(e) => onUsernameChange(e.target.value)}
+						value={localUsername}
+						onChange={(e) => handleChange(e.target.value)}
 						className="flex-1 border-[3px] border-gray-400 bg-white rounded px-3 py-2 text-black"
 						placeholder="例: aoyamadev"
 						disabled={loading}
 					/>
 					<button
-						onClick={onSubmit}
+						onClick={handleSubmit}
 						className={`${styles["connect-button"]} ${
-							!loading && zennUsername ? styles["active"] : ""
+							!loading && localUsername ? styles["active"] : ""
 						} ${
-							loading || !zennUsername
+							loading || !localUsername
 								? "opacity-50 cursor-not-allowed"
 								: "cursor-pointer"
 						}`}
-						disabled={loading || !zennUsername}
+						disabled={loading || !localUsername}
 					>
 						<div className={`${styles["connect-button-content"]}`}>連携</div>
 					</button>
