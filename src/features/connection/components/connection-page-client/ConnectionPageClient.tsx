@@ -22,10 +22,6 @@ declare global {
 	}
 }
 
-// ローカルストレージのキー
-const SESSION_ID_KEY = "zenn_session_id";
-const LOGOUT_FLAG_KEY = "zenn_logout_flag";
-
 // ユーザープロフィールページ
 export default function ConnectionPageClient() {
 	const { user, isLoaded } = useUser();
