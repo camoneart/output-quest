@@ -92,6 +92,7 @@ export default function ConnectionPageClient() {
 		syncZennArticles,
 		handleReleaseConnection,
 		loading: syncLoading,
+		optimisticUser,
 	} = useZennSync({
 		userInfo,
 		showSuccessMessage,
@@ -146,6 +147,8 @@ export default function ConnectionPageClient() {
 		}
 	};
 
+	const displayUser = optimisticUser ?? userInfo;
+
 	return (
 		<>
 			<h1 className={`${styles["profile-title"]}`}>連携</h1>
@@ -169,11 +172,11 @@ export default function ConnectionPageClient() {
 						<div className={styles["connection-info-container"]}>
 							{!canShowForm ? (
 								<div className="p-4 text-center">読み込み中...</div>
-							) : userInfo?.zennUsername ? (
+							) : displayUser?.zennUsername ? (
 								<>
 									<div className={styles["connection-info-zenn"]}>
 										<Connection.ConnectionZennInfoDisplay
-											userInfo={userInfo}
+											userInfo={displayUser!}
 											loading={loading}
 										/>
 									</div>
@@ -183,7 +186,7 @@ export default function ConnectionPageClient() {
 										/>
 										<Connection.ConnectionButtonGroup
 											loading={loading}
-											userInfo={userInfo}
+											userInfo={displayUser!}
 											onSync={() => handleSyncZennArticles(false)}
 											onRelease={handleRelease}
 										/>

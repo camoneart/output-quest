@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useOptimistic } from "react";
 import { useHero } from "@/contexts/HeroContext";
 import { useEquipment } from "@/features/equipment/contexts/EquipmentContext";
 import { UserInfo } from "../types";
@@ -28,6 +28,14 @@ export const useZennSync = ({
 	const { refetchHeroData } = useHero();
 	const { resetEquipment } = useEquipment();
 	const [loading, setLoading] = useState(false);
+
+	// 楽観的 UI 用
+	const [optimisticUser, addOptimistic] = useOptimistic<
+		UserInfo | null,
+		Partial<UserInfo>
+	>(userInfo, (current, patch) =>
+		current ? { ...current, ...patch } : current
+	);
 
 	const syncZennArticles = async (
 		zennUsername: string,
@@ -74,6 +82,12 @@ export const useZennSync = ({
 
 			if (data.success) {
 				const articleCount = data.totalCount || 0;
+
+				// 楽観的に記事数を反映
+				addOptimistic({
+					zennUsername: username,
+					zennArticleCount: articleCount,
+				});
 
 				if (data.user) {
 					setUserInfo(data.user);
@@ -129,6 +143,7 @@ export const useZennSync = ({
 					const updateData = await updateArticleCount(articleCount);
 					if (updateData.success && updateData.user) {
 						setUserInfo(updateData.user);
+						addOptimistic({ zennArticleCount: articleCount });
 					}
 				} catch (dbUpdateError) {
 					console.error("記事数更新エラー:", dbUpdateError);
@@ -190,5 +205,6 @@ export const useZennSync = ({
 		syncZennArticles,
 		handleReleaseConnection,
 		loading,
+		optimisticUser,
 	};
 };
