@@ -14,7 +14,7 @@ const ConnectionDetailContent = () => {
 					>
 						<div className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(0px_0px_0px_#fff)]">
+								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
 									ログインユーザー
 								</h2>
 								<p
