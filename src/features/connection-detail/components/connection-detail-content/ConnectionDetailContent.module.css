@@ -16,7 +16,7 @@
 .connection-detail-content-box {
 	display: block grid;
 	grid-template-rows: subgrid;
-	grid-row: span 2;
+	grid-row: span 3;
 	align-items: start;
 	gap: 20px;
 	padding-block: 15px;

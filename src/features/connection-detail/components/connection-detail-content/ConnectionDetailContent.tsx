@@ -6,26 +6,26 @@ import Image from "next/image";
 const ConnectionDetailContent = () => {
 	return (
 		<div className={`${styles["connection-detail-content"]}`}>
-			<div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-subgrid row-span-6 lg:row-span-3 gap-10 lg:gap-2 items-start h-full">
+			<div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-subgrid row-span-8 lg:row-span-4 gap-10 lg:gap-2 items-start h-full">
 				{/* ログインユーザー */}
-				<div className="grid grid-cols-1 grid-rows-subgrid row-span-3 gap-2.5">
+				<div className="grid grid-cols-1 grid-rows-subgrid row-span-4 gap-2.5">
 					<div
-						className={`${styles["connection-detail-content-box"]} bg-[#0f6ebc]`}
+						className={`${styles["connection-detail-content-box"]} bg-[#005193]`}
 					>
-						<dl className="grid grid-cols-1 gap-2 place-items-center">
+						<div className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
-									【ログインユーザー】
-								</dt>
-								<dd
+								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(0px_0px_0px_#fff)]">
+									ログインユーザー
+								</h2>
+								<p
 									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full [text-shadow:1px_1px_0px_#000]`}
 								>
 									連携ページにてログイン後、ご自身のZennアカウントを連携させると、Zennでの活動状況に応じてアプリ内の勇者が「経験値」を獲得し、レベルアップしていきます。経験値を獲得して勇者がレベルアップすることで、新たな「称号」の獲得、「アイテム」の入手、新しい「仲間」との出会いがあなたを待っています。
-								</dd>
+								</p>
 							</div>
-						</dl>
+						</div>
 						<div className="grid gap-2">
-							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000]">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【こんな方にオススメ】
 							</em>
 							<ul
@@ -63,6 +63,20 @@ const ConnectionDetailContent = () => {
 								</li>
 							</ul>
 						</div>
+						<div className="grid gap-2">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ff1717] [text-shadow:1px_1px_0px_#000] tracking-wider">
+								【機能制限】
+							</em>
+							<ul
+								className={`${styles["connection-detail-list"]} [text-shadow:1px_1px_0px_#000]`}
+							>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									無し。全ての機能を利用可能
+								</li>
+							</ul>
+						</div>
 					</div>
 					<div className="text-xs opacity-50 text-center grid gap-1.5">
 						<p>「ログインユーザー」</p>
@@ -70,26 +84,26 @@ const ConnectionDetailContent = () => {
 					</div>
 				</div>
 				{/* ゲストユーザー */}
-				<div className="grid grid-cols-1 grid-rows-subgrid row-span-3 gap-2.5">
+				<div className="grid grid-cols-1 grid-rows-subgrid row-span-4 gap-2.5">
 					<div
 						className={`${styles["connection-detail-content-box"]} bg-[#333]`}
 					>
-						<dl className="grid grid-cols-1 gap-2 place-items-center">
+						<div className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<dt className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
-									【ゲストユーザー】
-								</dt>
-								<dd
+								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
+									ゲストユーザー
+								</h2>
+								<p
 									className={`${styles["connection-detail-content-text"]} text-sm leading-[1.75] w-full [text-shadow:1px_1px_0px_#000]`}
 								>
 									ゲストとして、まずは気軽にアプリの世界を体験してみませんか？
 									ゲストユーザーは開発者のZennアカウント(@aoyamadev)をサンプルとして、OUTPUT
 									QUESTの世界観を体験できます。ログイン、新規登録は一切不要です。
-								</dd>
+								</p>
 							</div>
-						</dl>
+						</div>
 						<div className="grid gap-2">
-							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000]">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【こんな方にオススメ】
 							</em>
 							<ul
@@ -114,6 +128,45 @@ const ConnectionDetailContent = () => {
 									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
 								>
 									Zennと連携することで、勇者の成長にどう繋がるのか見てみたい
+								</li>
+							</ul>
+						</div>
+						<div className="grid gap-2">
+							<em className="text-sm md:text-base not-italic font-bold text-[#ff1717] [text-shadow:1px_1px_0px_#000] tracking-wider">
+								【機能制限】
+							</em>
+							<ul
+								className={`${styles["connection-detail-list"]} [text-shadow:1px_1px_0px_#000]`}
+							>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									Xへのシェア機能
+								</li>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									記事探索
+								</li>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									装備機能
+								</li>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									称号の確認
+								</li>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									なかまの確認
+								</li>
+								<li
+									className={`${styles["connection-detail-list-item"]} text-sm leading-[1.75] w-full`}
+								>
+									アイテムの確認
 								</li>
 							</ul>
 						</div>
