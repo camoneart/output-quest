@@ -33,8 +33,7 @@ https://outputquest.com
 <h2 id="technology-used">使用技術</h2>
 
 <img src="https://img.shields.io/badge/-node.js-444.svg?logo=node.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-next.js-444.svg?logo=next.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-react-444.svg?logo=react&style=for-the-badge"> <img src="https://img.shields.io/badge/-typescript-444.svg?logo=typescript&style=for-the-badge"> <img src="https://img.shields.io/badge/-tailwindcss-444.svg?logo=tailwindcss&style=for-the-badge"> <img src="https://img.shields.io/badge/-shadcn/ui-444.svg?logo=shadcn/ui&style=for-the-badge">
-<img src="https://img.shields.io/badge/-motion-444.svg?logo=motion&style=for-the-badge"> <img src="https://img.shields.io/badge/-howler.js-444.svg?logo=howler.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-clerk-444.svg?logo=clerk&style=for-the-badge"> <img src="https://img.shields.io/badge/-prisma-444.svg?logo=prisma&style=for-the-badge"> <img src="https://img.shields.io/badge/-supabase-444.svg?logo=supabase&style=for-the-badge"> <img src="https://img.shields.io/badge/-zod-444.svg?logo=zod&style=for-the-badge"> <img src="https://img.shields.io/badge/-Vercel%20AI%20SDK-444.svg?logo=Vercel%20AI%20SDK&style=for-the-badge">
- <img src="https://img.shields.io/badge/-react%20markdown-444.svg?logo=react%20markdown&style=for-the-badge">
+<img src="https://img.shields.io/badge/-motion-444.svg?logo=motion&style=for-the-badge"> <img src="https://img.shields.io/badge/-howler.js-444.svg?logo=howler.js&style=for-the-badge"> <img src="https://img.shields.io/badge/-clerk-444.svg?logo=clerk&style=for-the-badge"> <img src="https://img.shields.io/badge/-prisma-444.svg?logo=prisma&style=for-the-badge"> <img src="https://img.shields.io/badge/-supabase-444.svg?logo=supabase&style=for-the-badge"> <img src="https://img.shields.io/badge/-zod-444.svg?logo=zod&style=for-the-badge"> <img src="https://img.shields.io/badge/-Vercel%20AI%20SDK-444.svg?logo=Vercel%20AI%20SDK&style=for-the-badge"> <img src="https://img.shields.io/badge/-react%20markdown-444.svg?logo=react%20markdown&style=for-the-badge">
 
 ### nodeバージョン
 
@@ -72,11 +71,13 @@ https://outputquest.com
 - [zod](https://zod.dev/)：v3.25.67
 
 ### AI
+
 - [Vercel AI SDK](https://ai-sdk.dev/)：v4.3.16（TypeScript Toolkit）
 - [AI SDK Core](https://ai-sdk.dev/docs/ai-sdk-core/overview)：v1.2.19（LLM：Gemini）
 - [AI SDK UI](https://ai-sdk.dev/docs/ai-sdk-ui/overview)：v1.2.12（UI）
 
 ### Markdown
+
 - [react-markdown](https://github.com/remarkjs/react-markdown)：v10.1.0
 
 ### ホスティング
@@ -342,8 +343,8 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 
 ### **連携できるプラットフォームの追加**
 
-- 現在：Zennのみ
-- 追加予定：izanami, note, Qiita
+- 現在：[Zenn](https://zenn.dev) のみ
+- 追加予定：[izanami](https://izanami.dev), [note](https://note.com), [Qiita](https://qiita.com)
 
 ### **冒頭ログのアップデート**
 
@@ -361,7 +362,6 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 
 - 現在は勇者のみ（変更不可）
 - 主人公に設定できるキャラを、「勇者のなかま」から選択できるように
-
 
 <h2 id="how-to-use">アプリの利用方法</h2>
 
