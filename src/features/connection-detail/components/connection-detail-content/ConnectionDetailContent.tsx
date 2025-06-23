@@ -14,7 +14,7 @@ const ConnectionDetailContent = () => {
 					>
 						<div className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
+								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[8px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
 									ログインユーザー
 								</h2>
 								<p
@@ -24,7 +24,7 @@ const ConnectionDetailContent = () => {
 								</p>
 							</div>
 						</div>
-						<div className="grid gap-2">
+						<div className="grid gap-1">
 							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【こんな方にオススメ】
 							</em>
@@ -63,7 +63,7 @@ const ConnectionDetailContent = () => {
 								</li>
 							</ul>
 						</div>
-						<div className="grid gap-2">
+						<div className="grid gap-1">
 							<em className="text-sm md:text-base not-italic font-bold text-[#ff1717] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【機能制限】
 							</em>
@@ -90,7 +90,7 @@ const ConnectionDetailContent = () => {
 					>
 						<div className="grid grid-cols-1 gap-2 place-items-center">
 							<div className="w-full grid gap-3">
-								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[12px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
+								<h2 className="text-base md:text-lg font-bold w-full text-center pb-[8px] border-b border-white [filter:drop-shadow(1px_1px_0px_#000)]">
 									ゲストユーザー
 								</h2>
 								<p
@@ -102,7 +102,7 @@ const ConnectionDetailContent = () => {
 								</p>
 							</div>
 						</div>
-						<div className="grid gap-2">
+						<div className="grid gap-1">
 							<em className="text-sm md:text-base not-italic font-bold text-[#ffc400] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【こんな方にオススメ】
 							</em>
@@ -131,7 +131,7 @@ const ConnectionDetailContent = () => {
 								</li>
 							</ul>
 						</div>
-						<div className="grid gap-2">
+						<div className="grid gap-1">
 							<em className="text-sm md:text-base not-italic font-bold text-[#ff1717] [text-shadow:1px_1px_0px_#000] tracking-wider">
 								【機能制限】
 							</em>
