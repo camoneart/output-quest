@@ -71,11 +71,11 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 						className={`${styles["connect-button"]} ${
 							!loading && localUsername ? styles["active"] : ""
 						} ${
-							loading || !localUsername
+							loading || !localUsername || !isZennInfoLoaded
 								? "opacity-50 cursor-not-allowed"
 								: "cursor-pointer"
 						}`}
-						disabled={loading || !localUsername}
+						disabled={loading || !localUsername || !isZennInfoLoaded}
 					>
 						<div className={`${styles["connect-button-content"]}`}>連携</div>
 					</button>
