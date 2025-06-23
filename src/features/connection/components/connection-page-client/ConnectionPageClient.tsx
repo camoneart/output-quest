@@ -72,7 +72,7 @@ export default function ConnectionPageClient() {
 
 	useEffect(() => {
 		if (isZennInfoLoaded) {
-			const timer = setTimeout(() => setCanShowForm(true), 1000); // 1s
+			const timer = setTimeout(() => setCanShowForm(true), 5000); // 1s
 			return () => clearTimeout(timer);
 		}
 		// 読み込み直後や再フェッチ時にリセット
