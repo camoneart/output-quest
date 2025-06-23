@@ -67,12 +67,12 @@ export default function ConnectionPageClient() {
 		setZennUsername,
 	});
 
-	// 2 秒のバッファを入れてフォーム表示を許可
+	// 2.5 秒のバッファを入れてフォーム表示を許可
 	const [canShowForm, setCanShowForm] = useState(false);
 
 	useEffect(() => {
 		if (isZennInfoLoaded) {
-			const timer = setTimeout(() => setCanShowForm(true), 2000); // 2s
+			const timer = setTimeout(() => setCanShowForm(true), 2500); // 2.5s
 			return () => clearTimeout(timer);
 		}
 		// 読み込み直後や再フェッチ時にリセット
