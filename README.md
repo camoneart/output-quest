@@ -50,7 +50,7 @@ https://outputquest.com
 
 - [Tailwind CSS](https://tailwindcss.com/)：v4.1.8
 - [shadcn/ui](https://ui.shadcn.com/)
-- [Radix](https://www.radix-ui.com/primitives/docs/utilities/slot)：v1.1.2
+- [Radix UI](https://www.radix-ui.com/primitives/docs/utilities/slot)：v1.1.2
 
 ### アニメーション
 
@@ -260,7 +260,7 @@ Next.js + CSS Modules + Tailwind CSS + TypeScriptで開発し、デプロイはV
 
 Zennの記事を「これまでの学び」として記録する場所。Zennで投稿した記事が一覧表示され、学びの記録として振り返ることができます。記事はアプリ内ではカード型UIで表示され、クリックすることでZennの記事ページにアクセスできます。
 
-![学びの書](public/gif/README/posts-page.gif)
+![学びの書](public/gif/readme/posts-page.gif)
 
 ### **記事探索**
 
