@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
 
 		// Vercel AI SDKを使用してストリーミングレスポンスを生成
 		const result = await streamText({
-			model: google("gemini-2.5-flash-preview-05-20", {
+			model: google("gemini-2.5-flash", {
 				safetySettings: [
 					{
 						category: "HARM_CATEGORY_HATE_SPEECH",
