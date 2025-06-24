@@ -1,6 +1,6 @@
 # OUTPUT QUEST　叡智の継承者
 
-![トップページ](/public/gif/README/top-page.gif)
+![トップページ](public/gif/readme/top-page.gif)
 
 アプリは以下からアクセスできます。
 
@@ -308,7 +308,7 @@ AIが勇者の仲間の「賢者」として、次に書く記事に最適なテ
 
 Clerk認証によるログイン/新規登録、Zennのアカウント連携を管理できます。ログインとZenn連携をすることで、Zennの投稿データがアプリ内のUIに反映されます。アプリは「ログイン」「新規登録」無しでも利用できます。
 
-![連携](public/gif/README/connection-page.gif)
+![連携](public/gif/readme/connection-page.gif)
 
 ### **Zennとの連携について**
 
@@ -320,19 +320,19 @@ OUTPUT QUESTとZennアカウントを連携させることで得られるメリ�
 
 OUTPUT QUESTの世界観と使い方、アウトプットを通じて成長する「RPG風新感覚学習アプリ」の始め方を解説します。アプリの概要、コンセプト、主要機能について紹介します。
 
-![OUTPUT QUESTとは ?](public/gif/README/about-page.gif)
+![OUTPUT QUESTとは ?](public/gif/readme/about-page.gif)
 
 ### **利用規約**
 
 OUTPUT QUESTの利用規約を確認できます。
 
-![利用規約](public/gif/README/terms-page.gif)
+![利用規約](public/gif/readme/terms-page.gif)
 
 ### **プライバシーポリシー**
 
 OUTPUT QUESTのプライバシーポリシーを確認できます。
 
-![プライバシーポリシー](public/gif/README/privacy-page.gif)
+![プライバシーポリシー](public/gif/readme/privacy-page.gif)
 
 <h2 id="future-features">今後追加予定の機能やアップデート</h2>
 
