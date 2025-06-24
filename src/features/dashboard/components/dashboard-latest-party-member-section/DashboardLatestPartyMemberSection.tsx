@@ -24,6 +24,7 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 	const { heroData, isLoading: isHeroLoading, error } = useHero();
 	const { user, isLoaded } = useUser();
 	const router = useRouter();
+	const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
@@ -32,13 +33,14 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 	});
 
 	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
-	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+	const isGuestUser = !isUserLoading && (!user || !userZennInfo?.zennUsername);
 
 	// ユーザーのZenn連携情報を取得
 	useEffect(() => {
 		const fetchUserZennInfo = async () => {
 			if (!isLoaded || !user) {
 				setUserZennInfo(null);
+				setIsUserLoading(false);
 				return;
 			}
 
@@ -54,6 +56,8 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 			} catch (err) {
 				console.error("ユーザー情報取得エラー:", err);
 				setUserZennInfo(null);
+			} finally {
+				setIsUserLoading(false);
 			}
 		};
 
@@ -93,7 +97,25 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 	}, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
 
 	// 読み込み状態またはエラー時は何も表示しない
-	if (isHeroLoading || isLoadingMember || error) {
+	const isLoadingState = isHeroLoading || isLoadingMember || isUserLoading;
+	if (isLoadingState) {
+		return (
+			<section className={`${styles["party-member-section"]}`}>
+				<h2 className={`${styles["party-member-title"]}`}>
+					~ 最近仲間に加わったキャラクター ~
+				</h2>
+				<div className={`${styles["party-member-container"]}`}>
+					<div className={styles["party-member-guest-user-container"]}>
+						<p className={styles["party-member-guest-user-message"]}>
+							読み込み中...
+						</p>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
+	if (error) {
 		return null;
 	}
 

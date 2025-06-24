@@ -24,6 +24,7 @@ const DashboardLatestItemSection: React.FC = () => {
 	const { heroData, isLoading: isHeroLoading, error } = useHero();
 	const { user, isLoaded } = useUser();
 	const router = useRouter();
+	const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
@@ -32,13 +33,14 @@ const DashboardLatestItemSection: React.FC = () => {
 	});
 
 	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
-	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+	const isGuestUser = !isUserLoading && (!user || !userZennInfo?.zennUsername);
 
 	// ユーザーのZenn連携情報を取得
 	useEffect(() => {
 		const fetchUserZennInfo = async () => {
 			if (!isLoaded || !user) {
 				setUserZennInfo(null);
+				setIsUserLoading(false);
 				return;
 			}
 
@@ -55,6 +57,7 @@ const DashboardLatestItemSection: React.FC = () => {
 				console.error("ユーザー情報取得エラー:", err);
 				setUserZennInfo(null);
 			}
+			setIsUserLoading(false);
 		};
 
 		fetchUserZennInfo();
@@ -92,8 +95,25 @@ const DashboardLatestItemSection: React.FC = () => {
 		calculateItem();
 	}, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
 
-	// 読み込み状態またはエラー時は何も表示しない
-	if (isHeroLoading || isLoadingItem || error) {
+	const isLoadingState = isHeroLoading || isLoadingItem || isUserLoading;
+	if (isLoadingState) {
+		return (
+			<section className={`${styles["last-item-section"]}`}>
+				<h2 className={`${styles["last-item-title"]}`}>
+					~ 最近入手したアイテム ~
+				</h2>
+				<div className={`${styles["last-item-container"]}`}>
+					<div className={styles["last-item-guest-user-container"]}>
+						<p className={styles["last-item-guest-user-message"]}>
+							読み込み中...
+						</p>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
+	if (error) {
 		return null;
 	}
 
@@ -124,7 +144,9 @@ const DashboardLatestItemSection: React.FC = () => {
 					</div>
 				) : itemId === null ? (
 					<div className={styles["last-item-null-container"]}>
-						<p className={styles["last-item-null-message"]}>まだ入手したアイテムはありません。</p>
+						<p className={styles["last-item-null-message"]}>
+							まだ入手したアイテムはありません。
+						</p>
 					</div>
 				) : (
 					<div className={`${styles["last-item-box"]}`}>
