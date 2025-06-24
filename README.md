@@ -73,7 +73,7 @@ https://outputquest.com
 ### AI
 
 - [Vercel AI SDK](https://ai-sdk.dev/)：v4.3.16（TypeScript Toolkit）
-- [AI SDK Core](https://ai-sdk.dev/docs/ai-sdk-core/overview)：v1.2.19（LLM：Gemini）
+- [AI SDK Core](https://ai-sdk.dev/docs/ai-sdk-core/overview)：v1.2.19（LLM：Gemini(gemini-2.5-flash)）
 - [AI SDK UI](https://ai-sdk.dev/docs/ai-sdk-ui/overview)：v1.2.12（UI）
 
 ### Markdown
