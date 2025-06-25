@@ -102,6 +102,7 @@ outputquest/
 │       ├── nav-icon/                                # ナビゲーションアイコン
 │       ├── opengraph/                               # OGP用画像
 │       ├── party-page/                              # なかまページ用画像
+│       ├── readme/                                  # README用画像
 │       └── sns/                                     # SNSアイコン用画像
 ├── src/
 │   ├── app/                                         # ルートディレクトリ（ルーティング管理）
@@ -120,8 +121,8 @@ outputquest/
 │   │   │   ├── strength/                            # つよさページ
 │   │   │   ├── terms/                               # 利用規約ページ
 │   │   │   ├── title/                               # 称号ページ
-│   │   │   ├── AboutLayout.module.css               # アバウトページ（Route Groups）用CSS Modules
-│   │   │   └── layout.tsx                           # アバウトページ（Route Groups）用レイアウトコンポーネント
+│   │   │   ├── layout.tsx                           # メイン（Route Groups）用レイアウトコンポーネント
+│   │   │   └── MainLayout.module.css                # メイン（Route Groups）用CSS Modules
 │   │   ├── api/                                     # API Routes
 │   │   │   ├── ai/                                  # AI(LLM)関連API
 │   │   │   ├── user/                                # ユーザー関連API
@@ -170,6 +171,7 @@ outputquest/
 │   ├── types/                                       # TypeScript型定義
 │   ├── utils/                                       # ユーティリティ関数
 │   └── middleware.ts                                # ミドルウェア
+├── .depcheckrc.json                                 # 依存関係チェックツール depcheck の設定ファイル
 ├── .env                                             # 環境変数の設定ファイル
 ├── .env.example                                     # 環境変数のテンプレートファイル
 ├── .gitignore                                       # GitHubの差分に含まないものを格納
@@ -177,6 +179,7 @@ outputquest/
 ├── .prettierrc.json                                 # Prettierの設定ファイル
 ├── components.json                                  # shadcn/ui設定ファイル
 ├── eslint.config.mjs                                # ESLint設定ファイル
+├── next-env.d.ts                                    # Next.js の型定義補完ファイル（自動生成）
 ├── next.config.ts                                   # Next.js設定ファイル
 ├── package.json                                     # プロジェクトの依存関係・スクリプト定義
 ├── pnpm-lock.yaml                                   # pnpmの依存関係ロックファイル
@@ -363,13 +366,22 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 
 <h2 id="how-to-use">アプリの利用方法</h2>
 
+### ゲストユーザーで利用する場合
+
+```bash
+# 1. 早速、冒険をはじめよう！
+ゲストユーザーは、開発者のZennアカウント「@aoyamadev」と連携済みの状態で利用できるため、すぐに OUTPUT QUEST の世界を体験できます！
+```
+
+### ログインユーザーで利用する場合
+
 ```bash
 # 1. Clerkによるログイン
-/connectionページにて、ログインを実行。
+連携ページ（/connection）にて、ログインを実行。
 
 # 2. Zennのアカウントと連携
-Clerkによるログイン完了後、連携するZennアカウントのユーザー名を入力して、連携。
+ログイン完了後、連携したい自分のZennアカウントのユーザー名を入力して、連携。
 
 # 3. 冒険をはじめよう！
-ClerkによるログインとZennアカウントの連携が完了したら、早速冒険をはじめよう！
+ログインとZennアカウントの連携が完了したら、早速冒険をはじめよう！
 ```
