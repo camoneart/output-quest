@@ -86,6 +86,9 @@ https://outputquest.com
 
 ```
 outputquest/
+├── .clerk/                                          # Clerk 認証設定
+├── .cursor/                                         # Cursor Rules
+├── .vscode/                                         # VS Code 設定
 ├── .next/                                           # Next.jsビルド・キャッシュファイル
 ├── prisma/                                          # データベース関連ファイル
 │   └── migrations/                                  # マイグレーションファイル
