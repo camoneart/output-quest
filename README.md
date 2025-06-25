@@ -20,9 +20,9 @@ https://outputquest.com
 
 <h2 id="audio-guide">音声解説</h2>
 
-アプリの概要や使い方について、音声で解説します。
+アプリの概要や使い方について、音声（NotebookLM）で解説しています。
 
-[【音声解説】OUTPUT QUEST　叡智の継承者](https://notebooklm.google.com/notebook/92b2aa2d-41cb-4635-bebd-7386e35560f5/audio)
+[【音声解説】OUTPUT QUEST　叡智の継承者](https://notebooklm.google.com/notebook/64580ee4-82d4-46d3-be17-98e186fe6250/audio)
 
 <h2 id="development-configuration-diagram">開発構成図</h2>
 
