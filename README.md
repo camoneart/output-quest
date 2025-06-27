@@ -322,7 +322,7 @@ OUTPUT QUESTとZennアカウントを連携させることで得られるメリ�
 
 ### **OUTPUT QUESTとは ?**
 
-OUTPUT QUESTの世界観と使い方、アウトプットを通じて成長する「RPG風新感覚学習アプリ」の始め方を解説します。アプリの概要、コンセプト、主要機能について紹介します。
+OUTPUT QUESTの世界観と使い方、アウトプットを通じて成長する「RPG風学習支援アプリ」の始め方を解説します。アプリの概要、コンセプト、主要機能について紹介します。
 
 ![OUTPUT QUESTとは ?](public/gif/readme/about-page.gif)
 

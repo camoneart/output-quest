@@ -20,7 +20,7 @@ const AboutPage = () => {
 								</div>
 							</div>
 							<p className={styles["about-section-message"]}>
-								「<em>OUTPUT QUEST　叡智の継承者</em>」は、アウトプットで知識を磨き、勇者を育てる "RPG風新感覚学習アプリ" です。
+								「<em>OUTPUT QUEST　叡智の継承者</em>」は、アウトプットで知識を磨き、勇者を育てる "RPG風学習支援アプリ" です。
 							</p>
 							<p className={styles["about-section-message"]}>
 								この世界では <em>Zenn</em>で記事を書くことで経験値を獲得することができ、勇者のレベルを上げることができます。
