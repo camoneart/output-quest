@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { UserInfo } from "../types";
 import { SESSION_ID_KEY, LOGOUT_FLAG_KEY } from "../constants";
-import { resetConnection, updateUserProfile } from "../api";
 
 interface UseSignOutHandlerProps {
 	userInfo: UserInfo | null;
@@ -41,7 +40,7 @@ export const useSignOutHandler = ({
 				// 確実にフラグを設定
 				localStorage.setItem(LOGOUT_FLAG_KEY, "true");
 
-				// 現在のユーザーIDを保存
+				// 現在のユーザーIDを保存（ログ用）
 				if (user?.id) {
 					localStorage.setItem("zenn_previous_user", user.id);
 				}
@@ -63,25 +62,9 @@ export const useSignOutHandler = ({
 					localStorage.setItem(LOGOUT_FLAG_KEY, "true");
 					localStorage.removeItem(SESSION_ID_KEY);
 
-					// ユーザー情報があれば連携解除を実行
-					if (user) {
-						try {
-							// 連携解除APIを呼び出し
-							await resetConnection(user.id);
-
-							// 通常の連携解除処理も実行
-							await updateUserProfile(
-								"",
-								user?.firstName
-									? `${user.firstName} ${user.lastName || ""}`.trim()
-									: undefined,
-								user?.imageUrl,
-								true
-							);
-						} catch (err) {
-							console.error("Zenn連携解除中にエラー:", err);
-						}
-					}
+					// DBのデータ（zennUsername、zennArticleCount、level）は一切変更しない
+					// 画面上の表示のみクリアする
+					// サインアウト後も次回ログイン時にZenn連携が維持されるようにする
 
 					// 最後の保険として、再度ログアウトフラグを設定
 					localStorage.setItem(LOGOUT_FLAG_KEY, "true");

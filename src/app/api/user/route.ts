@@ -215,7 +215,16 @@ export async function POST(request: Request) {
 					data: {
 						clerkId: userId, // 最新のclerkIdに更新
 						email: emailFromClerk, // メールアドレスも更新
-						zennUsername,
+						// zennUsernameが空文字列の場合の処理
+						...(zennUsername !== ""
+							? { zennUsername }
+							: forceReset === true
+								? {
+										zennUsername: "",
+										zennArticleCount: 0,
+										level: 1,
+									}
+								: {}),
 						displayName:
 							reqDisplayName && reqDisplayName.trim() !== ""
 								? reqDisplayName
@@ -226,12 +235,6 @@ export async function POST(request: Request) {
 							reqProfileImage && reqProfileImage.trim() !== ""
 								? reqProfileImage
 								: clerkUser.imageUrl,
-						...(zennUsername === "" || forceReset === true
-							? {
-									zennArticleCount: 0,
-									level: 1,
-								}
-							: {}),
 					},
 					select: {
 						id: true,

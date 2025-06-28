@@ -30,6 +30,11 @@ export function SignOutHandler({ children }: { children: React.ReactNode }) {
 			!isProcessingSignOut &&
 			previousUserId
 		) {
+			// DBのデータを保持するため、リセット処理を無効化
+			// サインアウト時もZenn連携情報を維持する
+
+			// 以下の処理は無効化（DBのデータを保持するため）
+			/*
 			isProcessingSignOut = true;
 
 			// DBのZenn連携データをリセット
@@ -56,6 +61,10 @@ export function SignOutHandler({ children }: { children: React.ReactNode }) {
 			};
 
 			resetZennData();
+			*/
+
+			// ユーザーIDをクリア（状態管理のみ）
+			setPreviousUserId(null);
 		}
 
 		// 現在のセッションIDとユーザーIDを更新

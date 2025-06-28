@@ -99,7 +99,8 @@ export const useZennSync = ({
 						const releaseData = await updateUserProfileApi(
 							"",
 							userInfo?.displayName,
-							userInfo?.profileImage
+							userInfo?.profileImage,
+							true // forceResetをtrueに設定してDBのデータをリセット
 						);
 
 						if (releaseData.success) {
@@ -173,7 +174,8 @@ export const useZennSync = ({
 			const data = await updateUserProfileApi(
 				"",
 				userInfo?.displayName,
-				userInfo?.profileImage
+				userInfo?.profileImage,
+				true // forceResetをtrueに設定してDBのデータをリセット
 			);
 
 			if (data.success) {

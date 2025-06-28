@@ -91,7 +91,8 @@ export async function DELETE(request: Request) {
 				};
 			}
 
-			// 単一のupdateManyクエリで効率的に更新（トランザクション外）
+			// 連携解除ボタンから明示的に呼ばれた場合のみDBのデータをリセット
+			// ただし、この処理は現在使用されていない（useZennSyncで直接POSTエンドポイントを使用）
 			const updateResult = await prisma.user.updateMany({
 				where: {
 					clerkId: targetUserId,
@@ -103,38 +104,9 @@ export async function DELETE(request: Request) {
 				},
 			});
 
-			// 最終確認（必要な場合のみ）
-			const remainingConnections = await prisma.user.count({
-				where: {
-					clerkId: targetUserId,
-					zennUsername: { not: "" },
-				},
-			});
-
-			if (remainingConnections > 0) {
-				// 残りの連携を強制的に解除
-				const finalUpdate = await prisma.user.updateMany({
-					where: {
-						clerkId: targetUserId,
-						zennUsername: { not: "" },
-					},
-					data: {
-						zennUsername: "",
-						zennArticleCount: 0,
-						level: 1,
-					},
-				});
-
-				return {
-					success: true,
-					message: "Zenn連携を強制解除しました",
-					updatedCount: updateResult.count + finalUpdate.count,
-				};
-			}
-
 			return {
 				success: true,
-				message: "Zenn連携を強制解除しました",
+				message: "Zenn連携を解除しました",
 				updatedCount: updateResult.count,
 			};
 		});
