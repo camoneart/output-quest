@@ -29,7 +29,7 @@ const ExplorePageClient = () => {
 		body: {}, // 初期化
 		onError: (error) => {
 			console.error("AI探索エラー:", error);
-			setError("記事探索中にエラーが発生しました。");
+			setError("記事を探索できませんでした。再度お試しください。");
 			setIsAnalyzing(false);
 		},
 		onFinish: () => {

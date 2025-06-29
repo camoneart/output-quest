@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
 		}
 
 		return NextResponse.json(
-			{ error: "記事探索中にエラーが発生しました" },
+			{ error: "記事を探索できませんでした。再度お試しください。" },
 			{ status: 500 }
 		);
 	}

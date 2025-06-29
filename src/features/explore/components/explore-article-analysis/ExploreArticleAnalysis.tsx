@@ -65,101 +65,107 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 					</div>
 				</div>
 			) : (
-				<article className={styles["explore-analysis-content"]}>
-					{error && (
-						<div className={styles["error-message"]}>
-							<p>{error}</p>
-						</div>
-					)}
+				<>
+					<article className={styles["explore-analysis-content"]}>
+						<div className={styles["explore-analysis-results"]}>
+							<div className={styles["explore-results-content"]}>
+								<div className={styles["explore-results-content-inner"]}>
+									{messages.length === 0 ? (
+										<div className="h-full grid place-content-center place-items-center">
+											<p>探索結果はここに表示されます。</p>
+										</div>
+									) : (
+										<>
+											<h2 className={styles["explore-results-title"]}>
+												{isAnalyzing || status === "streaming"
+													? "探索中..."
+													: "~ 探索結果 ~"}
+											</h2>
 
-					<div className={styles["explore-analysis-results"]}>
-						<div className={styles["explore-results-content"]}>
-							<div className={styles["explore-results-content-inner"]}>
-								{messages.length === 0 ? (
-									<div className="h-full grid place-content-center place-items-center">
-										<p>探索結果はここに表示されます。</p>
-									</div>
-								) : (
-									<>
-										<h2 className={styles["explore-results-title"]}>
-											{isAnalyzing || status === "streaming"
-												? "探索中..."
-												: "~ 探索結果 ~"}
-										</h2>
+											<hr className={styles["explore-results-line"]} />
 
-										<hr className={styles["explore-results-line"]} />
+											{error && (
+												<div className="grid place-items-center pt-[20px]">
+													<p>{error}</p>
+												</div>
+											)}
 
-										{messages.map((message, _) => (
-											<Fragment key={message.id || Math.random()}>
-												{message.role === "assistant" && (
-													<div className={styles["explore-response"]}>
-														<div className={styles["explore-response-content"]}>
+											{messages.map((message, _) => (
+												<Fragment key={message.id || Math.random()}>
+													{message.role === "assistant" && (
+														<div className={styles["explore-response"]}>
 															<div
-																className={styles["explore-response-markdown"]}
+																className={styles["explore-response-content"]}
 															>
-																<ReactMarkdown
-																	components={{
-																		h3: ({ children }) => (
-																			<h3 className={styles["markdown-h3"]}>
-																				{children}
-																			</h3>
-																		),
-																		h4: ({ children }) => (
-																			<h4 className={styles["markdown-h4"]}>
-																				{children}
-																			</h4>
-																		),
-																		p: ({ children }) => (
-																			<p className={styles["markdown-p"]}>
-																				{children}
-																			</p>
-																		),
-																		strong: ({ children }) => (
-																			<strong
-																				className={styles["markdown-strong"]}
-																			>
-																				{children}
-																			</strong>
-																		),
-																		em: ({ children }) => (
-																			<em className={styles["markdown-em"]}>
-																				{children}
-																			</em>
-																		),
-																		ul: ({ children }) => (
-																			<ul className={styles["markdown-ul"]}>
-																				{children}
-																			</ul>
-																		),
-																		ol: ({ children }) => (
-																			<ol className={styles["markdown-ol"]}>
-																				{children}
-																			</ol>
-																		),
-																		li: ({ children }) => (
-																			<li className={styles["markdown-li"]}>
-																				{children}
-																			</li>
-																		),
-																		// hr: () => (
-																		// 	<hr className={styles["markdown-hr"]} />
-																		// ),
-																	}}
+																<div
+																	className={
+																		styles["explore-response-markdown"]
+																	}
 																>
-																	{message.content}
-																</ReactMarkdown>
+																	<ReactMarkdown
+																		components={{
+																			h3: ({ children }) => (
+																				<h3 className={styles["markdown-h3"]}>
+																					{children}
+																				</h3>
+																			),
+																			h4: ({ children }) => (
+																				<h4 className={styles["markdown-h4"]}>
+																					{children}
+																				</h4>
+																			),
+																			p: ({ children }) => (
+																				<p className={styles["markdown-p"]}>
+																					{children}
+																				</p>
+																			),
+																			strong: ({ children }) => (
+																				<strong
+																					className={styles["markdown-strong"]}
+																				>
+																					{children}
+																				</strong>
+																			),
+																			em: ({ children }) => (
+																				<em className={styles["markdown-em"]}>
+																					{children}
+																				</em>
+																			),
+																			ul: ({ children }) => (
+																				<ul className={styles["markdown-ul"]}>
+																					{children}
+																				</ul>
+																			),
+																			ol: ({ children }) => (
+																				<ol className={styles["markdown-ol"]}>
+																					{children}
+																				</ol>
+																			),
+																			li: ({ children }) => (
+																				<li className={styles["markdown-li"]}>
+																					{children}
+																				</li>
+																			),
+																			// hr: () => (
+																			// 	<hr className={styles["markdown-hr"]} />
+																			// ),
+																		}}
+																	>
+																		{message.content}
+																	</ReactMarkdown>
+																</div>
 															</div>
 														</div>
-													</div>
-												)}
-											</Fragment>
-										))}
-									</>
-								)}
+													)}
+												</Fragment>
+											))}
+										</>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
-				</article>
+					</article>
+				</>
 			)}
 		</div>
 	);
