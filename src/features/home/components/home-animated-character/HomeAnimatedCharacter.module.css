@@ -16,6 +16,10 @@
   gap: 12px;
   max-width: 1000px;
   width: 100%;
+
+  @media (width < 768px) {
+    gap: 10px;
+  }
 }
 
 .home-character-item {
