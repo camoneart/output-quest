@@ -17,6 +17,7 @@
 
 	@media (width < 1024px) {
 		padding-inline: 0;
+		overflow-y: scroll;
 	}
 }
 
