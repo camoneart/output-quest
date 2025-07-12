@@ -1,3 +1,14 @@
+.title-bg {
+  background-color: var(--color-primary-dark-gray);
+	width: calc(100% - 62px);
+	height: 20px;
+	position: absolute;
+	top: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
 .equipment-detail-title {
   position: absolute;
   top: 8px;
@@ -32,6 +43,11 @@
   border-radius: var(--border-radius-small);
   padding-block: 40px 25px;
   padding-inline: 25px;
+
+  @media (width < 1024px) {
+    padding-inline: 0;
+    overflow-y: scroll;
+  }
 }
 
 /* 現在装備中のアイテム表示エリア */
@@ -76,6 +92,11 @@
 
 .equipment-detail-line {
   grid-area: equipment-line;
+
+  @media (width < 1024px) {
+    width: calc(100% - 40px);
+    margin-inline: auto;
+  }
 }
 
 .equipment-detail-loading,
@@ -95,6 +116,10 @@
   padding-block: 30px 20px;
   padding-inline: 20px;
   overflow-y: scroll;
+
+  @media (width < 1024px) {
+    overflow-y: visible;
+  }
 }
 
 .equipment-detail-item {

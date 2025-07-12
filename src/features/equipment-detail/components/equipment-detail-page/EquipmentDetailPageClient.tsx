@@ -102,6 +102,7 @@ const EquipmentDetailPageClient = ({
 
 	return (
 		<>
+			<div className={styles["title-bg"]}></div>
 			<h1 className={`${styles["equipment-detail-title"]}`}>
 				そうび一覧（{getEquipmentName(equipmentSlug)}）
 			</h1>
