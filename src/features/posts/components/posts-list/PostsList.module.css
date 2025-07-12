@@ -7,6 +7,10 @@
   padding-inline: 20px;
   overflow-y: scroll;
 
+  @media (width < 1024px) {
+    overflow-y: visible;
+  }
+
   @media (width < 640px) {
     grid-template-columns: 1fr;
   }

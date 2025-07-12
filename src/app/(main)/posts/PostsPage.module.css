@@ -1,3 +1,14 @@
+.title-bg {
+  background-color: var(--color-primary-dark-gray);
+	width: calc(100% - 62px);
+	height: 20px;
+	position: absolute;
+	top: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
 .posts-title {
   position: absolute;
   top: 8px;
@@ -29,5 +40,6 @@
 
   @media (width < 1024px) {
     padding-inline: 0px;
+    overflow-y: scroll;
   }
 }
