@@ -9,6 +9,10 @@
   transform: translateX(-50%);
   background-color: var(--color-primary-red);
   padding-inline: 15px;
+
+  @media (width < 640px) {
+    padding-inline: 10px;
+  }
 }
 
 .home-position {
