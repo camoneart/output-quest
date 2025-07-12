@@ -10,7 +10,7 @@ const ConnectionDetailPage = () => {
 	return (
 		<>
 			<h1 className={`${styles["connection-detail-title"]}`}>
-				Zennとの連携について
+				Zenn連携について
 			</h1>
 			<div className={`${styles["connection-detail-container"]}`}>
 				<div className={`${styles["connection-detail-content-wrapper"]} w-full`}>

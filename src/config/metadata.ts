@@ -96,7 +96,7 @@ export const metadata: Record<string, Metadata> = {
 	},
 	connectionDetail: {
 		...baseMetadata,
-		title: "Zennとの連携について",
+		title: "Zenn連携について",
 		description:
 			"OUTPUT QUESTとZennアカウントを連携させることで得られるメリットや、ゲストユーザーとしてアプリを手軽に体験する方法について解説します。あなたに合った方法で、OUTPUT QUESTの世界を体験できます。",
 	},

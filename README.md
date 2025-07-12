@@ -314,11 +314,11 @@ Clerk認証によるログイン/新規登録、Zennのアカウント連携を�
 
 ![連携](public/gif/readme/connection-page.gif)
 
-### **Zennとの連携について**
+### **Zenn連携について**
 
 OUTPUT QUESTとZennアカウントを連携させることで得られるメリットや、ゲストユーザーとしてアプリを手軽に体験する方法について解説します。あなたに合った方法で、OUTPUT QUESTの世界を体験できます。
 
-![Zennとの連携について](public/images/readme/connection-detail-page.png)
+![Zenn連携について](public/images/readme/connection-detail-page.png)
 
 ### **OUTPUT QUESTとは ?**
 
