@@ -1,61 +1,73 @@
-.party-title {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.5rem;
-  line-height: var(--leading-none);
-  font-weight: var(--font-weight-x-bold);
-  letter-spacing: 0.025em;
-  color: var(--color-primary-white);
+.title-bg {
   background-color: var(--color-primary-dark-gray);
-  padding-block: 0 10px;
-  padding-inline: 10px;
-  z-index: 10;
+	width: calc(100% - 62px);
+	height: 20px;
+	position: absolute;
+	top: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
 
-  @media (width < 768px) {
-    font-size: 1rem;
-    line-height: var(--leading-x-tight);
-  }
+.party-title {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1.5rem;
+	line-height: var(--leading-none);
+	font-weight: var(--font-weight-x-bold);
+	letter-spacing: 0.025em;
+	color: var(--color-primary-white);
+	background-color: var(--color-primary-dark-gray);
+	padding-block: 0 10px;
+	padding-inline: 10px;
+	z-index: 10;
+
+	@media (width < 768px) {
+		font-size: 1rem;
+		line-height: var(--leading-x-tight);
+	}
 }
 
 .party-container {
-  height: 100%;
-  display: block grid;
-  grid-template-rows: auto auto auto 1fr;
-  grid-template-areas:
-    "header"
-    "line"
-    "grid"
-    ".";
-  border: var(--border-large);
-  border-radius: var(--border-radius-small);
-  padding-block: 30px 25px;
-  padding-inline: 25px;
-  color: var(--color-primary-white);
+	height: 100%;
+	display: block grid;
+	grid-template-rows: auto auto auto 1fr;
+	grid-template-areas:
+		"header"
+		"line"
+		"grid"
+		".";
+	border: var(--border-large);
+	border-radius: var(--border-radius-small);
+	padding-block: 30px 25px;
+	padding-inline: 25px;
+	color: var(--color-primary-white);
 
-  @media (width < 1024px) {
-    padding-inline: 0;
-  }
+	@media (width < 1024px) {
+		padding-inline: 0;
+    overflow-y: scroll;
+	}
 }
 
 .party-header {
-  grid-area: header;
-  display: block grid;
-  place-items: center;
-  gap: 5px;
-  padding-inline: 20px;
-  padding-block-end: 20px;
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-normal);
-  line-height: var(--leading-normal);
+	grid-area: header;
+	display: block grid;
+	place-items: center;
+	gap: 5px;
+	padding-inline: 20px;
+	padding-block-end: 20px;
+	font-size: 0.875rem;
+	font-weight: var(--font-weight-normal);
+	line-height: var(--leading-normal);
 }
 
 .party-line {
-  grid-area: line;
+	grid-area: line;
 
-  @media (width < 1024px) {
-    width: calc(100% - 40px);
-    margin-inline: auto;
-  }
+	@media (width < 1024px) {
+		width: calc(100% - 40px);
+		margin-inline: auto;
+	}
 }

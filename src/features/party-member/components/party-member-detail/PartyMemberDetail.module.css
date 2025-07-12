@@ -4,6 +4,10 @@
   overflow-y: scroll;
   padding-inline: 25px;
   padding-block: 40px;
+
+  @media (width < 1024px) {
+    padding-block: 20px;
+  }
 }
 
 .party-member-card {
