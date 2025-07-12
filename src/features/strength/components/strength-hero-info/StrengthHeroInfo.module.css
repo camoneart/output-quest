@@ -63,6 +63,10 @@
     padding-block: 40px;
     padding-inline: 10px;
   }
+
+  @media (width < 768px) {
+    grid-template-columns: auto;
+  }
 }
 
 .strength-hero-box {
