@@ -21,6 +21,11 @@
       opacity: 1;
     }
   }
+
+  @media (width < 640px) {
+    width: 45px;
+    height: 45px;
+  }
 }
 
 .audio-mute {
@@ -37,6 +42,11 @@
   padding-block: 8px;
   padding-inline: 8px;
   transition: border 0.2s ease-in-out;
+
+  @media (width < 640px) {
+    padding-block: 6px;
+    padding-inline: 6px;
+  }
 }
 
 /* 音楽再生中（Headphonesアイコン表示時）に黄色のボーダーを適用 */
