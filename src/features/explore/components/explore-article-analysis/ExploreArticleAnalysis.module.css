@@ -1,9 +1,13 @@
 .explore-article-analysis-container {
 	height: 100%;
-	overflow: hidden;
+	overflow-y: hidden;
 	display: block grid;
 	grid-area: article-analysis;
 	padding-block-start: 20px;
+
+	@media (width < 1024px) {
+		overflow-y: visible;
+	}
 }
 
 .explore-analysis-content {
@@ -99,6 +103,10 @@
 	width: calc(100% - 40px);
 	margin-inline: auto;
 	filter: drop-shadow(1px 1px var(--color-primary-black));
+
+	@media (width < 640px) {
+		width: calc(100% - 20px);
+	}
 }
 
 .explore-results-content {
@@ -126,6 +134,14 @@
 	display: block grid;
 	padding-block: 20px;
 	padding-inline: 20px;
+
+	@media (width < 1024px) {
+		overflow-y: visible;
+	}
+
+	@media (width < 640px) {
+		padding-inline: 10px;
+	}
 }
 
 .explore-response-content {

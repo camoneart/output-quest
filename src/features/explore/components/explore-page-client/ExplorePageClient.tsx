@@ -129,6 +129,7 @@ const ExplorePageClient = () => {
 
 	return (
 		<>
+			<div className={styles["title-bg"]}></div>
 			<h1 className={`${styles["explore-title"]}`}>記事探索</h1>
 			<div className={`${styles["explorer-container"]}`}>
 				<div className={`${styles["explorer-header"]}`}>
