@@ -12,6 +12,11 @@
   padding-block: 0 10px;
   padding-inline: 10px;
   z-index: 10;
+
+  @media (width < 640px) {
+    font-size: 1rem;
+    line-height: var(--leading-x-tight);
+  }
 }
 
 .equipment-detail-container {
@@ -62,6 +67,11 @@
   line-height: var(--leading-tight);
   color: var(--color-primary-white);
   text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+
+  @media (width < 768px) {
+    font-size: 1rem;
+    line-height: var(--leading-x-tight);
+  }
 }
 
 .equipment-detail-line {
