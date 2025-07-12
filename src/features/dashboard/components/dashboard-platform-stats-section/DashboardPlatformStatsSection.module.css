@@ -127,7 +127,6 @@
   &:hover {
     .platform-stat-share-link-text {
       color: var(--color-primary-yellow);
-      border-block-end: 1px solid var(--color-primary-yellow);
     }
   }
 }
