@@ -9,6 +9,10 @@
   @media (width < 1024px) {
     grid-template-columns: 1fr;
   }
+
+  @media (width < 640px) {
+    padding-inline: 12px;
+  }
 }
 
 .main {
