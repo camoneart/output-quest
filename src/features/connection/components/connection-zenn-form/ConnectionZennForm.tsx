@@ -56,7 +56,7 @@ const ConnectionZennForm = memo<ConnectionZennFormProps>(
 					<span>Zennユーザー名</span>
 					<strong className="text-[#ffc630]">(必須)</strong>
 				</label>
-				<div className="flex gap-3">
+				<div className="flex flex-col sm:flex-row gap-3">
 					<input
 						id="zenn-username"
 						type="text"

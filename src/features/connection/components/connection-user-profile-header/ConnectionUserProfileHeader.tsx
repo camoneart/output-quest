@@ -19,7 +19,7 @@ const ConnectionUserProfileHeader: React.FC<ConnectionUserProfileHeaderProps> = 
         />
       )}
 
-      <div className="grid grid-cols-1 gap-1">
+      <div className="grid grid-cols-1 gap-1 place-items-center sm:place-items-start">
         <h2 className="text-xl font-bold tracking-wide">
           {user.firstName} {user.lastName}
         </h2>
