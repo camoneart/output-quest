@@ -72,6 +72,11 @@
 			text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
 		}
 	}
+
+	@media (width < 640px) {
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
 }
 
 .party-member-icon-container {
@@ -108,6 +113,10 @@
 .party-member-info {
 	display: block grid;
 	gap: 5px;
+
+	@media (width < 640px) {
+		place-items: center;
+	}
 }
 
 .party-member-name {
