@@ -7,6 +7,10 @@
   overflow-y: scroll;
   padding-block: 15px;
   padding-inline: 20px;
+
+  @media (width < 1024px) {
+    overflow-y: visible;
+  }
 }
 
 .logs-page-list-item {

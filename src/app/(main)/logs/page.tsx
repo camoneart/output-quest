@@ -9,6 +9,7 @@ export const metadata: Metadata = getPageMetadata("logs");
 const LogsPage = () => {
   return (
     <>
+      <div className={styles["title-bg"]}></div>
       <h1 className={styles["logs-page-title"]}>冒険ログ</h1>
       <div className={styles["logs-page-container"]}>
         <Logs.LogsPageHeader />
