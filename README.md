@@ -28,7 +28,7 @@ https://outputquest.com
 
 開発構成図を、HTMLインフォグラフィックで表現しました。
 
-[開発構成図（HTMLインフォグラフィック）](https://hashiramaendure.github.io/output-quest-development-configuration-diagram/)
+[開発構成図（HTMLインフォグラフィック）](https://camoneart.github.io/output-quest-development-configuration-diagram/)
 
 <h2 id="technology-used">使用技術</h2>
 
@@ -202,7 +202,7 @@ outputquest/
 ### 1. リポジトリのクローン
 
 ```bash
-git clone https://github.com/hashiramaendure/output-quest.git
+git clone https://github.com/camoneart/output-quest.git
 cd output-quest
 ```
 
