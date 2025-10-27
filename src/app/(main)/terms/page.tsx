@@ -26,7 +26,7 @@ const TermsPage = () => {
 									</h2>
 								</div>
 							</div>
-							<p className={styles["terms-section-message"]}>
+							<div className={styles["terms-section-message"]}>
 								<ol className={styles["terms-section-list"]}>
 									<li className={styles["terms-section-list-item"]}>
 										本規約は、ユーザーと当サービスとの間の本サービスの利用に関わる一切の関係に適用されるものとします。
@@ -35,7 +35,7 @@ const TermsPage = () => {
 										本サービスに関し、本規約のほか、ご利用にあたってのルール等、各種の定め（以下、「個別規定」といいます。）をすることがあります。これら個別規定はその名称のいかんに関わらず、本規約の一部を構成するものとします。
 									</li>
 								</ol>
-							</p>
+							</div>
 						</section>
 
 						<section className={`${styles["terms-section"]}`}>
