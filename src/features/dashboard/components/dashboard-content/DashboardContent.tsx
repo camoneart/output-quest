@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getDashboardHeroData } from "@/features/dashboard/_lib/fetcher";
 import { heroLevelAndItemRelation } from "@/features/items/data/itemsData";
 import DashboardContentClient from "./DashboardContentClient";
@@ -36,7 +37,15 @@ const DashboardContent = async () => {
 			heroData={heroData}
 			lastAcquiredItemId={lastAcquiredItemId}
 		>
-			<DashboardActivitySection />
+			<Suspense
+				fallback={
+					<div className="grid place-items-center">
+						読み込み中...
+					</div>
+				}
+			>
+				<DashboardActivitySection />
+			</Suspense>
 		</DashboardContentClient>
 	);
 };

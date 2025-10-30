@@ -2,12 +2,32 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "zenn.dev",
-      "placehold.jp",
-      "res.cloudinary.com",
-      "storage.googleapis.com",
-      "img.clerk.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "zenn.dev",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.jp",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+        pathname: "/**",
+      },
     ],
   },
   // reactCompiler

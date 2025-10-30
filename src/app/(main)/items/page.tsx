@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./ItemsPage.module.css";
@@ -19,7 +20,15 @@ const ItemsPage = () => {
 
 				<hr className={styles["items-line"]} />
 
-				<Items.ItemCardList />
+				<Suspense
+					fallback={
+						<div className="grid place-items-center pt-[40px]">
+							読み込み中...
+						</div>
+					}
+				>
+					<Items.ItemCardList />
+				</Suspense>
 			</div>
 		</>
 	);

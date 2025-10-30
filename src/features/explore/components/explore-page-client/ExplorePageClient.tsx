@@ -4,11 +4,20 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import dynamic from "next/dynamic";
 import styles from "./ExplorePageClient.module.css";
-import * as Explore from "@/features/explore/components";
 import { fetchZennArticles } from "@/features/posts/services";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import Image from "next/image";
+
+// ExploreArticleAnalysisを動的インポート（重いReactMarkdownとAI機能を含むため）
+const ExploreArticleAnalysis = dynamic(
+	() =>
+		import("@/features/explore/components/explore-article-analysis/ExploreArticleAnalysis"),
+	{
+		ssr: false, // クライアントのみで実行
+	}
+);
 
 const ExplorePageClient = () => {
 	const { user, isLoaded } = useUser();
@@ -194,7 +203,7 @@ const ExplorePageClient = () => {
 
 			<hr className={styles["explorer-line"]} />
 
-			<Explore.ExploreArticleAnalysis
+			<ExploreArticleAnalysis
 				userZennInfo={userZennInfo}
 				isLoaded={isLoaded}
 				isZennInfoLoaded={isZennInfoLoaded}
