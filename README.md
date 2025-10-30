@@ -194,7 +194,7 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 
 ### nodeバージョン
 
-- [node](https://nodejs.org/ja/)：v22.21.0
+- [node](https://nodejs.org/ja/)：v24.8.0
 - [pnpm](https://pnpm.io/ja/)：v10.11.1
 
 ### フロント
@@ -410,7 +410,7 @@ outputquest/
 
 ### 前提条件
 
-- Node.js 20 以上
+- Node.js 20.9.0 以上
 - pnpm
 - Git
 
