@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { navigationItems } from "@/features/navigation/data/navigationItems";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";

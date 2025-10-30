@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./LogsPageHeader.module.css";
 const LogsPageHeader = () => {
   return (

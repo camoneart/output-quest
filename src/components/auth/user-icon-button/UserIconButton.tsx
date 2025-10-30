@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";

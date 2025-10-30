@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { GiGlobeRing } from "react-icons/gi";
 import styles from "../StrengthEquipmentInfo.module.css";
 

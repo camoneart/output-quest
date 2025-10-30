@@ -1,4 +1,3 @@
-import React from "react";
 import { UserResource } from "@clerk/types";
 import styles from "./ConnectionUserProfileHeader.module.css";
 import UserIconButton from "@/components/auth/user-icon-button/UserIconButton";

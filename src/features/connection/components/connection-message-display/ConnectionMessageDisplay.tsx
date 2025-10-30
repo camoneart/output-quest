@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ConnectionMessageDisplay.module.css";
 
 interface ConnectionMessageDisplayProps {

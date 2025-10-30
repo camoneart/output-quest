@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./StrengthEquipmentInfo.module.css";
 import * as Strength from "@/features/strength/components/index";
 

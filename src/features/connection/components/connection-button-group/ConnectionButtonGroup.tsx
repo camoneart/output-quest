@@ -1,4 +1,3 @@
-import React from "react";
 import { RefreshCcw, Unplug, Newspaper } from "lucide-react";
 import styles from "./ConnectionButtonGroup.module.css";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";

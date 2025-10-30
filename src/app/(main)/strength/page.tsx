@@ -1,4 +1,3 @@
-import React from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./StrengthPage.module.css";

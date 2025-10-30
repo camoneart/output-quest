@@ -1,4 +1,3 @@
-import React from "react";
 import { DotGothic16 } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { baseMetadata } from "@/config/metadata";

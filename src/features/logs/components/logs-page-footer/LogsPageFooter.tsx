@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import styles from "./LogsPageFooter.module.css";
 import Link from "next/link";
 import Image from "next/image";

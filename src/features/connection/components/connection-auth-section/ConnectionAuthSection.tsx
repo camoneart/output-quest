@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ConnectionAuthSection.module.css";
 import AuthButton from "@/components/auth/auth-button/AuthButton";
 import Link from "next/link";

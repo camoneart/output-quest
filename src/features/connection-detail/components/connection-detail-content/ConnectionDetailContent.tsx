@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ConnectionDetailContent.module.css";
 import Link from "next/link";
 import Image from "next/image";

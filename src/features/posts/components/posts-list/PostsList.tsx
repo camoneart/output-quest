@@ -1,4 +1,3 @@
-import React from "react";
 import * as Posts from "@/features/posts/components/index";
 import styles from "./PostsList.module.css";
 import { PostData } from "@/features/posts/types";

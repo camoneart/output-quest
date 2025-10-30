@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Sword } from "@phosphor-icons/react";
 import styles from "../StrengthEquipmentInfo.module.css";
 
