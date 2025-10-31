@@ -30,8 +30,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // reactCompiler
+  // React Compiler (Next.js 16)
   reactCompiler: true,
+  // Cache Components - "use cache" directive (Next.js 16 stable)
+  cacheComponents: true,
 };
 
 export default nextConfig;
