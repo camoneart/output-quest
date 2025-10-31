@@ -28,8 +28,8 @@
 	"dependencies": {
 		"@ai-sdk/google": "2.0.23",
 		"@ai-sdk/react": "2.0.78",
-		"@clerk/nextjs": "6.34.0",
-		"@clerk/types": "4.95.1",
+		"@clerk/nextjs": "6.34.1",
+		"@clerk/types": "4.96.0",
 		"@google/generative-ai": "0.24.1",
 		"@phosphor-icons/react": "2.1.10",
 		"@prisma/client": "6.18.0",

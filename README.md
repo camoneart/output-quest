@@ -218,7 +218,7 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 
 ### 認証・データベース
 
-- [Clerk](https://clerk.com/)：v6.34.0（認証）
+- [Clerk](https://clerk.com/)：v6.34.1（認証）
 - [Prisma](https://www.prisma.io/)：v6.18.0（ORM）
 - [Supabase](https://supabase.com/)（PostgreSQL）
 
