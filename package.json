@@ -15,7 +15,7 @@
 		"pnpm": ">=10.0.0"
 	},
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev": "next dev",
 		"build": "next build",
 		"deploy": "prisma migrate deploy",
 		"postinstall": "prisma generate",
