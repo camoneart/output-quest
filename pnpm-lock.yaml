@@ -65,6 +65,9 @@ importers:
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.2)(react@19.2.0)
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
       svix:
         specifier: 1.80.0
         version: 1.80.0
