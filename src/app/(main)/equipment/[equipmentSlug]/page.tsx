@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import * as EquipmentDetail from "@/features/equipment-detail/components/index";
 import { generateEquipmentMetadata } from "@/features/equipment-detail/metadata/generateItemMetadata";
@@ -52,9 +53,15 @@ export default async function EquipmentDetailPage({
 				そうび一覧（{getEquipmentName(equipmentSlug)}）
 			</h1>
 			<div className={`${styles["equipment-detail-container"]}`}>
-				<EquipmentDetail.EquipmentDetailPageClient
-					equipmentSlug={equipmentSlug}
-				/>
+				<Suspense
+					fallback={
+						<div className="grid place-items-center">読み込み中...</div>
+					}
+				>
+					<EquipmentDetail.EquipmentDetailPageClient
+						equipmentSlug={equipmentSlug}
+					/>
+				</Suspense>
 			</div>
 		</>
 	);
