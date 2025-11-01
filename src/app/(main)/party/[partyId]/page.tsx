@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import styles from "./PartyMemberPage.module.css";
@@ -38,9 +37,7 @@ export default async function PartyMemberPage(
       <h1 className={`${styles["party-member-page-title"]}`}>なかま詳細</h1>
       <div className={styles["party-member-container"]}>
         {/* クライアントコンポーネントとしてPartyMemberDetailを使用 */}
-        <Suspense fallback={<div className="grid place-items-center">読み込み中...</div>}>
-          <PartyMember.PartyMemberDetail partyId={partyIdNum} />
-        </Suspense>
+        <PartyMember.PartyMemberDetail partyId={partyIdNum} />
 
         <hr />
 
