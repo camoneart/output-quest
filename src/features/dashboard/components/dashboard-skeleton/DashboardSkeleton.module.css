@@ -1,130 +1,446 @@
 /* DashboardSkeleton.module.css */
+/* 実際のDashboardContentClientのスタイルに完全一致 */
 
+/* Container - matches dashboard-content-container */
 .skeleton-container {
-	padding: 2rem 1rem;
-	max-width: 1200px;
-	margin: 0 auto;
+	display: block grid;
+	grid-template-columns: auto;
+	grid-auto-rows: minmax(min-content, max-content);
+	gap: 25px;
+	height: 100%;
+	padding-inline: 20px;
+	padding-block-end: 25px;
+	overflow-y: scroll;
 }
 
-/* Hero Section Skeleton */
-.skeleton-hero {
-	display: flex;
-	gap: 2rem;
-	margin-bottom: 3rem;
-	padding: 2rem;
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: 12px;
+/* ========================================
+   DashboardHeroSection Skeleton
+   ======================================== */
+
+/* matches hero-info-section */
+.skeleton-hero-section {
+	display: block grid;
+	gap: 35px;
+	padding-block-start: 10px;
+	padding-inline: 20px;
 }
 
-.skeleton-avatar {
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
+/* matches hero-info-title */
+.skeleton-hero-title {
+	position: relative;
+	display: block grid;
+	font-size: 1.25rem;
+	font-weight: var(--font-weight-x-bold);
+	line-height: var(--leading-x-tight);
+	color: var(--color-primary-white);
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+
+	@media (width < 1024px) {
+		place-self: center;
+		font-size: 1.125rem;
+	}
+}
+
+/* matches hero-info-container */
+.skeleton-hero-container {
+	width: 100%;
+	display: block grid;
+	place-items: center;
+	padding-inline: 20px;
+
+	@media (width < 1024px) {
+		padding-inline: 0;
+	}
+}
+
+/* matches hero-info */
+.skeleton-hero-info {
+	width: 100%;
+	display: block grid;
+	grid-template-columns: repeat(2, auto);
+	gap: 20px;
+
+	@media (width < 768px) {
+		grid-template-columns: repeat(1, auto);
+	}
+}
+
+/* matches hero-info-box */
+.skeleton-hero-box {
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto 1fr;
+	grid-template-areas:
+		"icon"
+		"name"
+		".";
+	place-items: center;
+	gap: 15px;
+}
+
+/* matches hero-info-icon-box */
+.skeleton-hero-icon-box {
+	grid-area: icon;
+	width: 130px;
+	height: 130px;
+	display: block grid;
+	place-items: center;
+	background-color: var(--color-primary-brown-dark);
+	border: 7px dashed var(--color-primary-brown-light);
+	border-radius: var(--border-rounded);
+	padding-inline: 5px;
+	padding-block: 5px;
+
+	@media (width < 768px) {
+		width: 100px;
+		height: 100px;
+		border: 6px dashed var(--color-primary-brown-light);
+		padding-inline: 4px;
+		padding-block: 4px;
+	}
+}
+
+/* matches hero-info-icon */
+.skeleton-hero-icon {
+	width: 100%;
+	height: 100%;
 	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
+	background-color: var(--color-primary-brown);
+	border-radius: var(--border-rounded);
+	border: 2px solid var(--color-primary-brown-light);
 }
 
-.skeleton-text-group {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	justify-content: center;
+/* matches hero-info-name-box */
+.skeleton-hero-name-box {
+	grid-area: name;
+	background-color: var(--color-primary-brown-dark);
+	border: 2px solid var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+	padding-inline: 2.5px;
+	padding-block: 2.5px;
 }
 
-.skeleton-text-long {
-	height: 24px;
-	width: 80%;
-	border-radius: 4px;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shimmer 1.5s infinite;
-}
-
-.skeleton-text-medium {
-	height: 20px;
-	width: 60%;
-	border-radius: 4px;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shimmer 1.5s infinite;
-	animation-delay: 0.2s;
-}
-
-.skeleton-text-short {
-	height: 18px;
-	width: 40%;
-	border-radius: 4px;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shimmer 1.5s infinite;
-	animation-delay: 0.4s;
-}
-
-/* Activity Section Skeleton */
-.skeleton-activity {
-	padding: 2rem;
-	background: rgba(255, 255, 255, 0.03);
-	border-radius: 12px;
-}
-
-.skeleton-activity-title {
+/* matches hero-info-name */
+.skeleton-hero-name {
+	width: 140px;
 	height: 28px;
-	width: 200px;
-	margin-bottom: 1.5rem;
-	border-radius: 4px;
 	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
+	border: 1px solid var(--color-primary-brown-light);
+	background-color: var(--color-primary-brown);
+	border-radius: var(--border-radius-small);
 }
 
-.skeleton-article-list {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+/* matches hero-info-level */
+.skeleton-hero-level {
+	display: block grid;
+	grid-template-columns: auto;
+	gap: 60px;
 }
 
-.skeleton-article-card {
-	padding: 1.5rem;
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
+/* matches hero-info-level-header */
+.skeleton-hero-level-header {
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto;
+	justify-content: end;
+	gap: 10px;
+
+	@media (width < 768px) {
+		justify-content: center;
+		gap: 15px;
+	}
 }
 
-/* Shimmer Animation */
+/* matches hero-info-level-display-container */
+.skeleton-hero-level-display {
+	min-width: 150px;
+	height: 100px;
+	display: block grid;
+	place-self: end;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	background-color: var(--color-primary-brown-dark);
+	border: 7px dashed var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+
+	@media (width < 768px) {
+		place-self: center;
+	}
+}
+
+/* matches hero-info-share-link */
+.skeleton-hero-share {
+	width: 80px;
+	height: 20px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* matches hero-info-level-progress-box */
+.skeleton-hero-progress-box {
+	display: block grid;
+	gap: 12px;
+}
+
+/* matches hero-info-level-progress-text-box */
+.skeleton-hero-progress-text {
+	height: 24px;
+	width: 200px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* matches hero-info-level-progress-gauge-container */
+.skeleton-hero-progress-gauge-container {
+	display: block flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* matches hero-info-level-progress-exp-icon */
+.skeleton-hero-exp-icon {
+	width: 35px;
+	height: 16.33px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* matches hero-info-level-progress-gauge-box */
+.skeleton-hero-progress-gauge {
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border: 2px solid var(--color-primary-white);
+	border-radius: var(--border-rounded);
+}
+
+/* ========================================
+   dashboard-zenn-area
+   ======================================== */
+
+/* matches dashboard-zenn-area */
+.skeleton-zenn-area {
+	width: 100%;
+	display: block grid;
+	grid-template-columns: auto 1fr;
+	gap: 35px;
+	padding-inline: 20px;
+	padding-block: 20px;
+
+	@media (width < 768px) {
+		grid-template-columns: auto;
+	}
+}
+
+/* ========================================
+   Section Titles
+   ======================================== */
+
+/* matches platform-stats-title, recent-activity-section-title, etc. */
+.skeleton-section-title {
+	width: 200px;
+	height: 28px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+	margin-block-end: 15px;
+
+	@media (width < 1024px) {
+		place-self: center;
+	}
+}
+
+/* ========================================
+   DashboardPlatformStatsSection Skeleton
+   ======================================== */
+
+/* matches platform-stats-section */
+.skeleton-platform-stats {
+	width: 100%;
+	display: block grid;
+	grid-template-rows: auto 1fr;
+	gap: 15px;
+}
+
+/* matches platform-stats-container */
+.skeleton-platform-stats-container {
+	width: 100%;
+	display: block grid;
+	place-self: start;
+	gap: 10px;
+	margin-block-start: 20px;
+
+	@media (width < 768px) {
+		place-items: center;
+		gap: 15px;
+	}
+}
+
+/* matches platform-stat-card */
+.skeleton-platform-card {
+	min-width: 200px;
+	height: 135.5px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border: 7px dashed var(--color-primary-brown-light);
+	background-color: var(--color-primary-brown-dark);
+	border-radius: var(--border-radius-small);
+}
+
+/* matches platform-stat-share-link-text */
+.skeleton-platform-share {
+	width: 200px;
+	height: 20px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* ========================================
+   DashboardActivitySection Skeleton
+   ======================================== */
+
+/* matches recent-activity-section */
+.skeleton-activity {
+	width: 100%;
+	display: block grid;
+	grid-template-rows: auto 1fr;
+	gap: 15px;
+}
+
+/* matches recent-activity-list */
+.skeleton-activity-list {
+	height: 400px;
+	overflow-y: scroll;
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+	gap: 20px;
+	padding-inline: 0 20px;
+	padding-block: 0 10px;
+	margin-block-start: 20px;
+
+	@media (width < 768px) {
+		padding-inline: 0;
+	}
+}
+
+/* matches recent-activity-item */
+.skeleton-activity-card {
+	width: 100%;
+	height: 100px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border: 7px dashed var(--color-primary-brown-light);
+	padding-inline: 5px;
+	padding-block: 5px;
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-primary-brown-dark);
+}
+
+/* ========================================
+   Latest Sections Skeleton
+   ======================================== */
+
+/* matches latest-party-member-section, latest-item-section */
+.skeleton-latest-section {
+	width: 100%;
+	display: block grid;
+	gap: 35px;
+	padding-inline: 20px;
+	padding-block: 20px;
+}
+
+/* matches party-member-container */
+.skeleton-party-member-container {
+	display: block grid;
+	padding-inline: 25px;
+
+	@media (width < 768px) {
+		padding-inline: 0;
+	}
+}
+
+/* matches party-member-guest-user-container with proper border */
+.skeleton-party-member-guest {
+	height: 80px;
+	padding-inline: 5px;
+	padding-block: 5px;
+	display: block grid;
+	border: 7px dashed var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-primary-brown-dark);
+}
+
+/* matches party-member-share-link-text */
+.skeleton-party-share {
+	width: 250px;
+	height: 20px;
+	place-self: center;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* matches last-item-container */
+.skeleton-last-item-container {
+	display: block grid;
+	padding-inline: 25px;
+
+	@media (width < 768px) {
+		padding-inline: 0;
+	}
+}
+
+/* matches last-item-guest-user-container with proper border */
+.skeleton-last-item-guest {
+	height: 80px;
+	padding-inline: 5px;
+	padding-block: 5px;
+	display: block grid;
+	border: 7px dashed var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-primary-brown-dark);
+}
+
+/* matches last-item-share-link-text */
+.skeleton-item-share {
+	width: 250px;
+	height: 20px;
+	place-self: center;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* ========================================
+   Shimmer Animation
+   ======================================== */
+
 @keyframes shimmer {
 	0% {
 		background-position: 200% 0;
 	}
 	100% {
 		background-position: -200% 0;
-	}
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-	.skeleton-hero {
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	.skeleton-avatar {
-		width: 100px;
-		height: 100px;
-	}
-
-	.skeleton-text-group {
-		width: 100%;
-		align-items: center;
-	}
-
-	.skeleton-text-long,
-	.skeleton-text-medium,
-	.skeleton-text-short {
-		width: 90%;
 	}
 }

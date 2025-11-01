@@ -1,0 +1,173 @@
+/* Container - matches strength-hero-info */
+.skeleton-container {
+	padding-inline: 5px;
+	padding-block: 5px;
+	background-color: var(--color-primary-brown-dark);
+	border: 3px solid var(--color-primary-brown-light);
+	border-radius: var(--border-radius-small);
+}
+
+/* Content - matches strength-hero-info-content */
+.skeleton-content {
+	height: 100%;
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr auto;
+	gap: 10px;
+	border: 2px solid var(--color-primary-brown-light);
+	background-color: var(--color-primary-brown);
+	padding-inline: 10px;
+	padding-block: 10px;
+	min-height: 220px; /* CLS prevention */
+}
+
+/* Title - matches strength-hero-info-title */
+.skeleton-title {
+	font-size: 1.25rem;
+	font-weight: var(--font-weight-x-bold);
+	text-align: center;
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+	color: var(--color-primary-white);
+
+	@media (width < 768px) {
+		font-size: 1.125rem;
+	}
+}
+
+/* Header - matches strength-hero-info-content-head */
+.skeleton-header {
+	display: block grid;
+	grid-template-columns: auto auto;
+	place-content: center;
+	gap: 12px;
+	background-color: var(--color-primary-dark-gray);
+	border: 2px solid var(--color-primary-white);
+	border-radius: var(--border-radius-small);
+	padding-block: 15px;
+	padding-inline: 15px;
+
+	@media (width < 1280px) {
+		padding-block: 40px;
+		padding-inline: 10px;
+	}
+
+	@media (width < 768px) {
+		grid-template-columns: auto;
+	}
+}
+
+/* Hero Box - matches strength-hero-box */
+.skeleton-hero-box {
+	width: 100%;
+	display: block grid;
+	grid-template-rows: auto auto;
+	place-items: center;
+	gap: 12px;
+}
+
+/* Icon Skeleton */
+.skeleton-icon {
+	width: 50px;
+	height: 53px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* Name Skeleton */
+.skeleton-name {
+	width: 140px;
+	height: 28px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: var(--border-radius-small);
+}
+
+/* Level Box - matches strength-level-info */
+.skeleton-level-box {
+	width: 100%;
+	display: block grid;
+	place-items: center;
+}
+
+/* Level Skeleton */
+.skeleton-level {
+	width: 100px;
+	height: 52px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: var(--border-radius-small);
+	border: 2.5px solid var(--color-primary-white);
+}
+
+/* Progress Section */
+.skeleton-progress {
+	display: block grid;
+	gap: 12px;
+}
+
+/* Progress Text - matches strength-level-progress-content */
+.skeleton-progress-text {
+	height: 24px;
+	display: block flex;
+	align-items: end;
+	justify-content: space-between;
+	padding-inline-end: 5px;
+}
+
+.skeleton-progress-label {
+	width: 150px;
+	height: 16px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+.skeleton-progress-value {
+	width: 60px;
+	height: 20px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* Progress Bar - matches strength-level-progress-gauge-container */
+.skeleton-progress-bar {
+	display: block flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.skeleton-progress-icon {
+	width: 35px;
+	height: 16.33px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+.skeleton-progress-gauge {
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: var(--border-rounded);
+	border: 2px solid var(--color-primary-white);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}

@@ -1,84 +1,172 @@
 /* DashboardActivitySkeleton.module.css */
+/* 実際のDashboardActivityContentのスタイルに完全一致 */
 
-.skeleton-activity {
-	padding: 2rem;
-	background: rgba(255, 255, 255, 0.03);
-	border-radius: 12px;
+/* ========================================
+   DashboardActivitySection Skeleton
+   ======================================== */
+
+/* matches recent-activity-section */
+.skeleton-activity-section {
+	width: 100%;
+	display: block grid;
+	grid-template-rows: auto 1fr;
+	gap: 15px;
 }
 
-.skeleton-title {
-	height: 28px;
-	width: 200px;
-	margin-bottom: 1.5rem;
-	border-radius: 4px;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shimmer 1.5s infinite;
+/* matches recent-activity-section-title */
+.skeleton-activity-title {
+	position: relative;
+	display: block grid;
+	font-size: 1.25rem;
+	font-weight: var(--font-weight-x-bold);
+	line-height: var(--leading-x-tight);
+	color: var(--color-primary-white);
+	text-shadow: 1.5px 1.5px 0px var(--color-primary-black);
+
+	@media (width < 1024px) {
+		place-self: center;
+		font-size: 1.125rem;
+	}
 }
 
-.skeleton-article-list {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+/* matches recent-activity-list */
+.skeleton-activity-list {
+	height: 400px;
+	overflow-y: scroll;
+	display: block grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+	gap: 20px;
+	padding-inline: 0 20px;
+	padding-block: 0 10px;
+	margin-block-start: 20px;
+
+	@media (width < 768px) {
+		padding-inline: 0;
+	}
 }
 
-.skeleton-article-card {
-	padding: 1.5rem;
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
+/* matches recent-activity-item */
+.skeleton-activity-item {
+	width: 100%;
+	display: block flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 7px dashed var(--color-primary-brown-light);
+	padding-inline: 5px;
+	padding-block: 5px;
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-primary-brown-dark);
 }
 
-.skeleton-text-long {
-	height: 20px;
+/* matches recent-activity-item-link */
+.skeleton-activity-item-link {
+	width: 100%;
+	display: block grid;
+	color: var(--color-primary-white);
+	background-color: var(--color-primary-brown);
+	border: 2px solid var(--color-primary-brown-light);
+	padding-inline: 15px;
+	padding-block: 12px 10px;
+}
+
+/* matches recent-activity-item-content */
+.skeleton-activity-item-content {
+	display: block grid;
+	grid-template-columns: auto;
+	gap: 12px;
+}
+
+/* matches recent-activity-item-title */
+.skeleton-activity-item-title {
 	width: 85%;
-	border-radius: 4px;
+	height: 27px;
 	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+
+	@media (width < 1024px) {
+		height: 24px;
+	}
 }
 
-.skeleton-text-medium {
-	height: 18px;
-	width: 60%;
-	border-radius: 4px;
+/* matches recent-activity-item-info */
+.skeleton-activity-item-info {
+	display: block flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+/* Category skeleton */
+.skeleton-category {
+	width: 60px;
+	height: 28px;
 	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
-	animation-delay: 0.2s;
+	border-radius: 4px;
 }
 
-.skeleton-text-short {
-	height: 16px;
-	width: 40%;
-	border-radius: 4px;
+/* Date skeleton */
+.skeleton-date {
+	width: 100px;
+	height: 28px;
 	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
-	animation-delay: 0.4s;
+	border-radius: 4px;
 }
 
-/* Shimmer Animation */
+/* matches recent-activity-item-platform-container */
+.skeleton-activity-item-platform-container {
+	display: block flex;
+	align-items: center;
+	gap: 5px;
+	margin-block-start: 10px;
+}
+
+/* Favicon skeleton */
+.skeleton-favicon {
+	width: 14px;
+	height: 14px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 2px;
+}
+
+/* Platform name skeleton */
+.skeleton-platform {
+	width: 40px;
+	height: 14px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 2px;
+}
+
+/* matches recent-activity-item-exp */
+.skeleton-activity-item-exp {
+	width: 60px;
+	height: 24px;
+	display: block grid;
+	place-self: end;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+}
+
+/* ========================================
+   Shimmer Animation
+   ======================================== */
+
 @keyframes shimmer {
 	0% {
 		background-position: 200% 0;
 	}
 	100% {
 		background-position: -200% 0;
-	}
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-	.skeleton-activity {
-		padding: 1.5rem;
-	}
-
-	.skeleton-text-long,
-	.skeleton-text-medium,
-	.skeleton-text-short {
-		width: 90%;
 	}
 }
