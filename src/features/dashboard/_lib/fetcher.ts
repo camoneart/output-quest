@@ -21,13 +21,13 @@ import { strengthHeroData } from "@/features/strength/data/strengthHeroData";
  */
 export const getDashboardHeroData = cache(async (): Promise<HeroData> => {
 	try {
-		// ✅ Request Memoization: getUser()は同一リクエスト内で1回のみ実行
+		// Request Memoization: getUser()は同一リクエスト内で1回のみ実行
 		const user = await getUser();
 
 		// ユーザー名を決定（ログインユーザー or ゲスト）
 		const username = user?.zennUsername || "aoyamadev";
 
-		// ✅ Request Memoization: getZennArticles()は同一リクエスト内で1回のみ実行
+		// Request Memoization: getZennArticles()は同一リクエスト内で1回のみ実行
 		const articles = await getZennArticles(username, { fetchAll: true });
 
 		// 記事数からレベルを計算（1投稿 = 1レベル）

@@ -69,14 +69,14 @@ async function getCachedUserData(clerkId: string): Promise<User> {
  */
 export const getUser = cache(async (): Promise<User> => {
 	try {
-		// ✅ 認証チェック（キャッシュしない、動的API）
+		// 認証チェック（キャッシュしない、動的API）
 		const { userId } = await auth();
 
 		if (!userId) {
 			return null;
 		}
 
-		// ✅ データ取得のみキャッシュ（純粋なDB操作）
+		// データ取得のみキャッシュ（純粋なDB操作）
 		return await getCachedUserData(userId);
 	} catch (error) {
 		console.error("Failed to fetch user:", error);

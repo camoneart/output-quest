@@ -88,7 +88,7 @@ export const getZennArticles = cache(
 		username: string = "aoyamadev",
 		options: FetchZennArticlesOptions = {}
 	): Promise<PostData[]> => {
-		// ✅ データ取得のみキャッシュ（純粋なAPI取得）
+		// データ取得のみキャッシュ（純粋なAPI取得）
 		return await getCachedZennArticles(username, options);
 	}
 );
