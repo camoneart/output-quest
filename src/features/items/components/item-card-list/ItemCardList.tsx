@@ -1,153 +1,51 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./ItemCardList.module.css";
-import * as Items from "@/features/items/components/index";
-import { updateItemsByLevel } from "@/features/items/data/itemsData";
+import { auth } from "@clerk/nextjs/server";
+import { prisma } from "@/lib/prisma";
 import { fetchZennArticles } from "@/features/posts/services";
-import { useRouter } from "next/navigation";
-import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
-import { Item } from "@/features/items/types/items.types";
-import { useUser } from "@clerk/nextjs";
+import { updateItemsByLevel } from "@/features/items/data/itemsData";
+import ItemCardListClient from "../item-card-list-client/ItemCardListClient";
+import styles from "./ItemCardList.module.css";
 
-const ItemCardList: React.FC = () => {
-	const [items, setItems] = useState<Item[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
-	const [userZennInfo, setUserZennInfo] = useState<{
-		zennUsername?: string;
-	} | null>(null);
-	const { user, isLoaded } = useUser();
-	const router = useRouter();
-	const { playClickSound } = useClickSound({
-		soundPath: "/audio/click-sound_decision.mp3",
-		volume: 0.5,
-		delay: 190,
-	});
+const ItemCardList = async () => {
+	try {
+		// 認証情報を取得
+		const { userId } = await auth();
 
-	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
-	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+		// ゲストユーザーの判定
+		let zennUsername = "aoyamadev"; // デフォルト値
+		let isGuestUser = true;
 
-	// ユーザーのZenn連携情報を取得
-	useEffect(() => {
-		const fetchUserZennInfo = async () => {
-			if (!isLoaded || !user) {
-				setUserZennInfo(null);
-				return;
+		if (userId) {
+			// 認証済みユーザーの場合、DBからzennUsernameを取得
+			const user = await prisma.user.findUnique({
+				where: { clerkId: userId },
+				select: {
+					zennUsername: true,
+				},
+			});
+
+			if (user?.zennUsername) {
+				zennUsername = user.zennUsername;
+				isGuestUser = false;
 			}
+		}
 
-			try {
-				const response = await fetch("/api/user");
-				const data = await response.json();
+		// Zenn記事を取得
+		const articles = await fetchZennArticles(zennUsername, { fetchAll: true });
+		const articleCount = articles.length;
 
-				if (data.success && data.user) {
-					setUserZennInfo({ zennUsername: data.user.zennUsername });
-				} else {
-					setUserZennInfo(null);
-				}
-			} catch (err) {
-				console.error("ユーザー情報取得エラー:", err);
-				setUserZennInfo(null);
-			}
-		};
+		// アイテムデータを更新
+		const items = updateItemsByLevel(articleCount);
 
-		fetchUserZennInfo();
-	}, [isLoaded, user]);
-
-	useEffect(() => {
-		const fetchItems = async () => {
-			try {
-				setIsLoading(true);
-				const userRes = await fetch("/api/user");
-				const userData = await userRes.json();
-				if (!userData.success) {
-					throw new Error("ユーザー情報の取得に失敗しました");
-				}
-				const username = userData.user.zennUsername || "aoyamadev";
-
-				const articles = await fetchZennArticles(username, { fetchAll: true });
-				const articleCount = articles.length;
-				const updatedItems = updateItemsByLevel(articleCount);
-				setItems(updatedItems);
-			} catch (err) {
-				console.error("アイテムデータ取得エラー:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "アイテムデータの取得に失敗しました。"
-				);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchItems();
-	}, []);
-
-	const handleNavigation = (
-		e: React.MouseEvent<HTMLAnchorElement>,
-		path: string
-	) => {
-		e.preventDefault();
-		playClickSound(() => router.push(path));
-	};
-
-	if (isLoading) {
+		// Client Componentにデータを渡す
+		return <ItemCardListClient items={items} isGuestUser={isGuestUser} />;
+	} catch (error) {
+		console.error("アイテムデータ取得エラー:", error);
 		return (
-			<div className={styles["items-loading-indicator"]}>読み込み中...</div>
+			<p className={styles["error-message"]}>
+				アイテムデータの取得に失敗しました。
+			</p>
 		);
 	}
-	if (error) {
-		return <p className={styles["error-message"]}>{error}</p>;
-	}
-
-	return (
-		<div className={styles["items-grid"]}>
-			{items.map((item) => (
-				<div className={`${styles["item-card-content"]}`} key={item.id}>
-					<Link
-						href={`/items/${item.id}`}
-						className={styles["item-card"]}
-						onClick={(e) => handleNavigation(e, `/items/${item.id}`)}
-					>
-						{isGuestUser ? (
-							<div className={styles["unacquired-item-icon"]}>
-								<Items.ItemsTreasureChestIcon
-									width={40}
-									height={40}
-									className={styles["unacquired-item-icon-image"]}
-								/>
-							</div>
-						) : item.acquired ? (
-							<div className={styles["acquired-item-icon"]}>
-								<Image
-									src={`/images/items-page/acquired-icon/item-${item.id}.svg`}
-									alt={item.name || "アイテム"}
-									width={40}
-									height={40}
-									className={`${styles["acquired-item-icon-image"]} ${
-										styles[`acquired-item-icon-image-${item.id}`]
-									}`}
-								/>
-							</div>
-						) : (
-							<div className={styles["unacquired-item-icon"]}>
-								<Items.ItemsTreasureChestIcon
-									width={40}
-									height={40}
-									className={styles["unacquired-item-icon-image"]}
-								/>
-							</div>
-						)}
-						<h2 className={styles["item-name"]}>
-							{isGuestUser || !item.acquired ? "???" : item.name}
-						</h2>
-					</Link>
-				</div>
-			))}
-		</div>
-	);
 };
 
 export default ItemCardList;

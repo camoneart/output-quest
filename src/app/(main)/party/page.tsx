@@ -2,7 +2,8 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./PartyPage.module.css";
-import * as Party from "@/features/party/components/index";
+import PartyMemberCardList from "@/features/party/components/party-member-card-list/PartyMemberCardList";
+import PartyListSkeleton from "@/features/party/components/party-list-skeleton/PartyListSkeleton";
 
 export const metadata: Metadata = getPageMetadata("party");
 
@@ -20,14 +21,8 @@ const PartyPage = () => {
 
 				<hr className={styles["party-line"]} />
 
-				<Suspense
-					fallback={
-						<div className="grid place-items-center pt-[40px]">
-							読み込み中...
-						</div>
-					}
-				>
-					<Party.PartyMemberCardList />
+				<Suspense fallback={<PartyListSkeleton />}>
+					<PartyMemberCardList />
 				</Suspense>
 			</div>
 		</>
