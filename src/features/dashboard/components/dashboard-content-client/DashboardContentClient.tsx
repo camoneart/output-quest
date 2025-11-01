@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import styles from "./DashboardContent.module.css";
+import styles from "./DashboardContentClient.module.css";
 import * as Dashboard from "@/features/dashboard/components";
 import { HeroData } from "@/types/hero.types";
 

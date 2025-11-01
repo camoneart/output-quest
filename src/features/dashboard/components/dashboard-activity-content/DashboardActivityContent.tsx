@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./DashboardActivitySection.module.css";
+import styles from "./DashboardActivityContent.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { PostData } from "@/features/posts/types";

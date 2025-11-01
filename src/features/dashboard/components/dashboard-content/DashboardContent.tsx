@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { getDashboardHeroData } from "@/features/dashboard/_lib/fetcher";
 import { heroLevelAndItemRelation } from "@/features/items/data/itemsData";
-import DashboardContentClient from "./DashboardContentClient";
+import DashboardContentClient from "../dashboard-content-client/DashboardContentClient";
 import DashboardActivitySection from "../dashboard-activity-section/DashboardActivitySection";
 import DashboardActivitySkeleton from "../dashboard-activity-skeleton/DashboardActivitySkeleton";
 
@@ -20,7 +20,7 @@ import DashboardActivitySkeleton from "../dashboard-activity-skeleton/DashboardA
  * - Server ComponentはここでレンダリングしてClient Componentにslotとして渡す
  */
 const DashboardContent = async () => {
-	// ✅ Request Memoization: 同一リクエスト内で1回のみ実行
+	// Request Memoization: 同一リクエスト内で1回のみ実行
 	const heroData = await getDashboardHeroData();
 
 	// lastAcquiredItemIdを計算（useEffectのロジックを移植）

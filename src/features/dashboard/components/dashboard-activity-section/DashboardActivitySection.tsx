@@ -1,6 +1,6 @@
 import { getUser } from "@/features/user/_lib/fetcher";
 import { getZennArticles } from "@/features/zenn/_lib/fetcher";
-import { DashboardActivityContent } from "./DashboardActivityContent";
+import { DashboardActivityContent } from "../dashboard-activity-content/DashboardActivityContent";
 
 /**
  * DashboardActivitySection (Server Component)
@@ -15,13 +15,13 @@ import { DashboardActivityContent } from "./DashboardActivityContent";
  * - インタラクティブ部分をDashboardActivityContentに分離
  */
 const DashboardActivitySection = async () => {
-	// ✅ Request Memoization: 同一リクエスト内で1回のみ実行
+	// Request Memoization: 同一リクエスト内で1回のみ実行
 	const user = await getUser();
 
 	// ユーザー名のフォールバック
 	const username = user?.zennUsername || "aoyamadev";
 
-	// ✅ Request Memoization: 同一リクエスト内で1回のみ実行
+	// Request Memoization: 同一リクエスト内で1回のみ実行
 	const articles = await getZennArticles(username, { limit: 5 });
 
 	// Client Componentにデータを渡す
