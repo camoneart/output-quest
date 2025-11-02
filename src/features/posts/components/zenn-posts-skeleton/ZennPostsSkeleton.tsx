@@ -3,24 +3,17 @@ import styles from "./ZennPostsSkeleton.module.css";
 /**
  * ZennPostsSkeleton
  *
- * ZennPosts（Zenn記事一覧）のスケルトンUI
+ * PostsList（Zenn記事一覧）のスケルトンUI
  * Suspense fallbackとして使用し、CLS（Cumulative Layout Shift）を防ぐ
  *
  * レイアウト:
- * - ヘッダー部分（説明文）
  * - 記事一覧グリッド（15件分のスケルトンカード）
+ *
+ * 注: posts-headerは含まない（ZennPostsで即座に表示されるため）
  */
 const ZennPostsSkeleton = () => {
 	return (
 		<div className={styles["skeleton-container"]}>
-			{/* ヘッダー部分のスケルトン */}
-			<div className={styles["skeleton-header"]}>
-				<div className={styles["skeleton-header-line"]} />
-				<div className={styles["skeleton-header-line"]} />
-			</div>
-
-			<hr className={styles["skeleton-line"]} />
-
 			{/* 記事一覧グリッドのスケルトン */}
 			<div className={styles["skeleton-grid"]}>
 				{[...Array(15)].map((_, index) => (

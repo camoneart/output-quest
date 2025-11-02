@@ -1,56 +1,11 @@
-/* Container - matches posts-container */
+/* Container - simplified for PostsList only */
 .skeleton-container {
 	width: 100%;
 	height: 100%;
-	display: block grid;
-	grid-template-rows: auto auto auto 1fr;
-	grid-template-areas:
-		"header"
-		"line"
-		"posts-list"
-		".";
-}
-
-/* Header Skeleton - matches posts-header */
-.skeleton-header {
-	grid-area: header;
-	display: block grid;
-	place-items: center;
-	gap: 5px;
-	padding-inline: 20px;
-	padding-block-end: 20px;
-}
-
-.skeleton-header-line {
-	height: 20px;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shimmer 1.5s infinite;
-	border-radius: 4px;
-}
-
-.skeleton-header-line:first-child {
-	width: 80%;
-}
-
-.skeleton-header-line:last-child {
-	width: 90%;
-}
-
-/* Line - matches posts-container-line */
-.skeleton-line {
-	grid-area: line;
-	border-color: var(--color-primary-brown-light);
-
-	@media (width < 1024px) {
-		width: calc(100% - 40px);
-		margin-inline: auto;
-	}
 }
 
 /* Grid Layout - matches posts-list */
 .skeleton-grid {
-	grid-area: posts-list;
 	display: block grid;
 	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 	gap: 20px;
