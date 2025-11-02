@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
-import styles from "./ItemDetailClient.module.css"; // CSSモジュールをインポート
+import styles from "./ItemDetailClient.module.css";
 import * as itemDetail from "@/features/item-detail/components/index";
+import ItemDetailSkeleton from "../item-detail-skeleton/ItemDetailSkeleton";
 import {
 	isAcquiredByHeroLevel,
 	heroLevelAndItemRelation,
@@ -28,7 +29,6 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 	const { user, isLoaded } = useUser();
 	// Zenn連携アカウントのレベル取得状態
 	const [currentLevel, setCurrentLevel] = useState<number>(1);
-	const [isLoadingLevel, setIsLoadingLevel] = useState<boolean>(true);
 	const [levelError, setLevelError] = useState<string | null>(null);
 	const [userZennInfo, setUserZennInfo] = useState<{
 		zennUsername?: string;
@@ -41,8 +41,6 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 	useEffect(() => {
 		const loadLevel = async () => {
 			try {
-				setIsLoadingLevel(true);
-
 				if (!isLoaded) {
 					setIsZennInfoLoaded(false);
 					return;
@@ -82,7 +80,6 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 						: "レベル取得中にエラーが発生しました。"
 				);
 			} finally {
-				setIsLoadingLevel(false);
 				setIsZennInfoLoaded(true);
 			}
 		};
@@ -119,86 +116,84 @@ const ItemDetailClient: React.FC<ItemDetailClientProps> = ({ itemId }) => {
 
 	return (
 		<div className={styles["item-detail-content"]}>
-			<div className={styles["item-detail-card"]}>
-				<div className={styles["item-detail-card-content"]}>
-					<div className={styles["item-detail-image-box"]}>
-						{isLoading ? (
-							<div className={styles["loading-indicator"]}>読み込み中...</div>
-						) : isAcquired ? (
-							<Image
-								src={`/images/items-page/acquired-icon/item-${itemId}.svg`}
-								alt={itemName || "アイテム"}
-								width={60}
-								height={60}
-								priority={true}
-								className={`${styles["item-detail-image"]} ${
-									styles[`item-detail-image-${itemId}`]
-								}`}
-							/>
-						) : (
-							<Image
-								src="/images/items-page/unacquired-icon/treasure-chest.svg"
-								alt="未入手のアイテム"
-								width={60}
-								height={60}
-								priority={true}
-								className={styles["item-detail-unknown-icon-image"]}
-							/>
-						)}
-					</div>
-
-					<div className={styles["item-detail-title-box"]}>
-						<h2 className={styles["item-detail-title"]}>
-							{isLoading ? (
-								<div className={styles["loading-indicator"]}>読み込み中...</div>
-							) : isAcquired ? (
-								itemName
+			{isLoading ? (
+				<ItemDetailSkeleton />
+			) : (
+				<div className={styles["item-detail-card"]}>
+					<div className={styles["item-detail-card-content"]}>
+						<div className={styles["item-detail-image-box"]}>
+							{isAcquired ? (
+								<Image
+									src={`/images/items-page/acquired-icon/item-${itemId}.svg`}
+									alt={itemName || "アイテム"}
+									width={60}
+									height={60}
+									priority={true}
+									className={`${styles["item-detail-image"]} ${
+										styles[`item-detail-image-${itemId}`]
+									}`}
+								/>
 							) : (
-								"未入手のアイテム"
-							)}
-						</h2>
-					</div>
-
-					{isLoading ? null : isAcquired ? (
-						<>
-							<div className={styles["item-detail-description-box"]}>
-								<p className={styles["item-detail-description"]}>
-									{itemDescription}
-								</p>
-							</div>
-
-							<div className={styles["item-detail-rarity-box"]}>
-								<h3 className={styles["item-detail-rarity-title"]}>レア度</h3>
-								<div className={styles["item-detail-rarity-stars"]}>
-									{rarityType === "normal" &&
-										itemDetail.ItemDetailRarityStar.normal}
-									{rarityType === "rare" &&
-										itemDetail.ItemDetailRarityStar.rare}
-									{rarityType === "superRare" &&
-										itemDetail.ItemDetailRarityStar.superRare}
-								</div>
-							</div>
-						</>
-					) : (
-						<div className={styles["item-detail-locked-message-box"]}>
-							{isGuestUser ? (
-								<p className={styles["item-detail-locked-message-text"]}>
-									ログインすると入手したアイテムについての詳細情報がここに表示されます。
-								</p>
-							) : (
-								<>
-									<p className={styles["item-detail-locked-message-text"]}>
-										このアイテムは、Lv{requiredLevel}で入手できるぞ！
-									</p>
-									<p className={styles["item-detail-locked-message-text"]}>
-										Lv{requiredLevel}まで、あと{levelDifference}レベル
-									</p>
-								</>
+								<Image
+									src="/images/items-page/unacquired-icon/treasure-chest.svg"
+									alt="未入手のアイテム"
+									width={60}
+									height={60}
+									priority={true}
+									className={styles["item-detail-unknown-icon-image"]}
+								/>
 							)}
 						</div>
-					)}
+
+						<div className={styles["item-detail-title-box"]}>
+							<h2 className={styles["item-detail-title"]}>
+								{isAcquired ? itemName : "未入手のアイテム"}
+							</h2>
+						</div>
+
+						{isAcquired ? (
+							<>
+								<div className={styles["item-detail-description-box"]}>
+									<p className={styles["item-detail-description"]}>
+										{itemDescription}
+									</p>
+								</div>
+
+								<div className={styles["item-detail-rarity-box"]}>
+									<h3 className={styles["item-detail-rarity-title"]}>
+										レア度
+									</h3>
+									<div className={styles["item-detail-rarity-stars"]}>
+										{rarityType === "normal" &&
+											itemDetail.ItemDetailRarityStar.normal}
+										{rarityType === "rare" &&
+											itemDetail.ItemDetailRarityStar.rare}
+										{rarityType === "superRare" &&
+											itemDetail.ItemDetailRarityStar.superRare}
+									</div>
+								</div>
+							</>
+						) : (
+							<div className={styles["item-detail-locked-message-box"]}>
+								{isGuestUser ? (
+									<p className={styles["item-detail-locked-message-text"]}>
+										ログインすると入手したアイテムについての詳細情報がここに表示されます。
+									</p>
+								) : (
+									<>
+										<p className={styles["item-detail-locked-message-text"]}>
+											このアイテムは、Lv{requiredLevel}で入手できるぞ！
+										</p>
+										<p className={styles["item-detail-locked-message-text"]}>
+											Lv{requiredLevel}まで、あと{levelDifference}レベル
+										</p>
+									</>
+								)}
+							</div>
+						)}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };
