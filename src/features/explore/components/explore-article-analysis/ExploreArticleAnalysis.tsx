@@ -153,9 +153,6 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 																					{children}
 																				</li>
 																			),
-																			// hr: () => (
-																			// 	<hr className={styles["markdown-hr"]} />
-																			// ),
 																		}}
 																	>
 																		{textContent}

@@ -16,6 +16,18 @@ const ExploreArticleAnalysis = dynamic(
 		import("@/features/explore/components/explore-article-analysis/ExploreArticleAnalysis"),
 	{
 		ssr: false, // クライアントのみで実行
+		loading: () => (
+			<p
+				style={{
+					paddingBlockStart: "40px",
+					display: "grid",
+					placeItems: "center",
+					height: "100%",
+				}}
+			>
+				読み込み中...
+			</p>
+		),
 	}
 );
 
