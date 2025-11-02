@@ -9,6 +9,7 @@ import { fetchZennArticles } from "@/features/posts/services";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
+import EquipmentListSkeleton from "../equipment-list-skeleton/EquipmentListSkeleton";
 
 interface EquipmentDetailPageClientProps {
 	equipmentSlug: string;
@@ -119,7 +120,7 @@ const EquipmentDetailPageClient = ({
 
 			{/* 装備品一覧エリア */}
 			{isLoadingItems ? (
-				<div className={styles["equipment-detail-loading"]}>読み込み中...</div>
+				<EquipmentListSkeleton />
 			) : itemsError ? (
 				<div className={styles["equipment-detail-no-item-text"]}>
 					{itemsError}

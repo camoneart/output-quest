@@ -1,0 +1,84 @@
+/* List - matches equipment-detail-list */
+.skeleton-list {
+  display: block grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding-block: 30px 20px;
+  padding-inline: 20px;
+  overflow-y: scroll;
+
+  @media (width < 1024px) {
+    overflow-y: visible;
+  }
+}
+
+/* Item - matches equipment-detail-item */
+.skeleton-item {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  padding-inline: 5px;
+  padding-block: 5px;
+  border-radius: var(--border-radius-small);
+}
+
+/* Item Content - matches equipment-detail-item-content */
+.skeleton-item-content {
+  display: block grid;
+  grid-template-rows: subgrid;
+  place-items: center;
+  grid-row: span 3;
+  gap: 15px;
+  background-color: var(--color-primary-brown);
+  border: 2px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 35px 15px;
+}
+
+/* Image Skeleton - matches equipment-detail-item-icon-image */
+.skeleton-image {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Name Skeleton - matches equipment-detail-item-name */
+.skeleton-name {
+  width: 70%;
+  height: 20px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Description Skeleton - matches equipment-detail-item-description */
+.skeleton-description {
+  display: block grid;
+  gap: 10px;
+  width: 80%;
+}
+
+.skeleton-description-line {
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
