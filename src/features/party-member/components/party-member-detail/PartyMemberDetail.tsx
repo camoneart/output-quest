@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import styles from "./PartyMemberDetail.module.css";
 import * as PartyMember from "@/features/party-member/components/index";
+import PartyMemberDetailSkeleton from "../party-member-detail-skeleton/PartyMemberDetailSkeleton";
 import {
 	heroLevelAndMemberRelation,
 	isAcquiredByHeroLevel,
@@ -30,7 +31,6 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
 	const { user, isLoaded } = useUser();
 	// Zenn連携アカウントのレベル取得状態
 	const [currentLevel, setCurrentLevel] = useState<number>(1);
-	const [isLoadingLevel, setIsLoadingLevel] = useState<boolean>(true);
 	const [levelError, setLevelError] = useState<string | null>(null);
 	const [userZennInfo, setUserZennInfo] = useState<{
 		zennUsername?: string;
@@ -43,8 +43,6 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
 	useEffect(() => {
 		const loadLevel = async () => {
 			try {
-				setIsLoadingLevel(true);
-
 				if (!isLoaded) {
 					setIsZennInfoLoaded(false);
 					return;
@@ -84,7 +82,6 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
 						: "レベル取得中にエラーが発生しました。"
 				);
 			} finally {
-				setIsLoadingLevel(false);
 				setIsZennInfoLoaded(true);
 			}
 		};
@@ -121,86 +118,84 @@ const PartyMemberDetail: React.FC<PartyMemberDetailProps> = ({ partyId }) => {
 
 	return (
 		<div className={styles["party-member-content"]}>
-			<div className={styles["party-member-card"]}>
-				<div className={styles["party-member-card-content"]}>
-					<div className={styles["party-member-image-box"]}>
-						{isLoading ? (
-							<div className={styles["loading-indicator"]}>読み込み中...</div>
-						) : isAcquired ? (
-							<Image
-								src={`/images/party-page/acquired-icon/party-member-${partyId}.svg`}
-								alt={memberName || "勇者の仲間"}
-								width={60}
-								height={60}
-								priority={true}
-								className={`${styles["party-member-image"]} ${
-									styles[`party-member-image-${partyId}`]
-								}`}
-							/>
-						) : (
-							<Image
-								src="/images/party-page/unacquired-icon/mark_question.svg"
-								alt="まだ見ぬ仲間"
-								width={60}
-								height={60}
-								priority={true}
-								className={styles["party-member-unknown-image"]}
-							/>
-						)}
-					</div>
-
-					<div className={styles["party-member-title-box"]}>
-						<h2 className={styles["party-member-title"]}>
-							{isLoading ? (
-								<div className={styles["loading-indicator"]}>読み込み中...</div>
-							) : isAcquired ? (
-								memberName
+			{isLoading ? (
+				<PartyMemberDetailSkeleton />
+			) : (
+				<div className={styles["party-member-card"]}>
+					<div className={styles["party-member-card-content"]}>
+						<div className={styles["party-member-image-box"]}>
+							{isAcquired ? (
+								<Image
+									src={`/images/party-page/acquired-icon/party-member-${partyId}.svg`}
+									alt={memberName || "勇者の仲間"}
+									width={60}
+									height={60}
+									priority={true}
+									className={`${styles["party-member-image"]} ${
+										styles[`party-member-image-${partyId}`]
+									}`}
+								/>
 							) : (
-								"まだ見ぬ仲間"
-							)}
-						</h2>
-					</div>
-
-					{isLoading ? null : isAcquired ? (
-						<>
-							<div className={styles["party-member-description-box"]}>
-								<p className={styles["party-member-description"]}>
-									{memberDescription}
-								</p>
-							</div>
-
-							<div className={styles["party-member-rarity-box"]}>
-								<h3 className={styles["party-member-rarity-title"]}>レア度</h3>
-								<div className={styles["party-member-rarity-stars"]}>
-									{rarityType === "normal" &&
-										PartyMember.PartyMemberRarityStar.normal}
-									{rarityType === "rare" &&
-										PartyMember.PartyMemberRarityStar.rare}
-									{rarityType === "superRare" &&
-										PartyMember.PartyMemberRarityStar.superRare}
-								</div>
-							</div>
-						</>
-					) : (
-						<div className={styles["party-member-locked-message-box"]}>
-							{isGuestUser ? (
-								<p className={styles["party-member-locked-message-text"]}>
-									ログインすると勇者の仲間に加わったキャラクターの詳細情報がここに表示されます。
-								</p>
-							) : (
-								<>
-									<p className={styles["party-member-locked-message-text"]}>
-										このキャラはLv{requiredLevel}で仲間に加わるぞ！
-									</p>
-									<p className={styles["party-member-locked-message-text"]}>
-										Lv{requiredLevel}まで、あと{levelDifference}レベル
-									</p>
-								</>
+								<Image
+									src="/images/party-page/unacquired-icon/mark_question.svg"
+									alt="まだ見ぬ仲間"
+									width={60}
+									height={60}
+									priority={true}
+									className={styles["party-member-unknown-image"]}
+								/>
 							)}
 						</div>
-					)}
+
+						<div className={styles["party-member-title-box"]}>
+							<h2 className={styles["party-member-title"]}>
+								{isAcquired ? memberName : "まだ見ぬ仲間"}
+							</h2>
+						</div>
+
+						{isAcquired ? (
+							<>
+								<div className={styles["party-member-description-box"]}>
+									<p className={styles["party-member-description"]}>
+										{memberDescription}
+									</p>
+								</div>
+
+								<div className={styles["party-member-rarity-box"]}>
+									<h3 className={styles["party-member-rarity-title"]}>
+										レア度
+									</h3>
+									<div className={styles["party-member-rarity-stars"]}>
+										{rarityType === "normal" &&
+											PartyMember.PartyMemberRarityStar.normal}
+										{rarityType === "rare" &&
+											PartyMember.PartyMemberRarityStar.rare}
+										{rarityType === "superRare" &&
+											PartyMember.PartyMemberRarityStar.superRare}
+									</div>
+								</div>
+							</>
+						) : (
+							<div className={styles["party-member-locked-message-box"]}>
+								{isGuestUser ? (
+									<p className={styles["party-member-locked-message-text"]}>
+										ログインすると勇者の仲間に加わったキャラクターの詳細情報がここに表示されます。
+									</p>
+								) : (
+									<>
+										<p className={styles["party-member-locked-message-text"]}>
+											このキャラはLv{requiredLevel}で仲間に加わるぞ！
+										</p>
+										<p className={styles["party-member-locked-message-text"]}>
+											Lv{requiredLevel}まで、あと{levelDifference}レベル
+										</p>
+									</>
+								)}
+							</div>
+						)}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

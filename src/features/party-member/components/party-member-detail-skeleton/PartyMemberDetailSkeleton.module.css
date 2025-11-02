@@ -1,0 +1,140 @@
+/* Card - matches party-member-card */
+.skeleton-card {
+  width: 330px;
+  min-height: 470px;
+  display: block grid;
+  grid-template-rows: auto;
+  place-self: center;
+  color: var(--color-primary-white);
+  background-color: var(--color-primary-brown-dark);
+  border: 8px solid var(--color-primary-brown-light);
+  border-radius: var(--border-radius-medium);
+  padding-inline: 5px;
+  padding-block: 5px;
+  box-shadow: 0px 0px 5px var(--color-primary-white),
+    0px 0px 10px var(--color-primary-white),
+    0px 0px 15px var(--color-primary-white);
+
+  @media (width < 768px) {
+    width: 250px;
+  }
+}
+
+/* Card Content - matches party-member-card-content */
+.skeleton-card-content {
+  width: 100%;
+  height: 100%;
+  display: block grid;
+  grid-template-rows: 200px auto 1fr auto;
+  gap: 25px;
+  border: 2px solid var(--color-primary-brown-light);
+  background-color: var(--color-primary-brown);
+  padding-block: 20px;
+  padding-inline: 20px;
+
+  @media (width < 768px) {
+    grid-template-rows: 150px auto 1fr auto;
+  }
+}
+
+/* Image Box - matches party-member-image-box */
+.skeleton-image-box {
+  display: block grid;
+  place-items: center;
+  width: 100%;
+  height: 200px;
+  background-color: var(--color-primary-brown-light);
+  border: 6px solid var(--color-primary-brown-dark);
+  box-shadow: 0px 0px 6px var(--color-primary-brown-dark);
+
+  @media (width < 768px) {
+    height: 150px;
+  }
+}
+
+/* Image Skeleton */
+.skeleton-image {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Title Box - matches party-member-title-box */
+.skeleton-title-box {
+  width: 100%;
+  display: block grid;
+  place-items: center;
+  padding-inline: 10px;
+}
+
+/* Title Skeleton */
+.skeleton-title {
+  width: 80%;
+  height: 24px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Description Box - matches party-member-description-box */
+.skeleton-description-box {
+  width: 100%;
+  display: block grid;
+  place-items: center;
+  padding-inline: 10px;
+}
+
+/* Description Line Skeleton */
+.skeleton-description-line {
+  width: 100%;
+  height: 16px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Rarity Box - matches party-member-rarity-box */
+.skeleton-rarity-box {
+  width: 100%;
+  display: block grid;
+  place-content: center;
+  place-items: center;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  padding-inline: 10px;
+}
+
+/* Rarity Label Skeleton */
+.skeleton-rarity-label {
+  width: 50px;
+  height: 24.5px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Rarity Stars Skeleton */
+.skeleton-rarity-stars {
+  width: 24.5px;
+  height: 24.5px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
