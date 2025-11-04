@@ -20,7 +20,11 @@ const TitlePageHeader = () => {
 
   // 次の称号獲得までに必要な残りレベル数
   const remainingLevels = isLoading ? (
-    <div className={styles["loading-indicator"]}>...</div>
+    <span className={styles["loading-dots"]}>
+      <span className={styles["loading-dot"]}>.</span>
+      <span className={styles["loading-dot"]}>.</span>
+      <span className={styles["loading-dot"]}>.</span>
+    </span>
   ) : (
     nextTitleRequiredLevel - heroLevel
   );
@@ -47,7 +51,11 @@ const TitlePageHeader = () => {
             </span>
             <span className={styles["title-page-header-level-value-number"]}>
               {isLoading ? (
-                <div className={styles["loading-indicator"]}>...</div>
+                <span className={styles["loading-dots"]}>
+                  <span className={styles["loading-dot"]}>.</span>
+                  <span className={styles["loading-dot"]}>.</span>
+                  <span className={styles["loading-dot"]}>.</span>
+                </span>
               ) : (
                 heroData.level
               )}
