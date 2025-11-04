@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import styles from "./TitlePageClient.module.css";
 import * as Title from "@/features/title/components/index";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 const TitlePageClient = () => {
 	const { user, isLoaded } = useUser();
@@ -59,7 +60,9 @@ const TitlePageClient = () => {
 	if (isLoading) {
 		return (
 			<div className={`${styles["title-page-container"]}`}>
-				<p className="text-sm grid place-items-center h-full bg-[#1a1a1a] px-[10px] py-[40px]">読み込み中...</p>
+				<div className="text-sm sm:text-base grid place-items-center h-full bg-[#1a1a1a] px-[10px] py-[40px]">
+					<LoadingIndicator fontSize="1rem" />
+				</div>
 			</div>
 		);
 	}
@@ -69,7 +72,7 @@ const TitlePageClient = () => {
 			{isGuestUser ? (
 				// ゲストユーザー用のUI
 				<div className={`${styles["title-page-guest-container"]}`}>
-					<p className="text-sm grid place-items-center h-full bg-[#1a1a1a] px-[10px] py-[40px]">
+					<p className="text-sm sm:text-base grid place-items-center h-full bg-[#1a1a1a] px-[10px] py-[40px]">
 						ログインすると利用できる機能です
 					</p>
 					<Title.TitlePageFooter />
