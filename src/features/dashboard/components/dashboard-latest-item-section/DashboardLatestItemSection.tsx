@@ -15,6 +15,7 @@ import { useHero } from "@/contexts/HeroContext";
 import { useUser } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/api/user";
 import XShareButton from "@/components/common/x-share-button/XShareButton";
+import DashboardLatestItemSkeleton from "../dashboard-latest-item-skeleton/DashboardLatestItemSkeleton";
 
 const DashboardLatestItemSection: React.FC = () => {
 	const [itemId, setItemId] = useState<number | null>(null);
@@ -95,27 +96,12 @@ const DashboardLatestItemSection: React.FC = () => {
 		calculateItem();
 	}, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
 
-	const isLoadingState = isHeroLoading || isLoadingItem || isUserLoading;
-	if (isLoadingState) {
-		return (
-			<section className={`${styles["last-item-section"]}`}>
-				<h2 className={`${styles["last-item-title"]}`}>
-					~ 最近入手したアイテム ~
-				</h2>
-				<div className={`${styles["last-item-container"]}`}>
-					<div className={styles["last-item-guest-user-container"]}>
-						<p className={styles["last-item-guest-user-message"]}>
-							読み込み中...
-						</p>
-					</div>
-				</div>
-			</section>
-		);
-	}
-
+	// エラー時は何も表示しない
 	if (error) {
 		return null;
 	}
+
+	const isLoadingState = isHeroLoading || isLoadingItem || isUserLoading;
 
 	const itemName =
 		itemId !== null ? customItemNames[itemId] || "不明なアイテム" : "";
@@ -136,7 +122,9 @@ const DashboardLatestItemSection: React.FC = () => {
 				~ 最近入手したアイテム ~
 			</h2>
 			<div className={`${styles["last-item-container"]}`}>
-				{isGuestUser ? (
+				{isLoadingState ? (
+					<DashboardLatestItemSkeleton />
+				) : isGuestUser ? (
 					<div className={styles["last-item-guest-user-container"]}>
 						<p className={styles["last-item-guest-user-message"]}>
 							ログインするとアイテムの情報が表示されます。

@@ -81,9 +81,16 @@ const DashboardPlatformStatsSection = ({
 							</h3>
 							<div className={`${styles["platform-stat-count"]}`}>
 								{isLoading ? (
-									<span className={`${styles["platform-stat-loading"]}`}>
-										読み込み中...
-									</span>
+									<>
+										<span className={styles["loading-dots"]}>
+											<span className={styles["loading-dot"]}>.</span>
+											<span className={styles["loading-dot"]}>.</span>
+											<span className={styles["loading-dot"]}>.</span>
+										</span>
+										<span className={`${styles["platform-stat-unit"]}`}>
+											記事
+										</span>
+									</>
 								) : error ? (
 									<>
 										<span className={`${styles["platform-stat-error"]}`}>

@@ -130,7 +130,19 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 						<div className={styles["hero-info-name-box"]}>
 							<h3 className={`${styles["hero-info-name"]}`}>
 								{dashboardData.heroData.name}
-								{!isZennUsernameLoaded ? "(...)" : `(${zennUsername})`}
+								{!isZennUsernameLoaded || !zennUsername ? (
+									<>
+										(
+										<span className={styles["loading-dots"]}>
+											<span className={styles["loading-dot"]}>.</span>
+											<span className={styles["loading-dot"]}>.</span>
+											<span className={styles["loading-dot"]}>.</span>
+										</span>
+										)
+									</>
+								) : (
+									`(${zennUsername})`
+								)}
 							</h3>
 						</div>
 					</div>
@@ -149,7 +161,11 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 											className={`${styles["hero-info-level-display-value"]}`}
 										>
 											{isLoading ? (
-												<div className={styles["loading-indicator"]}>...</div>
+												<span className={styles["loading-dots"]}>
+													<span className={styles["loading-dot"]}>.</span>
+													<span className={styles["loading-dot"]}>.</span>
+													<span className={styles["loading-dot"]}>.</span>
+												</span>
 											) : error ? (
 												<div className={styles["error-value"]}>1</div>
 											) : (
@@ -183,7 +199,11 @@ const DashboardHeroSection = ({ dashboardData }: DashboardHeroSectionProps) => {
 									className={`${styles["hero-info-level-progress-value-info"]}`}
 								>
 									{isLoading ? (
-										<div className={styles["loading-indicator-small"]}>...</div>
+										<div className={styles["loading-dots-small"]}>
+											<span className={styles["loading-dot-small"]}>.</span>
+											<span className={styles["loading-dot-small"]}>.</span>
+											<span className={styles["loading-dot-small"]}>.</span>
+										</div>
 									) : (
 										<em
 											className={`${styles["hero-info-level-progress-value"]}`}

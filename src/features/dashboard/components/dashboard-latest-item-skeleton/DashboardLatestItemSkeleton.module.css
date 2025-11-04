@@ -1,0 +1,87 @@
+/* Skeleton Box - matches last-item-box */
+.skeleton-box {
+	display: block grid;
+	background-color: var(--color-primary-brown-dark);
+	border: 7px dashed var(--color-primary-brown-light);
+	padding-inline: 5px;
+	padding-block: 5px;
+	border-radius: var(--border-radius-small);
+}
+
+/* Skeleton Link - matches last-item-link */
+.skeleton-link {
+	display: block grid;
+	grid-template-columns: auto 1fr;
+	gap: 25px;
+	background-color: var(--color-primary-brown);
+	border: 2px solid var(--color-primary-brown-light);
+	padding-block: 15px;
+	padding-inline: 20px;
+
+	@media (width < 640px) {
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+}
+
+/* Skeleton Icon */
+.skeleton-icon {
+	width: 61px;
+	height: 61px;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+	margin-inline: auto;
+}
+
+/* Skeleton Info - matches last-item-info */
+.skeleton-info {
+	display: block grid;
+	gap: 10px;
+	padding-block: 5px;
+
+	@media (width < 640px) {
+		place-items: center;
+	}
+}
+
+/* Skeleton Name */
+.skeleton-name {
+	width: 120px;
+	height: 100%;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+
+	@media (width < 640px) {
+		width: 60%;
+		height: 20px;
+	}
+}
+
+/* Skeleton Description */
+.skeleton-description {
+	width: 250px;
+	height: 100%;
+	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: 4px;
+
+	@media (width < 640px) {
+		width: 100%;
+		height: 20px;
+	}
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}

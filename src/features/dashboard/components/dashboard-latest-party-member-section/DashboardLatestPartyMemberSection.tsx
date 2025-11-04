@@ -15,6 +15,8 @@ import { useHero } from "@/contexts/HeroContext";
 import { useUser } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/api/user";
 import XShareButton from "@/components/common/x-share-button/XShareButton";
+import DashboardLatestPartyMemberSkeleton from "../dashboard-latest-party-member-skeleton/DashboardLatestPartyMemberSkeleton";
+
 
 const DashboardLatestPartyMemberSection: React.FC = () => {
 	const [memberId, setMemberId] = useState<number | null>(null);
@@ -96,28 +98,12 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 		calculateMember();
 	}, [isHeroLoading, heroData.level]); // HeroContextの状態に依存
 
-	// 読み込み状態またはエラー時は何も表示しない
-	const isLoadingState = isHeroLoading || isLoadingMember || isUserLoading;
-	if (isLoadingState) {
-		return (
-			<section className={`${styles["party-member-section"]}`}>
-				<h2 className={`${styles["party-member-title"]}`}>
-					~ 最近仲間に加わったキャラクター ~
-				</h2>
-				<div className={`${styles["party-member-container"]}`}>
-					<div className={styles["party-member-guest-user-container"]}>
-						<p className={styles["party-member-guest-user-message"]}>
-							読み込み中...
-						</p>
-					</div>
-				</div>
-			</section>
-		);
-	}
-
+	// エラー時は何も表示しない
 	if (error) {
 		return null;
 	}
+
+	const isLoadingState = isHeroLoading || isLoadingMember || isUserLoading;
 
 	const memberName =
 		memberId !== null ? customMemberNames[memberId] || "まだ見ぬ仲間" : "";
@@ -138,7 +124,9 @@ const DashboardLatestPartyMemberSection: React.FC = () => {
 				~ 最近仲間に加わったキャラクター ~
 			</h2>
 			<div className={`${styles["party-member-container"]}`}>
-				{isGuestUser ? (
+				{isLoadingState ? (
+					<DashboardLatestPartyMemberSkeleton />
+				) : isGuestUser ? (
 					<div className={styles["party-member-guest-user-container"]}>
 						<p className={styles["party-member-guest-user-message"]}>
 							ログインすると仲間の情報が表示されます。

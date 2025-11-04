@@ -100,7 +100,6 @@
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
 	border-radius: var(--border-radius-small);
-	border: 2.5px solid var(--color-primary-white);
 }
 
 /* Progress Section */

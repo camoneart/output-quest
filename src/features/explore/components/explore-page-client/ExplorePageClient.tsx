@@ -188,7 +188,14 @@ const ExplorePageClient = () => {
 										className={styles["explore-analyze-button-icon"]}
 									/>
 									{isAnalyzing || status === "streaming" ? (
-										<span>探索中...</span>
+										<div className={styles["explore-analyze-button-loading-indicator"]}>
+											<span>探索中</span>
+											<span className={styles["loading-dots"]}>
+												<span className={styles["loading-dot"]}>.</span>
+												<span className={styles["loading-dot"]}>.</span>
+												<span className={styles["loading-dot"]}>.</span>
+											</span>
+										</div>
 									) : (
 										<span>探索する</span>
 									)}

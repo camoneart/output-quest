@@ -13,7 +13,6 @@ interface ExploreArticleAnalysisProps {
 	} | null;
 	isLoaded: boolean;
 	isZennInfoLoaded: boolean;
-	className?: string;
 	messages: any[];
 	status: "error" | "submitted" | "streaming" | "ready";
 	isAnalyzing: boolean;
@@ -24,7 +23,6 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 	userZennInfo,
 	isLoaded,
 	isZennInfoLoaded,
-	className,
 	messages,
 	status,
 	isAnalyzing,
@@ -33,18 +31,14 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 	const { user } = useUser();
 
 	// ゲストユーザーまたはZenn未連携の場合
-	const isGuestUser = !isLoaded || !user || !userZennInfo?.zennUsername;
+	// ローディング中もゲストユーザーとして判定しない（ちらつき防止）
+	const isGuestUser = (!isLoaded || !isZennInfoLoaded) ? false : (!user || !userZennInfo?.zennUsername);
 
 	const { playClickSound } = useClickSound({
 		soundPath: "/audio/click-sound_decision.mp3",
 		volume: 0.5,
 		delay: 190, // 190ミリ秒 = 0.19秒の遅延
 	});
-
-	// ローディング状態の表示
-	if (!isLoaded || !isZennInfoLoaded) {
-		return <p className={styles["loading-indicator"]}>読み込み中...</p>;
-	}
 
 	return (
 		<div className={styles["explore-article-analysis-container"]}>
@@ -77,9 +71,18 @@ const ExploreArticleAnalysis: React.FC<ExploreArticleAnalysisProps> = ({
 									) : (
 										<>
 											<h2 className={styles["explore-results-title"]}>
-												{isAnalyzing || status === "streaming"
-													? "探索中..."
-													: "~ 探索結果 ~"}
+												{isAnalyzing || status === "streaming" ? (
+													<>
+														<div>探索中</div>
+														<span className={styles["loading-dots"]}>
+															<span className={styles["loading-dot"]}>.</span>
+															<span className={styles["loading-dot"]}>.</span>
+															<span className={styles["loading-dot"]}>.</span>
+														</span>
+													</>
+												) : (
+													"~ 探索結果 ~"
+												)}
 											</h2>
 
 											<hr className={styles["explore-results-line"]} />
