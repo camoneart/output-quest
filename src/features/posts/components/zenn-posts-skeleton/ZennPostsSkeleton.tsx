@@ -13,8 +13,7 @@ import styles from "./ZennPostsSkeleton.module.css";
  */
 const ZennPostsSkeleton = () => {
 	return (
-		<div className={styles["skeleton-container"]}>
-			{/* 記事一覧グリッドのスケルトン */}
+			// 記事一覧グリッドのスケルトン
 			<div className={styles["skeleton-grid"]}>
 				{[...Array(15)].map((_, index) => (
 					<div key={index} className={styles["skeleton-item"]}>
@@ -40,7 +39,6 @@ const ZennPostsSkeleton = () => {
 					</div>
 				))}
 			</div>
-		</div>
 	);
 };
 
