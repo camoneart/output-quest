@@ -12,6 +12,7 @@ import AccessoryIcon from "../strength-equipment-info/icons/AccessoryIcon";
 import { useEquipment } from "@/features/equipment/contexts/EquipmentContext";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import { useUser } from "@clerk/nextjs";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 const StrengthEquipmentList = () => {
 	const { equipmentState } = useEquipment();
@@ -98,9 +99,9 @@ const StrengthEquipmentList = () => {
 	if (isLoading) {
 		return (
 			<div className={styles["strength-equipment-list-box"]}>
-				<p className="text-sm grid place-items-center h-full border-2 rounded-[3px] bg-[#1a1a1a] px-[10px] py-[40px]">
-					読み込み中...
-				</p>
+				<div className="text-sm grid place-items-center h-full border-2 rounded-[3px] bg-[#1a1a1a] px-[10px] py-[40px]">
+					<LoadingIndicator fontSize="0.875rem" />
+				</div>
 			</div>
 		);
 	}

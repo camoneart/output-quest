@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import { fetchZennArticles } from "@/features/posts/services";
 import { useUser } from "@clerk/nextjs";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 const StrengthTitleInfo = () => {
 	const router = useRouter();
@@ -184,9 +185,7 @@ const StrengthTitleInfo = () => {
 								} ${getCurrentTitleClass()}`}
 							>
 								{isLoadingTitle || !isReady ? (
-									<div className={styles["loading-indicator"]}>
-										読み込み中...
-									</div>
+									<LoadingIndicator fontSize="1.125rem" />
 								) : (
 									<h3 className={styles["strength-title-detail-text"]}>
 										{getLatestTitle()}

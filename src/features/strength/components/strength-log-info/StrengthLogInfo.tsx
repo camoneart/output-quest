@@ -6,6 +6,7 @@ import { fetchZennArticles } from "@/features/posts/services";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 // ローカルストレージのキー
 const ADVENTURE_LOGS_KEY = "adventure_logs";
@@ -166,9 +167,9 @@ const StrengthLogInfo = () => {
 							<ul className={styles["strength-log-list"]}>
 								{loading ? (
 									<li className={styles["strength-log-item"]}>
-										<p className={styles["strength-log-loading-text"]}>
-											読み込み中...
-										</p>
+										<div className={styles["strength-log-loading-text"]}>
+											<LoadingIndicator fontSize="0.875rem" />
+										</div>
 									</li>
 								) : (
 									// 最大15件のログのみ表示
