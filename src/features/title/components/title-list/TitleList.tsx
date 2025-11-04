@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import styles from "./TitleList.module.css";
 import { titleNameData } from "@/shared/data/titleNameDate";
 import { useHero } from "@/contexts/HeroContext";
+import TitleListSkeleton from "@/features/title/components/title-list-skeleton/TitleListSkeleton";
 
 const TitleList = () => {
   // 勇者のレベル情報を取得
@@ -54,6 +55,11 @@ const TitleList = () => {
       ? `${title.name}（Lv${requiredLevel}）`
       : `???（Lv${requiredLevel}）`;
   };
+
+  // ローディング中はスケルトンUIを表示
+  if (isLoading) {
+    return <TitleListSkeleton />;
+  }
 
   return (
     <ul className={styles["title-page-list"]}>

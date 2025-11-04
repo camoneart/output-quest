@@ -1,0 +1,61 @@
+/* List Container - matches title-page-list */
+.skeleton-list {
+  grid-area: list;
+  display: block grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  height: 100%;
+  gap: 30px;
+  overflow-y: scroll;
+  padding-block: 40px;
+  padding-inline: 20px;
+
+  @media (width < 1024px) {
+    overflow-y: visible;
+  }
+}
+
+/* Item - matches title-page-list-item */
+.skeleton-item {
+  display: block grid;
+  grid-template-rows: subgrid;
+  grid-row: span 1;
+  background-color: var(--color-primary-brown-dark);
+  border: 7px dashed var(--color-primary-brown-light);
+  padding-inline: 5px;
+  padding-block: 5px;
+  border-radius: var(--border-radius-small);
+}
+
+/* Item Box - matches title-page-list-item-box */
+.skeleton-item-box {
+  display: block grid;
+  grid-template-rows: subgrid;
+  place-items: center;
+  grid-row: span 1;
+  gap: 15px;
+  background-color: var(--color-primary-brown);
+  border: 1.5px solid var(--color-primary-brown-light);
+  padding-inline: 15px;
+  padding-block: 25px;
+  min-height: 80px; /* CLS prevention */
+}
+
+/* Title Skeleton */
+.skeleton-title {
+  width: 70%;
+  height: 22.5px;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
