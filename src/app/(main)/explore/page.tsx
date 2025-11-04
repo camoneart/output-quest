@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { getPageMetadata } from "@/config/metadata";
 import styles from "./ExplorePage.module.css";
 import * as Explore from "@/features/explore/components";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 export const metadata: Metadata = getPageMetadata("explore");
 
@@ -14,7 +15,9 @@ const ExplorePage = () => {
 			<div className={`${styles["explorer-container"]}`}>
 				<Suspense
 					fallback={
-						<div className="grid place-items-center">読み込み中...</div>
+						<div className="grid place-items-center">
+							<LoadingIndicator />
+						</div>
 					}
 				>
 					<Explore.ExplorePageClient />

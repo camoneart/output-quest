@@ -9,6 +9,7 @@ import styles from "./ExplorePageClient.module.css";
 import { fetchZennArticles } from "@/features/posts/services";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import Image from "next/image";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 // ExploreArticleAnalysisを動的インポート（重いReactMarkdownとAI機能を含むため）
 const ExploreArticleAnalysis = dynamic(
@@ -17,7 +18,7 @@ const ExploreArticleAnalysis = dynamic(
 	{
 		ssr: false, // クライアントのみで実行
 		loading: () => (
-			<p
+			<div
 				style={{
 					paddingBlockStart: "40px",
 					display: "grid",
@@ -25,8 +26,8 @@ const ExploreArticleAnalysis = dynamic(
 					height: "100%",
 				}}
 			>
-				読み込み中...
-			</p>
+				<LoadingIndicator fontSize="1rem" />
+			</div>
 		),
 	}
 );
@@ -164,7 +165,9 @@ const ExplorePageClient = () => {
 					</div>
 
 					{!isLoaded || !isZennInfoLoaded ? (
-						<p className="grid place-items-center px-4">読み込み中...</p>
+						<div className="grid place-items-center px-4">
+							<LoadingIndicator fontSize="0.875rem" />
+						</div>
 					) : !isGuestUser ? (
 						<div className={styles["explore-analysis-controls"]}>
 							<button
