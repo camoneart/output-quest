@@ -7,14 +7,12 @@ interface GnavProps {
 	isMenuOpen?: boolean;
 	toggleMenu?: () => void;
 	className?: string;
-	isLoading?: boolean;
 }
 
 const Gnav = ({
 	isMenuOpen = false,
 	toggleMenu,
 	className = "",
-	isLoading = false,
 }: GnavProps) => {
 	return (
 		<>
@@ -27,11 +25,7 @@ const Gnav = ({
 				<div className={`${styles["gnav-sidebar-container"]}`}>
 					<nav className={`${styles["gnav-sidebar-nav"]}`}>
 						<ul className={`${styles["gnav-sidebar-list"]}`}>
-							{isLoading ? (
-								<li className="text-center">読み込み中...</li>
-							) : (
-								<GnavComponents.GnavItems />
-							)}
+							<GnavComponents.GnavItems />
 						</ul>
 					</nav>
 				</div>
