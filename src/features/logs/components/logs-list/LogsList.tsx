@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./LogsList.module.css";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
 const LOGS_STORAGE_KEY = "adventure_logs";
 
@@ -23,7 +24,9 @@ const LogsList = () => {
     <ul className={styles["logs-page-list"]}>
       {loading ? (
         <li className={styles["logs-page-list-item"]}>
-          <p className={styles["logs-page-list-item-loading-text"]}>読み込み中...</p>
+          <div className={styles["logs-page-list-item-loading-text"]}>
+            <LoadingIndicator fontSize="0.875rem" />
+          </div>
         </li>
       ) : logs.length === 0 ? (
         <li className={styles["logs-page-list-item"]}>
