@@ -15,8 +15,8 @@ const ExplorePage = () => {
 			<div className={`${styles["explorer-container"]}`}>
 				<Suspense
 					fallback={
-						<div className="grid place-items-center">
-							<LoadingIndicator />
+						<div className="grid place-items-center pt-4">
+							<LoadingIndicator fontSize="1.125rem" />
 						</div>
 					}
 				>

@@ -20,13 +20,12 @@ const ExploreArticleAnalysis = dynamic(
 		loading: () => (
 			<div
 				style={{
-					paddingBlockStart: "40px",
 					display: "grid",
 					placeItems: "center",
 					height: "100%",
 				}}
 			>
-				<LoadingIndicator fontSize="1rem" />
+				<LoadingIndicator fontSize="1.125rem" />
 			</div>
 		),
 	}
