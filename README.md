@@ -302,7 +302,9 @@ OUTPUT QUESTのプライバシーポリシーを確認できます。
 ```
 outputquest/
 ├── .clerk/                                          # Clerk 認証設定
+├── .claude/                                         # Claude Code設定
 ├── .cursor/                                         # Cursor Rules
+├── .serena/                                         # Serena MCP
 ├── .vscode/                                         # VS Code 設定
 ├── .next/                                           # Next.jsビルド・キャッシュファイル
 ├── prisma/                                          # データベース関連ファイル
@@ -370,7 +372,6 @@ outputquest/
 │   │   ├── explore/                                 # 記事探索ページ機能
 │   │   ├── gnav/                                    # グローバルナビゲーション機能
 │   │   ├── home/                                    # ホームページ機能
-│   │   ├── home/                                    # ホームページ機能
 │   │   ├── item-detail/                             # アイテム詳細機能
 │   │   ├── items/                                   # アイテム機能
 │   │   ├── logs/                                    # ログ機能
@@ -380,7 +381,9 @@ outputquest/
 │   │   ├── party-member/                            # なかま詳細機能
 │   │   ├── posts/                                   # 投稿機能
 │   │   ├── strength/                                # つよさ機能
-│   │   └── title/                                   # 称号機能
+│   │   ├── title/                                   # 称号機能
+│   │   ├── user/                                    # ユーザー機能
+│   │   └── zenn/                                    # Zenn機能
 │   ├── generated/                                   # Prisma Clientなど自動生成されるファイル
 │   ├── hooks/                                       # カスタムフック
 │   ├── lib/                                         # ライブラリ・ユーティリティ
