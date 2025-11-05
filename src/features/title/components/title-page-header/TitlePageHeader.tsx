@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./TitlePageHeader.module.css";
 import { useHero } from "@/contexts/HeroContext";
 

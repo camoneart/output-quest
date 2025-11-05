@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./StrengthLogInfo.module.css";
 import { fetchZennArticles } from "@/features/posts/services";
 import Link from "next/link";

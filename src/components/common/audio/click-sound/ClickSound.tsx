@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Howl } from "howler";
 import styles from "./ClickSound.module.css";
 import { useAudio } from "@/contexts/AudioContext";

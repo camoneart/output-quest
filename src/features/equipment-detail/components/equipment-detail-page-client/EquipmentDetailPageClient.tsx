@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./EquipmentDetailPageClient.module.css";
 import { useEquipment } from "@/features/equipment/contexts/EquipmentContext";
 import { Item } from "@/features/items/types/items.types";

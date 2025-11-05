@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, use, ReactNode, useEffect } from "react";
+import { createContext, use, ReactNode, useEffect } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useUser } from "@clerk/nextjs";
 

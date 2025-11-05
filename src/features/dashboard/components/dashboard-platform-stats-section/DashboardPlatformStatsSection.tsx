@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./DashboardPlatformStatsSection.module.css";
 import { DashboardData } from "../../types/dashboard.types";
 import { useHero } from "@/contexts/HeroContext";

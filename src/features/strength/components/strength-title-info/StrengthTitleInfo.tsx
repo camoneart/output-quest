@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./StrengthTitleInfo.module.css";
 import Link from "next/link";
 import { titleNameData } from "@/shared/data/titleNameDate";

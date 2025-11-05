@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useUser } from "@clerk/nextjs";
 import ReactMarkdown from "react-markdown";
 import styles from "./ExploreArticleAnalysis.module.css";

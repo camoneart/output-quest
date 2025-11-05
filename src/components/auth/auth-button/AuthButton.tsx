@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, useAuth } from "@clerk/nextjs";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import styles from "./AuthButton.module.css";
 

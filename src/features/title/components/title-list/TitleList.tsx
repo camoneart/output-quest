@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./TitleList.module.css";
 import { titleNameData } from "@/shared/data/titleNameDate";
 import { useHero } from "@/contexts/HeroContext";

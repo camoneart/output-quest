@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LogsList.module.css";
 import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 
