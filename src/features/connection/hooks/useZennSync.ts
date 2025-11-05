@@ -194,6 +194,13 @@ export const useZennSync = ({
 				// Zenn連携解除時に装備もリセット
 				resetEquipment();
 
+				// HeroContextのキャッシュをクリアして最新データを取得
+				try {
+					await refetchHeroData();
+				} catch (heroError) {
+					console.error("HeroContext更新エラー:", heroError);
+				}
+
 				return { success: true };
 			} else {
 				console.error("連携解除エラー:", data.error);
