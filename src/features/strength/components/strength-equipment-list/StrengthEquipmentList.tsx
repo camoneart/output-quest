@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import styles from "./StrengthEquipmentList.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,12 +23,17 @@ const StrengthEquipmentList = () => {
 	const [isZennInfoLoaded, setIsZennInfoLoaded] = useState(false);
 	const router = useRouter();
 
+	// レンダリング前に状態をリセット（前回の状態が残っている場合に対応）
+	useLayoutEffect(() => {
+		setUserZennInfo(null);
+		setIsZennInfoLoaded(false);
+	}, [isLoaded, user]);
+
 	// ユーザーのZenn連携情報を取得
 	useEffect(() => {
 		const fetchUserZennInfo = async () => {
 			if (!isLoaded) {
 				// Clerkの認証状態がまだ確定していない場合は何もしない
-				setIsZennInfoLoaded(false);
 				return;
 			}
 
@@ -61,7 +66,7 @@ const StrengthEquipmentList = () => {
 	}, [isLoaded, user]);
 
 	// ロード中の判定
-	const isLoading = !isLoaded || (user && !isZennInfoLoaded);
+	const isLoading = !isLoaded || !isZennInfoLoaded;
 
 	// ゲストユーザーかどうかの判定（Clerkサインイン + Zenn連携の両方が必要）
 	const isGuestUser = !user || !userZennInfo?.zennUsername;

@@ -35,13 +35,6 @@ const StrengthLogInfo = () => {
 		// コンポーネントマウント時に実行される
 		const initializeLogs = async () => {
 			try {
-				// ★★★ router.refresh() を呼び出してデータ再検証を試みる ★★★
-				router.refresh();
-
-				// refreshが非同期のため、少し待機してからログ処理を開始
-				// (確実に完了を待つ保証はない点に注意)
-				await new Promise((resolve) => setTimeout(resolve, 500)); // 0.5秒待機
-
 				// 全記事分のログを生成
 				await generateLogs();
 			} catch (err) {
