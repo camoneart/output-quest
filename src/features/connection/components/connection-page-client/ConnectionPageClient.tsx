@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import styles from "./ConnectionPageClient.module.css";
 import * as Connection from "@/features/connection/components";
+import LoadingIndicator from "@/components/common/loading-indicator/LoadingIndicator";
 import { useClickSound } from "@/components/common/audio/click-sound/ClickSound";
 import {
 	useSessionManagement,
@@ -142,7 +143,7 @@ export default function ConnectionPageClient() {
 			<h1 className={`${styles["profile-title"]}`}>連携</h1>
 			<div className={`${styles["profile-container"]}`}>
 				{!isLoaded ? (
-					<div className="p-4 text-center">読み込み中...</div>
+					<LoadingIndicator className="px-4 pb-[40px] text-center" fontSize="1.125rem" />
 				) : !user ? (
 					<Connection.ConnectionAuthSection
 						loading={loading}
@@ -159,7 +160,7 @@ export default function ConnectionPageClient() {
 
 						<div className={styles["connection-info-container"]}>
 							{!isZennInfoLoaded ? (
-								<div className="p-4 text-center">読み込み中...</div>
+								<LoadingIndicator className="p-4 text-center" />
 							) : displayUser?.zennUsername ? (
 								<>
 									<div className={styles["connection-info-zenn"]}>
