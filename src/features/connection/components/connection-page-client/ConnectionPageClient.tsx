@@ -158,10 +158,10 @@ export default function ConnectionPageClient() {
 							<hr className={styles["center-line"]} />
 						</div>
 
-						<div className={styles["connection-info-container"]}>
-							{!isZennInfoLoaded ? (
-								<LoadingIndicator className="p-4 text-center" />
-							) : displayUser?.zennUsername ? (
+					<div className={styles["connection-info-container"]}>
+						{!isZennInfoLoaded ? (
+							<LoadingIndicator text="読み込み中" className="p-4 text-center" />
+						) : displayUser?.zennUsername ? (
 								<>
 									<div className={styles["connection-info-zenn"]}>
 										<Connection.ConnectionZennInfoDisplay
