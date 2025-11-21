@@ -18,7 +18,7 @@ const ConnectionMessageDisplay: React.FC<ConnectionMessageDisplayProps> = ({
 
   // ローディング中のエラーメッセージを検出
   const isLoadingError = error?.startsWith("LOADING:");
-  const loadingMessage = isLoadingError ? error?.replace("LOADING:", "") : "";
+  const loadingMessage = isLoadingError ? (error?.replace("LOADING:", "") || "読み込み中") : "読み込み中";
 
   return (
     <>
